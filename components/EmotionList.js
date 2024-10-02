@@ -1,16 +1,35 @@
 import { initialEntries } from "@/lib/entries";
+import styled from "styled-components";
 
 export default function EmotionList() {
   return (
-    <ul>
+    <StyledEmotionList>
       {initialEntries.map((entry) => (
-        <li key={entry.id}>
-          <p>Type: {entry.emotion}</p>
+        <StyledEmotionCard key={entry.id}>
+          <h2>{entry.emotion}</h2>
           <p>Intensity: {entry.intensity}</p>
-          <p>Notes: {entry.notes}</p>
-          <p>Date and Time: {entry.dateTime}</p>
-        </li>
+
+          <StyledDateTime>{entry.dateTime}</StyledDateTime>
+        </StyledEmotionCard>
       ))}
-    </ul>
+    </StyledEmotionList>
   );
 }
+
+const StyledEmotionList = styled.ul`
+  padding: 0;
+`;
+
+const StyledEmotionCard = styled.li`
+  font-size: 1rem;
+  margin: 16px 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  list-style: none;
+`;
+
+const StyledDateTime = styled.p`
+  text-align: right;
+`;
