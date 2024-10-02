@@ -1,7 +1,15 @@
+import EmotionList from "@/components/EmotionList";
+import styled from "styled-components";
+
 export default function HomePage() {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <StyledHeadline>Emotion Tracker</StyledHeadline>
+      <EmotionList />
     </div>
   );
 }
+
+const StyledHeadline = styled.h1`
+  text-align: center;
+`;
