@@ -9,19 +9,20 @@ export default function EmotionDetails({ emotion, onBack }) {
         ←
       </StyledButton>
       <StyledHeadline>Emotion Details</StyledHeadline>
-      <div>
-        <h2>Type: {emotion.emotion}</h2>
+      <StyledContainer>
+        <h2>{emotion.emotion}</h2>
         <p>Intensity: {emotion.intensity}</p>
-        <p>Date and Time: {emotion.dateTime}</p>
-        <p>Notes: {emotion.notes}</p>
-      </div>
+
+        <p>{emotion.notes}</p>
+        <StyledDateTime>{emotion.dateTime}</StyledDateTime>
+      </StyledContainer>
     </>
   );
 }
 
 const StyledButton = styled.button`
   background: none;
-  background-color: black;
+
   border: none;
   font-size: 20px;
   margin-right: 10px;
@@ -31,8 +32,16 @@ const StyledButton = styled.button`
 const StyledHeadline = styled.h1`
   display: inline-block;
 `;
-const StyledTitle = styled.h2`
-  font-size: medium;
+const StyledContainer = styled.div`
+  font-size: 1rem;
+  margin: 16px 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  list-style: none;
 `;
 
-const StyledParagraph = styled.p``;
+const StyledDateTime = styled.p`
+  text-align: right;
+`;
