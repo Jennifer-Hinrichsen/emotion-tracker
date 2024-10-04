@@ -6,13 +6,13 @@ export default function EmotionList({}) {
   return (
     <StyledEmotionList>
       {initialEntries.map((entry) => (
-        <StyledEmotionCard key={entry.id}>
-          <h2>{entry.emotion}</h2>
-          <p>Intensity: {entry.intensity}</p>
-
-          <StyledDateTime>{entry.dateTime}</StyledDateTime>
-          <Link href={`emotion/${entry.id}`}>LINK</Link>
-        </StyledEmotionCard>
+        <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
+          <StyledEmotionCard>
+            <h2>{entry.emotion}</h2>
+            <p>Intensity: {entry.intensity}</p>
+            <StyledDateTime>{entry.dateTime}</StyledDateTime>
+          </StyledEmotionCard>
+        </StyledLink>
       ))}
     </StyledEmotionList>
   );
@@ -30,8 +30,12 @@ const StyledEmotionCard = styled.li`
   border: 1px solid #ddd;
   border-radius: 8px;
   list-style: none;
+  text-decoration: none;
 `;
 
 const StyledDateTime = styled.p`
   text-align: right;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
