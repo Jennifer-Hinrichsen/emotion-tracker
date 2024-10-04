@@ -35,6 +35,7 @@ const StyledEmotionCard = styled.li`
 const StyledDateTime = styled.p`
   text-align: right;
 `;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
