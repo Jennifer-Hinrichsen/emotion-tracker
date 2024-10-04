@@ -30,7 +30,6 @@ const StyledEmotionCard = styled.li`
   border: 1px solid #ddd;
   border-radius: 8px;
   list-style: none;
-  text-decoration: none;
 `;
 
 const StyledDateTime = styled.p`
