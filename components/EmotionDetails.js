@@ -21,6 +21,7 @@ export default function EmotionDetails({ emotion, onBack }) {
 
 const StyledButton = styled.button`
   background: none;
+  background-color: black;
   border: none;
   font-size: 20px;
   margin-right: 10px;
