@@ -1,7 +1,8 @@
 import { initialEntries } from "@/lib/entries";
 import styled from "styled-components";
+import Link from "next/link";
 
-export default function EmotionList() {
+export default function EmotionList({}) {
   return (
     <StyledEmotionList>
       {initialEntries.map((entry) => (
@@ -10,6 +11,7 @@ export default function EmotionList() {
           <p>Intensity: {entry.intensity}</p>
 
           <StyledDateTime>{entry.dateTime}</StyledDateTime>
+          <Link href={`emotion/${entry.id}`}>LINK</Link>
         </StyledEmotionCard>
       ))}
     </StyledEmotionList>
