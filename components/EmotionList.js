@@ -1,20 +1,24 @@
 import { initialEntries } from "@/lib/entries";
 import styled from "styled-components";
 import Link from "next/link";
+import EmotionForm from "./EmotionForm";
 
 export default function EmotionList({}) {
   return (
-    <StyledEmotionList>
-      {initialEntries.map((entry) => (
-        <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
-          <StyledEmotionCard>
-            <h2>{entry.emotion}</h2>
-            <p>Intensity: {entry.intensity}</p>
-            <StyledDateTime>{entry.dateTime}</StyledDateTime>
-          </StyledEmotionCard>
-        </StyledLink>
-      ))}
-    </StyledEmotionList>
+    <>
+      <EmotionForm />
+      <StyledEmotionList>
+        {initialEntries.map((entry) => (
+          <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
+            <StyledEmotionCard>
+              <h2>{entry.emotion}</h2>
+              <p>Intensity: {entry.intensity}</p>
+              <StyledDateTime>{entry.dateTime}</StyledDateTime>
+            </StyledEmotionCard>
+          </StyledLink>
+        ))}
+      </StyledEmotionList>
+    </>
   );
 }
 
