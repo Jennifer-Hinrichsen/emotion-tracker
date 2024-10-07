@@ -7,7 +7,10 @@ export default function EmotionForm() {
       <form>
         <label htmlFor="emotion">Emotion (Type)</label>
         <select id="emotion" name="emotion">
-          <option value={""}>Please choose an option</option>
+          <option value="">---Choose an emotion---</option>
+          {emotions.map((emotion) => {
+            return <option key={emotion} value={emotion}></option>;
+          })}
         </select>
       </form>
     </>
