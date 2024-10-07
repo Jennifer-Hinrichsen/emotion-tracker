@@ -4,8 +4,14 @@ import { useState } from "react";
 export default function EmotionForm() {
   const [selectedEmotion, setSelectedEmotion] = useState();
 
+  const [selectedIntensity, setSelectedIntensity] = useState(5);
+
   function handleEmotionChange(event) {
     setSelectedEmotion(event.target.value);
+  }
+
+  function handleIntensityChange(event) {
+    setSelectedIntensity(event.target.value);
   }
 
   return (
@@ -29,6 +35,18 @@ export default function EmotionForm() {
             );
           })}
         </select>
+
+        <label htmlFor="intensity">Emotion intensity*</label>
+        <input
+          value={selectedIntensity}
+          onChange={handleIntensityChange}
+          type="range"
+          min="1"
+          max="10"
+          step="1"
+          required
+        ></input>
+        <p>{selectedIntensity}</p>
       </form>
     </>
   );
