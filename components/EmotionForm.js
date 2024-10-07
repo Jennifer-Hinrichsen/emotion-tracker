@@ -1,5 +1,6 @@
 import { emotions } from "@/lib/emotions";
 import { useState } from "react";
+import styled from "styled-components";
 
 export default function EmotionForm({ onCreateEmotion }) {
   const [selectedEmotion, setSelectedEmotion] = useState();
@@ -44,8 +45,8 @@ export default function EmotionForm({ onCreateEmotion }) {
 
   return (
     <>
-      <h2>Add new Emotion</h2>
-      <form onSubmit={handleSubmit}>
+      <StyledSubheadline>Add new Emotion</StyledSubheadline>
+      <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotion">Emotion (Type)*</label>
         <select
           value={selectedEmotion}
@@ -96,7 +97,33 @@ export default function EmotionForm({ onCreateEmotion }) {
           onChange={handleNotesChange}
         ></textarea>
         <button type="submit"> Submit</button>
-      </form>
+      </StyledEmotionForm>
     </>
   );
 }
+
+const StyledSubheadline = styled.h2`
+  text-align: center;
+`;
+
+const StyledEmotionForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 1rem;
+  margin: 16px 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+  }
+`;
