@@ -6,12 +6,18 @@ export default function EmotionForm() {
 
   const [selectedIntensity, setSelectedIntensity] = useState(5);
 
+  const [selectedDateTime, setSelectedDateTime] = useState("");
+
   function handleEmotionChange(event) {
     setSelectedEmotion(event.target.value);
   }
 
   function handleIntensityChange(event) {
     setSelectedIntensity(event.target.value);
+  }
+
+  function handleDateTimeChange(event) {
+    setSelectedDateTime(event.target.value);
   }
 
   return (
@@ -38,6 +44,7 @@ export default function EmotionForm() {
 
         <label htmlFor="intensity">Emotion intensity*</label>
         <input
+          id="intensity"
           value={selectedIntensity}
           onChange={handleIntensityChange}
           type="range"
@@ -47,6 +54,14 @@ export default function EmotionForm() {
           required
         ></input>
         <p>{selectedIntensity}</p>
+        <label htmlFor="date-time">Date and Time*</label>
+        <input
+          id="date-time"
+          type="datetime-local"
+          value={selectedDateTime}
+          onChange={handleDateTimeChange}
+          required
+        ></input>
       </form>
     </>
   );
