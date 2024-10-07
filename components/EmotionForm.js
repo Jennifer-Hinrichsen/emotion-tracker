@@ -1,12 +1,14 @@
 import { emotions } from "@/lib/emotions";
 import { useState } from "react";
 
-export default function EmotionForm() {
+export default function EmotionForm({ onCreateEmotion }) {
   const [selectedEmotion, setSelectedEmotion] = useState();
 
   const [selectedIntensity, setSelectedIntensity] = useState(5);
 
   const [selectedDateTime, setSelectedDateTime] = useState("");
+
+  const [notes, setNotes] = useState("");
 
   function handleEmotionChange(event) {
     setSelectedEmotion(event.target.value);
@@ -18,6 +20,22 @@ export default function EmotionForm() {
 
   function handleDateTimeChange(event) {
     setSelectedDateTime(event.target.value);
+  }
+
+  function handleNotesChange(event) {
+    setNotes(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newEmotionEntry = Object.entries(formData);
+    onCreateEmotion(newEmotionEntry);
+    event.target.reset();
+    setSelectedEmotion("");
+    setSelectedIntensity("");
+    setSelectedDateTime("");
+    setNotes("");
   }
 
   return (
@@ -45,6 +63,7 @@ export default function EmotionForm() {
         <label htmlFor="intensity">Emotion intensity*</label>
         <input
           id="intensity"
+          name="intensity"
           value={selectedIntensity}
           onChange={handleIntensityChange}
           type="range"
@@ -57,11 +76,24 @@ export default function EmotionForm() {
         <label htmlFor="date-time">Date and Time*</label>
         <input
           id="date-time"
+          name="date-time"
           type="datetime-local"
           value={selectedDateTime}
           onChange={handleDateTimeChange}
           required
         ></input>
+        <label htmlFor="notes">Notes</label>
+        <textarea
+          id="notes"
+          name="notes"
+          value={notes}
+          placeholder="Please describe your feelings"
+          maxLength="150"
+          onChange={handleNotesChange}
+        ></textarea>
+        <button type="submit" onSubmit={handleSubmit}>
+          Submit
+        </button>
       </form>
     </>
   );
