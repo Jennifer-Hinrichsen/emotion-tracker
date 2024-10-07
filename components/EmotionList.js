@@ -27,7 +27,7 @@ const StyledEmotionCard = styled.li`
   margin: 16px 8px;
   padding: 10px;
   background-color: #f9f9f9;
-  border: 1px solid lightgray;
+  border: 1px solid #d3d3d3;
   border-radius: 8px;
   list-style: none;
 `;
@@ -38,7 +38,7 @@ const StyledDateTime = styled.p`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: #000;
   &:visited {
     color: inherit;
   }
