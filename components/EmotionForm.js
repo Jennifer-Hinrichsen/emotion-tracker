@@ -28,8 +28,12 @@ export default function EmotionForm({ onCreateEmotion }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const newEmotionEntry = Object.entries(formData);
+
+    const newEmotionEntry = {
+      emotion: selectedEmotion,
+      intensity: selectedIntensity,
+      dateTime: selectedDateTime,
+    };
     onCreateEmotion(newEmotionEntry);
     event.target.reset();
     setSelectedEmotion("");
@@ -41,7 +45,7 @@ export default function EmotionForm({ onCreateEmotion }) {
   return (
     <>
       <h2>Add new Emotion</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="emotion">Emotion (Type)*</label>
         <select
           value={selectedEmotion}
@@ -91,9 +95,7 @@ export default function EmotionForm({ onCreateEmotion }) {
           maxLength="150"
           onChange={handleNotesChange}
         ></textarea>
-        <button type="submit" onSubmit={handleSubmit}>
-          Submit
-        </button>
+        <button type="submit"> Submit</button>
       </form>
     </>
   );

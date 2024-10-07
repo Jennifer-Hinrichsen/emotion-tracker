@@ -1,12 +1,11 @@
-import { initialEntries } from "@/lib/entries";
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function EmotionList({}) {
+export default function EmotionList({ entries }) {
   return (
     <>
       <StyledEmotionList>
-        {initialEntries.map((entry) => (
+        {entries.map((entry) => (
           <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
             <StyledEmotionCard>
               <h2>{entry.emotion}</h2>
