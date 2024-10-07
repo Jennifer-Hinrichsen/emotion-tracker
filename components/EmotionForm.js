@@ -7,7 +7,9 @@ export default function EmotionForm({ onCreateEmotion }) {
 
   const [selectedIntensity, setSelectedIntensity] = useState(5);
 
-  const [selectedDateTime, setSelectedDateTime] = useState("");
+  const [selectedDateTime, setSelectedDateTime] = useState(
+    new Date().toISOString().slice(0, 16)
+  );
 
   const [notes, setNotes] = useState("");
 
