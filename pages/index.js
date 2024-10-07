@@ -1,15 +1,11 @@
 import EmotionList from "@/components/EmotionList";
-import styled from "styled-components";
+import Heading from "@/components/Heading";
 
 export default function HomePage() {
   return (
     <div>
-      <StyledHeadline>Emotion Tracker</StyledHeadline>
+      <Heading>Emotion Tracker</Heading>
       <EmotionList />
     </div>
   );
 }
-
-const StyledHeadline = styled.h1`
-  text-align: center;
-`;
