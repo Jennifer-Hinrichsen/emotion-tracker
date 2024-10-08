@@ -1,23 +1,12 @@
-import EmotionList from "@/components/EmotionList";
 import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
-import { initialEntries } from "@/lib/entries";
-import { useState } from "react";
+import EmotionList from "@/components/EmotionList";
 
-export default function HomePage() {
-  const [entries, setEntries] = useState(initialEntries);
-
-  function handleCreateEmotion(newEmotion) {
-    setEntries((prevEntries) => [
-      { id: String(prevEntries.length + 1), ...newEmotion },
-      ...prevEntries,
-    ]);
-  }
-
+export default function HomePage({ entries, onCreateEmotion }) {
   return (
     <div>
       <Heading>Emotion Tracker</Heading>
-      <EmotionForm onCreateEmotion={handleCreateEmotion} />
+      <EmotionForm onCreateEmotion={onCreateEmotion} />
       <EmotionList entries={entries} />
     </div>
   );
