@@ -9,8 +9,8 @@ export default function HomePage() {
 
   function handleCreateEmotion(newEmotion) {
     setEntries((prevEntries) => [
-      ...prevEntries,
       { id: String(prevEntries.length + 1), ...newEmotion },
+      ...prevEntries,
     ]);
   }
   return (

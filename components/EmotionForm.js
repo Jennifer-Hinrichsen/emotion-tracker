@@ -7,13 +7,21 @@ export default function EmotionForm({ onCreateEmotion }) {
 
   const [selectedIntensity, setSelectedIntensity] = useState(5);
 
-  const [selectedDateTime, setSelectedDateTime] = useState(
-    new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .slice(0, 16)
-  );
+  const currentDateTime = new Date(
+    new Date().getTime() - new Date().getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 16);
+  const [selectedDateTime, setSelectedDateTime] = useState(currentDateTime);
 
   const [notes, setNotes] = useState("");
+
+  // function handleChange(event) {
+  //   setSelectedEmotion(event.target.value);
+  //   setSelectedIntensity(event.target.value);
+  //   setSelectedDateTime(event.target.value);
+  //   setNotes(event.target.value);
+  // }
 
   function handleEmotionChange(event) {
     setSelectedEmotion(event.target.value);
@@ -42,8 +50,8 @@ export default function EmotionForm({ onCreateEmotion }) {
     onCreateEmotion(newEmotionEntry);
     event.target.reset();
     setSelectedEmotion("");
-    setSelectedIntensity("");
-    setSelectedDateTime("");
+    setSelectedIntensity("5");
+    setSelectedDateTime(currentDateTime);
     setNotes("");
   }
 
