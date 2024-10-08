@@ -15,5 +15,5 @@ export default function EmotionDetailPage() {
     return <p>No emotion entry found.</p>;
   }
 
-  return <EmotionDetails emotion={emotionEntry} onBack={() => router.back()} />;
+  return <EmotionDetails entry={emotionEntry} onBack={() => router.back()} />;
 }

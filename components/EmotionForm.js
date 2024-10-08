@@ -16,13 +16,6 @@ export default function EmotionForm({ onCreateEmotion }) {
 
   const [notes, setNotes] = useState("");
 
-  // function handleChange(event) {
-  //   setSelectedEmotion(event.target.value);
-  //   setSelectedIntensity(event.target.value);
-  //   setSelectedDateTime(event.target.value);
-  //   setNotes(event.target.value);
-  // }
-
   function handleEmotionChange(event) {
     setSelectedEmotion(event.target.value);
   }
@@ -46,7 +39,9 @@ export default function EmotionForm({ onCreateEmotion }) {
       emotion: selectedEmotion,
       intensity: selectedIntensity,
       dateTime: selectedDateTime,
+      notes: notes,
     };
+
     onCreateEmotion(newEmotionEntry);
     event.target.reset();
     setSelectedEmotion("");

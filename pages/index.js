@@ -13,6 +13,7 @@ export default function HomePage() {
       ...prevEntries,
     ]);
   }
+
   return (
     <div>
       <Heading>Emotion Tracker</Heading>
