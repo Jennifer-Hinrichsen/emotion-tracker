@@ -90,7 +90,7 @@ export default function EmotionForm({ onCreateEmotion }) {
       <StyledSubheadline>Add new Emotion</StyledSubheadline>
       <StyledEmotionForm onSubmit={handleSubmit}>
         {/* Dynamic label for emotion, red only after form submission if no emotion is selected */}
-        <StyledLabel htmlFor="emotion" hasError={hasError}>
+        <StyledLabel htmlFor="emotion" $hasError={hasError}>
           Emotion (type)*
         </StyledLabel>
         <select
@@ -121,7 +121,7 @@ export default function EmotionForm({ onCreateEmotion }) {
         <p>{selectedIntensity}</p>
 
         {/* Dynamic label for date and time, turns red when all cleared */}
-        <StyledLabel htmlFor="date-time" hasError={!selectedDateTime}>
+        <StyledLabel htmlFor="date-time" $hasError={!selectedDateTime}>
           Date and Time*
         </StyledLabel>
         <input
@@ -172,8 +172,8 @@ const StyledEmotionForm = styled.form`
 `;
 
 const StyledLabel = styled.label`
-  color: ${(props) => (props.hasError ? "#ff0000" : "#000000")};
-  font-weight: ${(props) => (props.hasError ? "bold" : "normal")};
+  color: ${(props) => (props.$hasError ? "#ff0000" : "#000000")};
+  font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
 `;
 
 const StyledError = styled.p`
