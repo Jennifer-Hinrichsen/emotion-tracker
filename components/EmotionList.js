@@ -4,15 +4,15 @@ import EmotionCard from "./EmotionCard";
 
 export default function EmotionList({ entries }) {
   return (
-    <>
-      <StyledEmotionList>
-        {entries.map((entry) => (
-          <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
+    <StyledEmotionList>
+      {entries.map((entry) => (
+        <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
+          <li>
             <EmotionCard entry={entry} />
-          </StyledLink>
-        ))}
-      </StyledEmotionList>
-    </>
+          </li>
+        </StyledLink>
+      ))}
+    </StyledEmotionList>
   );
 }
 
