@@ -39,14 +39,12 @@ export default function EmotionForm({ onCreateEmotion }) {
     }
   }
 
-  // Save notes
-  function handleNotesChange(event) {
-    setNotes(event.target.value);
-  }
-
   // Trigger submit
   function handleSubmit(event) {
     event.preventDefault();
+    const formData = new FormData(event.target);
+    const notes = formData.get("notes");
+
     // Validate: Emotion must be selected
     if (!selectedEmotion) {
       setFormError("Please fill in the required fields.");
@@ -75,7 +73,6 @@ export default function EmotionForm({ onCreateEmotion }) {
     setSelectedEmotion("");
     setSelectedIntensity(5);
     setSelectedDateTime(currentDateTime);
-    setNotes("");
     setFormError(""); // Reset error message
     setHasError(false); // Reset error state for styling
     setSuccessMessage("Emotion successfully added!"); // Set success message
@@ -136,10 +133,8 @@ export default function EmotionForm({ onCreateEmotion }) {
         <textarea
           id="notes"
           name="notes"
-          value={notes}
           placeholder="Please describe your feelings"
           maxLength="150"
-          onChange={handleNotesChange}
         ></textarea>
 
         <button type="submit">Submit</button>
