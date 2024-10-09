@@ -13,73 +13,73 @@ export default function EmotionForm({ onCreateEmotion }) {
   const [selectedIntensity, setSelectedIntensity] = useState(5);
   const [selectedDateTime, setSelectedDateTime] = useState(currentDateTime);
   const [notes, setNotes] = useState("");
-  const [formError, setFormError] = useState(""); // Errormeldung, wenn bei Submit nicht alle Felder ausgefüllt wurden
-  const [successMessage, setSuccessMessage] = useState(""); // Successmeldung
-  const [hasError, setHasError] = useState(false); // Neue State-Variable für das Styling
+  const [formError, setFormError] = useState(""); // Error message if not all fields are filled out on submit
+  const [successMessage, setSuccessMessage] = useState(""); // Success message
+  const [hasError, setHasError] = useState(false); // New state variable for styling
 
-  // Emotion ändern
+  // Change emotion
   function handleEmotionChange(event) {
     setSelectedEmotion(event.target.value);
     if (event.target.value !== "") {
-      setFormError(""); // Fehlermeldung zurücksetzen, wenn das Feld befüllt wurde
-      setHasError(false); // Styling zurücksetzen, sobald eine Emotion ausgewählt wurde
+      setFormError(""); // Reset error message when the field is filled
+      setHasError(false); // Reset styling once an emotion is selected
     }
   }
 
-  // Intensity ändern
+  // Change intensity
   function handleIntensityChange(event) {
     setSelectedIntensity(event.target.value);
   }
 
-  // DateTime ändern
+  // Change dateTime
   function handleDateTimeChange(event) {
     setSelectedDateTime(event.target.value);
     if (event.target.value) {
-      setFormError(""); // Fehlermeldung zurücksetzen, wenn Datum/Uhrzeit gewählt ist
+      setFormError(""); // Reset error message when date/time is selected
     }
   }
 
-  // Notes speichern
+  // Save notes
   function handleNotesChange(event) {
     setNotes(event.target.value);
   }
 
-  // Submit triggern
+  // Trigger submit
   function handleSubmit(event) {
     event.preventDefault();
-    // Validierung: Emotion muss ausgewählt sein
+    // Validate: Emotion must be selected
     if (!selectedEmotion) {
       setFormError("Please fill in the required fields.");
-      setHasError(true); // Fehlerzustand für Styling setzen
-      setSuccessMessage(""); // Erfolgsmeldung zurücksetzen
+      setHasError(true); // Set error state for styling
+      setSuccessMessage(""); // Reset success message
       return;
     }
-    // Validierung: DateTime muss gesetzt sein
+    // Validate: DateTime must be set
     if (!selectedDateTime) {
       setFormError("Please select a date and time.");
-      setSuccessMessage(""); // Erfolgsmeldung zurücksetzen
+      setSuccessMessage(""); // Reset success message
       return;
     }
 
-    // Neues Objekt
+    // New object
     const newEmotionEntry = {
       emotion: selectedEmotion,
       intensity: selectedIntensity,
       dateTime: selectedDateTime,
       notes: notes,
     };
-    // Übergabe des neuen Objekts
+    // Pass new object
     onCreateEmotion(newEmotionEntry);
 
-    // Formular zurücksetzen
+    // Reset form
     setSelectedEmotion("");
     setSelectedIntensity(5);
     setSelectedDateTime(currentDateTime);
     setNotes("");
-    setFormError(""); // Fehlernachricht zurücksetzen
-    setHasError(false); // Fehlerzustand für Styling zurücksetzen
-    setSuccessMessage("Emotion successfully added!"); // Erfolgsmeldung setzen
-    // Erfolgsnachricht nach 5 Sekunden zurücksetzen
+    setFormError(""); // Reset error message
+    setHasError(false); // Reset error state for styling
+    setSuccessMessage("Emotion successfully added!"); // Set success message
+    // Reset success message after 5 seconds
     setTimeout(() => {
       setSuccessMessage("");
     }, 5000);
@@ -89,7 +89,7 @@ export default function EmotionForm({ onCreateEmotion }) {
     <>
       <StyledSubheadline>Add new Emotion</StyledSubheadline>
       <StyledEmotionForm onSubmit={handleSubmit}>
-        {/* Dynamisches Label für Emotion, nur rot nach Absenden des Formulars und keiner Auswahl der Emotion */}
+        {/* Dynamic label for emotion, red only after form submission if no emotion is selected */}
         <StyledLabel htmlFor="emotion" hasError={hasError}>
           Emotion (type)*
         </StyledLabel>
@@ -120,7 +120,7 @@ export default function EmotionForm({ onCreateEmotion }) {
         />
         <p>{selectedIntensity}</p>
 
-        {/* Dynamisches Label für Datum und Uhrzeit, wird sofort rot, wenn alles gelöscht wird */}
+        {/* Dynamic label for date and time, turns red when all cleared */}
         <StyledLabel htmlFor="date-time" hasError={!selectedDateTime}>
           Date and Time*
         </StyledLabel>
@@ -144,9 +144,9 @@ export default function EmotionForm({ onCreateEmotion }) {
 
         <button type="submit">Submit</button>
 
-        {/* Eigene Fehlermeldung am Ende der Form */}
+        {/* Custom error message at the end of the form */}
         {formError && <StyledError>{formError}</StyledError>}
-        {/* Erfolgsnachricht am Ende der Form */}
+        {/* Success message at the end of the form */}
         {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
       </StyledEmotionForm>
     </>
