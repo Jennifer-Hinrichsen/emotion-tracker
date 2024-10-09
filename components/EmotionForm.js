@@ -12,7 +12,6 @@ export default function EmotionForm({ onCreateEmotion }) {
   const [selectedEmotion, setSelectedEmotion] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(5);
   const [selectedDateTime, setSelectedDateTime] = useState(currentDateTime);
-  const [notes, setNotes] = useState("");
   const [formError, setFormError] = useState(""); // Error message if not all fields are filled out on submit
   const [successMessage, setSuccessMessage] = useState(""); // Success message
   const [hasError, setHasError] = useState(false); // New state variable for styling
