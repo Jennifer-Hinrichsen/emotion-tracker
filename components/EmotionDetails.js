@@ -1,29 +1,25 @@
+import EmotionCard from "./EmotionCard";
 import Heading from "./Heading";
 import styled from "styled-components";
+import Link from "next/link";
 
-export default function EmotionDetails({ emotion, onBack }) {
+export default function EmotionDetails({ entry }) {
   return (
     <>
       <Heading>Emotion Details</Heading>
-      <StyledButton type="button" aria-label="navigate-back" onClick={onBack}>
+      <StyledLink aria-label="navigate-home" href="/">
         ←
-      </StyledButton>
-      <StyledContainer>
-        <h2>{emotion.emotion}</h2>
-        <p>Intensity: {emotion.intensity}</p>
-        <p>{emotion.notes}</p>
-        <StyledDateTime>{emotion.dateTime}</StyledDateTime>
-      </StyledContainer>
+      </StyledLink>
+      <EmotionCard entry={entry} />
     </>
   );
 }
 
-const StyledButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 20px;
-  margin-right: 10px;
-  display: inline-block;
+const StyledLink = styled(Link)`
+  font-size: 24px;
+  margin-left: 10px;
+  text-decoration: none;
+  color: #000;
 `;
 
 const StyledContainer = styled.div`

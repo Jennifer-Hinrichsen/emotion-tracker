@@ -1,17 +1,15 @@
-import { initialEntries } from "@/lib/entries";
 import styled from "styled-components";
 import Link from "next/link";
+import EmotionCard from "./EmotionCard";
 
-export default function EmotionList({}) {
+export default function EmotionList({ entries }) {
   return (
     <StyledEmotionList>
-      {initialEntries.map((entry) => (
+      {entries.map((entry) => (
         <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
-          <StyledEmotionCard>
-            <h2>{entry.emotion}</h2>
-            <p>Intensity: {entry.intensity}</p>
-            <StyledDateTime>{entry.dateTime}</StyledDateTime>
-          </StyledEmotionCard>
+          <li>
+            <EmotionCard entry={entry} />
+          </li>
         </StyledLink>
       ))}
     </StyledEmotionList>
@@ -20,20 +18,6 @@ export default function EmotionList({}) {
 
 const StyledEmotionList = styled.ul`
   padding: 0;
-`;
-
-const StyledEmotionCard = styled.li`
-  font-size: 1rem;
-  margin: 16px 8px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #d3d3d3;
-  border-radius: 8px;
-  list-style: none;
-`;
-
-const StyledDateTime = styled.p`
-  text-align: right;
 `;
 
 const StyledLink = styled(Link)`
