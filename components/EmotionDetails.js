@@ -11,6 +11,7 @@ export default function EmotionDetails({ entry }) {
         ←
       </StyledLink>
       <EmotionCard entry={entry} />
+      {/* Die ID des Eintrags muss übergeben werden */}
       <StyledButtonDelete type="button">Delete</StyledButtonDelete>
     </>
   );
