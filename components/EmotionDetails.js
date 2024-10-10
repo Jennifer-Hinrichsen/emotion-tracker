@@ -3,7 +3,10 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function EmotionDetails({ entry }) {
+export default function EmotionDetails({ entry, onDeleteEmotion }) {
+  function handleDelete() {
+    onDeleteEmotion(entry.id);
+  }
   return (
     <>
       <Heading>Emotion Details</Heading>
@@ -12,7 +15,9 @@ export default function EmotionDetails({ entry }) {
       </StyledLink>
       <EmotionCard entry={entry} />
       {/* Die ID des Eintrags muss übergeben werden */}
-      <StyledButtonDelete type="button">Delete</StyledButtonDelete>
+      <StyledButtonDelete type="button" onClick={handleDelete}>
+        Delete
+      </StyledButtonDelete>
     </>
   );
 }

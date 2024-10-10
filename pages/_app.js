@@ -14,13 +14,16 @@ export default function App({ Component, pageProps }) {
       ...prevEntries,
     ]);
   }
-
+  function handleDeleteEmotion(id) {
+    setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+  }
   return (
     <>
       <GlobalStyle />
       <Component
         entries={entries}
         onCreateEmotion={handleCreateEmotion}
+        onDeleteEmotion={handleDeleteEmotion}
         {...pageProps}
       />
     </>
