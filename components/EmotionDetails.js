@@ -2,8 +2,11 @@ import EmotionCard from "./EmotionCard";
 import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function EmotionDetails({ entry, onDeleteEmotion }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   function handleDelete() {
     onDeleteEmotion(entry.id);
   }
