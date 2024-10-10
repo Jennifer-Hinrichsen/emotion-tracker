@@ -7,9 +7,18 @@ import { useState } from "react";
 export default function EmotionDetails({ entry, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  function handleOpenDialog() {
+    setIsDialogOpen(true);
+  }
+  function handleCloseDialog() {
+    setIsDialogOpen(false);
+  }
+
   function handleDelete() {
     onDeleteEmotion(entry.id);
+    handleCloseDialog(); // Close dialog after deleting
   }
+
   return (
     <>
       <Heading>Emotion Details</Heading>
@@ -18,9 +27,23 @@ export default function EmotionDetails({ entry, onDeleteEmotion }) {
       </StyledLink>
       <EmotionCard entry={entry} />
       {/* Die ID des Eintrags muss übergeben werden */}
-      <StyledButtonDelete type="button" onClick={handleDelete}>
+      <StyledButtonDelete type="button" onClick={handleOpenDialog}>
         Delete
       </StyledButtonDelete>
+
+      {isDialogOpen && (
+        <div>
+          <div>
+            <h2>Are you sure you want to delete this entry?</h2>
+            <button type="button" onClick={handleDelete}>
+              Delete
+            </button>
+            <button type="button" onClick={handleCloseDialog}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
