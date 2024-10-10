@@ -32,17 +32,17 @@ export default function EmotionDetails({ entry, onDeleteEmotion }) {
       </StyledButtonDelete>
 
       {isDialogOpen && (
-        <div>
-          <div>
+        <StyledDialogOverlay>
+          <StyledDialogBox>
             <h2>Are you sure you want to delete this entry?</h2>
-            <button type="button" onClick={handleDelete}>
+            <StyledButtonConfirm type="button" onClick={handleDelete}>
               Delete
-            </button>
-            <button type="button" onClick={handleCloseDialog}>
+            </StyledButtonConfirm>
+            <StyledButtonCancel type="button" onClick={handleCloseDialog}>
               Cancel
-            </button>
-          </div>
-        </div>
+            </StyledButtonCancel>
+          </StyledDialogBox>
+        </StyledDialogOverlay>
       )}
     </>
   );
@@ -65,10 +65,64 @@ const StyledContainer = styled.div`
   list-style: none;
 `;
 
-const StyledDateTime = styled.p`
-  text-align: right;
-`;
 const StyledButtonDelete = styled.button`
   float: right;
   margin-right: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
+const StyledDialogOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledDialogBox = styled.div`
+  background: #fff;
+  padding: 20px;
+  margin: 12px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`;
+
+const StyledButtonConfirm = styled.button`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
+const StyledButtonCancel = styled.button`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #7f8c8d;
+  }
 `;
