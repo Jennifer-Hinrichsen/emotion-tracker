@@ -6,7 +6,9 @@ export default function EmotionList({ entries }) {
   return (
     <StyledEmotionList>
       {entries.length === 0 ? ( // Überprüfe, ob keine Einträge vorhanden sind
-        <p>At the moment there are not emotions. Please add an emotion.</p>
+        <StyledMessage>
+          At the moment there are not emotions. Please add an emotion.
+        </StyledMessage>
       ) : (
         entries.map((entry) => (
           <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
@@ -22,6 +24,13 @@ export default function EmotionList({ entries }) {
 
 const StyledEmotionList = styled.ul`
   padding: 0;
+`;
+
+const StyledMessage = styled.p`
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+  margin: 24px 16px;
 `;
 
 const StyledLink = styled(Link)`
