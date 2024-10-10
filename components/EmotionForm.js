@@ -44,6 +44,7 @@ export default function EmotionForm({ onCreateEmotion }) {
     const formData = new FormData(event.target);
     const notes = formData.get("notes");
 
+    event.target.reset();
     // Validate: Emotion must be selected
     if (!selectedEmotion) {
       setFormError("Please fill in the required fields.");
