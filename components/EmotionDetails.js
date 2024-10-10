@@ -11,6 +11,7 @@ export default function EmotionDetails({ entry }) {
         ←
       </StyledLink>
       <EmotionCard entry={entry} />
+      <StyledButtonDelete type="button">Delete</StyledButtonDelete>
     </>
   );
 }
@@ -34,4 +35,8 @@ const StyledContainer = styled.div`
 
 const StyledDateTime = styled.p`
   text-align: right;
+`;
+const StyledButtonDelete = styled.button`
+  float: right;
+  margin-right: 20px;
 `;
