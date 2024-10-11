@@ -8,19 +8,14 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage delete-dialog visibility
 
   // Function to open the confirmation dialog
-  function handleOpenDialog() {
-    setIsDialogOpen(true);
-  }
-
-  // Function to close the confirmation dialog
-  function handleCloseDialog() {
-    setIsDialogOpen(false);
+  function toggleDeleteDialog() {
+    setIsDialogOpen(!isDialogOpen);
   }
 
   // Function to handle the deletion of the object
   function handleDelete() {
     onDeleteEmotion(object.id); // Call the delete function passed as a prop
-    handleCloseDialog(); // Close dialog after deleting
+    toggleDeleteDialog(); // Close dialog after deleting
   }
 
   return (
@@ -30,7 +25,7 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
         ←
       </StyledLink>
       <EmotionCard object={object} />
-      <StyledButtonDelete type="button" onClick={handleOpenDialog}>
+      <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
 
@@ -42,7 +37,7 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
             <StyledButtonConfirm type="button" onClick={handleDelete}>
               Delete
             </StyledButtonConfirm>
-            <StyledButtonCancel type="button" onClick={handleCloseDialog}>
+            <StyledButtonCancel type="button" onClick={toggleDeleteDialog}>
               Cancel
             </StyledButtonCancel>
           </StyledDialogBox>
