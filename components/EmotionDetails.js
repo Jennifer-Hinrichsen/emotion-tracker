@@ -15,7 +15,7 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
   // Function to handle the deletion of the object
   function handleDelete() {
     onDeleteEmotion(object.id); // Call the delete function passed as a prop
-    toggleDeleteDialog(); // Close dialog after deleting
+    toggleDeleteDialog(); // toggle the dialog when clicking the delete button
   }
 
   return (

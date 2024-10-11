@@ -31,7 +31,7 @@ const StyledMessage = styled.p`
   text-align: center;
   color: #777;
   font-size: 1.1rem;
-  margin: 24px 16px;
+  padding: 24px 16px;
 `;
 
 const StyledLink = styled(Link)`
