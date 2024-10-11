@@ -2,12 +2,12 @@ import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
 import EmotionList from "@/components/EmotionList";
 
-export default function HomePage({ entries, onCreateEmotion }) {
+export default function HomePage({ objects, onCreateEmotion }) {
   return (
     <div>
       <Heading>Emotion Tracker</Heading>
       <EmotionForm onCreateEmotion={onCreateEmotion} />
-      <EmotionList entries={entries} />
+      <EmotionList objects={objects} />
     </div>
   );
 }

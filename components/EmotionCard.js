@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function EmotionCard({ entry }) {
+export default function EmotionCard({ object }) {
   return (
     <StyledEmotionCard>
-      <h2>{entry.emotion}</h2>
-      <p>Intensity: {entry.intensity}</p>
-      <p>Notes: {entry.notes}</p>
-      <StyledDateTime>{entry.dateTime}</StyledDateTime>
+      <h2>{object.emotion}</h2>
+      <p>Intensity: {object.intensity}</p>
+      <p>Notes: {object.notes}</p>
+      <StyledDateTime>{object.dateTime}</StyledDateTime>
     </StyledEmotionCard>
   );
 }
