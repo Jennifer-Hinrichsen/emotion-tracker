@@ -2,18 +2,19 @@ import styled from "styled-components";
 import Link from "next/link";
 import EmotionCard from "./EmotionCard";
 
-export default function EmotionList({ entries }) {
+export default function EmotionList({ objects }) {
   return (
     <StyledEmotionList>
-      {entries.length === 0 ? ( // Überprüfe, ob keine Einträge vorhanden sind
+      {objects.length === 0 ? ( // Überprüfe, ob keine Einträge vorhanden sind
         <StyledMessage>
-          At the moment there are not emotions. Please add an emotion.
+          At the moment there are no emotions in the list. Please add an
+          emotion.
         </StyledMessage>
       ) : (
-        entries.map((entry) => (
-          <StyledLink key={entry.id} href={`emotion/${entry.id}`}>
+        objects.map((object) => (
+          <StyledLink key={object.id} href={`emotion/${object.id}`}>
             <li>
-              <EmotionCard entry={entry} />
+              <EmotionCard object={object} />
             </li>
           </StyledLink>
         ))

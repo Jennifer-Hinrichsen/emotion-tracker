@@ -1,27 +1,28 @@
 import GlobalStyle from "../styles";
-import { useState } from "react";
-import { initialEntries } from "@/lib/entries";
+import { initialObjects } from "@/lib/initialObjects";
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
-  const [entries, setEntries] = useLocalStorageState("entries", {
-    defaultValue: initialEntries,
+  const [objects, setObjects] = useLocalStorageState("objects", {
+    defaultValue: initialObjects,
   });
   function handleCreateEmotion(newEmotion) {
-    setEntries((prevEntries) => [
+    setObjects((prevObjects) => [
       { id: uuidv4(), ...newEmotion },
-      ...prevEntries,
+      ...prevObjects,
     ]);
   }
   function handleDeleteEmotion(id) {
-    setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+    setObjects((prevObjects) =>
+      prevObjects.filter((object) => object.id !== id)
+    );
   }
   return (
     <>
       <GlobalStyle />
       <Component
-        entries={entries}
+        objects={objects}
         onCreateEmotion={handleCreateEmotion}
         onDeleteEmotion={handleDeleteEmotion}
         {...pageProps}

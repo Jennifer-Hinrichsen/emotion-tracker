@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function EmotionDetails({ entry, onDeleteEmotion }) {
+export default function EmotionDetails({ object, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage delete-dialog visibility
 
   // Function to open the confirmation dialog
@@ -17,9 +17,9 @@ export default function EmotionDetails({ entry, onDeleteEmotion }) {
     setIsDialogOpen(false);
   }
 
-  // Function to handle the deletion of the entry
+  // Function to handle the deletion of the object
   function handleDelete() {
-    onDeleteEmotion(entry.id); // Call the delete function passed as a prop
+    onDeleteEmotion(object.id); // Call the delete function passed as a prop
     handleCloseDialog(); // Close dialog after deleting
   }
 
@@ -29,7 +29,7 @@ export default function EmotionDetails({ entry, onDeleteEmotion }) {
       <StyledLink aria-label="navigate-home" href="/">
         ←
       </StyledLink>
-      <EmotionCard entry={entry} />
+      <EmotionCard object={object} />
       <StyledButtonDelete type="button" onClick={handleOpenDialog}>
         Delete
       </StyledButtonDelete>
@@ -38,7 +38,7 @@ export default function EmotionDetails({ entry, onDeleteEmotion }) {
       {isDialogOpen && (
         <StyledDialogOverlay>
           <StyledDialogBox>
-            <h2>Are you sure you want to delete this entry?</h2>
+            <h2>Are you sure you want to delete this emotion?</h2>
             <StyledButtonConfirm type="button" onClick={handleDelete}>
               Delete
             </StyledButtonConfirm>
