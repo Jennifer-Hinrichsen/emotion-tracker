@@ -20,10 +20,6 @@ export default function EmotionDetailPage({ objects, onDeleteEmotion }) {
   }
 
   return (
-    <EmotionDetails
-      object={emotionObject}
-      onDeleteEmotion={handleDelete}
-      onDeleteEmotionBack={() => router.back()}
-    />
+    <EmotionDetails object={emotionObject} onDeleteEmotion={handleDelete} />
   );
 }
