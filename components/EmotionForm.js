@@ -2,12 +2,14 @@ import { emotions } from "@/lib/emotions";
 import { useState } from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function EmotionForm({
   onCreateEmotion,
   existingEmotion,
   onUpdateEmotion,
 }) {
+  const router = useRouter();
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -85,6 +87,7 @@ export default function EmotionForm({
 
     if (existingEmotion) {
       onUpdateEmotion({ id: existingEmotion.id, ...newEmotionEntry }); // Update existing object
+      router.push(`/emotion/${existingEmotion.id}`);
     } else {
       onCreateEmotion(newEmotionEntry); // Pass new object
     }

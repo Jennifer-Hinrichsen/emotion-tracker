@@ -24,7 +24,10 @@ export default function App({ Component, pageProps }) {
     const updatedObjects = objects.map((object) =>
       object.id === updatedEmotion.id ? updatedEmotion : object
     );
-    setObjects(updatedObjects);
+    const sortedObjects = updatedObjects.sort(
+      (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
+    );
+    setObjects(sortedObjects);
   }
 
   return (
