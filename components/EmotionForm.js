@@ -3,14 +3,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
 
-export default function EmotionForm({ onCreateEmotion, existingEmotion }) {
+export default function EmotionForm({
+  onCreateEmotion,
+  existingEmotion,
+  onUpdateEmotion,
+}) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
     .toISOString()
     .slice(0, 16);
-
-  console.log("emotionObject-log from emotionForm Component:", existingEmotion);
 
   const [selectedEmotion, setSelectedEmotion] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(5);
@@ -80,8 +82,12 @@ export default function EmotionForm({ onCreateEmotion, existingEmotion }) {
       dateTime: selectedDateTime,
       notes: notes,
     };
-    // Pass new object
-    onCreateEmotion(newEmotionEntry);
+
+    if (existingEmotion) {
+      onUpdateEmotion({ id: existingEmotion.id, ...newEmotionEntry }); // Update existing object
+    } else {
+      onCreateEmotion(newEmotionEntry); // Pass new object
+    }
 
     // Reset form
     setSelectedEmotion("");
@@ -156,7 +162,7 @@ export default function EmotionForm({ onCreateEmotion, existingEmotion }) {
           onChange={handleNotesChange}
         ></textarea>
 
-        <button type="submit">Submit</button>
+        <button type="submit">{existingEmotion ? "Save" : "Submit"}</button>
 
         {/* Custom error message at the end of the form */}
         {formError && <StyledError>{formError}</StyledError>}

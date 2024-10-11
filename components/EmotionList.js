@@ -5,7 +5,7 @@ import EmotionCard from "./EmotionCard";
 export default function EmotionList({ objects }) {
   return (
     <StyledEmotionList>
-      {objects.length === 0 ? ( // Überprüfe, ob keine Einträge vorhanden sind
+      {objects.length === 0 ? (
         <StyledMessage>
           At the moment there are no emotions in the list. Please add an
           emotion.

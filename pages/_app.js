@@ -7,6 +7,7 @@ export default function App({ Component, pageProps }) {
   const [objects, setObjects] = useLocalStorageState("objects", {
     defaultValue: initialObjects,
   });
+
   function handleCreateEmotion(newEmotion) {
     setObjects((prevObjects) => [
       { id: uuidv4(), ...newEmotion },
@@ -18,6 +19,14 @@ export default function App({ Component, pageProps }) {
       prevObjects.filter((object) => object.id !== id)
     );
   }
+
+  function handleUpdateEmotion(updatedEmotion) {
+    const updatedObjects = objects.map((object) =>
+      object.id === updatedEmotion.id ? updatedEmotion : object
+    );
+    setObjects(updatedObjects);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -25,6 +34,7 @@ export default function App({ Component, pageProps }) {
         objects={objects}
         onCreateEmotion={handleCreateEmotion}
         onDeleteEmotion={handleDeleteEmotion}
+        onUpdateEmotion={handleUpdateEmotion}
         {...pageProps}
       />
     </>

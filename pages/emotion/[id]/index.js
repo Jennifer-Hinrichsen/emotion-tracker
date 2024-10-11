@@ -7,8 +7,6 @@ export default function EmotionDetailPage({ objects, onDeleteEmotion }) {
 
   const emotionObject = objects?.find((object) => object.id === id);
 
-  console.log("object on emotiondetailpage:", objects);
-
   if (!id) {
     return <p>Loading...</p>;
   }

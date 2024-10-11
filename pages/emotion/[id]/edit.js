@@ -2,7 +2,7 @@ import EmotionForm from "@/components/EmotionForm";
 import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 
-export default function EditPage({ objects }) {
+export default function EditPage({ objects, onUpdateEmotion }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -14,7 +14,10 @@ export default function EditPage({ objects }) {
   return (
     <>
       <Heading>Edit Emotion</Heading>
-      <EmotionForm existingEmotion={existingEmotion} />
+      <EmotionForm
+        existingEmotion={existingEmotion}
+        onUpdateEmotion={onUpdateEmotion}
+      />
     </>
   );
 }
