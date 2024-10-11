@@ -25,6 +25,7 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
         ←
       </StyledLink>
       <EmotionCard object={object} />
+      <StyledButtonEdit type="button">Edit</StyledButtonEdit>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
@@ -63,6 +64,21 @@ const StyledContainer = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
   list-style: none;
+`;
+
+const StyledButtonEdit = styled.button`
+  float: left;
+  margin-right: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #6666ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #3232ff;
+  }
 `;
 
 const StyledButtonDelete = styled.button`
