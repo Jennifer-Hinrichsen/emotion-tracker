@@ -3,13 +3,19 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function EmotionDetails({ object, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage delete-dialog visibility
+  const router = useRouter(); // Initialize useRouter
 
   // Function to open the confirmation dialog
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
+  }
+
+  function handleEdit() {
+    router.push(`/emotion/${object.id}/edit`); // Navigate to the edit page with the emotion's id
   }
 
   // Function to handle the deletion of the object
@@ -25,7 +31,9 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
         ←
       </StyledLink>
       <EmotionCard object={object} />
-      <StyledButtonEdit type="button">Edit</StyledButtonEdit>
+      <StyledButtonEdit type="button" onClick={handleEdit}>
+        Edit
+      </StyledButtonEdit>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
