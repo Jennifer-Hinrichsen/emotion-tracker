@@ -6,7 +6,7 @@ export default function HomePage({ objects, onCreateEmotion }) {
   return (
     <div>
       <Heading>Emotion Tracker</Heading>
-      <EmotionForm onCreateEmotion={onCreateEmotion} />
+      <EmotionForm onCreateEmotion={onCreateEmotion} objects={objects} />
       <EmotionList objects={objects} />
     </div>
   );

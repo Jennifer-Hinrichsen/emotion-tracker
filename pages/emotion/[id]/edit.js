@@ -2,14 +2,19 @@ import EmotionForm from "@/components/EmotionForm";
 import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 
-export default function EditPage() {
+export default function EditPage({ objects }) {
   const router = useRouter();
   const { id } = router.query;
+
+  const existingEmotion = objects.find((object) => object.id === id);
+  if (!existingEmotion) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
       <Heading>Edit Emotion</Heading>
-      <EmotionForm />
+      <EmotionForm existingEmotion={existingEmotion} />
     </>
   );
 }

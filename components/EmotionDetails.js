@@ -9,6 +9,8 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage delete-dialog visibility
   const router = useRouter(); // Initialize useRouter
 
+  console.log("objectlog from emotionDetails component:", object);
+
   // Function to open the confirmation dialog
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
