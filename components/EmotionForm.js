@@ -114,23 +114,26 @@ export default function EmotionForm({
         </StyledSubheadline>
         <StyledEmotionForm onSubmit={handleSubmit}>
           <StyledLabel htmlFor="emotion" $hasError={hasError}>
-            Emotion (type)*
+            Emotion*
           </StyledLabel>
-          <select
-            value={selectedEmotion}
-            onChange={handleEmotionChange}
-            id="emotion"
-            name="emotion"
-          >
-            <option value="">---Choose an emotion---</option>
-            {emotions.map((emotion, index) => (
-              <option key={index} value={emotion}>
-                {emotion}
-              </option>
-            ))}
-          </select>
+          <SelectEmotionContainer>
+            <StyledSelectEmotion
+              value={selectedEmotion}
+              onChange={handleEmotionChange}
+              id="emotion"
+              name="emotion"
+            >
+              <option value="">Please choose an emotion</option>
+              {emotions.map((emotion, index) => (
+                <option key={index} value={emotion}>
+                  {emotion}
+                </option>
+              ))}
+            </StyledSelectEmotion>
+            <StyledArrow>▼</StyledArrow>
+          </SelectEmotionContainer>
 
-          <label htmlFor="intensity">Emotion intensity*</label>
+          <label htmlFor="intensity">Intensity*</label>
           <input
             id="intensity"
             name="intensity"
@@ -195,6 +198,7 @@ const StyledSubheadline = styled.h2`
   color: #313366;
   padding: 10px 0;
   margin: 0;
+  font-weight: 400;
 `;
 
 const StyledEmotionForm = styled.form`
@@ -208,6 +212,43 @@ const StyledEmotionForm = styled.form`
   background-color: #f9f9f9;
   border-radius: 8px;
   color: #313366;
+`;
+
+const SelectEmotionContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const StyledSelectEmotion = styled.select`
+  appearance: none;
+  width: 100%;
+  padding: 10px 15px 10px 15px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px dotted #8295c6;
+  color: #8295c6;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  text-align-last: left;
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    background-color: white;
+    color: black;
+  }
+`;
+
+const StyledArrow = styled.span`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #8295c6;
 `;
 
 const StyledLabel = styled.label`
