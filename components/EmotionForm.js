@@ -108,11 +108,11 @@ export default function EmotionForm({
 
   return (
     <>
-      <StyledSubheadline>
-        {existingEmotion ? "Update your Emotion:" : "Add your Emotion:"}
-      </StyledSubheadline>
       <StyledEmotionForm onSubmit={handleSubmit}>
         {/* Dynamic label for emotion, red only after form submission if no emotion is selected */}
+        <StyledSubheadline>
+          {existingEmotion ? "Update your Emotion:" : "Add your Emotion:"}
+        </StyledSubheadline>
         <StyledLabel htmlFor="emotion" $hasError={hasError}>
           Emotion (type)*
         </StyledLabel>
@@ -179,6 +179,8 @@ export default function EmotionForm({
 // Styled Components //
 const StyledSubheadline = styled.h2`
   text-align: center;
+  background-color: #e0e1f0;
+  color: #313366;
 `;
 
 const StyledEmotionForm = styled.form`
@@ -192,11 +194,13 @@ const StyledEmotionForm = styled.form`
   background-color: #f9f9f9;
   border: 1px solid #d3d3d3;
   border-radius: 8px;
+  color: #313366;
 `;
 
 const StyledLabel = styled.label`
   color: ${(props) => (props.$hasError ? "#ff0000" : "#000000")};
   font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
+  color: #313366;
 `;
 
 const StyledError = styled.p`
