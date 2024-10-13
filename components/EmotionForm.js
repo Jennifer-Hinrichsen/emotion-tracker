@@ -108,81 +108,93 @@ export default function EmotionForm({
 
   return (
     <>
-      <StyledEmotionForm onSubmit={handleSubmit}>
-        {/* Dynamic label for emotion, red only after form submission if no emotion is selected */}
+      <StyledFormContainer>
         <StyledSubheadline>
           {existingEmotion ? "Update your Emotion:" : "Add your Emotion:"}
         </StyledSubheadline>
-        <StyledLabel htmlFor="emotion" $hasError={hasError}>
-          Emotion (type)*
-        </StyledLabel>
-        <select
-          value={selectedEmotion}
-          onChange={handleEmotionChange}
-          id="emotion"
-          name="emotion"
-        >
-          <option value="">---Choose an emotion---</option>
-          {emotions.map((emotion, index) => (
-            <option key={index} value={emotion}>
-              {emotion}
-            </option>
-          ))}
-        </select>
+        <StyledEmotionForm onSubmit={handleSubmit}>
+          <StyledLabel htmlFor="emotion" $hasError={hasError}>
+            Emotion (type)*
+          </StyledLabel>
+          <select
+            value={selectedEmotion}
+            onChange={handleEmotionChange}
+            id="emotion"
+            name="emotion"
+          >
+            <option value="">---Choose an emotion---</option>
+            {emotions.map((emotion, index) => (
+              <option key={index} value={emotion}>
+                {emotion}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="intensity">Emotion intensity*</label>
-        <input
-          id="intensity"
-          name="intensity"
-          value={selectedIntensity}
-          onChange={handleIntensityChange}
-          type="range"
-          min="1"
-          max="10"
-          step="1"
-        />
-        <p>{selectedIntensity}</p>
+          <label htmlFor="intensity">Emotion intensity*</label>
+          <input
+            id="intensity"
+            name="intensity"
+            value={selectedIntensity}
+            onChange={handleIntensityChange}
+            type="range"
+            min="1"
+            max="10"
+            step="1"
+          />
+          <p>{selectedIntensity}</p>
 
-        {/* Dynamic label for date and time, turns red when all cleared */}
-        <StyledLabel htmlFor="date-time" $hasError={!selectedDateTime}>
-          Date and Time*
-        </StyledLabel>
-        <input
-          id="date-time"
-          name="date-time"
-          type="datetime-local"
-          value={selectedDateTime}
-          onChange={handleDateTimeChange}
-        />
+          {/* Dynamic label for date and time, turns red when all cleared */}
+          <StyledLabel htmlFor="date-time" $hasError={!selectedDateTime}>
+            Date and Time*
+          </StyledLabel>
+          <input
+            id="date-time"
+            name="date-time"
+            type="datetime-local"
+            value={selectedDateTime}
+            onChange={handleDateTimeChange}
+          />
 
-        <label htmlFor="notes">Notes</label>
-        <textarea
-          id="notes"
-          name="notes"
-          value={notes}
-          placeholder="Please describe your feelings"
-          maxLength="150"
-          onChange={handleNotesChange}
-        ></textarea>
+          <label htmlFor="notes">Notes</label>
+          <textarea
+            id="notes"
+            name="notes"
+            value={notes}
+            placeholder="Please describe your feelings"
+            maxLength="150"
+            onChange={handleNotesChange}
+          ></textarea>
 
-        <StyledButton type="submit">
-          {existingEmotion ? "Save" : "Submit"}
-        </StyledButton>
+          <StyledButton type="submit">
+            {existingEmotion ? "Save" : "Submit"}
+          </StyledButton>
 
-        {/* Custom error message at the end of the form */}
-        {formError && <StyledError>{formError}</StyledError>}
-        {/* Success message at the end of the form */}
-        {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
-      </StyledEmotionForm>
+          {/* Custom error message at the end of the form */}
+          {formError && <StyledError>{formError}</StyledError>}
+          {/* Success message at the end of the form */}
+          {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
+        </StyledEmotionForm>
+      </StyledFormContainer>
     </>
   );
 }
 
-// Styled Components //
+const StyledFormContainer = styled.div`
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #e0e1f0;
+  padding: 10px 0 0 0;
+  border-radius: 8px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+`;
+
 const StyledSubheadline = styled.h2`
   text-align: center;
-  background-color: #e0e1f0;
   color: #313366;
+  padding: 10px 0;
+  margin: 0;
 `;
 
 const StyledEmotionForm = styled.form`
@@ -191,10 +203,9 @@ const StyledEmotionForm = styled.form`
   align-items: center;
   gap: 16px;
   font-size: 1rem;
-  margin: 16px 8px;
+  margin: 0;
   padding: 20px;
   background-color: #f9f9f9;
-  border: 1px solid #d3d3d3;
   border-radius: 8px;
   color: #313366;
 `;
@@ -218,7 +229,6 @@ const StyledSuccess = styled.p`
 `;
 
 const StyledButton = styled.button`
-  margin-right: 20px;
   margin: 10px;
   padding: 10px 20px;
   background-color: #8295c6;
