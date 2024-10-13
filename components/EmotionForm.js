@@ -110,7 +110,7 @@ export default function EmotionForm({
     <>
       <StyledFormContainer>
         <StyledSubheadline>
-          {existingEmotion ? "Update your Emotion:" : "Add your Emotion:"}
+          {existingEmotion ? "Update your Emotion:" : "Add your Emotion"}
         </StyledSubheadline>
         <StyledEmotionForm onSubmit={handleSubmit}>
           <StyledLabel htmlFor="emotion" $hasError={hasError}>
@@ -134,17 +134,19 @@ export default function EmotionForm({
           </SelectEmotionContainer>
 
           <label htmlFor="intensity">Intensity*</label>
-          <input
-            id="intensity"
-            name="intensity"
-            value={selectedIntensity}
-            onChange={handleIntensityChange}
-            type="range"
-            min="1"
-            max="10"
-            step="1"
-          />
-          <p>{selectedIntensity}</p>
+          <StyledSliderContainer>
+            <StyledSlider
+              id="intensity"
+              name="intensity"
+              value={selectedIntensity}
+              onChange={handleIntensityChange}
+              type="range"
+              min="1"
+              max="10"
+              step="1"
+            />
+            <p>{selectedIntensity}</p>
+          </StyledSliderContainer>
 
           {/* Dynamic label for date and time, turns red when all cleared */}
           <StyledLabel htmlFor="date-time" $hasError={!selectedDateTime}>
@@ -249,6 +251,20 @@ const StyledArrow = styled.span`
   transform: translateY(-50%);
   pointer-events: none;
   color: #8295c6;
+`;
+
+const StyledSliderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledSlider = styled.input`
+  width: 100%;
+  height: 3px;
+  accent-color: #8295c6;
+  cursor: pointer;
 `;
 
 const StyledLabel = styled.label`
