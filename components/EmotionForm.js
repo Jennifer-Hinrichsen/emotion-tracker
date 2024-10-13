@@ -165,7 +165,9 @@ export default function EmotionForm({
           onChange={handleNotesChange}
         ></textarea>
 
-        <button type="submit">{existingEmotion ? "Save" : "Submit"}</button>
+        <StyledButton type="submit">
+          {existingEmotion ? "Save" : "Submit"}
+        </StyledButton>
 
         {/* Custom error message at the end of the form */}
         {formError && <StyledError>{formError}</StyledError>}
@@ -213,4 +215,18 @@ const StyledSuccess = styled.p`
   color: green;
   font-size: 0.9rem;
   margin-top: 8px;
+`;
+
+const StyledButton = styled.button`
+  margin-right: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #8295c6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #9acd32;
+  }
 `;
