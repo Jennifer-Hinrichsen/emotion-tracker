@@ -110,7 +110,7 @@ export default function EmotionForm({
     <>
       <StyledFormContainer>
         <StyledSubheadline>
-          {existingEmotion ? "Update your Emotion:" : "Add your Emotion"}
+          {existingEmotion ? "Update your Emotion" : "Add your Emotion"}
         </StyledSubheadline>
         <StyledEmotionForm onSubmit={handleSubmit}>
           <StyledLabel htmlFor="emotion" $hasError={hasError}>
@@ -161,14 +161,14 @@ export default function EmotionForm({
           />
 
           <label htmlFor="notes">Notes</label>
-          <textarea
+          <StyledTextArea
             id="notes"
             name="notes"
             value={notes}
             placeholder="Please describe your feelings"
             maxLength="150"
             onChange={handleNotesChange}
-          ></textarea>
+          ></StyledTextArea>
 
           <StyledButton type="submit">
             {existingEmotion ? "Save" : "Submit"}
@@ -185,34 +185,32 @@ export default function EmotionForm({
 }
 
 const StyledFormContainer = styled.div`
-  width: 80%;
-  max-width: 600px;
+  width: 90%;
   margin: 0 auto;
-  background-color: #e0e1f0;
   padding: 10px 0 0 0;
-  border-radius: 8px;
+  background-color: #e0e1f0;
   border: 1px solid #d3d3d3;
+  border-radius: 0.5rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 `;
 
 const StyledSubheadline = styled.h2`
+  margin: 0;
+  padding: 10px 0;
   text-align: center;
   color: #313366;
-  padding: 10px 0;
-  margin: 0;
-  font-weight: 400;
 `;
 
 const StyledEmotionForm = styled.form`
+  margin: 0;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   font-size: 1rem;
-  margin: 0;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
   color: #313366;
 `;
 
@@ -222,26 +220,16 @@ const SelectEmotionContainer = styled.div`
 `;
 
 const StyledSelectEmotion = styled.select`
-  appearance: none;
   width: 100%;
-  padding: 10px 15px 10px 15px;
+  padding: 10px 15px;
   background-color: transparent;
   border: none;
   border-bottom: 1px dotted #8295c6;
-  color: #8295c6;
   font-size: 1rem;
+  color: #8295c6;
   outline: none;
   cursor: pointer;
-  text-align-last: left;
-
-  &:focus {
-    outline: none;
-  }
-
-  option {
-    background-color: white;
-    color: black;
-  }
+  appearance: none;
 `;
 
 const StyledArrow = styled.span`
@@ -249,8 +237,8 @@ const StyledArrow = styled.span`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  pointer-events: none;
   color: #8295c6;
+  pointer-events: none;
 `;
 
 const StyledSliderContainer = styled.div`
@@ -269,7 +257,7 @@ const StyledSlider = styled.input`
 
 const StyledDatenAndTimeInput = styled.input`
   width: 100%;
-  padding: 10px;
+  padding: 1rem;
   border: none;
   border-bottom: 1px dotted #8295c6;
   background-color: transparent;
@@ -281,21 +269,37 @@ const StyledDatenAndTimeInput = styled.input`
   }
 `;
 
+const StyledTextArea = styled.textarea`
+  width: 100%;
+  padding: 0 10px 10px 10px;
+  border: none;
+  border-bottom: 1px dotted #8295c6;
+  background-color: transparent;
+  color: #313366;
+  font-size: 1rem;
+  cursor: text;
+
+  &::placeholder {
+    color: #8295c6;
+    font-size: 1rem;
+  }
+`;
+
 const StyledLabel = styled.label`
   color: ${(props) => (props.$hasError ? "#ff0000" : "#000000")};
-  font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
   color: #313366;
+  font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
 `;
 
 const StyledError = styled.p`
   color: red;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-top: 8px;
 `;
 
 const StyledSuccess = styled.p`
   color: green;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-top: 8px;
 `;
 
@@ -307,6 +311,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
   &:hover {
     background-color: #9acd32;
   }

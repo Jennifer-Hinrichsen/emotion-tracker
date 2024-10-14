@@ -12,4 +12,9 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: #f6f4f3;
   }
+
+  label {
+    padding-top: 1rem;
+    align-self: flex-start;
+  }
 `;
