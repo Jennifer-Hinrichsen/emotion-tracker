@@ -14,6 +14,9 @@ export default function HomePage({
         objects={objects}
         onCreateEmotion={onCreateEmotion}
         onUpdateEmotion={onUpdateEmotion}
+        onSubmit={(data) => {
+          onCreateEmotion({ ...data });
+        }}
       />
       <EmotionList objects={objects} />
     </div>

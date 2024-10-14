@@ -1,104 +1,44 @@
 import { emotions } from "@/lib/emotions";
 import { useState } from "react";
 import styled from "styled-components";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 
-export default function EmotionForm({
-  onCreateEmotion,
-  existingEmotion,
-  onUpdateEmotion,
-}) {
-  const router = useRouter();
+export default function EmotionForm({ onSubmit, defaultValue }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
     .toISOString()
     .slice(0, 16);
 
-  const [selectedEmotion, setSelectedEmotion] = useState("");
-  const [selectedIntensity, setSelectedIntensity] = useState(5);
-  const [selectedDateTime, setSelectedDateTime] = useState(currentDateTime);
-  const [notes, setNotes] = useState("");
   const [formError, setFormError] = useState(""); // Error message if not all fields are filled out on submit
+  const hasError = formError !== "";
   const [successMessage, setSuccessMessage] = useState(""); // Success message
-  const [hasError, setHasError] = useState(false); // New state variable for styling
-
-  useEffect(() => {
-    if (existingEmotion) {
-      setSelectedEmotion(existingEmotion.emotion || "");
-      setSelectedIntensity(existingEmotion.intensity || 5);
-      setSelectedDateTime(existingEmotion.dateTime || currentDateTime);
-      setNotes(existingEmotion.notes || "");
-    }
-  }, [existingEmotion, currentDateTime]);
-
-  // Change emotion
-  function handleEmotionChange(event) {
-    setSelectedEmotion(event.target.value);
-    if (event.target.value !== "") {
-      setFormError(""); // Reset error message when the field is filled
-      setHasError(false); // Reset styling once an emotion is selected
-    }
-  }
-
-  // Change intensity
-  function handleIntensityChange(event) {
-    setSelectedIntensity(event.target.value);
-  }
-
-  // Change dateTime
-  function handleDateTimeChange(event) {
-    setSelectedDateTime(event.target.value);
-    if (event.target.value) {
-      setFormError(""); // Reset error message when date/time is selected
-    }
-  }
-
-  // Save notes
-  function handleNotesChange(event) {
-    setNotes(event.target.value);
-  }
+  const [selectedIntensity, setSelectedIntensity] = useState(
+    defaultValue?.intensity || 5
+  );
 
   // Trigger submit
   function handleSubmit(event) {
     event.preventDefault();
     // Validate: Emotion must be selected
-    if (!selectedEmotion) {
-      setFormError("Please fill in the required fields.");
-      setHasError(true); // Set error state for styling
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    if (!data.emotion) {
+      setFormError("Please choose an emotion.");
       setSuccessMessage(""); // Reset success message
       return;
     }
     // Validate: DateTime must be set
-    if (!selectedDateTime) {
+    if (!data.dateTime) {
       setFormError("Please select a date and time.");
       setSuccessMessage(""); // Reset success message
       return;
     }
 
-    // New object
-    const newEmotionEntry = {
-      emotion: selectedEmotion,
-      intensity: selectedIntensity,
-      dateTime: selectedDateTime,
-      notes: notes,
-    };
-
-    if (existingEmotion) {
-      onUpdateEmotion({ id: existingEmotion.id, ...newEmotionEntry }); // Update existing object
-      router.push(`/emotion/${existingEmotion.id}`);
-    } else {
-      onCreateEmotion(newEmotionEntry); // Pass new object
-    }
+    onSubmit(data);
 
     // Reset form
-    setSelectedEmotion("");
-    setSelectedIntensity(5);
-    setSelectedDateTime(currentDateTime);
-    setNotes("");
-    setFormError(""); // Reset error message
-    setHasError(false); // Reset error state for styling
+    setFormError("");
     setSuccessMessage("Emotion successfully added!"); // Set success message
     // Reset success message after 5 seconds
     setTimeout(() => {
@@ -109,16 +49,15 @@ export default function EmotionForm({
   return (
     <>
       <StyledSubheadline>
-        {existingEmotion ? "Update your Emotion:" : "Add your Emotion:"}
+        {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
       </StyledSubheadline>
       <StyledEmotionForm onSubmit={handleSubmit}>
         {/* Dynamic label for emotion, red only after form submission if no emotion is selected */}
-        <StyledLabel htmlFor="emotion" $hasError={hasError}>
+        <label htmlFor="emotion" $hasError={hasError}>
           Emotion (type)*
-        </StyledLabel>
+        </label>
         <select
-          value={selectedEmotion}
-          onChange={handleEmotionChange}
+          defaultValue={defaultValue?.emotion || ""}
           id="emotion"
           name="emotion"
         >
@@ -135,7 +74,9 @@ export default function EmotionForm({
           id="intensity"
           name="intensity"
           value={selectedIntensity}
-          onChange={handleIntensityChange}
+          onChange={(event) => {
+            setSelectedIntensity(event.target.value);
+          }}
           type="range"
           min="1"
           max="10"
@@ -144,28 +85,26 @@ export default function EmotionForm({
         <p>{selectedIntensity}</p>
 
         {/* Dynamic label for date and time, turns red when all cleared */}
-        <StyledLabel htmlFor="date-time" $hasError={!selectedDateTime}>
+        <label htmlFor="date-time" $hasError={!defaultValue?.dateTime}>
           Date and Time*
-        </StyledLabel>
+        </label>
         <input
           id="date-time"
-          name="date-time"
+          name="dateTime"
           type="datetime-local"
-          value={selectedDateTime}
-          onChange={handleDateTimeChange}
+          defaultValue={defaultValue?.dateTime || currentDateTime}
         />
 
         <label htmlFor="notes">Notes</label>
         <textarea
           id="notes"
           name="notes"
-          value={notes}
+          defaultValue={defaultValue?.notes || ""}
           placeholder="Please describe your feelings"
           maxLength="150"
-          onChange={handleNotesChange}
         ></textarea>
 
-        <button type="submit">{existingEmotion ? "Save" : "Submit"}</button>
+        <button type="submit">{defaultValue ? "Save" : "Submit"}</button>
 
         {/* Custom error message at the end of the form */}
         {formError && <StyledError>{formError}</StyledError>}
@@ -194,10 +133,10 @@ const StyledEmotionForm = styled.form`
   border-radius: 8px;
 `;
 
-const StyledLabel = styled.label`
-  color: ${(props) => (props.$hasError ? "#ff0000" : "#000000")};
-  font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
-`;
+// const StyledLabel = styled.label`
+//   color: ${(props) => (props.$hasError ? "#ff0000" : "#000000")};
+//   font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
+// `;
 
 const StyledError = styled.p`
   color: red;
