@@ -148,11 +148,11 @@ export default function EmotionForm({
             <p>{selectedIntensity}</p>
           </StyledSliderContainer>
 
-          {/* Dynamic label for date and time, turns red when all cleared */}
           <StyledLabel htmlFor="date-time" $hasError={!selectedDateTime}>
             Date and Time*
           </StyledLabel>
-          <input
+
+          <StyledDatenAndTimeInput
             id="date-time"
             name="date-time"
             type="datetime-local"
@@ -265,6 +265,20 @@ const StyledSlider = styled.input`
   height: 3px;
   accent-color: #8295c6;
   cursor: pointer;
+`;
+
+const StyledDatenAndTimeInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px dotted #8295c6;
+  background-color: transparent;
+  color: #8295c6;
+  font-size: 1rem;
+
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
 `;
 
 const StyledLabel = styled.label`
