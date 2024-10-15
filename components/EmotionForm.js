@@ -10,38 +10,36 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
     .toISOString()
     .slice(0, 16);
 
-  const [formError, setFormError] = useState(""); // Error message if not all fields are filled out on submit
+  const [formError, setFormError] = useState("");
   const hasError = formError !== "";
-  const [successMessage, setSuccessMessage] = useState(""); // Success message
+  const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
   );
 
-  // Trigger submit
   function handleSubmit(event) {
     event.preventDefault();
-    // Validate: Emotion must be selected
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
     if (!data.emotion) {
       setFormError("Please choose an emotion.");
-      setSuccessMessage(""); // Reset success message
+      setSuccessMessage("");
       return;
     }
-    // Validate: DateTime must be set
+
     if (!data.dateTime) {
       setFormError("Please select a date and time.");
-      setSuccessMessage(""); // Reset success message
+      setSuccessMessage("");
       return;
     }
 
     onSubmit(data);
 
-    // Reset form
     setFormError("");
-    setSuccessMessage("Emotion successfully added!"); // Set success message
-    // Reset success message after 5 seconds
+    setSuccessMessage("Emotion successfully added!");
+
     setTimeout(() => {
       setSuccessMessage("");
     }, 5000);
@@ -53,7 +51,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
         {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
       </StyledSubheadline>
       <StyledEmotionForm onSubmit={handleSubmit}>
-        {/* Dynamic label for emotion, red only after form submission if no emotion is selected */}
         <label htmlFor="emotion" $hasError={hasError}>
           Emotion (type)*
         </label>
@@ -85,7 +82,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
         />
         <p>{selectedIntensity}</p>
 
-        {/* Dynamic label for date and time, turns red when all cleared */}
         <label htmlFor="date-time" $hasError={!defaultValue?.dateTime}>
           Date and Time*
         </label>
@@ -112,14 +108,13 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           </button>
         )}
         {formError && <StyledError>{formError}</StyledError>}
-        {/* Success message at the end of the form */}
+
         {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
       </StyledEmotionForm>
     </>
   );
 }
 
-// Styled Components //
 const StyledSubheadline = styled.h2`
   text-align: center;
 `;
@@ -136,11 +131,6 @@ const StyledEmotionForm = styled.form`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
 `;
-
-// const StyledLabel = styled.label`
-//   color: ${(props) => (props.$hasError ? "#ff0000" : "#000000")};
-//   font-weight: ${(props) => (props.$hasError ? "bold" : "normal")};
-// `;
 
 const StyledError = styled.p`
   color: red;

@@ -5,17 +5,15 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function EmotionDetails({ object, onDeleteEmotion }) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage delete-dialog visibility
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // Function to open the confirmation dialog
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
   }
 
-  // Function to handle the deletion of the object
   function handleDelete() {
-    onDeleteEmotion(object.id); // Call the delete function passed as a prop
-    toggleDeleteDialog(); // toggle the dialog when clicking the delete button
+    onDeleteEmotion(object.id);
+    toggleDeleteDialog();
   }
 
   return (
@@ -30,7 +28,6 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
         Delete
       </StyledButtonDelete>
 
-      {/* Conditional rendering of the delete-dialog */}
       {isDialogOpen && (
         <StyledDialogOverlay>
           <StyledDialogBox>
@@ -48,7 +45,6 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
   );
 }
 
-// Styled Components //
 const StyledBackLink = styled(Link)`
   font-size: 24px;
   margin-left: 10px;
