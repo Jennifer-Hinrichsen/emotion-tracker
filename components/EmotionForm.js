@@ -210,7 +210,6 @@ const StyledEmotionForm = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  font-size: 1rem;
   color: #313366;
 `;
 
