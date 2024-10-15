@@ -16,7 +16,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
   );
-
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -60,8 +59,8 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           name="emotion"
         >
           <option value="">---Choose an emotion---</option>
-          {emotions.map((emotion, index) => (
-            <option key={index} value={emotion}>
+          {emotions.map((emotion, id) => (
+            <option key={id} value={emotion}>
               {emotion}
             </option>
           ))}
