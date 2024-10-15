@@ -153,18 +153,3 @@ const StyledSuccess = styled.p`
   font-size: 0.9rem;
   margin-top: 8px;
 `;
-const StyledCancelLink = styled(Link)`
-  float: left;
-  margin-right: 20px;
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #6666ff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
-  cursor: pointer;
-  &:hover {
-    background-color: #3232ff;
-  }
-`;
