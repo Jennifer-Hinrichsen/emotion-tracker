@@ -1,8 +1,9 @@
 import { emotions } from "@/lib/emotions";
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function EmotionForm({ onSubmit, defaultValue }) {
+export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -105,8 +106,11 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
         ></textarea>
 
         <button type="submit">{defaultValue ? "Save" : "Submit"}</button>
-
-        {/* Custom error message at the end of the form */}
+        {defaultValue && (
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
         {formError && <StyledError>{formError}</StyledError>}
         {/* Success message at the end of the form */}
         {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
@@ -148,4 +152,19 @@ const StyledSuccess = styled.p`
   color: green;
   font-size: 0.9rem;
   margin-top: 8px;
+`;
+const StyledCancelLink = styled(Link)`
+  float: left;
+  margin-right: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #6666ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #3232ff;
+  }
 `;
