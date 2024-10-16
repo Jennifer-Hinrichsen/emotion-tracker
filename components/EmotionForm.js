@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
+export default function EmotionForm({ onSubmit, defaultValue }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -101,11 +101,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
         ></textarea>
 
         <button type="submit">{defaultValue ? "Save" : "Submit"}</button>
-        {defaultValue && (
-          <button type="button" onClick={onCancel}>
-            Cancel
-          </button>
-        )}
+
         {formError && <StyledError>{formError}</StyledError>}
 
         {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}

@@ -20,10 +20,15 @@ export default function EditPage({ objects, onUpdateEmotion }) {
           onUpdateEmotion({ ...data, id });
           router.push(`/emotion/${id}`);
         }}
-        onCancel={() => {
+      />
+      <button
+        type="button"
+        onClick={() => {
           router.push(`/emotion/${id}`);
         }}
-      />
+      >
+        Cancel
+      </button>
     </>
   );
 }
