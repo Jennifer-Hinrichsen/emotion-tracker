@@ -1,11 +1,7 @@
 import EmotionDetails from "@/components/EmotionDetails";
 import { useRouter } from "next/router";
 
-export default function EmotionDetailPage({
-  objects,
-  onDeleteEmotion,
-  onUpdateEmotion,
-}) {
+export default function EmotionDetailPage({ objects, onDeleteEmotion }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -24,10 +20,6 @@ export default function EmotionDetailPage({
   }
 
   return (
-    <EmotionDetails
-      object={emotionObject}
-      onDeleteEmotion={handleDelete}
-      onUpdateEmotion={onUpdateEmotion}
-    />
+    <EmotionDetails object={emotionObject} onDeleteEmotion={handleDelete} />
   );
 }
