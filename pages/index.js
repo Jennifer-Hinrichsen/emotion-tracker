@@ -14,7 +14,7 @@ export default function HomePage({
       <Heading>Mood Wave</Heading>
       <ImageWrapper>
         <Image
-          src="/images/logo-mw.png"
+          src="/images/logo-final.svg"
           alt="Mood Wave"
           width={50}
           height={50}
