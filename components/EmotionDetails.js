@@ -3,42 +3,31 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 export default function EmotionDetails({ object, onDeleteEmotion }) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage delete-dialog visibility
-  const router = useRouter(); // Initialize useRouter
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // Function to open the confirmation dialog
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
   }
 
-  function handleEdit() {
-    router.push(`/emotion/${object.id}/edit`); // Navigate to the edit page with the emotion's id
-  }
-
-  // Function to handle the deletion of the object
   function handleDelete() {
-    onDeleteEmotion(object.id); // Call the delete function passed as a prop
-    toggleDeleteDialog(); // toggle the dialog when clicking the delete button
+    onDeleteEmotion(object.id);
+    toggleDeleteDialog();
   }
 
   return (
     <>
       <Heading>Emotion Details</Heading>
-      <StyledLink aria-label="navigate-home" href="/">
+      <StyledBackLink aria-label="navigate-home" href="/">
         ←
-      </StyledLink>
+      </StyledBackLink>
       <EmotionCard object={object} />
-      <StyledButtonEdit type="button" onClick={handleEdit}>
-        Edit
-      </StyledButtonEdit>
+      <StyledEditLink href={`/emotion/${object.id}/edit`}>Edit</StyledEditLink>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
 
-      {/* Conditional rendering of the delete-dialog */}
       {isDialogOpen && (
         <StyledDialogOverlay>
           <StyledDialogBox>
@@ -56,25 +45,14 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
   );
 }
 
-// Styled Components //
-const StyledLink = styled(Link)`
+const StyledBackLink = styled(Link)`
   font-size: 24px;
   margin-left: 10px;
   text-decoration: none;
   color: #000;
 `;
 
-const StyledContainer = styled.div`
-  font-size: 1rem;
-  margin: 16px 8px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #d3d3d3;
-  border-radius: 8px;
-  list-style: none;
-`;
-
-const StyledButtonEdit = styled.button`
+const StyledEditLink = styled(Link)`
   float: left;
   margin-right: 20px;
   margin: 10px;
@@ -83,6 +61,7 @@ const StyledButtonEdit = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  text-decoration: none;
   cursor: pointer;
   &:hover {
     background-color: #3232ff;

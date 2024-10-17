@@ -15,9 +15,20 @@ export default function EditPage({ objects, onUpdateEmotion }) {
     <>
       <Heading>Edit Emotion</Heading>
       <EmotionForm
-        existingEmotion={existingEmotion}
-        onUpdateEmotion={onUpdateEmotion}
+        defaultValue={existingEmotion}
+        onSubmit={(data) => {
+          onUpdateEmotion({ ...data, id });
+          router.push(`/emotion/${id}`);
+        }}
       />
+      <button
+        type="button"
+        onClick={() => {
+          router.push(`/emotion/${id}`);
+        }}
+      >
+        Cancel
+      </button>
     </>
   );
 }
