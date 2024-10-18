@@ -11,7 +11,6 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     .slice(0, 16);
 
   const [formError, setFormError] = useState("");
-  // const hasError = formError !== "";
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
@@ -123,7 +122,7 @@ const StyledFormContainer = styled.div`
   background-color: #e0e1f0;
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px #000;
 `;
 
 const StyledSubheadline = styled.h2`
@@ -223,7 +222,7 @@ const StyledError = styled.p`
 `;
 
 const StyledSuccess = styled.p`
-  color: green;
+  color: #28a745;
   font-size: 1rem;
   margin-top: 8px;
 `;
@@ -232,7 +231,7 @@ const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
   background-color: #8295c6;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;

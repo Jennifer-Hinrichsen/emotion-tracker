@@ -25,5 +25,5 @@ export default function HomePage({ objects, onCreateEmotion }) {
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 0 0 20px 0;
+  padding-bottom: 20px;
 `;
