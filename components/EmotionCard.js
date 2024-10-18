@@ -5,7 +5,7 @@ export default function EmotionCard({ object }) {
   return (
     <StyledEmotionCard>
       <h2>{object.emotion}</h2>
-      <span>{emotionsIcons[object.emotion]}</span>
+      <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
       <p>Intensity: {object.intensity}</p>
       <p>Notes: {object.notes}</p>
       <StyledDateTime>{object.dateTime}</StyledDateTime>
@@ -14,6 +14,9 @@ export default function EmotionCard({ object }) {
 }
 
 const StyledEmotionCard = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
   font-size: 1rem;
   margin: 16px 8px;
   padding: 10px;
@@ -22,7 +25,11 @@ const StyledEmotionCard = styled.section`
   border-radius: 8px;
   word-break: break-word;
 `;
-
+const StyledEmojiIcon = styled.span`
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+`;
 const StyledDateTime = styled.p`
-  text-align: right;
+  align-self: flex-end;
 `;
