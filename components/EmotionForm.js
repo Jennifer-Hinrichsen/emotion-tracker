@@ -2,6 +2,7 @@ import { emotions } from "@/lib/emotions";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
+import AlertCircle from "@/components/icons/AlertCircle.svg";
 
 export default function EmotionForm({ onSubmit, defaultValue }) {
   const currentDateTime = new Date(
@@ -49,6 +50,7 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
       <StyledSubheadline>
         {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
       </StyledSubheadline>
+      <AlertCircle></AlertCircle>
       <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotion" $hasError={hasError}>
           Emotion (type)*
