@@ -7,14 +7,13 @@ import { emotions } from "@/lib/emotions";
 export default function EmotionList({ objects }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
-  const filteredData = selectedFilter
+  const filteredObjects = selectedFilter
     ? objects.filter((item) => item.emotion === selectedFilter)
     : objects;
 
   return (
     <StyledEmotionList>
       <StyledHeadline>Filter emotion type</StyledHeadline>
-
       <StyledDiv>
         {emotions.map((emotion) => (
           <StyledSpan
@@ -29,13 +28,13 @@ export default function EmotionList({ objects }) {
         ))}
       </StyledDiv>
 
-      {filteredData.length === 0 ? (
+      {filteredObjects.length === 0 ? (
         <StyledMessage>
           At the moment there are no emotions in the list. Please add an
           emotion.
         </StyledMessage>
       ) : (
-        filteredData.map((object) => (
+        filteredObjects.map((object) => (
           <StyledLink key={object.id} href={`emotion/${object.id}`}>
             <li>
               <EmotionCard object={object} />
@@ -57,8 +56,8 @@ const StyledEmotionList = styled.ul`
 
 const StyledDiv = styled.div`
   display: flex;
-  gap: 5px;
   flex-wrap: wrap;
+  gap: 5px;
 `;
 
 const StyledMessage = styled.p`
@@ -91,7 +90,6 @@ const StyledSpan = styled.span`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
   min-width: 100px;
   height: 40px;
   white-space: nowrap;
