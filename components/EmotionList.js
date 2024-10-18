@@ -7,19 +7,18 @@ import { emotions } from "@/lib/emotions";
 export default function EmotionList({ objects }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
-  // Verwende filteredData, um die Objekte basierend auf dem Filter zu filtern
   const filteredData = selectedFilter
     ? objects.filter((item) => item.emotion === selectedFilter)
-    : objects; // Wenn nichts ausgewählt ist, zeige alle
+    : objects;
 
   return (
     <StyledEmotionList>
+      <StyledHeadline>Filter emotion type</StyledHeadline>
+
       <StyledDiv>
-        <h2>Filter emotion type</h2>
         {emotions.map((emotion) => (
           <StyledSpan
             key={emotion}
-            // Wenn emotion bereits ausgewählt ist, setze den Filter zurück
             onClick={() =>
               setSelectedFilter(emotion === selectedFilter ? "" : emotion)
             }
@@ -48,13 +47,18 @@ export default function EmotionList({ objects }) {
   );
 }
 
+const StyledHeadline = styled.h2`
+  text-align: center;
+`;
+
 const StyledEmotionList = styled.ul`
   padding: 0;
 `;
 
 const StyledDiv = styled.div`
   display: flex;
-  background-color: grey;
+  gap: 5px;
+  flex-wrap: wrap;
 `;
 
 const StyledMessage = styled.p`
@@ -73,16 +77,23 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledSpan = styled.span`
-  margin: 0 10px;
+  margin: 5px;
   padding: 5px 10px;
   border-radius: 15px;
   cursor: pointer;
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "none")};
   text-decoration: ${({ isSelected }) => (isSelected ? "underline" : "none")};
-  background-color: ${({ isSelected }) =>
-    isSelected
-      ? "#ddd"
-      : "#f0f0f0"}; // Ändere die Farbe des ausgewählten Filters
+  background-color: ${({ isSelected }) => (isSelected ? "#ddd" : "#f0f0f0")};
   &:hover {
     background-color: #e0e0e0;
   }
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 100px;
+  height: 40px;
+  white-space: nowrap;
+  text-align: center;
 `;
