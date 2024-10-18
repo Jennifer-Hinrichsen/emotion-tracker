@@ -8,15 +8,15 @@ export default function EmotionList({ objects }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
   const filteredObjects = selectedFilter
-    ? objects.filter((item) => item.emotion === selectedFilter)
+    ? objects.filter((object) => object.emotion === selectedFilter)
     : objects;
 
   return (
     <StyledEmotionList>
       <StyledHeadline>Filter emotion type</StyledHeadline>
-      <StyledDiv>
+      <div>
         {emotions.map((emotion) => (
-          <StyledSpan
+          <StyledFilter
             key={emotion}
             onClick={() =>
               setSelectedFilter(emotion === selectedFilter ? "" : emotion)
@@ -24,9 +24,9 @@ export default function EmotionList({ objects }) {
             isSelected={emotion === selectedFilter}
           >
             {emotion}
-          </StyledSpan>
+          </StyledFilter>
         ))}
-      </StyledDiv>
+      </div>
 
       {filteredObjects.length === 0 ? (
         <StyledMessage>
@@ -46,36 +46,15 @@ export default function EmotionList({ objects }) {
   );
 }
 
-const StyledHeadline = styled.h2`
-  text-align: center;
-`;
-
 const StyledEmotionList = styled.ul`
   padding: 0;
 `;
 
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-`;
-
-const StyledMessage = styled.p`
+const StyledHeadline = styled.h2`
   text-align: center;
-  color: #777;
-  font-size: 1.1rem;
-  padding: 24px 16px;
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #000;
-  &:visited {
-    color: inherit;
-  }
-`;
-
-const StyledSpan = styled.span`
+const StyledFilter = styled.span`
   margin: 5px;
   padding: 5px 10px;
   border-radius: 15px;
@@ -94,4 +73,19 @@ const StyledSpan = styled.span`
   height: 40px;
   white-space: nowrap;
   text-align: center;
+`;
+
+const StyledMessage = styled.p`
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+  padding: 24px 16px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  &:visited {
+    color: inherit;
+  }
 `;
