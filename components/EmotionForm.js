@@ -50,7 +50,6 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
       <StyledSubheadline>
         {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
       </StyledSubheadline>
-      <AlertCircle></AlertCircle>
       <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotion" $hasError={hasError}>
           Emotion (type)*
