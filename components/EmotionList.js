@@ -1,17 +1,40 @@
 import styled from "styled-components";
 import Link from "next/link";
 import EmotionCard from "./EmotionCard";
+import { useState } from "react";
+import { emotions } from "@/lib/emotions";
 
 export default function EmotionList({ objects }) {
+  const [selectedFilter, setSelectedFilter] = useState("");
+
+  const filteredObjects = selectedFilter
+    ? objects.filter((object) => object.emotion === selectedFilter)
+    : objects;
+
   return (
     <StyledEmotionList>
-      {objects.length === 0 ? (
+      <StyledHeadline>Filter emotion type</StyledHeadline>
+      <div>
+        {emotions.map((emotion) => (
+          <StyledFilter
+            key={emotion}
+            onClick={() =>
+              setSelectedFilter(emotion === selectedFilter ? "" : emotion)
+            }
+            isSelected={emotion === selectedFilter}
+          >
+            {emotion}
+          </StyledFilter>
+        ))}
+      </div>
+
+      {filteredObjects.length === 0 ? (
         <StyledMessage>
           At the moment there are no emotions in the list. Please add an
           emotion.
         </StyledMessage>
       ) : (
-        objects.map((object) => (
+        filteredObjects.map((object) => (
           <StyledLink key={object.id} href={`emotion/${object.id}`}>
             <li>
               <EmotionCard object={object} />
@@ -25,6 +48,31 @@ export default function EmotionList({ objects }) {
 
 const StyledEmotionList = styled.ul`
   padding: 0;
+`;
+
+const StyledHeadline = styled.h2`
+  text-align: center;
+`;
+
+const StyledFilter = styled.span`
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "none")};
+  text-decoration: ${({ isSelected }) => (isSelected ? "underline" : "none")};
+  background-color: ${({ isSelected }) => (isSelected ? "#ddd" : "#f0f0f0")};
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  height: 40px;
+  white-space: nowrap;
+  text-align: center;
 `;
 
 const StyledMessage = styled.p`
