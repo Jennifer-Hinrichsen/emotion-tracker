@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { emotionsIcons } from "./EmotionIcons";
 
 export default function EmotionCard({ object }) {
   return (
     <StyledEmotionCard>
       <h2>{object.emotion}</h2>
+      <span>{emotionsIcons[object.emotion]}</span>
       <p>Intensity: {object.intensity}</p>
       <p>Notes: {object.notes}</p>
       <StyledDateTime>{object.dateTime}</StyledDateTime>
