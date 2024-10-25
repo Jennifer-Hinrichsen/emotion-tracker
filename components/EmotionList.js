@@ -12,21 +12,22 @@ export default function EmotionList({ objects }) {
     : objects;
 
   return (
-    <StyledEmotionList>
+    <>
       <StyledHeadline>Filter emotion type</StyledHeadline>
-      <div>
+      <ul>
         {emotions.map((emotion) => (
-          <StyledFilter
-            key={emotion}
-            onClick={() =>
-              setSelectedFilter(emotion === selectedFilter ? "" : emotion)
-            }
-            isSelected={emotion === selectedFilter}
-          >
-            {emotion}
-          </StyledFilter>
+          <StyledFilterList key={emotion}>
+            <StyledFilterButtons
+              onClick={() =>
+                setSelectedFilter(emotion === selectedFilter ? "" : emotion)
+              }
+              $isSelected={emotion === selectedFilter}
+            >
+              {emotion}
+            </StyledFilterButtons>
+          </StyledFilterList>
         ))}
-      </div>
+      </ul>
 
       {filteredObjects.length === 0 ? (
         <StyledMessage>
@@ -34,45 +35,38 @@ export default function EmotionList({ objects }) {
           emotion.
         </StyledMessage>
       ) : (
-        filteredObjects.map((object) => (
-          <StyledLink key={object.id} href={`emotion/${object.id}`}>
-            <li>
-              <EmotionCard object={object} />
-            </li>
-          </StyledLink>
-        ))
+        <ul>
+          {filteredObjects.map((object) => (
+            <StyledCardList key={object.id}>
+              <StyledLink StyledLink href={`emotion/${object.id}`}>
+                <EmotionCard object={object} />
+              </StyledLink>
+            </StyledCardList>
+          ))}
+        </ul>
       )}
-    </StyledEmotionList>
+    </>
   );
 }
-
-const StyledEmotionList = styled.ul`
-  padding: 0;
-`;
 
 const StyledHeadline = styled.h2`
   text-align: center;
 `;
 
-const StyledFilter = styled.span`
-  margin: 5px;
-  padding: 5px 10px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "none")};
-  text-decoration: ${({ isSelected }) => (isSelected ? "underline" : "none")};
-  background-color: ${({ isSelected }) => (isSelected ? "#ddd" : "#f0f0f0")};
-  &:hover {
-    background-color: #e0e0e0;
-  }
-
+const StyledFilterList = styled.li`
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  list-style-type: none;
+`;
+
+const StyledFilterButtons = styled.button`
+  margin: 5px;
+  border-radius: 15px;
+  border-color: white;
   min-width: 100px;
   height: 40px;
-  white-space: nowrap;
-  text-align: center;
+  font-weight: ${({ $isSelected }) => ($isSelected ? "bold" : "normal")};
+  text-decoration: ${({ $isSelected }) => ($isSelected ? "underline" : "none")};
+  background-color: ${({ $isSelected }) => ($isSelected ? "#ddd" : "#f0f0f0")};
 `;
 
 const StyledMessage = styled.p`
@@ -80,6 +74,10 @@ const StyledMessage = styled.p`
   color: #777;
   font-size: 1.1rem;
   padding: 24px 16px;
+`;
+
+const StyledCardList = styled.li`
+  list-style-type: none;
 `;
 
 const StyledLink = styled(Link)`
