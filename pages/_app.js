@@ -8,6 +8,13 @@ export default function App({ Component, pageProps }) {
     defaultValue: initialObjects,
   });
 
+  const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
+    "myBookmarkedEmotions",
+    {
+      defaultValue: [""],
+    }
+  );
+
   function handleCreateEmotion(newEmotion) {
     setObjects((prevObjects) => [
       { id: uuidv4(), ...newEmotion },
