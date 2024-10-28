@@ -1,5 +1,4 @@
 import { emotions } from "@/lib/emotions";
-import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -58,9 +57,9 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
               name="emotion"
             >
               <option value="">---Choose an emotion---</option>
-              {emotions.map((emotion, index) => (
-                <option key={index} value={emotion}>
-                  {emotion}
+              {emotions.map((emotion) => (
+                <option key={emotion.emotionType} value={emotion.emotionType}>
+                  {emotion.emotionType}
                 </option>
               ))}
             </StyledSelectEmotion>
