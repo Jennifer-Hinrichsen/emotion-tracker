@@ -2,7 +2,11 @@ import styled from "styled-components";
 import Link from "next/link";
 import EmotionCard from "./EmotionCard";
 
-export default function EmotionList({ objects }) {
+export default function EmotionList({
+  objects,
+  onToggleBookmark,
+  myBookmarkedEmotions,
+}) {
   return (
     <StyledEmotionList>
       {objects.length === 0 ? (
@@ -14,7 +18,11 @@ export default function EmotionList({ objects }) {
         objects.map((object) => (
           <StyledLink key={object.id} href={`emotion/${object.id}`}>
             <li>
-              <EmotionCard object={object} />
+              <EmotionCard
+                object={object}
+                onToggleBookmark={onToggleBookmark}
+                isBookmarked={myBookmarkedEmotions.includes(object.id)}
+              />
             </li>
           </StyledLink>
         ))

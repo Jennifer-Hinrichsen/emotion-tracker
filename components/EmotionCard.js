@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
 import FavoriteButton from "./FavoriteButton";
 
-export default function EmotionCard({ object, onToggleBookmark }) {
+export default function EmotionCard({
+  object,
+  onToggleBookmark,
+  isBookmarked,
+}) {
   return (
     <StyledEmotionCard>
       <h2>{object.emotion}</h2>
@@ -11,7 +15,7 @@ export default function EmotionCard({ object, onToggleBookmark }) {
       <p>Notes: {object.notes}</p>
       <StyledDateTime>{object.dateTime}</StyledDateTime>
       <FavoriteButton
-        isBookmarked={object.isBookmarked}
+        isBookmarked={isBookmarked}
         onToggleBookmark={() => onToggleBookmark(object.id)}
       />
     </StyledEmotionCard>

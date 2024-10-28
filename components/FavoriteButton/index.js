@@ -10,8 +10,8 @@ export default function FavoriteButton({ isBookmarked, onToggleBookmark }) {
 
 const StyledButton = styled.button`
   font-size: 24px;
-  color: ${(props) => (props.isFavorite ? "#FFD700" : "#ccc")};
+  color: ${(props) => (props.isBookmarked ? "#FFD700" : "#ccc")};
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: grab;
 `;
