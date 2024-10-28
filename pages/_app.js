@@ -15,6 +15,14 @@ export default function App({ Component, pageProps }) {
     }
   );
 
+  function handleToggleBookmark(id) {
+    setMyBookmarkedEmotions((prevBookmarks) =>
+      prevBookmarks.includes(id)
+        ? prevBookmarks.filter((bookmarkId) => bookmarkId !== id)
+        : [...prevBookmarks, id]
+    );
+  }
+
   function handleCreateEmotion(newEmotion) {
     setObjects((prevObjects) => [
       { id: uuidv4(), ...newEmotion },
