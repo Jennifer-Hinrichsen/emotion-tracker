@@ -53,6 +53,8 @@ export default function App({ Component, pageProps }) {
         onCreateEmotion={handleCreateEmotion}
         onDeleteEmotion={handleDeleteEmotion}
         onUpdateEmotion={handleUpdateEmotion}
+        myBookmarkedEmotions={myBookmarkedEmotions}
+        onToggleBookmark={handleToggleBookmark}
         {...pageProps}
       />
     </>
