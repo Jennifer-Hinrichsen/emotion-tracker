@@ -60,8 +60,8 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
         >
           <option value="">---Choose an emotion---</option>
           {emotions.map((emotion) => (
-            <option key={emotion} value={emotion}>
-              {emotion}
+            <option key={emotion.id} value={emotion.emotionType}>
+              {emotion.emotionType}
             </option>
           ))}
         </select>

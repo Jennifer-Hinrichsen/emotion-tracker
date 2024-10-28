@@ -16,14 +16,18 @@ export default function EmotionList({ objects }) {
       <StyledHeadline>Filter emotion type</StyledHeadline>
       <ul>
         {emotions.map((emotion) => (
-          <StyledFilterList key={emotion}>
+          <StyledFilterList key={emotion.id}>
             <StyledFilterButtons
               onClick={() =>
-                setSelectedFilter(emotion === selectedFilter ? "" : emotion)
+                setSelectedFilter(
+                  emotion.emotionType === selectedFilter
+                    ? ""
+                    : emotion.emotionType
+                )
               }
-              $isSelected={emotion === selectedFilter}
+              $isSelected={emotion.emotionType === selectedFilter}
             >
-              {emotion}
+              {emotion.emotionType}
             </StyledFilterButtons>
           </StyledFilterList>
         ))}
