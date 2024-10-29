@@ -4,7 +4,12 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function EmotionDetails({ object, onDeleteEmotion }) {
+export default function EmotionDetails({
+  object,
+  onDeleteEmotion,
+  myBookmarkedEmotions,
+  onToggleBookmark,
+}) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   function toggleDeleteDialog() {
@@ -22,7 +27,11 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
       <StyledBackLink aria-label="navigate-home" href="/">
         ←
       </StyledBackLink>
-      <EmotionCard object={object} />
+      <EmotionCard
+        object={object}
+        onToggleBookmark={onToggleBookmark}
+        isBookmarked={myBookmarkedEmotions.includes(object.id)}
+      />
       <StyledEditLink href={`/emotion/${object.id}/edit`}>Edit</StyledEditLink>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
