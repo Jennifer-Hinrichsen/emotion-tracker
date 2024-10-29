@@ -9,10 +9,7 @@ export default function App({ Component, pageProps }) {
   const [objects, setObjects] = useLocalStorageState("objects", {
     defaultValue: initialObjects,
   });
-  const [toast, setToast] = useState({
-    message: "",
-    visible: false,
-  });
+  const [toasts, setToasts] = useState([]);
 
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   useEffect(() => {
@@ -22,17 +19,29 @@ export default function App({ Component, pageProps }) {
   function showToastMessage(message) {
     if (isInitialLoad) return;
 
-    // Wrap the message in <strong> to make it bold
-    const boldMessage = <strong>{message}</strong>;
+    const newToast = {
+      message: <strong>{message}</strong>,
+      id: uuidv4(),
+      visible: "enter",
+    };
 
-    setToast({ message: boldMessage, visible: "enter" });
+    setToasts((prevToasts) => {
+      const updatedToasts = [...prevToasts, newToast];
+      return updatedToasts.length > 3 ? updatedToasts.slice(1) : updatedToasts;
+    });
 
     setTimeout(() => {
-      setToast((prev) => ({ ...prev, visible: "exit" }));
+      setToasts((prevToasts) =>
+        prevToasts.map((toast) =>
+          toast.id === newToast.id ? { ...toast, visible: "exit" } : toast
+        )
+      );
     }, 3000);
 
     setTimeout(() => {
-      setToast({ message: "", visible: false });
+      setToasts((prevToasts) =>
+        prevToasts.filter((toast) => toast.id !== newToast.id)
+      );
     }, 3300);
   }
 
@@ -57,7 +66,7 @@ export default function App({ Component, pageProps }) {
       (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
     );
     setObjects(sortedObjects);
-    showToastMessage("✅ Successfully edited!");
+    showToastMessage("Successfully edited!");
   }
 
   return (
@@ -70,9 +79,13 @@ export default function App({ Component, pageProps }) {
         onUpdateEmotion={handleUpdateEmotion}
         {...pageProps}
       />
-      {toast.visible && (
-        <ToastMessage message={toast.message} visible={toast.visible} />
-      )}
+      {toasts.map((toast) => (
+        <ToastMessage
+          key={toast.id}
+          message={toast.message}
+          visible={toast.visible}
+        />
+      ))}
     </>
   );
 }
