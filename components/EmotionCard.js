@@ -23,6 +23,7 @@ export default function EmotionCard({
 }
 
 const StyledEmotionCard = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: left;
