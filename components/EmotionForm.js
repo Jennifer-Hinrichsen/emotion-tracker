@@ -1,6 +1,8 @@
 import { emotionList } from "@/lib/emotionList";
 import { useState } from "react";
 import styled from "styled-components";
+import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
+import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 
 export default function EmotionForm({ onSubmit, defaultValue }) {
   const currentDateTime = new Date(
@@ -9,12 +11,15 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     .toISOString()
     .slice(0, 16);
 
+  const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
   );
-  const [formVisibility, setFormVisibility] = useState(false);
+  // const [selectedEmotionType, setSelectedEmotionType] = useState(
+  //   defaultValue?.emotionType || "teststring"
+  // );
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
@@ -39,6 +44,7 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     }
 
     onSubmit(inputData);
+    event.target.reset();
 
     setFormError("");
     setSuccessMessage("Emotion successfully added!");
@@ -53,11 +59,16 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
       <StyledFormContainer>
         <StyledFormHead>
           <StyledSubheadline>
-            {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
+            {defaultValue ? "Update your Emotion" : "Add your Emotion"}
           </StyledSubheadline>
-          <StyledVisibilityIcons
-            onClick={toggleVisibilityForm}
-          ></StyledVisibilityIcons>
+          {!defaultValue && (
+            <StyledVisibilityIcons
+              onClick={toggleVisibilityForm}
+              aria-label="show-hide-form"
+            >
+              {formVisibility ? <MinusIcon /> : <PlusIcon />}
+            </StyledVisibilityIcons>
+          )}
         </StyledFormHead>
 
         {formVisibility && (
@@ -68,8 +79,12 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
                 defaultValue={defaultValue?.emotionType || ""}
                 id="emotionType"
                 name="emotionType"
+                // value={selectedEmotionType}
+                // onChange={(event) => {
+                //   setSelectedEmotionType(event.target.value);
+                // }}
               >
-                <option value="">---Choose an emotion---</option>
+                <option value="">---Choose an Emotion---</option>
                 {emotionList.map((emotion) => (
                   <option key={emotion.emotionType} value={emotion.emotionType}>
                     {emotion.emotionType}
@@ -84,10 +99,10 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
               <StyledSlider
                 id="intensity"
                 name="intensity"
-                value={selectedIntensity}
-                onChange={(event) => {
-                  setSelectedIntensity(event.target.value);
-                }}
+                // value={selectedIntensity}
+                // onChange={(event) => {
+                //   setSelectedIntensity(event.target.value);
+                // }}
                 type="range"
                 min="1"
                 max="10"
@@ -131,7 +146,6 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
 const StyledFormContainer = styled.div`
   width: 90%;
   margin: 0 auto;
-  padding: 10px 0 0 0;
   background-color: #e0e1f0;
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
@@ -140,18 +154,26 @@ const StyledFormContainer = styled.div`
 
 const StyledFormHead = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 `;
 
 const StyledSubheadline = styled.h2`
   margin: 0;
   padding: 10px 0;
   color: #313366;
+  text-align: center;
 `;
 
 const StyledVisibilityIcons = styled.button`
   border-radius: 50px;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
+  border: solid 1px #313366;
+  position: absolute;
+  left: calc(50% + 120px);
 `;
 
 const StyledEmotionForm = styled.form`
