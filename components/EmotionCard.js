@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
 
-export default function EmotionCard({ object }) {
+export default function EmotionCard({ emotion }) {
   return (
     <StyledEmotionCard>
-      <h2>{object.emotion}</h2>
-      <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
-      <p>Intensity: {object.intensity}</p>
-      <p>Notes: {object.notes}</p>
-      <StyledDateTime>{object.dateTime}</StyledDateTime>
+      <h2>{emotion.emotionType}</h2>
+      <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
+      <p>Intensity: {emotion.intensity}</p>
+      <p>Notes: {emotion.notes}</p>
+      <StyledDateTime>{emotion.dateTime}</StyledDateTime>
     </StyledEmotionCard>
   );
 }
