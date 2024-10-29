@@ -55,7 +55,9 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
           <StyledSubheadline>
             {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
           </StyledSubheadline>
-          <button onClick={toggleVisibilityForm}></button>
+          <StyledVisibilityIcons
+            onClick={toggleVisibilityForm}
+          ></StyledVisibilityIcons>
         </StyledFormHead>
 
         {formVisibility && (
@@ -143,8 +145,13 @@ const StyledFormHead = styled.div`
 const StyledSubheadline = styled.h2`
   margin: 0;
   padding: 10px 0;
-  text-align: center;
   color: #313366;
+`;
+
+const StyledVisibilityIcons = styled.button`
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
 `;
 
 const StyledEmotionForm = styled.form`
