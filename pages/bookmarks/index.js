@@ -1,4 +1,5 @@
 import EmotionCard from "@/components/EmotionCard";
+import Heading from "@/components/Heading";
 
 export default function BookmarksPage({
   objects,
@@ -11,7 +12,7 @@ export default function BookmarksPage({
 
   return (
     <>
-      <h1>My Emotions</h1>
+      <Heading>My Emotions</Heading>
       {bookmarkedObjects.length > 0 ? (
         bookmarkedObjects.map((object) => (
           <EmotionCard
