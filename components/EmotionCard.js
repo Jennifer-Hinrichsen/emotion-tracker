@@ -4,8 +4,8 @@ import { emotionsIcons } from "./EmotionIcons";
 export default function EmotionCard({ object }) {
   return (
     <StyledEmotionCard>
-      <h2>{object.emotion}</h2>
-      <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
+      <h2>{object.emotionType}</h2>
+      <StyledEmojiIcon>{emotionsIcons[object.emotionType]}</StyledEmojiIcon>
       <p>Intensity: {object.intensity}</p>
       <p>Notes: {object.notes}</p>
       <StyledDateTime>{object.dateTime}</StyledDateTime>

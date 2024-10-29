@@ -20,7 +20,8 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    if (!data.emotion) {
+    if (!data.emotionType) {
+      console.log("data:", data);
       setFormError("Please choose an emotion.");
       setSuccessMessage("");
       return;
@@ -49,12 +50,12 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
           {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
         </StyledSubheadline>
         <StyledEmotionForm onSubmit={handleSubmit}>
-          <label htmlFor="emotion">Emotion (type)*</label>
+          <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              defaultValue={defaultValue?.emotion || ""}
-              id="emotion"
-              name="emotion"
+              defaultValue={defaultValue?.emotionType || ""}
+              id="emotionType"
+              name="emotionType"
             >
               <option value="">---Choose an emotion---</option>
               {emotions.map((emotion) => (

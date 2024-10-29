@@ -8,7 +8,7 @@ export default function EmotionList({ objects }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
   const filteredObjects = selectedFilter
-    ? objects.filter((object) => object.emotion === selectedFilter)
+    ? objects.filter((object) => object.emotionType === selectedFilter)
     : objects;
 
   return (
