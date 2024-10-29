@@ -22,7 +22,10 @@ export default function App({ Component, pageProps }) {
   function showToastMessage(message) {
     if (isInitialLoad) return;
 
-    setToast({ message, visible: "enter" });
+    // Wrap the message in <strong> to make it bold
+    const boldMessage = <strong>{message}</strong>;
+
+    setToast({ message: boldMessage, visible: "enter" });
 
     setTimeout(() => {
       setToast((prev) => ({ ...prev, visible: "exit" }));
@@ -38,7 +41,7 @@ export default function App({ Component, pageProps }) {
       { id: uuidv4(), ...newEmotion },
       ...prevObjects,
     ]);
-    showToastMessage("Your Emotion is successfully added!");
+    showToastMessage("Successfully added!");
   }
   function handleDeleteEmotion(id) {
     setObjects((prevObjects) =>
@@ -54,7 +57,7 @@ export default function App({ Component, pageProps }) {
       (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
     );
     setObjects(sortedObjects);
-    showToastMessage("Your Emotion is successfully edited!");
+    showToastMessage("✅ Successfully edited!");
   }
 
   return (

@@ -24,12 +24,12 @@ const slideOut = keyframes`
 
 const ToastWrapper = styled.div`
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 0px;
   padding: 10px 20px;
-  background: linear-gradient(to right, #5cb85c, #f6f4f3);
+  background: linear-gradient(to left, #5cb85c, #f6f4f3);
   color: #2b532b;
-  border-radius: 4px;
+  border-radius: 10px 0 0 10px;
   animation: ${({ visible }) => (visible === "enter" ? slideIn : slideOut)} 0.3s
     ease forwards;
   transition: opacity 0.3s ease;
