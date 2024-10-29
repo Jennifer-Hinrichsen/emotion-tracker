@@ -2,20 +2,20 @@ import styled from "styled-components";
 import Link from "next/link";
 import EmotionCard from "./EmotionCard";
 import { useState } from "react";
-import { emotions } from "@/lib/emotions";
+import { emotionList } from "@/lib/emotionList";
 
-export default function EmotionList({ objects }) {
+export default function EmotionList({ emotions }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
-  const filteredObjects = selectedFilter
-    ? objects.filter((object) => object.emotionType === selectedFilter)
-    : objects;
+  const filteredEmotions = selectedFilter
+    ? emotions.filter((emotion) => emotion.emotionType === selectedFilter)
+    : emotions;
 
   return (
     <>
       <StyledHeadline>Filter emotion type</StyledHeadline>
       <ul>
-        {emotions.map((emotion) => (
+        {emotionList.map((emotion) => (
           <StyledFilterList key={emotion.id}>
             <StyledFilterButtons
               onClick={() =>
@@ -33,17 +33,17 @@ export default function EmotionList({ objects }) {
         ))}
       </ul>
 
-      {filteredObjects.length === 0 ? (
+      {filteredEmotions.length === 0 ? (
         <StyledMessage>
           At the moment there are no emotions in the list. Please add an
           emotion.
         </StyledMessage>
       ) : (
         <ul>
-          {filteredObjects.map((object) => (
-            <StyledCardList key={object.id}>
-              <StyledLink StyledLink href={`emotion/${object.id}`}>
-                <EmotionCard object={object} />
+          {filteredEmotions.map((emotion) => (
+            <StyledCardList key={emotion.id}>
+              <StyledLink StyledLink href={`emotion/${emotion.id}`}>
+                <EmotionCard emotion={emotion} />
               </StyledLink>
             </StyledCardList>
           ))}

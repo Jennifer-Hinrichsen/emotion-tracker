@@ -1,17 +1,17 @@
 import EmotionDetails from "@/components/EmotionDetails";
 import { useRouter } from "next/router";
 
-export default function EmotionDetailPage({ objects, onDeleteEmotion }) {
+export default function EmotionDetailPage({ emotions, onDeleteEmotion }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const emotionObject = objects?.find((object) => object.id === id);
+  const selectedEmotion = emotions?.find((emotion) => emotion.id === id);
 
   if (!id) {
     return <p>Loading...</p>;
   }
 
-  if (!emotionObject) {
+  if (!selectedEmotion) {
     return <p>No emotion found.</p>;
   }
   function handleDelete() {
@@ -20,6 +20,6 @@ export default function EmotionDetailPage({ objects, onDeleteEmotion }) {
   }
 
   return (
-    <EmotionDetails object={emotionObject} onDeleteEmotion={handleDelete} />
+    <EmotionDetails emotion={selectedEmotion} onDeleteEmotion={handleDelete} />
   );
 }

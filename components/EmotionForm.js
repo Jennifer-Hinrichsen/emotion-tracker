@@ -1,4 +1,4 @@
-import { emotions } from "@/lib/emotions";
+import { emotionList } from "@/lib/emotionList";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -18,22 +18,21 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+    const inputData = Object.fromEntries(formData);
 
-    if (!data.emotionType) {
-      console.log("data:", data);
+    if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");
       setSuccessMessage("");
       return;
     }
 
-    if (!data.dateTime) {
+    if (!inputData.dateTime) {
       setFormError("Please select a date and time.");
       setSuccessMessage("");
       return;
     }
 
-    onSubmit(data);
+    onSubmit(inputData);
 
     setFormError("");
     setSuccessMessage("Emotion successfully added!");
@@ -58,7 +57,7 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
               name="emotionType"
             >
               <option value="">---Choose an emotion---</option>
-              {emotions.map((emotion) => (
+              {emotionList.map((emotion) => (
                 <option key={emotion.emotionType} value={emotion.emotionType}>
                   {emotion.emotionType}
                 </option>

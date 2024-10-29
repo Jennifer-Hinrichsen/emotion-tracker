@@ -9,32 +9,32 @@ export default function App({ Component, pageProps }) {
   });
 
   function handleCreateEmotion(newEmotion) {
-    setEmotions((prevObjects) => [
+    setEmotions((prevEmotions) => [
       { id: uuidv4(), ...newEmotion },
-      ...prevObjects,
+      ...prevEmotions,
     ]);
   }
   function handleDeleteEmotion(id) {
-    setEmotions((prevObjects) =>
-      prevObjects.filter((object) => object.id !== id)
+    setEmotions((prevEmotions) =>
+      prevEmotions.filter((emotion) => emotion.id !== id)
     );
   }
 
   function handleUpdateEmotion(updatedEmotion) {
-    const updatedObjects = emotions.map((object) =>
-      object.id === updatedEmotion.id ? updatedEmotion : object
+    const updatedEmotions = emotions.map((emotion) =>
+      emotion.id === updatedEmotion.id ? updatedEmotion : emotion
     );
-    const sortedObjects = updatedObjects.sort(
+    const sortedEmotions = updatedEmotions.sort(
       (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
     );
-    setEmotions(sortedObjects);
+    setEmotions(sortedEmotions);
   }
 
   return (
     <>
       <GlobalStyle />
       <Component
-        objects={emotions}
+        emotions={emotions}
         onCreateEmotion={handleCreateEmotion}
         onDeleteEmotion={handleDeleteEmotion}
         onUpdateEmotion={handleUpdateEmotion}

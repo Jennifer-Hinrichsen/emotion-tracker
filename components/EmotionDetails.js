@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function EmotionDetails({ object, onDeleteEmotion }) {
+export default function EmotionDetails({ emotion, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   function toggleDeleteDialog() {
@@ -12,7 +12,7 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
   }
 
   function handleDelete() {
-    onDeleteEmotion(object.id);
+    onDeleteEmotion(emotion.id);
     toggleDeleteDialog();
   }
 
@@ -22,8 +22,8 @@ export default function EmotionDetails({ object, onDeleteEmotion }) {
       <StyledBackLink aria-label="navigate-home" href="/">
         ←
       </StyledBackLink>
-      <EmotionCard object={object} />
-      <StyledEditLink href={`/emotion/${object.id}/edit`}>Edit</StyledEditLink>
+      <EmotionCard emotion={emotion} />
+      <StyledEditLink href={`/emotion/${emotion.id}/edit`}>Edit</StyledEditLink>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
