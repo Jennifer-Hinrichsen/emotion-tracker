@@ -14,6 +14,12 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
   );
+  const [formVisibility, setFormVisibility] = useState(false);
+
+  function toggleVisibilityForm() {
+    setFormVisibility(!formVisibility);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -45,70 +51,76 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
   return (
     <>
       <StyledFormContainer>
-        <StyledSubheadline>
-          {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
-        </StyledSubheadline>
-        <StyledEmotionForm onSubmit={handleSubmit}>
-          <label htmlFor="emotionType">Emotion (type)*</label>
-          <SelectEmotionContainer>
-            <StyledSelectEmotion
-              defaultValue={defaultValue?.emotionType || ""}
-              id="emotionType"
-              name="emotionType"
-            >
-              <option value="">---Choose an emotion---</option>
-              {emotionList.map((emotion) => (
-                <option key={emotion.emotionType} value={emotion.emotionType}>
-                  {emotion.emotionType}
-                </option>
-              ))}
-            </StyledSelectEmotion>
-            <StyledArrow>▼</StyledArrow>
-          </SelectEmotionContainer>
+        <StyledFormHead>
+          <StyledSubheadline>
+            {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
+          </StyledSubheadline>
+          <button onClick={toggleVisibilityForm}></button>
+        </StyledFormHead>
 
-          <label htmlFor="intensity">Emotion intensity*</label>
-          <StyledSliderContainer>
-            <StyledSlider
-              id="intensity"
-              name="intensity"
-              value={selectedIntensity}
-              onChange={(event) => {
-                setSelectedIntensity(event.target.value);
-              }}
-              type="range"
-              min="1"
-              max="10"
-              step="1"
+        {formVisibility && (
+          <StyledEmotionForm onSubmit={handleSubmit}>
+            <label htmlFor="emotionType">Emotion (type)*</label>
+            <SelectEmotionContainer>
+              <StyledSelectEmotion
+                defaultValue={defaultValue?.emotionType || ""}
+                id="emotionType"
+                name="emotionType"
+              >
+                <option value="">---Choose an emotion---</option>
+                {emotionList.map((emotion) => (
+                  <option key={emotion.emotionType} value={emotion.emotionType}>
+                    {emotion.emotionType}
+                  </option>
+                ))}
+              </StyledSelectEmotion>
+              <StyledArrow>▼</StyledArrow>
+            </SelectEmotionContainer>
+
+            <label htmlFor="intensity">Emotion intensity*</label>
+            <StyledSliderContainer>
+              <StyledSlider
+                id="intensity"
+                name="intensity"
+                value={selectedIntensity}
+                onChange={(event) => {
+                  setSelectedIntensity(event.target.value);
+                }}
+                type="range"
+                min="1"
+                max="10"
+                step="1"
+              />
+
+              <p>{selectedIntensity}</p>
+            </StyledSliderContainer>
+
+            <label htmlFor="date-time">Date and Time*</label>
+            <StyledDateAndTimeInput
+              id="date-time"
+              name="dateTime"
+              type="datetime-local"
+              defaultValue={defaultValue?.dateTime || currentDateTime}
             />
 
-            <p>{selectedIntensity}</p>
-          </StyledSliderContainer>
+            <label htmlFor="notes">Notes</label>
+            <StyledTextArea
+              id="notes"
+              name="notes"
+              defaultValue={defaultValue?.notes || ""}
+              placeholder="Please describe your feelings"
+              maxLength="150"
+            ></StyledTextArea>
 
-          <label htmlFor="date-time">Date and Time*</label>
-          <StyledDateAndTimeInput
-            id="date-time"
-            name="dateTime"
-            type="datetime-local"
-            defaultValue={defaultValue?.dateTime || currentDateTime}
-          />
+            <StyledButton type="submit">
+              {defaultValue ? "Save" : "Submit"}
+            </StyledButton>
 
-          <label htmlFor="notes">Notes</label>
-          <StyledTextArea
-            id="notes"
-            name="notes"
-            defaultValue={defaultValue?.notes || ""}
-            placeholder="Please describe your feelings"
-            maxLength="150"
-          ></StyledTextArea>
+            {formError && <StyledError>{formError}</StyledError>}
 
-          <StyledButton type="submit">
-            {defaultValue ? "Save" : "Submit"}
-          </StyledButton>
-
-          {formError && <StyledError>{formError}</StyledError>}
-
-          {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
-        </StyledEmotionForm>
+            {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
+          </StyledEmotionForm>
+        )}
       </StyledFormContainer>
     </>
   );
@@ -122,6 +134,10 @@ const StyledFormContainer = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px #000;
+`;
+
+const StyledFormHead = styled.div`
+  display: flex;
 `;
 
 const StyledSubheadline = styled.h2`
