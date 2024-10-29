@@ -11,6 +11,10 @@ export default function EmotionList({ emotions }) {
     ? emotions.filter((emotion) => emotion.emotionType === selectedFilter)
     : emotions;
 
+  const sortedFilteredEmotions = filteredEmotions.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
   return (
     <>
       <StyledHeadline>Filter emotion type</StyledHeadline>
@@ -33,16 +37,16 @@ export default function EmotionList({ emotions }) {
         ))}
       </ul>
 
-      {filteredEmotions.length === 0 ? (
+      {sortedFilteredEmotions.length === 0 ? (
         <StyledMessage>
           At the moment there are no emotions in the list. Please add an
           emotion.
         </StyledMessage>
       ) : (
         <ul>
-          {filteredEmotions.map((emotion) => (
+          {sortedFilteredEmotions.map((emotion) => (
             <StyledCardList key={emotion.id}>
-              <StyledLink StyledLink href={`emotion/${emotion.id}`}>
+              <StyledLink href={`emotion/${emotion.id}`}>
                 <EmotionCard emotion={emotion} />
               </StyledLink>
             </StyledCardList>
