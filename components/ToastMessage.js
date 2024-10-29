@@ -34,8 +34,6 @@ const ToastWrapper = styled.div`
     ease forwards;
   transition: opacity 0.3s ease;
   z-index: 1000;
-  font-size: 16px;
-  margin-bottom: 10px;
 `;
 
 const ToastMessage = ({ message, visible }) => {
