@@ -36,11 +36,6 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     onSubmit(data);
 
     setFormError("");
-    setSuccessMessage("Emotion successfully added!");
-
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 5000);
   }
 
   return (
