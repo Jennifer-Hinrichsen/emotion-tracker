@@ -2,6 +2,7 @@ import GlobalStyle from "../styles";
 import { initialObjects } from "@/lib/initialObjects";
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "use-local-storage-state";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   const [objects, setObjects] = useLocalStorageState("objects", {
@@ -48,15 +49,17 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component
-        objects={objects}
-        onCreateEmotion={handleCreateEmotion}
-        onDeleteEmotion={handleDeleteEmotion}
-        onUpdateEmotion={handleUpdateEmotion}
-        myBookmarkedEmotions={myBookmarkedEmotions}
-        onToggleBookmark={handleToggleBookmark}
-        {...pageProps}
-      />
+      <Layout>
+        <Component
+          objects={objects}
+          onCreateEmotion={handleCreateEmotion}
+          onDeleteEmotion={handleDeleteEmotion}
+          onUpdateEmotion={handleUpdateEmotion}
+          myBookmarkedEmotions={myBookmarkedEmotions}
+          onToggleBookmark={handleToggleBookmark}
+          {...pageProps}
+        />
+      </Layout>
     </>
   );
 }
