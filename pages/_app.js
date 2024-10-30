@@ -1,12 +1,12 @@
 import GlobalStyle from "../styles";
-import { initialObjects } from "@/lib/initialObjects";
+import { initialEmotionEntries } from "@/lib/initialEmotionEntries";
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
-  const [objects, setObjects] = useLocalStorageState("objects", {
-    defaultValue: initialObjects,
+  const [emotions, setEmotions] = useLocalStorageState("emotions", {
+    defaultValue: initialEmotionEntries,
   });
 
   const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
@@ -25,33 +25,34 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleCreateEmotion(newEmotion) {
-    setObjects((prevObjects) => [
+    setEmotions((prevEmotions) => [
       { id: uuidv4(), ...newEmotion },
-      ...prevObjects,
+      ...prevEmotions,
     ]);
   }
   function handleDeleteEmotion(id) {
-    setObjects((prevObjects) =>
-      prevObjects.filter((object) => object.id !== id)
+    setEmotions((prevEmotions) =>
+      prevEmotions.filter((emotion) => emotion.id !== id)
     );
   }
 
   function handleUpdateEmotion(updatedEmotion) {
-    const updatedObjects = objects.map((object) =>
-      object.id === updatedEmotion.id ? updatedEmotion : object
+    const updatedEmotions = emotions.map((emotion) =>
+      emotion.id === updatedEmotion.id ? updatedEmotion : emotion
     );
-    const sortedObjects = updatedObjects.sort(
+    const sortedEmotions = updatedEmotions.sort(
       (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
     );
-    setObjects(sortedObjects);
+    setEmotions(sortedEmotions);
   }
 
   return (
     <>
       <GlobalStyle />
+
       <Layout>
         <Component
-          objects={objects}
+          emotions={emotions}
           onCreateEmotion={handleCreateEmotion}
           onDeleteEmotion={handleDeleteEmotion}
           onUpdateEmotion={handleUpdateEmotion}

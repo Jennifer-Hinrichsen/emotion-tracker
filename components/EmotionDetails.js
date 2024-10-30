@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function EmotionDetails({
-  object,
+  emotion,
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
@@ -17,7 +17,7 @@ export default function EmotionDetails({
   }
 
   function handleDelete() {
-    onDeleteEmotion(object.id);
+    onDeleteEmotion(emotion.id);
     toggleDeleteDialog();
   }
 
@@ -27,13 +27,15 @@ export default function EmotionDetails({
       <StyledBackLink aria-label="navigate-home" href="/">
         ←
       </StyledBackLink>
+
       <EmotionCard
-        object={object}
+        emotion={emotion}
         onToggleBookmark={onToggleBookmark}
-        isBookmarked={myBookmarkedEmotions.includes(object.id)}
+        isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
         isDetailsPage={true}
       />
-      <StyledEditLink href={`/emotion/${object.id}/edit`}>Edit</StyledEditLink>
+      <StyledEditLink href={`/emotion/${emotion.id}/edit`}>Edit</StyledEditLink>
+
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>

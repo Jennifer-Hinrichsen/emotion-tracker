@@ -4,7 +4,7 @@ import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 
 export default function EmotionCard({
-  object,
+  emotion,
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
@@ -13,22 +13,22 @@ export default function EmotionCard({
     <StyledCardWrapper>
       {isDetailsPage ? (
         <StyledEmotionCard>
-          <EmotionCardContent object={object} />
+          <EmotionCardContent emotion={emotion} />
           <BookmarkButton
             isBookmarked={isBookmarked}
-            onToggleBookmark={() => onToggleBookmark(object.id)}
+            onToggleBookmark={() => onToggleBookmark(emotion.id)}
           />
         </StyledEmotionCard>
       ) : (
         <>
-          <StyledLink key={object.id} href={`emotion/${object.id}`}>
+          <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
             <StyledEmotionCard>
-              <EmotionCardContent object={object} />
+              <EmotionCardContent emotion={emotion} />
             </StyledEmotionCard>
           </StyledLink>
           <BookmarkButton
             isBookmarked={isBookmarked}
-            onToggleBookmark={() => onToggleBookmark(object.id)}
+            onToggleBookmark={() => onToggleBookmark(emotion.id)}
           />
         </>
       )}

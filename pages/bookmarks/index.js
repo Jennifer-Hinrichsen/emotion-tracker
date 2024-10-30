@@ -2,22 +2,22 @@ import EmotionCard from "@/components/EmotionCard";
 import Heading from "@/components/Heading";
 
 export default function BookmarksPage({
-  objects,
+  emotions,
   myBookmarkedEmotions,
   onToggleBookmark,
 }) {
-  const bookmarkedObjects = objects.filter((object) =>
-    myBookmarkedEmotions.includes(object.id)
+  const bookmarkedEmotions = emotions.filter((emotion) =>
+    myBookmarkedEmotions.includes(emotion.id)
   );
 
   return (
     <>
       <Heading>My Emotions</Heading>
-      {bookmarkedObjects.length > 0 ? (
-        bookmarkedObjects.map((object) => (
+      {bookmarkedEmotions.length > 0 ? (
+        bookmarkedEmotions.map((emotion) => (
           <EmotionCard
-            key={object.id}
-            object={object}
+            key={emotion.id}
+            emotion={emotion}
             onToggleBookmark={onToggleBookmark}
             isBookmarked={true}
           />

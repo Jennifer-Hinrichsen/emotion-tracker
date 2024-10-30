@@ -5,13 +5,13 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export default function HomePage({
-  objects,
+  emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
 }) {
   return (
-    <div>
+    <>
       <Heading>Mood Wave</Heading>
       <ImageWrapper>
         <Image
@@ -21,13 +21,14 @@ export default function HomePage({
           height={50}
         />
       </ImageWrapper>
-      <EmotionForm objects={objects} onSubmit={onCreateEmotion} />
+
+      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
       <EmotionList
-        objects={objects}
+        emotions={emotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
       />
-    </div>
+    </>
   );
 }
 
