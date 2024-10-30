@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { emotionsIcons } from "./EmotionIcons";
+
 import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
+import EmotionCardContent from "./EmotionCardContent";
 
 export default function EmotionCard({
   object,
@@ -12,28 +13,18 @@ export default function EmotionCard({
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <>
-          <StyledEmotionCard>
-            <h2>{object.emotion}</h2>
-            <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
-            <p>Intensity: {object.intensity}</p>
-            <p>Notes: {object.notes}</p>
-            <StyledDateTime>{object.dateTime}</StyledDateTime>
-            <FavoriteButton
-              isBookmarked={isBookmarked}
-              onToggleBookmark={() => onToggleBookmark(object.id)}
-            />
-          </StyledEmotionCard>
-        </>
+        <StyledEmotionCard>
+          <EmotionCardContent object={object} />
+          <FavoriteButton
+            isBookmarked={isBookmarked}
+            onToggleBookmark={() => onToggleBookmark(object.id)}
+          />
+        </StyledEmotionCard>
       ) : (
         <>
           <StyledLink key={object.id} href={`emotion/${object.id}`}>
             <StyledEmotionCard>
-              <h2>{object.emotion}</h2>
-              <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
-              <p>Intensity: {object.intensity}</p>
-              <p>Notes: {object.notes}</p>
-              <StyledDateTime>{object.dateTime}</StyledDateTime>
+              <EmotionCardContent object={object} />
             </StyledEmotionCard>
           </StyledLink>
           <FavoriteButton
@@ -70,12 +61,4 @@ const StyledEmotionCard = styled.section`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
   word-break: break-word;
-`;
-const StyledEmojiIcon = styled.span`
-  align-self: flex-end;
-  width: 40px;
-  height: 40px;
-`;
-const StyledDateTime = styled.p`
-  align-self: flex-end;
 `;
