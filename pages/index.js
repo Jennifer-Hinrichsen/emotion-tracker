@@ -4,7 +4,7 @@ import EmotionList from "@/components/EmotionList";
 import Image from "next/image";
 import styled from "styled-components";
 
-export default function HomePage({ objects, onCreateEmotion }) {
+export default function HomePage({ emotions, onCreateEmotion }) {
   return (
     <div>
       <Heading>Mood Wave</Heading>
@@ -16,8 +16,8 @@ export default function HomePage({ objects, onCreateEmotion }) {
           height={50}
         />
       </ImageWrapper>
-      <EmotionForm objects={objects} onSubmit={onCreateEmotion} />
-      <EmotionList objects={objects} />
+      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+      <EmotionList emotions={emotions} />
     </div>
   );
 }

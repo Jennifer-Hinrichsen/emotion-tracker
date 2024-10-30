@@ -1,5 +1,4 @@
-import { emotions } from "@/lib/emotions";
-import Link from "next/link";
+import { emotionList } from "@/lib/emotionList";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -19,21 +18,21 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+    const inputData = Object.fromEntries(formData);
 
-    if (!data.emotion) {
+    if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");
       setSuccessMessage("");
       return;
     }
 
-    if (!data.dateTime) {
+    if (!inputData.dateTime) {
       setFormError("Please select a date and time.");
       setSuccessMessage("");
       return;
     }
 
-    onSubmit(data);
+    onSubmit(inputData);
 
     setFormError("");
   }
@@ -45,17 +44,17 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
           {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
         </StyledSubheadline>
         <StyledEmotionForm onSubmit={handleSubmit}>
-          <label htmlFor="emotion">Emotion (type)*</label>
+          <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              defaultValue={defaultValue?.emotion || ""}
-              id="emotion"
-              name="emotion"
+              defaultValue={defaultValue?.emotionType || ""}
+              id="emotionType"
+              name="emotionType"
             >
               <option value="">---Choose an emotion---</option>
-              {emotions.map((emotion, index) => (
-                <option key={index} value={emotion}>
-                  {emotion}
+              {emotionList.map((emotion) => (
+                <option key={emotion.emotionType} value={emotion.emotionType}>
+                  {emotion.emotionType}
                 </option>
               ))}
             </StyledSelectEmotion>
