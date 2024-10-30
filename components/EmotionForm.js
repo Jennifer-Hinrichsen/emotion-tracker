@@ -166,7 +166,7 @@ const StyledVisibilityIcons = styled.button`
 
 const StyledEmotionForm = styled.form`
   overflow: hidden;
-  max-height: ${(props) => (props.isVisible ? "550px" : "0")};
+  max-height: ${(props) => (props.isVisible ? "600px" : "0")};
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   transition: max-height 0.5s ease, opacity 0.5s ease;
   padding: 0 1rem;
@@ -240,7 +240,7 @@ const StyledTextArea = styled.textarea`
   border: none;
   border-bottom: 1px dotted #8295c6;
   background-color: transparent;
-  color: #313366;
+  color: #8295c6;
   font-size: 1rem;
   cursor: text;
 
