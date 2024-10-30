@@ -17,9 +17,6 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
   );
-  // const [selectedEmotionType, setSelectedEmotionType] = useState(
-  //   defaultValue?.emotionType || "teststring"
-  // );
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
@@ -57,87 +54,78 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
   return (
     <>
       <StyledFormContainer>
-        <StyledFormHead>
+        <StyledFormHead onClick={toggleVisibilityForm}>
           <StyledSubheadline>
             {defaultValue ? "Update your Emotion" : "Add your Emotion"}
           </StyledSubheadline>
           {!defaultValue && (
-            <StyledVisibilityIcons
-              onClick={toggleVisibilityForm}
-              aria-label="show-hide-form"
-            >
+            <StyledVisibilityIcons aria-label="show-hide-form">
               {formVisibility ? <MinusIcon /> : <PlusIcon />}
             </StyledVisibilityIcons>
           )}
         </StyledFormHead>
 
-        {formVisibility && (
-          <StyledEmotionForm onSubmit={handleSubmit}>
-            <label htmlFor="emotionType">Emotion (type)*</label>
-            <SelectEmotionContainer>
-              <StyledSelectEmotion
-                defaultValue={defaultValue?.emotionType || ""}
-                id="emotionType"
-                name="emotionType"
-                // value={selectedEmotionType}
-                // onChange={(event) => {
-                //   setSelectedEmotionType(event.target.value);
-                // }}
-              >
-                <option value="">---Choose an Emotion---</option>
-                {emotionList.map((emotion) => (
-                  <option key={emotion.emotionType} value={emotion.emotionType}>
-                    {emotion.emotionType}
-                  </option>
-                ))}
-              </StyledSelectEmotion>
-              <StyledArrow>▼</StyledArrow>
-            </SelectEmotionContainer>
+        <StyledEmotionForm isVisible={formVisibility} onSubmit={handleSubmit}>
+          <label htmlFor="emotionType">Emotion (type)*</label>
+          <SelectEmotionContainer>
+            <StyledSelectEmotion
+              defaultValue={defaultValue?.emotionType || ""}
+              id="emotionType"
+              name="emotionType"
+            >
+              <option value="">---Choose an Emotion---</option>
+              {emotionList.map((emotion) => (
+                <option key={emotion.emotionType} value={emotion.emotionType}>
+                  {emotion.emotionType}
+                </option>
+              ))}
+            </StyledSelectEmotion>
+            <StyledArrow>▼</StyledArrow>
+          </SelectEmotionContainer>
 
-            <label htmlFor="intensity">Emotion intensity*</label>
-            <StyledSliderContainer>
-              <StyledSlider
-                id="intensity"
-                name="intensity"
-                // value={selectedIntensity}
-                // onChange={(event) => {
-                //   setSelectedIntensity(event.target.value);
-                // }}
-                type="range"
-                min="1"
-                max="10"
-                step="1"
-              />
-
-              <p>{selectedIntensity}</p>
-            </StyledSliderContainer>
-
-            <label htmlFor="date-time">Date and Time*</label>
-            <StyledDateAndTimeInput
-              id="date-time"
-              name="dateTime"
-              type="datetime-local"
-              defaultValue={defaultValue?.dateTime || currentDateTime}
+          <label htmlFor="intensity">Emotion intensity*</label>
+          <StyledSliderContainer>
+            <StyledSlider
+              id="intensity"
+              name="intensity"
+              value={selectedIntensity}
+              onChange={(event) => {
+                setSelectedIntensity(event.target.value);
+              }}
+              type="range"
+              min="1"
+              max="10"
+              step="1"
             />
 
-            <label htmlFor="notes">Notes</label>
-            <StyledTextArea
-              id="notes"
-              name="notes"
-              defaultValue={defaultValue?.notes || ""}
-              placeholder="Please describe your feelings"
-              maxLength="150"
-            ></StyledTextArea>
+            <p>{selectedIntensity}</p>
+          </StyledSliderContainer>
 
-            <StyledButton type="submit">
-              {defaultValue ? "Save" : "Submit"}
-            </StyledButton>
+          <label htmlFor="date-time">Date and Time*</label>
+          <StyledDateAndTimeInput
+            id="date-time"
+            name="dateTime"
+            type="datetime-local"
+            defaultValue={defaultValue?.dateTime || currentDateTime}
+          />
 
-            {formError && <StyledError>{formError}</StyledError>}
+          <label htmlFor="notes">Notes</label>
+          <StyledTextArea
+            id="notes"
+            name="notes"
+            defaultValue={defaultValue?.notes || ""}
+            placeholder="Please describe your feelings"
+            maxLength="150"
+          ></StyledTextArea>
 
-            {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
-          </StyledEmotionForm>
-        )}
+          <StyledButton type="submit">
+            {defaultValue ? "Save" : "Submit"}
+          </StyledButton>
+
+          {formError && <StyledError>{formError}</StyledError>}
+
+          {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
+        </StyledEmotionForm>
       </StyledFormContainer>
     </>
   );
@@ -177,8 +165,11 @@ const StyledVisibilityIcons = styled.button`
 `;
 
 const StyledEmotionForm = styled.form`
-  margin: 0;
-  padding: 1rem;
+  overflow: hidden;
+  max-height: ${(props) => (props.isVisible ? "550px" : "0")};
+  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  padding: 0 1rem;
   background-color: #f9f9f9;
   border-radius: 0.5rem;
   display: flex;
