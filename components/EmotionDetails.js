@@ -31,6 +31,7 @@ export default function EmotionDetails({
         object={object}
         onToggleBookmark={onToggleBookmark}
         isBookmarked={myBookmarkedEmotions.includes(object.id)}
+        isDetailsPage={true}
       />
       <StyledEditLink href={`/emotion/${object.id}/edit`}>Edit</StyledEditLink>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>

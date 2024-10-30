@@ -7,22 +7,41 @@ export default function EmotionCard({
   object,
   onToggleBookmark,
   isBookmarked,
+  isDetailsPage = false,
 }) {
   return (
     <StyledCardWrapper>
-      <StyledLink key={object.id} href={`emotion/${object.id}`}>
-        <StyledEmotionCard>
-          <h2>{object.emotion}</h2>
-          <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
-          <p>Intensity: {object.intensity}</p>
-          <p>Notes: {object.notes}</p>
-          <StyledDateTime>{object.dateTime}</StyledDateTime>
-        </StyledEmotionCard>
-      </StyledLink>
-      <FavoriteButton
-        isBookmarked={isBookmarked}
-        onToggleBookmark={() => onToggleBookmark(object.id)}
-      />
+      {isDetailsPage ? (
+        <>
+          <StyledEmotionCard>
+            <h2>{object.emotion}</h2>
+            <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
+            <p>Intensity: {object.intensity}</p>
+            <p>Notes: {object.notes}</p>
+            <StyledDateTime>{object.dateTime}</StyledDateTime>
+            <FavoriteButton
+              isBookmarked={isBookmarked}
+              onToggleBookmark={() => onToggleBookmark(object.id)}
+            />
+          </StyledEmotionCard>
+        </>
+      ) : (
+        <>
+          <StyledLink key={object.id} href={`emotion/${object.id}`}>
+            <StyledEmotionCard>
+              <h2>{object.emotion}</h2>
+              <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
+              <p>Intensity: {object.intensity}</p>
+              <p>Notes: {object.notes}</p>
+              <StyledDateTime>{object.dateTime}</StyledDateTime>
+            </StyledEmotionCard>
+          </StyledLink>
+          <FavoriteButton
+            isBookmarked={isBookmarked}
+            onToggleBookmark={() => onToggleBookmark(object.id)}
+          />
+        </>
+      )}
     </StyledCardWrapper>
   );
 }
