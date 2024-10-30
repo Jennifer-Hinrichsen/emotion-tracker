@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import BookmarkPinIcon from "assets/bookmarkicons/BookmarkPinIcon.svg";
 
-export default function FavoriteButton({ isBookmarked, onToggleBookmark }) {
+export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
   return (
     <>
-      <StyledButton onClick={onToggleBookmark} aria-label="Toggle favorite">
+      <StyledButton onClick={onToggleBookmark} aria-label="Toggle Bookmark">
         <StyledBookmarkPinIcon isBookmarked={isBookmarked} />
       </StyledButton>
     </>

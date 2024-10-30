@@ -1,6 +1,5 @@
 import styled from "styled-components";
-
-import FavoriteButton from "./FavoriteButton";
+import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 
@@ -15,7 +14,7 @@ export default function EmotionCard({
       {isDetailsPage ? (
         <StyledEmotionCard>
           <EmotionCardContent object={object} />
-          <FavoriteButton
+          <BookmarkButton
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(object.id)}
           />
@@ -27,7 +26,7 @@ export default function EmotionCard({
               <EmotionCardContent object={object} />
             </StyledEmotionCard>
           </StyledLink>
-          <FavoriteButton
+          <BookmarkButton
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(object.id)}
           />
