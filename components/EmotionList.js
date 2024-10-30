@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
 import EmotionCard from "./EmotionCard";
 
 export default function EmotionList({
@@ -16,15 +15,13 @@ export default function EmotionList({
         </StyledMessage>
       ) : (
         objects.map((object) => (
-          <StyledLink key={object.id} href={`emotion/${object.id}`}>
-            <li>
-              <EmotionCard
-                object={object}
-                onToggleBookmark={onToggleBookmark}
-                isBookmarked={myBookmarkedEmotions.includes(object.id)}
-              />
-            </li>
-          </StyledLink>
+          <li key={object.id}>
+            <EmotionCard
+              object={object}
+              onToggleBookmark={onToggleBookmark}
+              isBookmarked={myBookmarkedEmotions.includes(object.id)}
+            />
+          </li>
         ))
       )}
     </StyledEmotionList>
@@ -40,12 +37,4 @@ const StyledMessage = styled.p`
   color: #777;
   font-size: 1.1rem;
   padding: 24px 16px;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #000;
-  &:visited {
-    color: inherit;
-  }
 `;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
 import FavoriteButton from "./FavoriteButton";
+import Link from "next/link";
 
 export default function EmotionCard({
   object,
@@ -8,19 +9,35 @@ export default function EmotionCard({
   isBookmarked,
 }) {
   return (
-    <StyledEmotionCard>
-      <h2>{object.emotion}</h2>
-      <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
-      <p>Intensity: {object.intensity}</p>
-      <p>Notes: {object.notes}</p>
-      <StyledDateTime>{object.dateTime}</StyledDateTime>
+    <StyledCardWrapper>
+      <StyledLink key={object.id} href={`emotion/${object.id}`}>
+        <StyledEmotionCard>
+          <h2>{object.emotion}</h2>
+          <StyledEmojiIcon>{emotionsIcons[object.emotion]}</StyledEmojiIcon>
+          <p>Intensity: {object.intensity}</p>
+          <p>Notes: {object.notes}</p>
+          <StyledDateTime>{object.dateTime}</StyledDateTime>
+        </StyledEmotionCard>
+      </StyledLink>
       <FavoriteButton
         isBookmarked={isBookmarked}
         onToggleBookmark={() => onToggleBookmark(object.id)}
       />
-    </StyledEmotionCard>
+    </StyledCardWrapper>
   );
 }
+
+const StyledCardWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  &:visited {
+    color: inherit;
+  }
+`;
 
 const StyledEmotionCard = styled.section`
   position: relative;
