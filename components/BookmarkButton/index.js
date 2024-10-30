@@ -5,7 +5,7 @@ export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
   return (
     <>
       <StyledButton onClick={onToggleBookmark} aria-label="Toggle Bookmark">
-        <StyledBookmarkPinIcon isBookmarked={isBookmarked} />
+        <StyledBookmarkPinIcon $isBookmarked={isBookmarked} />
       </StyledButton>
     </>
   );
@@ -32,5 +32,5 @@ const StyledButton = styled.button`
 `;
 
 const StyledBookmarkPinIcon = styled(BookmarkPinIcon)`
-  color: ${(props) => (props.isBookmarked ? "#20B2AA" : "#000")};
+  color: ${(props) => (props.$isBookmarked ? "#20B2AA" : "#000")};
 `;
