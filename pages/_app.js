@@ -9,10 +9,15 @@ export default function App({ Component, pageProps }) {
   });
 
   function handleCreateEmotion(newEmotion) {
-    setEmotions((prevEmotions) => [
-      { id: uuidv4(), ...newEmotion },
-      ...prevEmotions,
-    ]);
+    setEmotions((prevEmotions) => {
+      const updatedEmotions = [
+        { id: uuidv4(), ...newEmotion },
+        ...prevEmotions,
+      ];
+      return updatedEmotions.sort(
+        (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
+      );
+    });
   }
   function handleDeleteEmotion(id) {
     setEmotions((prevEmotions) =>

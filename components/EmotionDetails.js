@@ -3,7 +3,6 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
-import formatDate from "./TransformDateTime";
 
 export default function EmotionDetails({ emotion, onDeleteEmotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
