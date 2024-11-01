@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
+import formatDate from "./TransformDateTime";
 
 export default function EmotionCard({ emotion }) {
   return (
@@ -8,7 +9,7 @@ export default function EmotionCard({ emotion }) {
       <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
       <p>Intensity: {emotion.intensity}</p>
       <p>Notes: {emotion.notes}</p>
-      <StyledDateTime>{emotion.dateTime}</StyledDateTime>
+      <StyledDateTime>{formatDate(emotion.dateTime)}</StyledDateTime>
     </StyledEmotionCard>
   );
 }
