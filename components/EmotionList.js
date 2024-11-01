@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import Link from "next/link";
 import EmotionCard from "./EmotionCard";
 import { useState } from "react";
 import { emotionList } from "@/lib/emotionList";
 
-export default function EmotionList({ emotions }) {
+export default function EmotionList({
+  emotions,
+  onToggleBookmark,
+  myBookmarkedEmotions,
+}) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
   const filteredEmotions = selectedFilter
@@ -42,9 +45,11 @@ export default function EmotionList({ emotions }) {
         <ul>
           {filteredEmotions.map((emotion) => (
             <StyledCardList key={emotion.id}>
-              <StyledLink href={`emotion/${emotion.id}`}>
-                <EmotionCard emotion={emotion} />
-              </StyledLink>
+              <EmotionCard
+                emotion={emotion}
+                onToggleBookmark={onToggleBookmark}
+                isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
+              />
             </StyledCardList>
           ))}
         </ul>
@@ -82,12 +87,4 @@ const StyledMessage = styled.p`
 
 const StyledCardList = styled.li`
   list-style-type: none;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #000;
-  &:visited {
-    color: inherit;
-  }
 `;

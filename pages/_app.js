@@ -2,6 +2,9 @@ import GlobalStyle from "../styles";
 import { initialEmotionEntries } from "@/lib/initialEmotionEntries";
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "use-local-storage-state";
+
+import Layout from "@/components/Layout";
+
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
 
@@ -45,6 +48,21 @@ export default function App({ Component, pageProps }) {
     }, 3300);
   }
 
+  const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
+    "myBookmarkedEmotions",
+    {
+      defaultValue: [""],
+    }
+  );
+
+  function handleToggleBookmark(id) {
+    setMyBookmarkedEmotions((prevBookmarks) =>
+      prevBookmarks.includes(id)
+        ? prevBookmarks.filter((bookmarkId) => bookmarkId !== id)
+        : [...prevBookmarks, id]
+    );
+  }
+
   function handleCreateEmotion(newEmotion) {
     setEmotions((prevEmotions) =>
       [{ id: uuidv4(), ...newEmotion }, ...prevEmotions].sort(
@@ -73,20 +91,25 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component
-        emotions={emotions}
-        onCreateEmotion={handleCreateEmotion}
-        onDeleteEmotion={handleDeleteEmotion}
-        onUpdateEmotion={handleUpdateEmotion}
-        {...pageProps}
-      />
-      {toasts.map((toast) => (
-        <ToastMessage
-          key={toast.id}
-          message={toast.message}
-          visible={toast.visible}
+
+      <Layout>
+        <Component
+          emotions={emotions}
+          onCreateEmotion={handleCreateEmotion}
+          onDeleteEmotion={handleDeleteEmotion}
+          onUpdateEmotion={handleUpdateEmotion}
+          myBookmarkedEmotions={myBookmarkedEmotions}
+          onToggleBookmark={handleToggleBookmark}
+          {...pageProps}
         />
-      ))}
+        {toasts.map((toast) => (
+          <ToastMessage
+            key={toast.id}
+            message={toast.message}
+            visible={toast.visible}
+          />
+        ))}
+      </Layout>
     </>
   );
 }

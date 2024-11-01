@@ -1,7 +1,12 @@
 import EmotionDetails from "@/components/EmotionDetails";
 import { useRouter } from "next/router";
 
-export default function EmotionDetailPage({ emotions, onDeleteEmotion }) {
+export default function EmotionDetailPage({
+  emotions,
+  onDeleteEmotion,
+  myBookmarkedEmotions,
+  onToggleBookmark,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -20,6 +25,11 @@ export default function EmotionDetailPage({ emotions, onDeleteEmotion }) {
   }
 
   return (
-    <EmotionDetails emotion={selectedEmotion} onDeleteEmotion={handleDelete} />
+    <EmotionDetails
+      emotion={selectedEmotion}
+      onDeleteEmotion={handleDelete}
+      myBookmarkedEmotions={myBookmarkedEmotions}
+      onToggleBookmark={onToggleBookmark}
+    />
   );
 }

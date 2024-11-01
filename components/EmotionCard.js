@@ -1,18 +1,56 @@
 import styled from "styled-components";
+
+import BookmarkButton from "./BookmarkButton";
+import Link from "next/link";
+import EmotionCardContent from "./EmotionCardContent";
+
 import { emotionsIcons } from "./EmotionIcons";
 import formatDate from "./TransformDateTime";
 
-export default function EmotionCard({ emotion }) {
+export default function EmotionCard({
+  emotion,
+  onToggleBookmark,
+  isBookmarked,
+  isDetailsPage = false,
+}) {
   return (
-    <StyledEmotionCard>
-      <h2>{emotion.emotionType}</h2>
-      <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
-      <p>Intensity: {emotion.intensity}</p>
-      <p>Notes: {emotion.notes}</p>
-      <StyledDateTime>{formatDate(emotion.dateTime)}</StyledDateTime>
-    </StyledEmotionCard>
+    <StyledCardWrapper>
+      {isDetailsPage ? (
+        <StyledEmotionCard>
+          <EmotionCardContent emotion={emotion} />
+          <BookmarkButton
+            isBookmarked={isBookmarked}
+            onToggleBookmark={() => onToggleBookmark(emotion.id)}
+          />
+        </StyledEmotionCard>
+      ) : (
+        <>
+          <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
+            <StyledEmotionCard>
+              <EmotionCardContent emotion={emotion} />
+            </StyledEmotionCard>
+          </StyledLink>
+          <BookmarkButton
+            isBookmarked={isBookmarked}
+            onToggleBookmark={() => onToggleBookmark(emotion.id)}
+          />
+        </>
+      )}
+    </StyledCardWrapper>
   );
 }
+
+const StyledCardWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  &:visited {
+    color: inherit;
+  }
+`;
 
 const StyledEmotionCard = styled.section`
   display: flex;
@@ -25,12 +63,4 @@ const StyledEmotionCard = styled.section`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
   word-break: break-word;
-`;
-const StyledEmojiIcon = styled.span`
-  align-self: flex-end;
-  width: 40px;
-  height: 40px;
-`;
-const StyledDateTime = styled.p`
-  align-self: flex-end;
 `;
