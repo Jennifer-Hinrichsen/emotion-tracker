@@ -3,11 +3,9 @@ import BookmarkPinIcon from "assets/bookmarkicons/BookmarkPinIcon.svg";
 
 export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
   return (
-    <>
-      <StyledButton onClick={onToggleBookmark} aria-label="Toggle Bookmark">
-        <StyledBookmarkPinIcon $isBookmarked={isBookmarked} />
-      </StyledButton>
-    </>
+    <StyledButton onClick={onToggleBookmark} aria-label="Toggle Bookmark">
+      <StyledBookmarkPinIcon $isBookmarked={isBookmarked} />
+    </StyledButton>
   );
 }
 

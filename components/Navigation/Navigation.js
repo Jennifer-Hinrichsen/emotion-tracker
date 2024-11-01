@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "styled-components";
 
 export default function Navigation() {
-  const router = useRouter();
-
   return (
     <StyledNavigationBar>
       <Link href="/">Home</Link>
