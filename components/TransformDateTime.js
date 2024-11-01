@@ -1,6 +1,6 @@
 import { format, isToday, isYesterday } from "date-fns";
 
-function formatDate(date) {
+export default function formatDate(date) {
   const parsedDate = new Date(date);
 
   if (isToday(parsedDate)) {
@@ -11,5 +11,3 @@ function formatDate(date) {
     return format(parsedDate, "dd.MM.yyyy HH:mm");
   }
 }
-
-export default formatDate;
