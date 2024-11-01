@@ -30,5 +30,5 @@ const StyledButton = styled.button`
 `;
 
 const StyledBookmarkPinIcon = styled(BookmarkPinIcon)`
-  color: ${(props) => (props.$isBookmarked ? "#3B9A8A" : "#000")};
+  color: ${(props) => (props.$isBookmarked ? "#000" : "#808080")};
 `;
