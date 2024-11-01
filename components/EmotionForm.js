@@ -1,6 +1,8 @@
 import { emotionList } from "@/lib/emotionList";
 import { useState } from "react";
 import styled from "styled-components";
+import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
+import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 
 export default function EmotionForm({ onSubmit, defaultValue }) {
   const currentDateTime = new Date(
@@ -9,11 +11,17 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     .toISOString()
     .slice(0, 16);
 
+  const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 5
   );
+
+  function toggleVisibilityForm() {
+    setFormVisibility(!formVisibility);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -33,22 +41,26 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
     }
 
     onSubmit(inputData);
+    event.target.reset();
 
     setFormError("");
-    setSuccessMessage("Emotion successfully added!");
-
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 5000);
   }
 
   return (
     <>
       <StyledFormContainer>
-        <StyledSubheadline>
-          {defaultValue ? "Update your Emotion:" : "Add your Emotion:"}
-        </StyledSubheadline>
-        <StyledEmotionForm onSubmit={handleSubmit}>
+        <StyledFormHead onClick={toggleVisibilityForm}>
+          <StyledSubheadline>
+            {defaultValue ? "Update your Emotion" : "Add your Emotion"}
+          </StyledSubheadline>
+          {!defaultValue && (
+            <StyledVisibilityIcons aria-label="show-hide-form">
+              {formVisibility ? <MinusIcon /> : <PlusIcon />}
+            </StyledVisibilityIcons>
+          )}
+        </StyledFormHead>
+
+        <StyledEmotionForm isVisible={formVisibility} onSubmit={handleSubmit}>
           <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
@@ -56,7 +68,7 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
               id="emotionType"
               name="emotionType"
             >
-              <option value="">---Choose an emotion---</option>
+              <option value="">---Choose an Emotion---</option>
               {emotionList.map((emotion) => (
                 <option key={emotion.emotionType} value={emotion.emotionType}>
                   {emotion.emotionType}
@@ -117,23 +129,42 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
 const StyledFormContainer = styled.div`
   width: 90%;
   margin: 0 auto;
-  padding: 10px 0 0 0;
   background-color: #e0e1f0;
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px #000;
 `;
 
+const StyledFormHead = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+`;
+
 const StyledSubheadline = styled.h2`
   margin: 0;
   padding: 10px 0;
-  text-align: center;
   color: #313366;
+  text-align: center;
+`;
+
+const StyledVisibilityIcons = styled.button`
+  border-radius: 50px;
+  width: 35px;
+  height: 35px;
+  border: solid 1px #313366;
+  position: absolute;
+  left: calc(50% + 120px);
 `;
 
 const StyledEmotionForm = styled.form`
-  margin: 0;
-  padding: 1rem;
+  overflow: hidden;
+  max-height: ${(props) => (props.isVisible ? "600px" : "0")};
+  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  padding: 0 1rem;
   background-color: #f9f9f9;
   border-radius: 0.5rem;
   display: flex;
@@ -204,7 +235,7 @@ const StyledTextArea = styled.textarea`
   border: none;
   border-bottom: 1px dotted #8295c6;
   background-color: transparent;
-  color: #313366;
+  color: #8295c6;
   font-size: 1rem;
   cursor: text;
 
