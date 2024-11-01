@@ -42,7 +42,7 @@ export default function EmotionList({ emotions }) {
         <ul>
           {filteredEmotions.map((emotion) => (
             <StyledCardList key={emotion.id}>
-              <StyledLink StyledLink href={`emotion/${emotion.id}`}>
+              <StyledLink href={`emotion/${emotion.id}`}>
                 <EmotionCard emotion={emotion} />
               </StyledLink>
             </StyledCardList>
