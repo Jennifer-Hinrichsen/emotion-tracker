@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 
-export default function EmotionForm({ onSubmit, defaultValue }) {
+export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -113,10 +113,16 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
             maxLength="150"
           ></StyledTextArea>
 
-          <StyledButton type="submit">
-            {defaultValue ? "Save" : "Submit"}
-          </StyledButton>
-
+          <ButtonContainer>
+            {defaultValue && (
+              <StyledCancelButton type="button" onClick={onCancel}>
+                Cancel
+              </StyledCancelButton>
+            )}
+            <StyledButton type="submit">
+              {defaultValue ? "Save" : "Submit"}
+            </StyledButton>
+          </ButtonContainer>
           {formError && <StyledError>{formError}</StyledError>}
 
           {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
@@ -256,7 +262,6 @@ const StyledSuccess = styled.p`
   font-size: 1rem;
   margin-top: 8px;
 `;
-
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
@@ -269,4 +274,23 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #9acd32;
   }
+`;
+
+const StyledCancelButton = styled.button`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #a6a6a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 70%;
+  }
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1px;
+  margin-top: 10px;
 `;
