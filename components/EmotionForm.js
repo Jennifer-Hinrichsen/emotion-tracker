@@ -60,7 +60,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           )}
         </StyledFormHead>
 
-        <StyledEmotionForm isVisible={formVisibility} onSubmit={handleSubmit}>
+        <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
           <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
@@ -139,6 +139,7 @@ const StyledFormContainer = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px #000;
+  margin-bottom: 48px;
 `;
 
 const StyledFormHead = styled.div`
@@ -167,8 +168,8 @@ const StyledVisibilityIcons = styled.button`
 
 const StyledEmotionForm = styled.form`
   overflow: hidden;
-  max-height: ${(props) => (props.isVisible ? "600px" : "0")};
-  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  max-height: ${(props) => (props.$isVisible ? "600px" : "0")};
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transition: max-height 0.5s ease, opacity 0.5s ease;
   padding: 0 1rem;
   background-color: #f9f9f9;
