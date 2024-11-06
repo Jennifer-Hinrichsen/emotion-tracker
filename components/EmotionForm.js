@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 
-export default function EmotionForm({ onSubmit, defaultValue }) {
+export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -60,7 +60,7 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
           )}
         </StyledFormHead>
 
-        <StyledEmotionForm isVisible={formVisibility} onSubmit={handleSubmit}>
+        <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
           <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
@@ -113,10 +113,16 @@ export default function EmotionForm({ onSubmit, defaultValue }) {
             maxLength="150"
           ></StyledTextArea>
 
-          <StyledButton type="submit">
-            {defaultValue ? "Save" : "Submit"}
-          </StyledButton>
-
+          <ButtonContainer>
+            {defaultValue && (
+              <StyledCancelButton type="button" onClick={onCancel}>
+                Cancel
+              </StyledCancelButton>
+            )}
+            <StyledButton type="submit">
+              {defaultValue ? "Save" : "Submit"}
+            </StyledButton>
+          </ButtonContainer>
           {formError && <StyledError>{formError}</StyledError>}
 
           {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
@@ -133,6 +139,7 @@ const StyledFormContainer = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px #000;
+  margin-bottom: 48px;
 `;
 
 const StyledFormHead = styled.div`
@@ -161,8 +168,8 @@ const StyledVisibilityIcons = styled.button`
 
 const StyledEmotionForm = styled.form`
   overflow: hidden;
-  max-height: ${(props) => (props.isVisible ? "600px" : "0")};
-  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  max-height: ${(props) => (props.$isVisible ? "600px" : "0")};
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transition: max-height 0.5s ease, opacity 0.5s ease;
   padding: 0 1rem;
   background-color: #f9f9f9;
@@ -256,7 +263,6 @@ const StyledSuccess = styled.p`
   font-size: 1rem;
   margin-top: 8px;
 `;
-
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
@@ -269,4 +275,23 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #9acd32;
   }
+`;
+
+const StyledCancelButton = styled.button`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #a6a6a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 70%;
+  }
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1px;
+  margin-top: 10px;
 `;
