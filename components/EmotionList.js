@@ -39,10 +39,14 @@ export default function EmotionList({
     }
   };
 
-  // Füge useEffect hinzu, um die Pfeile beim ersten Rendern zu überprüfen
   useEffect(() => {
-    updateArrowVisibility(); // Aufruf beim Initialisieren
-  }, [emotions]); // Optional: falls emotions sich ändern
+    updateArrowVisibility();
+    if (tabsBoxRef.current) {
+      // Scrollt beim Laden zur Mitte des StyledTabsBox
+      tabsBoxRef.current.scrollLeft =
+        (tabsBoxRef.current.scrollWidth - tabsBoxRef.current.clientWidth) / 2;
+    }
+  }, [emotions]);
 
   return (
     <>
@@ -50,10 +54,10 @@ export default function EmotionList({
         <StyledHeadline>
           {selectedFilter ? (
             <div>
-              Filtered emotion type: <span>{selectedFilter}</span>
+              Emotion Type Filter: <span>&quot;{selectedFilter}&quot;</span>
             </div>
           ) : (
-            "Filter emotion type"
+            "Emotion Type Filter"
           )}
         </StyledHeadline>
         <StyledWrapper>
@@ -77,6 +81,7 @@ export default function EmotionList({
                   )
                 }
                 $isSelected={emotion.emotionType === selectedFilter}
+                $color={emotion.color}
               >
                 {emotion.emotionType}
               </StyledTab>
@@ -99,7 +104,7 @@ export default function EmotionList({
           emotion.
         </StyledMessage>
       ) : (
-        <ul>
+        <StyledUl>
           {filteredEmotions.map((emotion) => (
             <StyledCardList key={emotion.id}>
               <EmotionCard
@@ -109,7 +114,7 @@ export default function EmotionList({
               />
             </StyledCardList>
           ))}
-        </ul>
+        </StyledUl>
       )}
     </>
   );
@@ -124,7 +129,10 @@ const StyledDivWrapper = styled.div`
 `;
 
 const StyledHeadline = styled.h2`
-  margin: 10px 0 0 40px;
+  margin: 0;
+  padding-top: 10px;
+  color: #313366;
+  text-align: center;
 
   span {
     font-weight: bold;
@@ -135,7 +143,6 @@ const StyledWrapper = styled.div`
   padding: 0 20px;
   position: relative;
   max-width: 1000px;
-  border-radius: 13px;
 `;
 
 const StyledIconLeft = styled.div`
@@ -144,10 +151,13 @@ const StyledIconLeft = styled.div`
   left: -30px;
   height: 100%;
   width: 120px;
+  font-size: 1.5rem;
+  color: #313366;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90deg, #f6f4f3 70%, transparent);
+  z-index: 1;
+  background: linear-gradient(90deg, #f6f4f3 40%, transparent);
   cursor: pointer;
   user-select: none; /* Verhindert Markieren des Inhalts */
   -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
@@ -170,29 +180,26 @@ const StyledTabsBox = styled.ul`
 
 const StyledTab = styled.li`
   cursor: pointer;
-  font-size: 1.18rem;
+  font-size: 1rem;
   white-space: nowrap;
   background: #f9f9f9;
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid #e0e1f0;
   transition: background-color 0.3s ease;
+  opacity: 70%;
   -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
 
-  &:hover {
-    border-color: #313366;
-  }
-
   &:active {
-    background: #a8d5ba;
     border-color: #313366;
   }
 
-  ${({ $isSelected }) =>
+  ${({ $isSelected, $color }) =>
     $isSelected &&
     `
-    background: #A8D5BA;
+    background: ${$color};
     border-color: #313366;
+    opacity: 100%;
   `}
 `;
 
@@ -202,10 +209,12 @@ const StyledIconRight = styled.div`
   right: -30px;
   height: 100%;
   width: 120px;
+  font-size: 1.5rem;
+  color: #313366;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-90deg, #f6f4f3 70%, transparent);
+  background: linear-gradient(-90deg, #f6f4f3 40%, transparent);
   cursor: pointer;
   user-select: none; /* Verhindert Markieren des Inhalts */
   -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
@@ -216,6 +225,10 @@ const StyledMessage = styled.p`
   color: #777;
   font-size: 1.1rem;
   padding: 24px 16px;
+`;
+
+const StyledUl = styled.ul`
+  padding: 0;
 `;
 
 const StyledCardList = styled.li`
