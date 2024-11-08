@@ -76,7 +76,6 @@ const StyledTopBox = styled.div`
 `;
 
 const StyledDateTime = styled.p`
-  align-self: flex-end;
   margin: 0;
   color: #313366;
 `;
@@ -84,6 +83,5 @@ const StyledDateTime = styled.p`
 const StyledEmotionCard = styled.section`
   padding: 10px;
   background-color: #f9f9f9;
-
   border-radius: 8px;
 `;

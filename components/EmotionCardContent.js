@@ -7,8 +7,8 @@ export default function EmotionCardContent({ emotion }) {
       <StyledEmotionCardContent>
         <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
         <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
-        <StyledIntensity>Intensity: {emotion.intensity}</StyledIntensity>
-        <StyledNotes>Notes: {emotion.notes}</StyledNotes>
+        <StyledIntensity>{emotion.intensity}</StyledIntensity>
+        <StyledNotes>{emotion.notes}</StyledNotes>
       </StyledEmotionCardContent>
     </>
   );
@@ -30,25 +30,31 @@ const StyledEmojiIcon = styled.span`
   grid-area: emoji;
   width: 40px;
   height: 40px;
+  color: #313366;
 `;
 
-const StyledEmotionType = styled.h2`
+const StyledEmotionType = styled.p`
   grid-area: emotionType;
+
   margin: 0;
+  font-weight: bold;
   font-size: 1.2rem;
+  color: #313366;
 `;
 
 const StyledNotes = styled.p`
   grid-area: notes;
   margin: 0;
-  color: #555;
-  font-size: 0.9rem;
+  color: #313366;
+  font-size: 0.8rem;
 `;
 
 const StyledIntensity = styled.p`
   grid-area: intensity;
+  align-self: start;
   margin: 0;
   text-align: right;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  color: #313366;
 `;

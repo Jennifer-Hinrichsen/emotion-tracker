@@ -162,6 +162,7 @@ const StyledVisibilityIcons = styled.button`
   width: 35px;
   height: 35px;
   border: solid 1px #313366;
+  background-color: #f9f9f9;
   position: absolute;
   left: calc(50% + 120px);
 `;
