@@ -63,6 +63,7 @@ const StyledHeadline = styled.h2`
 `;
 
 const StyledList = styled.ul`
+  margin-bottom: 48px;
   padding: 0 1rem;
 `;
 
