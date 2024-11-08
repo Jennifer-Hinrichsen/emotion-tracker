@@ -1,11 +1,26 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 
 export default function Navigation() {
+  const router = useRouter();
+  const isOnBookmarksPage = router.pathname === "/bookmarks";
+
   return (
     <StyledNavigationBar>
-      <LinkStyled href="/bookmarks">My Emotions</LinkStyled>
+      <LinkStyled href="/bookmarks">
+        <IconWrapper isActive={isOnBookmarksPage}>
+          <Image
+            src="/BookmarkPinIcon.svg"
+            alt="Bookmark Icon"
+            width={24}
+            height={24}
+          />
+          My Emotions
+        </IconWrapper>
+      </LinkStyled>
+
       <CenterWrapper>
         <Link href="/" passHref>
           <LogoCanvas>
@@ -14,6 +29,7 @@ export default function Navigation() {
           </LogoCanvas>
         </Link>
       </CenterWrapper>
+
       <LinkStyled href="/bookmarks">My Emotions</LinkStyled>
     </StyledNavigationBar>
   );
@@ -74,9 +90,24 @@ const LinkStyled = styled.a`
     color: #5b6c9f;
   }
 `;
+
 const HomeText = styled.span`
   font-size: 16px;
   font-weight: normal;
   color: #313366;
   margin-bottom: 20px;
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 7px;
+  text-align: center;
+
+  border-left: ${(props) => (props.isActive ? "0.5px solid #313366" : "none")};
+  border-right: ${(props) => (props.isActive ? "0.5px solid #313366" : "none")};
+  background-color: ${(props) =>
+    props.isActive ? "rgba(249, 249, 249, 0.5)" : "transparent"};
 `;
