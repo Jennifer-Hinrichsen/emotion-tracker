@@ -35,16 +35,15 @@ const StyledEmojiIcon = styled.span`
 
 const StyledEmotionType = styled.p`
   grid-area: emotionType;
-
-  margin: 0;
-  font-weight: bold;
+  margin: 6px 12px;
+  font-weight: bold 600;
   font-size: 1.2rem;
   color: #313366;
 `;
 
 const StyledNotes = styled.p`
   grid-area: notes;
-  margin: 0;
+  margin: 12px 12px;
   color: #313366;
   font-size: 0.8rem;
 `;
@@ -52,7 +51,7 @@ const StyledNotes = styled.p`
 const StyledIntensity = styled.p`
   grid-area: intensity;
   align-self: start;
-  margin: 0;
+  margin: 6px 12px;
   text-align: right;
   font-weight: bold;
   font-size: 1rem;

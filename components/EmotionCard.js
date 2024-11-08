@@ -66,7 +66,6 @@ const StyledOuterBox = styled.div`
   border-radius: 0.5rem;
   box-shadow: 0px 1px 4px #00000029;
   margin: 16px 8px;
-  padding: 10px 0 0 0;
 `;
 
 const StyledTopBox = styled.div`
@@ -77,6 +76,8 @@ const StyledTopBox = styled.div`
 
 const StyledDateTime = styled.p`
   margin: 0;
+  padding-left: 16px;
+  font-size: 0.8rem;
   color: #313366;
 `;
 
