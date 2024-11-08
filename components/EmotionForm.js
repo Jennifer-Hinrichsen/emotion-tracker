@@ -138,7 +138,7 @@ const StyledFormContainer = styled.div`
   background-color: #e0e1f0;
   border: 1px solid #d3d3d3;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px #000;
+  box-shadow: 0px 1px 4px #00000029;
   margin-bottom: 48px;
 `;
 
