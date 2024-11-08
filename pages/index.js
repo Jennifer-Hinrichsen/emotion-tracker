@@ -13,15 +13,6 @@ export default function HomePage({
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <ImageWrapper>
-        <Image
-          src="/images/logo-final.svg"
-          alt="Mood Wave"
-          width={50}
-          height={50}
-        />
-      </ImageWrapper>
-
       <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
       <EmotionList
         emotions={emotions}
@@ -31,9 +22,3 @@ export default function HomePage({
     </>
   );
 }
-
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-`;
