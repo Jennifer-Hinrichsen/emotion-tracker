@@ -13,19 +13,23 @@ export default function EmotionCard({
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <StyledEmotionCard>
-          <EmotionCardContent emotion={emotion} />
-          <BookmarkButton
-            isBookmarked={isBookmarked}
-            onToggleBookmark={() => onToggleBookmark(emotion.id)}
-          />
-        </StyledEmotionCard>
+        <StyledOuterBox>
+          <StyledEmotionCard>
+            <EmotionCardContent emotion={emotion} />
+            <BookmarkButton
+              isBookmarked={isBookmarked}
+              onToggleBookmark={() => onToggleBookmark(emotion.id)}
+            />
+          </StyledEmotionCard>
+        </StyledOuterBox>
       ) : (
         <>
           <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
-            <StyledEmotionCard>
-              <EmotionCardContent emotion={emotion} />
-            </StyledEmotionCard>
+            <StyledOuterBox>
+              <StyledEmotionCard>
+                <EmotionCardContent emotion={emotion} />
+              </StyledEmotionCard>
+            </StyledOuterBox>
           </StyledLink>
           <BookmarkButton
             isBookmarked={isBookmarked}
@@ -47,6 +51,15 @@ const StyledLink = styled(Link)`
   &:visited {
     color: inherit;
   }
+`;
+
+const StyledOuterBox = styled.div`
+  background-color: #e0e1f0;
+  border: 1px solid #d3d3d3;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 16px 8px;
+  padding: 10px;
 `;
 
 const StyledEmotionCard = styled.section`
