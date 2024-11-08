@@ -26,4 +26,7 @@ export default createGlobalStyle`
     padding-top: 1rem;
     align-self: flex-start;
   }
+  a {
+  text-decoration: none;
+}
 `;
