@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
-
+import SliderIntensity from "./SliderIntensity";
 export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
@@ -79,23 +79,12 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           </SelectEmotionContainer>
 
           <label htmlFor="intensity">Emotion intensity*</label>
-          <StyledSliderContainer>
-            <StyledSlider
-              id="intensity"
-              name="intensity"
-              value={selectedIntensity}
-              onChange={(event) => {
-                setSelectedIntensity(event.target.value);
-              }}
-              type="range"
-              min="1"
-              max="10"
-              step="1"
-            />
 
-            <p>{selectedIntensity}</p>
-          </StyledSliderContainer>
-
+          <SliderIntensity
+            emotionColor="#8295c6"
+            defaultIntensity={selectedIntensity}
+            onChange={(intensity) => setSelectedIntensity(intensity)}
+          />
           <label htmlFor="date-time">Date and Time*</label>
           <StyledDateAndTimeInput
             id="date-time"

@@ -3,7 +3,7 @@ import EmotionForm from "@/components/EmotionForm";
 import EmotionList from "@/components/EmotionList";
 import Image from "next/image";
 import styled from "styled-components";
-
+import SliderIntensity from "@/components/SliderIntensity";
 export default function HomePage({
   emotions,
   onCreateEmotion,
