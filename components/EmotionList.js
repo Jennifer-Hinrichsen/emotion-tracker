@@ -9,11 +9,24 @@ export default function EmotionList({
   myBookmarkedEmotions,
 }) {
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
   const tabsBoxRef = useRef(null);
 
   const filteredEmotions = selectedFilter
     ? emotions.filter((emotion) => emotion.emotionType === selectedFilter)
     : emotions;
+
+  const updateArrowVisibility = () => {
+    const tabsBox = tabsBoxRef.current;
+    if (tabsBox) {
+      const canScrollLeft = tabsBox.scrollLeft > 0;
+      const canScrollRight =
+        tabsBox.scrollWidth > tabsBox.clientWidth + tabsBox.scrollLeft;
+      setShowLeftArrow(canScrollLeft);
+      setShowRightArrow(canScrollRight);
+    }
+  };
 
   const scrollTabs = (direction) => {
     if (tabsBoxRef.current) {
@@ -22,18 +35,28 @@ export default function EmotionList({
     }
   };
 
+  // Aktualisiere die Pfeile bei einem Scroll-Ereignis
+  const handleScroll = () => {
+    updateArrowVisibility();
+  };
+
   return (
     <>
       <StyledDivWrapper>
         <StyledHeadline>Filter emotion type</StyledHeadline>
         <StyledWrapper>
-          <StyledIconLeft
-            aria-label="Icon to slide the filter to the left"
-            onClick={() => scrollTabs("left")}
+          {showLeftArrow && (
+            <StyledIconLeft
+              aria-label="Icon to slide the filter to the left"
+              onClick={() => scrollTabs("left")}
+            >
+              &#9664;
+            </StyledIconLeft>
+          )}
+          <StyledTabsBox
+            ref={tabsBoxRef}
+            onScroll={handleScroll} // Füge das Scroll-Event hinzu
           >
-            &#9664;
-          </StyledIconLeft>
-          <StyledTabsBox ref={tabsBoxRef}>
             {emotionList.map((emotion) => (
               <StyledTab
                 key={emotion.id}
@@ -50,12 +73,14 @@ export default function EmotionList({
               </StyledTab>
             ))}
           </StyledTabsBox>
-          <StyledIconRight
-            aria-label="Icon to slide the filter to the left"
-            onClick={() => scrollTabs("right")}
-          >
-            &#9654;
-          </StyledIconRight>
+          {showRightArrow && (
+            <StyledIconRight
+              aria-label="Icon to slide the filter to the right"
+              onClick={() => scrollTabs("right")}
+            >
+              &#9654;
+            </StyledIconRight>
+          )}
         </StyledWrapper>
       </StyledDivWrapper>
 
@@ -105,7 +130,7 @@ const StyledIconLeft = styled.div`
   top: 0;
   left: -30px;
   height: 100%;
-  width: 120px;
+  width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,29 +138,20 @@ const StyledIconLeft = styled.div`
   cursor: pointer;
   user-select: none; /* Verhindert Markieren des Inhalts */
   -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
-
-  i {
-    font-size: 1.5rem;
-    color: #5372f0;
-  }
-
-  &:focus {
-    outline: none; /* Entfernt den Fokusring */
-  }
 `;
 
 const StyledTabsBox = styled.ul`
   display: flex;
   gap: 12px;
   list-style: none;
-  overflow-x: auto; /* Allow scrolling */
+  overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: none; /* Firefox: Hide scrollbar */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
   margin-right: 30px;
 
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari: Hide scrollbar */
+    display: none;
   }
 `;
 
@@ -155,16 +171,14 @@ const StyledTab = styled.li`
   }
 
   &:active {
-    color: #fff;
-    background: #5372f0;
+    background: #a8d5ba;
     border-color: transparent;
   }
 
   ${({ $isSelected }) =>
     $isSelected &&
     `
-    color: #fff;
-    background: #5372f0;
+    background: #A8D5BA;
     border-color: transparent;
   `}
 `;
@@ -174,7 +188,7 @@ const StyledIconRight = styled.div`
   top: 0;
   right: -30px;
   height: 100%;
-  width: 120px;
+  width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,15 +196,6 @@ const StyledIconRight = styled.div`
   cursor: pointer;
   user-select: none; /* Verhindert Markieren des Inhalts */
   -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
-
-  i {
-    font-size: 1.5rem;
-    color: #5372f0;
-  }
-
-  &:focus {
-    outline: none; /* Entfernt den Fokusring */
-  }
 `;
 
 const StyledMessage = styled.p`
