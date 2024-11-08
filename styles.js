@@ -10,7 +10,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
-    background-color: #f6f4f3;
+    background-color:#f9f9f9;
   }
 
   h1, h2 {
