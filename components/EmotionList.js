@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import EmotionCard from "./EmotionCard";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { emotionList } from "@/lib/emotionList";
 
 export default function EmotionList({
@@ -10,7 +10,7 @@ export default function EmotionList({
 }) {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
+  const [showRightArrow, setShowRightArrow] = useState(false); // initialisiere mit false
   const tabsBoxRef = useRef(null);
 
   const filteredEmotions = selectedFilter
@@ -28,6 +28,10 @@ export default function EmotionList({
     }
   };
 
+  const handleScroll = () => {
+    updateArrowVisibility();
+  };
+
   const scrollTabs = (direction) => {
     if (tabsBoxRef.current) {
       const scrollAmount = direction === "left" ? -100 : 100;
@@ -35,15 +39,23 @@ export default function EmotionList({
     }
   };
 
-  // Aktualisiere die Pfeile bei einem Scroll-Ereignis
-  const handleScroll = () => {
-    updateArrowVisibility();
-  };
+  // Füge useEffect hinzu, um die Pfeile beim ersten Rendern zu überprüfen
+  useEffect(() => {
+    updateArrowVisibility(); // Aufruf beim Initialisieren
+  }, [emotions]); // Optional: falls emotions sich ändern
 
   return (
     <>
       <StyledDivWrapper>
-        <StyledHeadline>Filter emotion type</StyledHeadline>
+        <StyledHeadline>
+          {selectedFilter ? (
+            <div>
+              Filtered emotion type: <span>{selectedFilter}</span>
+            </div>
+          ) : (
+            "Filter emotion type"
+          )}
+        </StyledHeadline>
         <StyledWrapper>
           {showLeftArrow && (
             <StyledIconLeft
@@ -53,10 +65,7 @@ export default function EmotionList({
               &#9664;
             </StyledIconLeft>
           )}
-          <StyledTabsBox
-            ref={tabsBoxRef}
-            onScroll={handleScroll} // Füge das Scroll-Event hinzu
-          >
+          <StyledTabsBox ref={tabsBoxRef} onScroll={handleScroll}>
             {emotionList.map((emotion) => (
               <StyledTab
                 key={emotion.id}
@@ -110,12 +119,16 @@ const StyledDivWrapper = styled.div`
   background-color: #f6f4f3;
   display: flex;
   flex-direction: column;
-  position: relative;
   overflow-x: hidden;
+  position: relative;
 `;
 
 const StyledHeadline = styled.h2`
-  margin: 10px 0 0 20px;
+  margin: 10px 0 0 40px;
+
+  span {
+    font-weight: bold;
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -130,7 +143,7 @@ const StyledIconLeft = styled.div`
   top: 0;
   left: -30px;
   height: 100%;
-  width: 100px;
+  width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,24 +175,24 @@ const StyledTab = styled.li`
   background: #f9f9f9;
   padding: 8px 10px;
   border-radius: 8px;
-  border: 1px solid #d8d5f2;
+  border: 1px solid #e0e1f0;
   transition: background-color 0.3s ease;
   -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
 
   &:hover {
-    border-color: black;
+    border-color: #313366;
   }
 
   &:active {
     background: #a8d5ba;
-    border-color: transparent;
+    border-color: #313366;
   }
 
   ${({ $isSelected }) =>
     $isSelected &&
     `
     background: #A8D5BA;
-    border-color: transparent;
+    border-color: #313366;
   `}
 `;
 
@@ -188,7 +201,7 @@ const StyledIconRight = styled.div`
   top: 0;
   right: -30px;
   height: 100%;
-  width: 100px;
+  width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
