@@ -4,9 +4,6 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 
-import { emotionsIcons } from "./EmotionIcons";
-import formatDate from "./TransformDateTime";
-
 export default function EmotionCard({
   emotion,
   onToggleBookmark,
