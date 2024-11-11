@@ -271,9 +271,26 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #9acd32;
+    background-color: #5cb85c;
+  }
+
+  &.clicked {
+    animation: greenFlash 6s forwards;
+  }
+
+  @keyframes greenFlash {
+    0% {
+      background-color: #8295c6;
+    }
+    50% {
+      background-color: #5cb85c;
+    }
+    100% {
+      background-color: #8295c6;
+    }
   }
 `;
 
