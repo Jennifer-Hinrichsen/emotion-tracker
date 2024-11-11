@@ -16,18 +16,17 @@ export default function EmotionCardContent({ emotion }) {
 
 const StyledEmotionCardContent = styled.div`
   display: grid;
-  grid-template-columns: 40px 1fr auto;
+  grid-template-columns: 50px 1fr auto;
   grid-template-rows: auto auto;
   grid-template-areas:
     "emoji emotionType intensity"
     "emoji notes intensity";
-  gap: 4px 8px;
   align-items: center;
   padding: 10px;
 
   @media (max-width: 374px) {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas:
       "emoji"
       "emotionType"
@@ -38,14 +37,12 @@ const StyledEmotionCardContent = styled.div`
 
 const StyledEmojiIcon = styled.span`
   grid-area: emoji;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   color: #313366;
 
   svg {
-    stroke-width: 1px !important;
-    height: 100%;
-    width: 100%;
+    stroke-width: 0.8px !important;
   }
 `;
 
