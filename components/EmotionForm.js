@@ -18,7 +18,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-  const [selectedEmotionType, setSelectedEmotionType] = useState("Enjoyment");
+  const [selectedEmotionType, setSelectedEmotionType] = useState("");
 
   const handleChangeEmotionType = (event) => {
     setSelectedEmotionType(event.target.value);
