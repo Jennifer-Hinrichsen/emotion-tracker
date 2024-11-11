@@ -5,13 +5,13 @@ import Image from "next/image";
 import BookmarkIcon from "assets/bookmarkicons/BookmarkPinIcon.svg";
 
 export default function Navigation() {
-  const router = useRouter();
-  const isOnBookmarksPage = router.pathname === "/bookmarks";
+  const { pathname } = useRouter();
+  const isActive = (page) => pathname === page;
 
   return (
     <StyledNavigationBar>
       <LinkStyled href="/bookmarks">
-        <IconWrapper isActive={isOnBookmarksPage}>
+        <IconWrapper isActive={isActive("/bookmarks")}>
           <StyledBookmarkIcon
             src="/BookmarkPinIcon.svg"
             alt="Bookmark Icon"
@@ -22,8 +22,8 @@ export default function Navigation() {
         </IconWrapper>
       </LinkStyled>
       <CenterWrapper>
-        <Link href="/" passHref>
-          <LogoCanvas isOnBookmarksPage={isOnBookmarksPage}>
+        <Link href="/">
+          <LogoCanvas isOnHomePage={isActive("/")}>
             <Image src="/moodwave-logo.svg" alt="Logo" width={45} height={45} />
             <HomeText>Home</HomeText>
           </LogoCanvas>
@@ -63,11 +63,9 @@ const LogoCanvas = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: ${(props) =>
-    props.isOnBookmarksPage ? "#E0E1F0" : "#fff"};
+  background-color: ${(props) => (props.isOnHomePage ? "#fff" : "#E0E1F0")};
   border-radius: 50%;
-  border: 1px solid
-    ${(props) => (props.isOnBookmarksPage ? "#E0E1F0" : "#313366")};
+  border: 1px solid ${(props) => (props.isOnHomePage ? "#313366" : "#E0E1F0")};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 3.125rem;
   transition: transform 0.3s ease;
