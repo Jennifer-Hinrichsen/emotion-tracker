@@ -1,14 +1,12 @@
 import styled, { css } from "styled-components";
-import EmotionCard from "./EmotionCard";
 import { useState, useRef, useEffect } from "react";
 import { emotionList } from "@/lib/emotionList";
 
-export default function EmotionList({
+export default function Filter({
   emotions,
-  onToggleBookmark,
-  myBookmarkedEmotions,
+  selectedFilterButton,
+  setSelectedFilterButton,
 }) {
-  const [selectedFilterButton, setSelectedFilterButton] = useState("");
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -101,25 +99,6 @@ export default function EmotionList({
           ""
         )}
       </StyledAppliedInfo>
-
-      {filteredEmotions.length === 0 ? (
-        <StyledMessage>
-          At the moment there are no emotions in the list. Please add an
-          emotion.
-        </StyledMessage>
-      ) : (
-        <StyledUlContainer>
-          {filteredEmotions.map((emotion) => (
-            <StyledCardList key={emotion.id}>
-              <EmotionCard
-                emotion={emotion}
-                onToggleBookmark={onToggleBookmark}
-                isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
-              />
-            </StyledCardList>
-          ))}
-        </StyledUlContainer>
-      )}
     </>
   );
 }
