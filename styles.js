@@ -1,6 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+:root {
+    --color-background: #f9f9f9;
+    --color-primary: #8295c6;
+    --color-secondary: #313366;
+    --color-border: #d3d3d3;
+    --color-highlight: #9acd32;
+    --color-success: #28a745; 
+  }
+
   *,
   *::before,
   *::after {
@@ -10,7 +19,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
-    background-color: #f9f9f9;
+    background-color: var(--color-background);
   }
 
   h1, h2 {

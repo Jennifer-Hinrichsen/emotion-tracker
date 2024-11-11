@@ -14,8 +14,8 @@ const StyledNavigationBar = styled.nav`
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #d3d3d3;
+  background-color: var(--color-background);
+  border-top: 1px solid var(--color-border);
   position: fixed;
   bottom: 0;
   width: 100%;

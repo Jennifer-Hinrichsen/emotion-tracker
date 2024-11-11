@@ -38,7 +38,7 @@ const StyledEmojiIcon = styled.span`
   align-self: self-start;
   width: 50px;
   height: 50px;
-  color: #313366;
+  color: var(--color-secondary);
 
   svg {
     stroke-width: 0.8px;
@@ -51,13 +51,13 @@ const StyledEmotionType = styled.p`
   padding-left: 28px;
   font-weight: bold 600;
   font-size: 1.2rem;
-  color: #313366;
+  color: var(--color-secondary);
 `;
 
 const StyledNotes = styled.p`
   grid-area: notes;
   padding-left: 28px;
-  color: #313366;
+  color: var(--color-secondary);
   font-size: 0.8rem;
   max-width: 100%;
 `;
@@ -69,5 +69,5 @@ const StyledIntensity = styled.p`
   text-align: right;
   font-weight: bold 600;
   font-size: 1.2rem;
-  color: #313366;
+  color: var(--color-secondary);
 `;
