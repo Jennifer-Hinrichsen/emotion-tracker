@@ -12,7 +12,7 @@ export default function HomePage({
 }) {
   return (
     <>
-      <Heading>Mood Wave</Heading>
+      <StyledHeading>Mood Wave</StyledHeading>
       <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
       <EmotionList
         emotions={emotions}
@@ -22,3 +22,9 @@ export default function HomePage({
     </>
   );
 }
+
+const StyledHeading = styled.h1`
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
