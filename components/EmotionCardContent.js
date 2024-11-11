@@ -21,16 +21,6 @@ const StyledEmotionCardContent = styled.div`
     "emoji notes intensity";
   align-items: center;
   padding: 5px;
-
-  @media (max-width: 374px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas:
-      "emoji"
-      "emotionType"
-      "notes"
-      "intensity";
-  }
 `;
 
 const StyledEmojiIcon = styled.span`
