@@ -10,15 +10,15 @@ export default function EmotionList({
 }) {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(false); // initialisiere mit false
-  const tabsBoxRef = useRef(null);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+  const scrollContainerRef = useRef(null);
 
   const filteredEmotions = selectedFilter
     ? emotions.filter((emotion) => emotion.emotionType === selectedFilter)
     : emotions;
 
-  const updateArrowVisibility = () => {
-    const tabsBox = tabsBoxRef.current;
+  function updateArrowVisibility() {
+    const tabsBox = scrollContainerRef.current;
     if (tabsBox) {
       const canScrollLeft = tabsBox.scrollLeft > 0;
       const canScrollRight =
@@ -26,50 +26,43 @@ export default function EmotionList({
       setShowLeftArrow(canScrollLeft);
       setShowRightArrow(canScrollRight);
     }
-  };
+  }
 
-  const handleScroll = () => {
+  function handleScroll() {
     updateArrowVisibility();
-  };
+  }
 
-  const scrollTabs = (direction) => {
-    if (tabsBoxRef.current) {
+  function scrollTabsHorizontally(direction) {
+    if (scrollContainerRef.current) {
       const scrollAmount = direction === "left" ? -100 : 100;
-      tabsBoxRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      scrollContainerRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
     }
-  };
+  }
 
-  useEffect(() => {
-    updateArrowVisibility();
-    if (tabsBoxRef.current) {
-      // Scrollt beim Laden zur Mitte des StyledTabsBox
-      tabsBoxRef.current.scrollLeft =
-        (tabsBoxRef.current.scrollWidth - tabsBoxRef.current.clientWidth) / 2;
+  useEffect(function () {
+    const tabsBox = scrollContainerRef.current;
+    if (tabsBox) {
+      tabsBox.scrollLeft = (tabsBox.scrollWidth - tabsBox.clientWidth) / 2;
+      updateArrowVisibility();
     }
-  }, [emotions]);
+  }, []);
 
   return (
     <>
       <StyledDivWrapper>
-        <StyledHeadline>
-          {selectedFilter ? (
-            <div>
-              Emotion Type Filter: <span>&quot;{selectedFilter}&quot;</span>
-            </div>
-          ) : (
-            "Emotion Type Filter"
-          )}
-        </StyledHeadline>
         <StyledWrapper>
           {showLeftArrow && (
             <StyledIconLeft
               aria-label="Icon to slide the filter to the left"
-              onClick={() => scrollTabs("left")}
+              onClick={() => scrollTabsHorizontally("left")}
             >
               &#9664;
             </StyledIconLeft>
           )}
-          <StyledTabsBox ref={tabsBoxRef} onScroll={handleScroll}>
+          <StyledTabsBox ref={scrollContainerRef} onScroll={handleScroll}>
             {emotionList.map((emotion) => (
               <StyledTab
                 key={emotion.id}
@@ -90,13 +83,25 @@ export default function EmotionList({
           {showRightArrow && (
             <StyledIconRight
               aria-label="Icon to slide the filter to the right"
-              onClick={() => scrollTabs("right")}
+              onClick={() => scrollTabsHorizontally("right")}
             >
               &#9654;
             </StyledIconRight>
           )}
         </StyledWrapper>
       </StyledDivWrapper>
+      <StyledAppliedInfo>
+        {selectedFilter ? (
+          <>
+            #{selectedFilter}
+            <StyledClearFilter onClick={() => setSelectedFilter("")}>
+              ×
+            </StyledClearFilter>
+          </>
+        ) : (
+          ""
+        )}
+      </StyledAppliedInfo>
 
       {filteredEmotions.length === 0 ? (
         <StyledMessage>
@@ -104,7 +109,7 @@ export default function EmotionList({
           emotion.
         </StyledMessage>
       ) : (
-        <StyledUl>
+        <StyledUlContainer>
           {filteredEmotions.map((emotion) => (
             <StyledCardList key={emotion.id}>
               <EmotionCard
@@ -114,7 +119,7 @@ export default function EmotionList({
               />
             </StyledCardList>
           ))}
-        </StyledUl>
+        </StyledUlContainer>
       )}
     </>
   );
@@ -126,17 +131,6 @@ const StyledDivWrapper = styled.div`
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
-`;
-
-const StyledHeadline = styled.h2`
-  margin: 0;
-  padding-top: 10px;
-  color: #313366;
-  text-align: center;
-
-  span {
-    font-weight: bold;
-  }
 `;
 
 const StyledWrapper = styled.div`
@@ -159,8 +153,8 @@ const StyledIconLeft = styled.div`
   z-index: 1;
   background: linear-gradient(90deg, #f6f4f3 40%, transparent);
   cursor: pointer;
-  user-select: none; /* Verhindert Markieren des Inhalts */
-  -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 `;
 
 const StyledTabsBox = styled.ul`
@@ -179,26 +173,22 @@ const StyledTabsBox = styled.ul`
 `;
 
 const StyledTab = styled.li`
+  color: #313366;
   cursor: pointer;
   font-size: 1rem;
   white-space: nowrap;
   background: #f9f9f9;
   padding: 8px 10px;
-  border-radius: 8px;
   border: 1px solid #e0e1f0;
+  border-radius: 8px;
   transition: background-color 0.3s ease;
   opacity: 70%;
-  -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
-
-  &:active {
-    border-color: #313366;
-  }
+  -webkit-tap-highlight-color: transparent;
 
   ${({ $isSelected, $color }) =>
     $isSelected &&
     `
     background: ${$color};
-    border-color: #313366;
     opacity: 100%;
   `}
 `;
@@ -216,8 +206,26 @@ const StyledIconRight = styled.div`
   justify-content: center;
   background: linear-gradient(-90deg, #f6f4f3 40%, transparent);
   cursor: pointer;
-  user-select: none; /* Verhindert Markieren des Inhalts */
-  -webkit-tap-highlight-color: transparent; /* Entfernt blaue Markierung auf mobilen Geräten */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+`;
+
+const StyledAppliedInfo = styled.p`
+  margin: 0;
+  padding: 10px 0 10px 20px;
+  color: #313366;
+`;
+
+const StyledClearFilter = styled.span`
+  margin-left: 4px;
+  cursor: pointer;
+  color: #a6a6a6;
+  position: relative;
+  top: -6px;
+
+  &:hover {
+    color: #313366;
+  }
 `;
 
 const StyledMessage = styled.p`
@@ -227,7 +235,7 @@ const StyledMessage = styled.p`
   padding: 24px 16px;
 `;
 
-const StyledUl = styled.ul`
+const StyledUlContainer = styled.ul`
   padding: 0;
 `;
 
