@@ -15,7 +15,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
-    defaultValue?.intensity || 5
+    defaultValue?.intensity || 1
   );
 
   function toggleVisibilityForm() {
@@ -27,6 +27,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
+    inputData.intensity = selectedIntensity;
 
     if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
 export default function SliderIntensity({ defaultIntensity, onChange }) {
-  const [newValue, setNewValue] = useState(defaultIntensity || 2);
+  const [newValue, setNewValue] = useState(defaultIntensity || 1);
 
   const handleSliderChange = (event) => {
     const value = event.target.value;
