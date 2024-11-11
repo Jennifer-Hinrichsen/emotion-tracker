@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 import SliderIntensity from "./SliderIntensity";
+
 export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
@@ -17,6 +18,11 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
+  const [selectedEmotionType, setSelectedEmotionType] = useState("Enjoyment");
+
+  const handleChangeEmotionType = (event) => {
+    setSelectedEmotionType(event.target.value);
+  };
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
@@ -43,7 +49,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     onSubmit(inputData);
     event.target.reset();
-
     setFormError("");
   }
 
@@ -65,9 +70,10 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              defaultValue={defaultValue?.emotionType || ""}
+              value={selectedEmotionType}
               id="emotionType"
               name="emotionType"
+              onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
               {emotionList.map((emotion) => (
@@ -80,12 +86,12 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           </SelectEmotionContainer>
 
           <label htmlFor="intensity">Emotion intensity*</label>
-
           <SliderIntensity
-            emotionColor="#8295c6"
+            emotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
           />
+
           <label htmlFor="date-time">Date and Time*</label>
           <StyledDateAndTimeInput
             id="date-time"
