@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import EmotionCard from "./EmotionCard";
 import { useState, useRef, useEffect } from "react";
 import { emotionList } from "@/lib/emotionList";
@@ -8,13 +8,13 @@ export default function EmotionList({
   onToggleBookmark,
   myBookmarkedEmotions,
 }) {
-  const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedFilterButton, setSelectedFilterButton] = useState("");
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
 
-  const filteredEmotions = selectedFilter
-    ? emotions.filter((emotion) => emotion.emotionType === selectedFilter)
+  const filteredEmotions = selectedFilterButton
+    ? emotions.filter((emotion) => emotion.emotionType === selectedFilterButton)
     : emotions;
 
   function updateArrowVisibility() {
@@ -26,10 +26,6 @@ export default function EmotionList({
       setShowLeftArrow(canScrollLeft);
       setShowRightArrow(canScrollRight);
     }
-  }
-
-  function handleScroll() {
-    updateArrowVisibility();
   }
 
   function scrollTabsHorizontally(direction) {
@@ -62,18 +58,21 @@ export default function EmotionList({
               &#9664;
             </StyledIconLeft>
           )}
-          <StyledTabsBox ref={scrollContainerRef} onScroll={handleScroll}>
+          <StyledTabsBox
+            ref={scrollContainerRef}
+            onScroll={updateArrowVisibility}
+          >
             {emotionList.map((emotion) => (
               <StyledTab
                 key={emotion.id}
                 onClick={() =>
-                  setSelectedFilter(
-                    emotion.emotionType === selectedFilter
+                  setSelectedFilterButton(
+                    emotion.emotionType === selectedFilterButton
                       ? ""
                       : emotion.emotionType
                   )
                 }
-                $isSelected={emotion.emotionType === selectedFilter}
+                $isSelected={emotion.emotionType === selectedFilterButton}
                 $color={emotion.color}
               >
                 {emotion.emotionType}
@@ -91,10 +90,10 @@ export default function EmotionList({
         </StyledWrapper>
       </StyledDivWrapper>
       <StyledAppliedInfo>
-        {selectedFilter ? (
+        {selectedFilterButton ? (
           <>
-            #{selectedFilter}
-            <StyledClearFilter onClick={() => setSelectedFilter("")}>
+            #{selectedFilterButton}
+            <StyledClearFilter onClick={() => setSelectedFilterButton("")}>
               ×
             </StyledClearFilter>
           </>
@@ -187,10 +186,10 @@ const StyledTab = styled.li`
 
   ${({ $isSelected, $color }) =>
     $isSelected &&
-    `
-    background: ${$color};
-    opacity: 100%;
-  `}
+    css`
+      background: ${$color};
+      opacity: 100%;
+    `}
 `;
 
 const StyledIconRight = styled.div`
