@@ -85,4 +85,5 @@ const StyledEmotionCard = styled.section`
   padding: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
+  word-break: break-word;
 `;
