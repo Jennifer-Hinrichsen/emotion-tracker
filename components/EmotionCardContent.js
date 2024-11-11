@@ -25,7 +25,7 @@ const StyledEmotionCardContent = styled.div`
 
 const StyledEmojiIcon = styled.span`
   grid-area: emoji;
-  align-self: self-start;
+  align-self: start;
   width: 50px;
   height: 50px;
   color: var(--color-secondary);
@@ -39,7 +39,8 @@ const StyledEmotionType = styled.p`
   grid-area: emotionType;
   margin: 0;
   padding-left: 28px;
-  font-weight: bold 600;
+  font-weight: 400;
+
   font-size: 1.2rem;
   color: var(--color-secondary);
 `;
@@ -57,7 +58,7 @@ const StyledIntensity = styled.p`
   align-self: start;
   margin: 6px 12px;
   text-align: right;
-  font-weight: bold 600;
+  font-weight: 400;
   font-size: 1.2rem;
   color: var(--color-secondary);
 `;
