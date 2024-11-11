@@ -8,6 +8,7 @@ export default createGlobalStyle`
     --color-border: #d3d3d3;
     --color-highlight: #9acd32;
     --color-success: #28a745; 
+    --color-shadow: #00000029;
   }
 
   *,

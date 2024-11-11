@@ -68,7 +68,7 @@ const StyledOuterBox = styled.div`
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
-  box-shadow: 0px 1px 4px #00000029;
+  box-shadow: 0px 1px 4px var(--color-shadow);
   margin: 16px 8px;
 `;
 
