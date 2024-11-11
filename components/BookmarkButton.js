@@ -11,8 +11,8 @@ export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
 
 const StyledButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1px;
+  right: 5px;
   font-size: 24px;
   background: none;
   border: none;

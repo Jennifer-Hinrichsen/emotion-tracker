@@ -24,6 +24,16 @@ const StyledEmotionCardContent = styled.div`
   gap: 4px 8px;
   align-items: center;
   padding: 10px;
+
+  @media (max-width: 374px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "emoji"
+      "emotionType"
+      "notes"
+      "intensity";
+  }
 `;
 
 const StyledEmojiIcon = styled.span`
@@ -31,6 +41,12 @@ const StyledEmojiIcon = styled.span`
   width: 40px;
   height: 40px;
   color: #313366;
+
+  svg {
+    stroke-width: 1px !important;
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const StyledEmotionType = styled.p`
@@ -46,6 +62,7 @@ const StyledNotes = styled.p`
   margin: 12px 12px;
   color: #313366;
   font-size: 0.8rem;
+  max-width: 100%;
 `;
 
 const StyledIntensity = styled.p`
@@ -53,7 +70,7 @@ const StyledIntensity = styled.p`
   align-self: start;
   margin: 6px 12px;
   text-align: right;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: bold 600;
+  font-size: 1.2rem;
   color: #313366;
 `;
