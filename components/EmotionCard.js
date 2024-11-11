@@ -11,12 +11,15 @@ export default function EmotionCard({
   isBookmarked,
   isDetailsPage = false,
 }) {
+  const { date, time } = formatDate(emotion.dateTime);
+
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
         <StyledOuterBox>
           <StyledTopBox>
-            <StyledDateTime>{formatDate(emotion.dateTime)}</StyledDateTime>
+            <StyledDate>{date}</StyledDate>
+            <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
             <EmotionCardContent emotion={emotion} />
@@ -31,7 +34,8 @@ export default function EmotionCard({
           <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
             <StyledOuterBox>
               <StyledTopBox>
-                <StyledDateTime>{formatDate(emotion.dateTime)}</StyledDateTime>
+                <StyledDate>{date}</StyledDate>
+                <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent emotion={emotion} />
@@ -69,14 +73,23 @@ const StyledOuterBox = styled.div`
 `;
 
 const StyledTopBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
   background-color: #e0e1f0;
   padding: 5px;
   border-radius: 4px 4px 0 0;
 `;
 
-const StyledDateTime = styled.p`
+const StyledDate = styled.p`
   margin: 0;
-  padding-left: 16px;
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  color: #313366;
+`;
+
+const StyledTime = styled.p`
+  margin: 0;
+  padding-left: 1rem;
   font-size: 0.8rem;
   color: #313366;
 `;
