@@ -3,14 +3,12 @@ import { emotionsIcons } from "./EmotionIcons";
 
 export default function EmotionCardContent({ emotion }) {
   return (
-    <>
-      <StyledEmotionCardContent>
-        <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
-        <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
-        <StyledIntensity>{emotion.intensity}</StyledIntensity>
-        <StyledNotes>{emotion.notes}</StyledNotes>
-      </StyledEmotionCardContent>
-    </>
+    <StyledEmotionCardContent>
+      <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
+      <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
+      <StyledIntensity>{emotion.intensity}</StyledIntensity>
+      <StyledNotes>{emotion.notes}</StyledNotes>
+    </StyledEmotionCardContent>
   );
 }
 
