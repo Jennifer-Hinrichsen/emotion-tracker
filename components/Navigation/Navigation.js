@@ -44,6 +44,7 @@ const StyledNavigationBar = styled.nav`
   width: 100%;
   height: 3.75rem;
   gap: 1.25rem;
+  border-top: 1px solid #e0e1f0;
 `;
 
 const CenterWrapper = styled.div`
