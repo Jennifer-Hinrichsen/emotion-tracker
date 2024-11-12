@@ -11,22 +11,14 @@ export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
 
 const StyledButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
+  top: -10px;
+  right: 5px;
+  width: 48px;
+  height: 48px;
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: translateY(-10px) scale(1.1) rotate(-10deg);
-  }
-
-  &:active {
-    transform: scale(0.9);
-    box-shadow: 0 2px 5px;
-  }
+  touch-action: manipulation;
 `;
 
 const StyledBookmarkPinIcon = styled(BookmarkPinIcon)`

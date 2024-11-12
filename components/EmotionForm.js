@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
+import SliderIntensity from "./SliderIntensity";
 
 export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
@@ -15,8 +16,13 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
-    defaultValue?.intensity || 5
+    defaultValue?.intensity || 1
   );
+  const [selectedEmotionType, setSelectedEmotionType] = useState("");
+
+  const handleChangeEmotionType = (event) => {
+    setSelectedEmotionType(event.target.value);
+  };
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
@@ -27,6 +33,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
+    inputData.intensity = selectedIntensity;
 
     if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");
@@ -42,7 +49,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     onSubmit(inputData);
     event.target.reset();
-
     setFormError("");
   }
 
@@ -64,9 +70,10 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              defaultValue={defaultValue?.emotionType || ""}
+              value={selectedEmotionType}
               id="emotionType"
               name="emotionType"
+              onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
               {emotionList.map((emotion) => (
@@ -79,22 +86,11 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           </SelectEmotionContainer>
 
           <label htmlFor="intensity">Emotion intensity*</label>
-          <StyledSliderContainer>
-            <StyledSlider
-              id="intensity"
-              name="intensity"
-              value={selectedIntensity}
-              onChange={(event) => {
-                setSelectedIntensity(event.target.value);
-              }}
-              type="range"
-              min="1"
-              max="10"
-              step="1"
-            />
-
-            <p>{selectedIntensity}</p>
-          </StyledSliderContainer>
+          <SliderIntensity
+            emotionType={selectedEmotionType}
+            defaultIntensity={selectedIntensity}
+            onChange={(intensity) => setSelectedIntensity(intensity)}
+          />
 
           <label htmlFor="date-time">Date and Time*</label>
           <StyledDateAndTimeInput
@@ -136,9 +132,9 @@ const StyledFormContainer = styled.div`
   width: 90%;
   margin: 0 auto;
   background-color: #e0e1f0;
-  border: 1px solid #d3d3d3;
+  border: 1px solid (--color-border);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px #000;
+  box-shadow: 0 1px 4px var(--color-shadow);
   margin-bottom: 48px;
 `;
 
@@ -153,7 +149,7 @@ const StyledFormHead = styled.div`
 const StyledSubheadline = styled.h2`
   margin: 0;
   padding: 10px 0;
-  color: #313366;
+  color: var(--color-secondary);
   text-align: center;
 `;
 
@@ -161,7 +157,8 @@ const StyledVisibilityIcons = styled.button`
   border-radius: 50px;
   width: 35px;
   height: 35px;
-  border: solid 1px #313366;
+  border: solid 1px var(--color-secondary);
+  background-color: var(--color-background);
   position: absolute;
   left: calc(50% + 120px);
 `;
@@ -172,13 +169,13 @@ const StyledEmotionForm = styled.form`
   opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transition: max-height 0.5s ease, opacity 0.5s ease;
   padding: 0 1rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-background);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: #313366;
+  color: var(--color-secondary);
 `;
 
 const SelectEmotionContainer = styled.div`
@@ -191,9 +188,9 @@ const StyledSelectEmotion = styled.select`
   padding: 10px 15px;
   background-color: transparent;
   border: none;
-  border-bottom: 1px dotted #8295c6;
+  border-bottom: 1px dotted var(--color-primary);
   font-size: 1rem;
-  color: #8295c6;
+  color: var(--color-primary);
   outline: none;
   cursor: pointer;
   appearance: none;
@@ -204,7 +201,7 @@ const StyledArrow = styled.span`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #8295c6;
+  color: var(--color-primary);
   pointer-events: none;
 `;
 
@@ -218,7 +215,7 @@ const StyledSliderContainer = styled.div`
 const StyledSlider = styled.input`
   width: 100%;
   height: 3px;
-  accent-color: #8295c6;
+  accent-color: var(--color-primary);
   cursor: pointer;
 `;
 
@@ -226,9 +223,9 @@ const StyledDateAndTimeInput = styled.input`
   width: 100%;
   padding: 1rem;
   border: none;
-  border-bottom: 1px dotted #8295c6;
+  border-bottom: 1px dotted var(--color-primary);
   background-color: transparent;
-  color: #8295c6;
+  color: var(--color-primary);
   font-size: 1rem;
 
   &::-webkit-calendar-picker-indicator {
@@ -240,14 +237,14 @@ const StyledTextArea = styled.textarea`
   width: 100%;
   padding: 0 10px 10px 10px;
   border: none;
-  border-bottom: 1px dotted #8295c6;
+  border-bottom: 1px dotted var(--color-primary);
   background-color: transparent;
-  color: #8295c6;
+  color: var(--color-primary);
   font-size: 1rem;
   cursor: text;
 
   &::placeholder {
-    color: #8295c6;
+    color: var(--color-primary);
     font-size: 1rem;
   }
 `;
@@ -259,21 +256,38 @@ const StyledError = styled.p`
 `;
 
 const StyledSuccess = styled.p`
-  color: #28a745;
+  color: var(--color-success);
   font-size: 1rem;
   margin-top: 8px;
 `;
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: #8295c6;
+  background-color: var(--color-primary);
   color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #9acd32;
+    background-color: var(--color-success);
+  }
+
+  &.clicked {
+    animation: greenFlash 6s forwards;
+  }
+
+  @keyframes greenFlash {
+    0% {
+      background-color: var(--color-primary);
+    }
+    50% {
+      background-color: var(--color-success);
+    }
+    100% {
+      background-color: var(--color-primary);
+    }
   }
 `;
 
