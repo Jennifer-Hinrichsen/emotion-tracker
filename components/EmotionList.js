@@ -18,7 +18,7 @@ export default function EmotionList({
   return (
     <>
       <StyledHeadline>Filter emotion type</StyledHeadline>
-      <ul>
+      <StyledList>
         {emotionList.map((emotion) => (
           <StyledFilterList key={emotion.id}>
             <StyledFilterButtons
@@ -35,7 +35,7 @@ export default function EmotionList({
             </StyledFilterButtons>
           </StyledFilterList>
         ))}
-      </ul>
+      </StyledList>
 
       {filteredEmotions.length === 0 ? (
         <StyledMessage>
@@ -43,7 +43,7 @@ export default function EmotionList({
           emotion.
         </StyledMessage>
       ) : (
-        <ul>
+        <StyledList>
           {filteredEmotions.map((emotion) => (
             <StyledCardList key={emotion.id}>
               <EmotionCard
@@ -54,7 +54,7 @@ export default function EmotionList({
               />
             </StyledCardList>
           ))}
-        </ul>
+        </StyledList>
       )}
     </>
   );
@@ -62,6 +62,11 @@ export default function EmotionList({
 
 const StyledHeadline = styled.h2`
   text-align: center;
+`;
+
+const StyledList = styled.ul`
+  margin-bottom: 48px;
+  padding: 0 1rem;
 `;
 
 const StyledFilterList = styled.li`

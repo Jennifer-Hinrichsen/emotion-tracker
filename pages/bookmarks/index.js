@@ -1,5 +1,6 @@
 import EmotionCard from "@/components/EmotionCard";
 import Heading from "@/components/Heading";
+import styled from "styled-components";
 
 export default function BookmarksPage({
   emotions,
@@ -13,18 +14,25 @@ export default function BookmarksPage({
   return (
     <>
       <Heading>My Emotions</Heading>
-      {bookmarkedEmotions.length > 0 ? (
-        bookmarkedEmotions.map((emotion) => (
-          <EmotionCard
-            key={emotion.id}
-            emotion={emotion}
-            onToggleBookmark={onToggleBookmark}
-            isBookmarked={true}
-          />
-        ))
-      ) : (
-        <p>You have no bookmarked emotions anymore.</p>
-      )}
+      <StyledList>
+        {bookmarkedEmotions.length > 0 ? (
+          bookmarkedEmotions.map((emotion) => (
+            <EmotionCard
+              key={emotion.id}
+              emotion={emotion}
+              onToggleBookmark={onToggleBookmark}
+              isBookmarked={true}
+            />
+          ))
+        ) : (
+          <p>You have no bookmarked emotions anymore.</p>
+        )}
+      </StyledList>
     </>
   );
 }
+
+const StyledList = styled.ul`
+  margin-bottom: 48px;
+  padding: 0 1rem;
+`;

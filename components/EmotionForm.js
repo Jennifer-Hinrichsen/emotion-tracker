@@ -132,9 +132,9 @@ const StyledFormContainer = styled.div`
   width: 90%;
   margin: 0 auto;
   background-color: #e0e1f0;
-  border: 1px solid #d3d3d3;
+  border: 1px solid (--color-border);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px #000;
+  box-shadow: 0 1px 4px var(--color-shadow);
   margin-bottom: 48px;
 `;
 
@@ -149,7 +149,7 @@ const StyledFormHead = styled.div`
 const StyledSubheadline = styled.h2`
   margin: 0;
   padding: 10px 0;
-  color: #313366;
+  color: var(--color-secondary);
   text-align: center;
 `;
 
@@ -157,7 +157,8 @@ const StyledVisibilityIcons = styled.button`
   border-radius: 50px;
   width: 35px;
   height: 35px;
-  border: solid 1px #313366;
+  border: solid 1px var(--color-secondary);
+  background-color: var(--color-background);
   position: absolute;
   left: calc(50% + 120px);
 `;
@@ -168,13 +169,13 @@ const StyledEmotionForm = styled.form`
   opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transition: max-height 0.5s ease, opacity 0.5s ease;
   padding: 0 1rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-background);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: #313366;
+  color: var(--color-secondary);
 `;
 
 const SelectEmotionContainer = styled.div`
@@ -187,9 +188,9 @@ const StyledSelectEmotion = styled.select`
   padding: 10px 15px;
   background-color: transparent;
   border: none;
-  border-bottom: 1px dotted #8295c6;
+  border-bottom: 1px dotted var(--color-primary);
   font-size: 1rem;
-  color: #8295c6;
+  color: var(--color-primary);
   outline: none;
   cursor: pointer;
   appearance: none;
@@ -200,7 +201,7 @@ const StyledArrow = styled.span`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #8295c6;
+  color: var(--color-primary);
   pointer-events: none;
 `;
 
@@ -214,7 +215,7 @@ const StyledSliderContainer = styled.div`
 const StyledSlider = styled.input`
   width: 100%;
   height: 3px;
-  accent-color: #8295c6;
+  accent-color: var(--color-primary);
   cursor: pointer;
 `;
 
@@ -222,9 +223,9 @@ const StyledDateAndTimeInput = styled.input`
   width: 100%;
   padding: 1rem;
   border: none;
-  border-bottom: 1px dotted #8295c6;
+  border-bottom: 1px dotted var(--color-primary);
   background-color: transparent;
-  color: #8295c6;
+  color: var(--color-primary);
   font-size: 1rem;
 
   &::-webkit-calendar-picker-indicator {
@@ -236,14 +237,14 @@ const StyledTextArea = styled.textarea`
   width: 100%;
   padding: 0 10px 10px 10px;
   border: none;
-  border-bottom: 1px dotted #8295c6;
+  border-bottom: 1px dotted var(--color-primary);
   background-color: transparent;
-  color: #8295c6;
+  color: var(--color-primary);
   font-size: 1rem;
   cursor: text;
 
   &::placeholder {
-    color: #8295c6;
+    color: var(--color-primary);
     font-size: 1rem;
   }
 `;
@@ -255,14 +256,14 @@ const StyledError = styled.p`
 `;
 
 const StyledSuccess = styled.p`
-  color: #28a745;
+  color: var(--color-success);
   font-size: 1rem;
   margin-top: 8px;
 `;
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: #8295c6;
+  background-color: var(--color-primary);
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -270,7 +271,7 @@ const StyledButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #5cb85c;
+    background-color: var(--color-success);
   }
 
   &.clicked {
@@ -279,13 +280,13 @@ const StyledButton = styled.button`
 
   @keyframes greenFlash {
     0% {
-      background-color: #8295c6;
+      background-color: var(--color-primary);
     }
     50% {
-      background-color: #5cb85c;
+      background-color: var(--color-success);
     }
     100% {
-      background-color: #8295c6;
+      background-color: var(--color-primary);
     }
   }
 `;

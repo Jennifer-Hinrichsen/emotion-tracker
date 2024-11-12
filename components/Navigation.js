@@ -10,7 +10,7 @@ export default function Navigation() {
 
   return (
     <StyledNavigationBar>
-      <LinkStyled href="/bookmarks">
+      <StyledLink href="/bookmarks">
         <IconWrapper isActive={isActive("/bookmarks")}>
           <StyledBookmarkIcon
             src="/BookmarkPinIcon.svg"
@@ -20,7 +20,7 @@ export default function Navigation() {
           />
           My Emotions
         </IconWrapper>
-      </LinkStyled>
+      </StyledLink>
       <CenterWrapper>
         <Link href="/">
           <LogoCanvas isOnHomePage={isActive("/")}>
@@ -38,13 +38,16 @@ const StyledNavigationBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #e0e1f0;
+
+  background-color: var(--color-frame);
+  border-top: 1px solid var(--color-border);
+
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 3.75rem;
   gap: 1.25rem;
-  border-top: 1px solid #e0e1f0;
+  border-top: 1px solid var(--color-frame);
 `;
 
 const CenterWrapper = styled.div`
@@ -87,7 +90,7 @@ const LogoCanvas = styled.div`
   }
 `;
 
-const LinkStyled = styled.a`
+const StyledLink = styled(Link)`
   color: #313366;
   font-size: 1rem;
   padding: 0.625rem;
