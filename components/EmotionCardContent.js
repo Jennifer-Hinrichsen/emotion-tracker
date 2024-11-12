@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
 import formatDate from "./TransformDateTime";
 
-export default function EmotionCardContent({ emotion }) {
+export default function EmotionCardContent({ emotion, intensity }) {
   return (
     <>
       <h2>{emotion.emotionType}</h2>
       <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
-      <p>Intensity: {emotion.intensity}</p>
+      <p>Intensity: {intensity}</p>
       <p>Notes: {emotion.notes}</p>
       <StyledDateTime>{formatDate(emotion.dateTime)}</StyledDateTime>
     </>

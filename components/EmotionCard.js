@@ -4,14 +4,12 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 
-import { emotionsIcons } from "./EmotionIcons";
-import formatDate from "./TransformDateTime";
-
 export default function EmotionCard({
   emotion,
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
+  intensity,
 }) {
   return (
     <StyledCardWrapper>
@@ -22,12 +20,13 @@ export default function EmotionCard({
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(emotion.id)}
           />
+          <IntensityDisplay>Intensity: {intensity}</IntensityDisplay>
         </StyledEmotionCard>
       ) : (
         <>
           <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
             <StyledEmotionCard>
-              <EmotionCardContent emotion={emotion} />
+              <EmotionCardContent emotion={emotion} intensity={intensity} />
             </StyledEmotionCard>
           </StyledLink>
           <BookmarkButton
@@ -63,4 +62,9 @@ const StyledEmotionCard = styled.section`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
   word-break: break-word;
+`;
+
+const IntensityDisplay = styled.div`
+  font-size: 1rem;
+  margin-top: 10px;
 `;
