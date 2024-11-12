@@ -11,6 +11,7 @@ export default createGlobalStyle`
     margin: 0;
     font-family: system-ui;
     background-color: #f6f4f3;
+    padding-bottom: 66px;
   }
 
   h1, h2 {
@@ -26,4 +27,7 @@ export default createGlobalStyle`
     padding-top: 1rem;
     align-self: flex-start;
   }
+  a {
+  text-decoration: none;
+}
 `;
