@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import EmotionCard from "../EmotionCard";
+import EmotionCard from "./EmotionCard";
 
 export default function EmotionList({
   emotions,
