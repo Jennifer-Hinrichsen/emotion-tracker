@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { emotionList } from "@/lib/emotionList";
+import useScreenSize from "./useScreenSize";
 
 export default function Filter({
   emotions,
@@ -10,6 +11,7 @@ export default function Filter({
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
+  const screenSize = useScreenSize();
 
   const filteredEmotions = selectedFilterButton
     ? emotions.filter((emotion) => emotion.emotionType === selectedFilterButton)
@@ -36,13 +38,13 @@ export default function Filter({
     }
   }
 
-  useEffect(function () {
+  useEffect(() => {
     const tabsBox = scrollContainerRef.current;
     if (tabsBox) {
       tabsBox.scrollLeft = (tabsBox.scrollWidth - tabsBox.clientWidth) / 2;
       updateArrowVisibility();
     }
-  }, []);
+  }, [screenSize.width]);
 
   return (
     <>
