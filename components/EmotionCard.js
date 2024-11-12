@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
@@ -10,6 +9,7 @@ export default function EmotionCard({
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
+  intensity,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
@@ -38,7 +38,7 @@ export default function EmotionCard({
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
-                <EmotionCardContent emotion={emotion} />
+                <EmotionCardContent emotion={emotion} intensity={intensity} />
               </StyledEmotionCard>
             </StyledOuterBox>
           </StyledLink>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import EmotionCard from "./EmotionCard";
 import { useState } from "react";
 import { emotionList } from "@/lib/emotionList";
+import SliderIntensity from "./SliderIntensity";
 
 export default function EmotionList({
   emotions,
@@ -49,6 +50,7 @@ export default function EmotionList({
                 emotion={emotion}
                 onToggleBookmark={onToggleBookmark}
                 isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
+                intensity={emotion.intensity}
               />
             </StyledCardList>
           ))}

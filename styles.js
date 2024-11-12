@@ -6,9 +6,9 @@ export default createGlobalStyle`
     --color-primary: #8295c6;
     --color-secondary: #313366;
     --color-border: #d3d3d3;
-    --color-highlight: #9acd32;
-    --color-success: #28a745; 
+    --color-success: #5cb85c; 
     --color-shadow: #00000029;
+    --color-frame: #e0e1f0;
   }
 
   *,
@@ -21,6 +21,8 @@ export default createGlobalStyle`
     margin: 0;
     font-family: system-ui;
     background-color: var(--color-background);
+    padding-bottom: 66px;
+
   }
 
   h1, h2 {
@@ -36,4 +38,7 @@ export default createGlobalStyle`
     padding-top: 1rem;
     align-self: flex-start;
   }
+  a {
+  text-decoration: none;
+}
 `;

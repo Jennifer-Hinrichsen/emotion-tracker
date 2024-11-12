@@ -40,7 +40,6 @@ const StyledEmotionType = styled.p`
   margin: 0;
   padding-left: 28px;
   font-weight: 400;
-
   font-size: 1.2rem;
   color: var(--color-secondary);
 `;

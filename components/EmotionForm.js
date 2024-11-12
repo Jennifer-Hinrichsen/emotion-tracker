@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
+import SliderIntensity from "./SliderIntensity";
 
 export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const currentDateTime = new Date(
@@ -15,8 +16,13 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState(
-    defaultValue?.intensity || 5
+    defaultValue?.intensity || 1
   );
+  const [selectedEmotionType, setSelectedEmotionType] = useState("");
+
+  const handleChangeEmotionType = (event) => {
+    setSelectedEmotionType(event.target.value);
+  };
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
@@ -27,6 +33,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
+    inputData.intensity = selectedIntensity;
 
     if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");
@@ -42,7 +49,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     onSubmit(inputData);
     event.target.reset();
-
     setFormError("");
   }
 
@@ -64,9 +70,10 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           <label htmlFor="emotionType">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              defaultValue={defaultValue?.emotionType || ""}
+              value={selectedEmotionType}
               id="emotionType"
               name="emotionType"
+              onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
               {emotionList.map((emotion) => (
@@ -79,22 +86,11 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           </SelectEmotionContainer>
 
           <label htmlFor="intensity">Emotion intensity*</label>
-          <StyledSliderContainer>
-            <StyledSlider
-              id="intensity"
-              name="intensity"
-              value={selectedIntensity}
-              onChange={(event) => {
-                setSelectedIntensity(event.target.value);
-              }}
-              type="range"
-              min="1"
-              max="10"
-              step="1"
-            />
-
-            <p>{selectedIntensity}</p>
-          </StyledSliderContainer>
+          <SliderIntensity
+            emotionType={selectedEmotionType}
+            defaultIntensity={selectedIntensity}
+            onChange={(intensity) => setSelectedIntensity(intensity)}
+          />
 
           <label htmlFor="date-time">Date and Time*</label>
           <StyledDateAndTimeInput
@@ -272,9 +268,26 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--color-highlight);
+    background-color: var(--color-success);
+  }
+
+  &.clicked {
+    animation: greenFlash 6s forwards;
+  }
+
+  @keyframes greenFlash {
+    0% {
+      background-color: var(--color-primary);
+    }
+    50% {
+      background-color: var(--color-success);
+    }
+    100% {
+      background-color: var(--color-primary);
+    }
   }
 `;
 
