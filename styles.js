@@ -11,6 +11,7 @@ export default createGlobalStyle`
     margin: 0;
     font-family: system-ui;
     background-color: #f6f4f3;
+    padding-bottom: 66px;
   }
 
   h1, h2 {
