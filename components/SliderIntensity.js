@@ -12,7 +12,7 @@ export default function SliderIntensity({
   const emotion = emotionList.find(
     (emotion) => emotion.emotionType === emotionType
   );
-  const thumbColor = emotion ? emotion.color : "#8295c6";
+  const $thumbColor = emotion ? emotion.color : "#8295c6";
 
   const handleSliderChange = (event) => {
     const value = event.target.value;
@@ -28,7 +28,7 @@ export default function SliderIntensity({
         max="3"
         value={newValue}
         onChange={handleSliderChange}
-        thumbColor={thumbColor}
+        $thumbColor={$thumbColor}
       />
     </SliderContainer>
   );
@@ -56,7 +56,7 @@ const StyledSlider = styled.input`
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    background-color: ${({ thumbColor }) => thumbColor};
+    background-color: ${({ $thumbColor }) => $thumbColor};
     border-radius: 50%;
     cursor: pointer;
     transition: width 0.3s ease, height 0.3s ease;
@@ -73,7 +73,7 @@ const StyledSlider = styled.input`
   }
 
   &::-moz-range-thumb {
-    background-color: ${({ thumbColor }) => thumbColor};
+    background-color: ${({ $thumbColor }) => $thumbColor};
 
     border-radius: 50%;
     cursor: pointer;
