@@ -1,21 +1,30 @@
+import { useState } from "react";
 import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
 import EmotionList from "@/components/EmotionList";
-import Image from "next/image";
 import styled from "styled-components";
-import SliderIntensity from "@/components/SliderIntensity";
+import SearchBar from "@/components/Searcbar/Searchbar";
 export default function HomePage({
   emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
 }) {
+  const [filteredEmotions, setFilteredEmotions] = useState(emotions);
+  const handleSearch = (term) => {
+    const filtered = emotions.filter((emotion) =>
+      emotion.notes.toLowerCase().includes(term.toLowerCase())
+    );
+    setFilteredEmotions(filtered);
+  };
+
   return (
     <>
       <StyledHeading>Mood Wave</StyledHeading>
-      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+      <SearchBar onSearch={handleSearch} />
+      <EmotionForm emotions={filteredEmotions} onSubmit={onCreateEmotion} />
       <EmotionList
-        emotions={emotions}
+        emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
       />
