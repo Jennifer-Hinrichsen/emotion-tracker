@@ -1,28 +1,25 @@
-import { useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "assets/searchIcon/SearchIcon.svg";
+import { useState } from "react";
 
-export default function SearchBar({ onSearch }) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SearchBar({ searchTerm, onSearch }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleSearchInputChange = (event) => {
     const term = event.target.value;
-    setSearchTerm(term);
     onSearch(term);
   };
 
   const toggleSearchBar = () => {
     setIsExpanded(!isExpanded);
-    if (!isExpanded) {
-      setSearchTerm("");
-    }
   };
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       onSearch(searchTerm);
     }
   };
+
   return (
     <StyledSearchWrapper>
       <StyledSearchInput
@@ -39,7 +36,6 @@ export default function SearchBar({ onSearch }) {
     </StyledSearchWrapper>
   );
 }
-
 const StyledSearchWrapper = styled.div`
   display: flex;
   align-items: center;
