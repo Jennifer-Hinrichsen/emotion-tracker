@@ -2,6 +2,8 @@ import styled from "styled-components";
 import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
+import formatDate from "./TransformDateTime";
+import { emotionList } from "@/lib/emotionList";
 
 export default function EmotionCard({
   emotion,
@@ -9,22 +11,43 @@ export default function EmotionCard({
   isBookmarked,
   isDetailsPage = false,
 }) {
+  const { date, time } = formatDate(emotion.dateTime);
+
+  function getEmotionColor(type) {
+    const emotion = emotionList.find((item) => item.emotionType === type);
+    return emotion ? emotion.color : "var(--color-frame)";
+  }
+
+  const emotionColor = getEmotionColor(emotion.emotionType);
+
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <StyledEmotionCard>
-          <EmotionCardContent emotion={emotion} />
-          <BookmarkButton
-            isBookmarked={isBookmarked}
-            onToggleBookmark={() => onToggleBookmark(emotion.id)}
-          />
-        </StyledEmotionCard>
+        <StyledOuterBox color={emotionColor}>
+          <StyledTopBox color={emotionColor}>
+            <StyledDate>{date}</StyledDate>
+            <StyledTime>{time}</StyledTime>
+          </StyledTopBox>
+          <StyledEmotionCard>
+            <EmotionCardContent emotion={emotion} />
+            <BookmarkButton
+              isBookmarked={isBookmarked}
+              onToggleBookmark={() => onToggleBookmark(emotion.id)}
+            />
+          </StyledEmotionCard>
+        </StyledOuterBox>
       ) : (
         <>
           <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
-            <StyledEmotionCard>
-              <EmotionCardContent emotion={emotion} />
-            </StyledEmotionCard>
+            <StyledOuterBox color={emotionColor}>
+              <StyledTopBox color={emotionColor}>
+                <StyledDate>{date}</StyledDate>
+                <StyledTime>{time}</StyledTime>
+              </StyledTopBox>
+              <StyledEmotionCard>
+                <EmotionCardContent emotion={emotion} />
+              </StyledEmotionCard>
+            </StyledOuterBox>
           </StyledLink>
           <BookmarkButton
             isBookmarked={isBookmarked}
@@ -48,6 +71,36 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const StyledOuterBox = styled.div`
+  background-color: var(--color-background);
+  border: 1px solid ${({ color }) => color || "var(--color-border)"};
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px var(--color-shadow);
+  margin: 24px 8px;
+  overflow: hidden;
+`;
+
+const StyledTopBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  background-color: ${({ color }) => color || "var(--color-background)"};
+  padding: 5px;
+`;
+
+const StyledDate = styled.p`
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-secondary);
+`;
+
+const StyledTime = styled.p`
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-secondary);
+`;
+
 const StyledEmotionCard = styled.section`
   display: flex;
   flex-direction: column;
@@ -56,7 +109,6 @@ const StyledEmotionCard = styled.section`
   margin: 16px 8px;
   padding: 10px;
   background-color: #f9f9f9;
-  border: 1px solid #d3d3d3;
   border-radius: 8px;
   word-break: break-word;
 `;
