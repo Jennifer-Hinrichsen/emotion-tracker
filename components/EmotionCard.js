@@ -14,7 +14,6 @@ export default function EmotionCard({
   searchTerm,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
-  const myStyle = { color: "yellow" };
 
   return (
     <StyledCardWrapper>
@@ -60,7 +59,6 @@ export default function EmotionCard({
                         searchWords={[searchTerm]}
                         autoEscape={true}
                         textToHighlight={emotion.notes}
-                        activeClassName="highlight"
                       />
                     ),
                   }}
@@ -126,9 +124,6 @@ const StyledEmotionCard = styled.section`
   background-color: var(--color-background);
   border-radius: 8px;
   word-break: break-word;
-  .highlight {
-    color: yellow;
-  }
 `;
 const StyledHighlighter = styled(Highlighter)`
   background-color: yellow;

@@ -11,11 +11,13 @@ export default function HomePage({
   myBookmarkedEmotions,
 }) {
   const [filteredEmotions, setFilteredEmotions] = useState(emotions);
+  const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (term) => {
     const filtered = emotions.filter((emotion) =>
       emotion.notes.toLowerCase().includes(term.toLowerCase())
     );
     setFilteredEmotions(filtered);
+    setSearchTerm(term);
   };
 
   return (
@@ -27,6 +29,7 @@ export default function HomePage({
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
+        searchTerm={searchTerm}
       />
     </>
   );
