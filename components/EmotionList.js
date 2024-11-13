@@ -7,6 +7,7 @@ export default function EmotionList({
   emotions,
   onToggleBookmark,
   myBookmarkedEmotions,
+  searchTerm,
 }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -50,6 +51,7 @@ export default function EmotionList({
                 onToggleBookmark={onToggleBookmark}
                 isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
                 intensity={emotion.intensity}
+                searchTerm={searchTerm}
               />
             </StyledCardList>
           ))}

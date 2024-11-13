@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import SearchIcon from "assets/searchIcon/SearchIcon.svg";
 
 export default function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +18,11 @@ export default function SearchBar({ onSearch }) {
       setSearchTerm("");
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      onSearch(searchTerm);
+    }
+  };
   return (
     <StyledSearchWrapper>
       <StyledSearchInput
@@ -26,8 +31,11 @@ export default function SearchBar({ onSearch }) {
         value={searchTerm}
         onChange={handleSearchInputChange}
         $isExpanded={isExpanded}
+        onKeyDown={handleKeyDown}
       />
-      <SearchIcon onClick={toggleSearchBar}>🔍</SearchIcon>
+      <StyledSearchButton onClick={toggleSearchBar}>
+        <StyledSearchIcon />
+      </StyledSearchButton>
     </StyledSearchWrapper>
   );
 }
@@ -42,9 +50,12 @@ const StyledSearchWrapper = styled.div`
 
 const StyledSearchInput = styled.input`
   padding: 8px;
+  margin-top: 10px;
   margin-left: 10px;
+
+  width: 100%;
   border: 1px solid #ccc;
-  border-radius: 16px;
+  border-radius: 8px;
   font-size: 16px;
   width: ${(props) => (props.$isExpanded ? "90" : "0")};
   opacity: ${(props) => (props.$isExpanded ? "1" : "0")};
@@ -57,9 +68,11 @@ const StyledSearchInput = styled.input`
   }
 `;
 
-const SearchIcon = styled.button`
+const StyledSearchButton = styled.button`
   font-size: 24px;
   color: #313366;
+  width: 48px;
+  height: 48px;
   cursor: pointer;
   background: none;
   border: none;
@@ -73,4 +86,9 @@ const SearchIcon = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const StyledSearchIcon = styled(SearchIcon)`
+  margin-top: 10px;
+  opacity: 40%;
 `;

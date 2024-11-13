@@ -3,6 +3,7 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
+import Highlighter from "react-highlight-words";
 
 export default function EmotionCard({
   emotion,
@@ -10,8 +11,10 @@ export default function EmotionCard({
   isBookmarked,
   isDetailsPage = false,
   intensity,
+  searchTerm,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
+  const myStyle = { color: "yellow" };
 
   return (
     <StyledCardWrapper>
@@ -22,7 +25,18 @@ export default function EmotionCard({
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
-            <EmotionCardContent emotion={emotion} />
+            <EmotionCardContent
+              emotion={{
+                ...emotion,
+                notes: (
+                  <Highlighter
+                    searchWords={[searchTerm]}
+                    autoEscape={true}
+                    textToHighlight={emotion.notes}
+                  />
+                ),
+              }}
+            />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion.id)}
@@ -38,7 +52,20 @@ export default function EmotionCard({
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
-                <EmotionCardContent emotion={emotion} intensity={intensity} />
+                <EmotionCardContent
+                  emotion={{
+                    ...emotion,
+                    notes: (
+                      <Highlighter
+                        searchWords={[searchTerm]}
+                        autoEscape={true}
+                        textToHighlight={emotion.notes}
+                        activeClassName="highlight"
+                      />
+                    ),
+                  }}
+                  intensity={intensity}
+                />
               </StyledEmotionCard>
             </StyledOuterBox>
           </StyledLink>
@@ -99,4 +126,10 @@ const StyledEmotionCard = styled.section`
   background-color: var(--color-background);
   border-radius: 8px;
   word-break: break-word;
+  .highlight {
+    color: yellow;
+  }
+`;
+const StyledHighlighter = styled(Highlighter)`
+  background-color: yellow;
 `;
