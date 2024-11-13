@@ -19,7 +19,6 @@ export default function SearchBar({ searchTerm, onSearch }) {
       onSearch(searchTerm);
     }
   };
-
   return (
     <StyledSearchWrapper>
       <StyledSearchInput

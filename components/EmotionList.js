@@ -11,9 +11,17 @@ export default function EmotionList({
 }) {
   const [selectedFilter, setSelectedFilter] = useState("");
 
-  const filteredEmotions = selectedFilter
-    ? emotions.filter((emotion) => emotion.emotionType === selectedFilter)
-    : emotions;
+  const filteredEmotions = emotions.filter((emotion) => {
+    const matchesFilter = selectedFilter
+      ? emotion.emotionType === selectedFilter
+      : true;
+
+    const matchesSearchTerm = searchTerm
+      ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+
+    return matchesFilter && matchesSearchTerm;
+  });
 
   return (
     <>
@@ -39,8 +47,8 @@ export default function EmotionList({
 
       {filteredEmotions.length === 0 ? (
         <StyledMessage>
-          At the moment there are no emotions in the list. Please add an
-          emotion.
+          No emotions found for the search term or filter. Please try a
+          different keyword or reset the filter.
         </StyledMessage>
       ) : (
         <StyledList>

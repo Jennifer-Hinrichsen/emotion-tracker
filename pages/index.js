@@ -22,8 +22,8 @@ export default function HomePage({
 
   return (
     <>
+      <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       <StyledHeading>Mood Wave</StyledHeading>
-      <SearchBar onSearch={handleSearch} />
       <EmotionForm emotions={filteredEmotions} onSubmit={onCreateEmotion} />
       <EmotionList
         emotions={filteredEmotions}
