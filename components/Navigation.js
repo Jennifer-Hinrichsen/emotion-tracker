@@ -122,7 +122,7 @@ const IconWrapper = styled.div`
 `;
 
 const StyledBookmarkIcon = styled(BookmarkIcon)`
-  width: 20px;
-  height: 30px;
+  width: 18px;
+  height: 28px;
   fill: "#313366";
 `;

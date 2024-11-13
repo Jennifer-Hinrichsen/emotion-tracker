@@ -12,7 +12,7 @@ export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
 
 const StyledButton = styled.button`
   position: absolute;
-  top: -10px;
+  top: -16px;
   right: 5px;
   width: 48px;
   height: 48px;
@@ -22,12 +22,6 @@ const StyledButton = styled.button`
   touch-action: manipulation;
 `;
 
-const StyledBookmarkIcon = styled(BookmarkIcon)`
-  width: 100%;
-  height: 100%;
-`;
+const StyledBookmarkIcon = styled(BookmarkIcon)``;
 
-const StyledBookmarkIconFilled = styled(BookmarkIconFilled)`
-  width: 100%;
-  height: 100%;
-`;
+const StyledBookmarkIconFilled = styled(BookmarkIconFilled)``;
