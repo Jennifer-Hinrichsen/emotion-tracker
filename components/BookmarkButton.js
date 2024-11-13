@@ -1,10 +1,15 @@
 import styled from "styled-components";
-import BookmarkPinIcon from "assets/bookmarkicons/BookmarkPinIcon.svg";
+import BookmarkIcon from "assets/bookmarkicons/Bookmark.svg";
+import BookmarkIconFilled from "assets/bookmarkicons/Bookmark-filled.svg";
 
 export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
   return (
     <StyledButton onClick={onToggleBookmark} aria-label="Toggle Bookmark">
-      <StyledBookmarkPinIcon $isBookmarked={isBookmarked} />
+      {isBookmarked ? (
+        <StyledIcon as={BookmarkIconFilled} />
+      ) : (
+        <StyledIcon as={BookmarkIcon} />
+      )}
     </StyledButton>
   );
 }
@@ -21,6 +26,9 @@ const StyledButton = styled.button`
   touch-action: manipulation;
 `;
 
-const StyledBookmarkPinIcon = styled(BookmarkPinIcon)`
-  color: ${(props) => (props.$isBookmarked ? "#000" : "#808080")};
+const StyledIcon = styled.div`
+  width: 100%;
+  height: 100%;
+  color: #000;
+  display: inline-block;
 `;
