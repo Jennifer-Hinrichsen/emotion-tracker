@@ -12,12 +12,7 @@ export default function Navigation() {
     <StyledNavigationBar>
       <StyledLink href="/bookmarks">
         <IconWrapper $isActive={$isActive("/bookmarks")}>
-          <StyledBookmarkIcon
-            src="/Bookmark-filled.svg"
-            alt="Bookmark Icon"
-            width={8}
-            height={8}
-          />
+          <StyledBookmarkIcon src="/Bookmark-filled.svg" alt="Bookmark Icon" />
           My Emotions
         </IconWrapper>
       </StyledLink>

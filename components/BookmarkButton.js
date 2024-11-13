@@ -5,7 +5,7 @@ import BookmarkIconFilled from "assets/bookmarkicons/Bookmark-filled.svg";
 export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
   return (
     <StyledButton onClick={onToggleBookmark} aria-label="Toggle Bookmark">
-      {isBookmarked ? <StyledBookmarkIconFilled /> : <StyledBookmarkIcon />}
+      {isBookmarked ? <BookmarkIconFilled /> : <BookmarkIcon />}
     </StyledButton>
   );
 }
@@ -21,7 +21,3 @@ const StyledButton = styled.button`
   cursor: pointer;
   touch-action: manipulation;
 `;
-
-const StyledBookmarkIcon = styled(BookmarkIcon)``;
-
-const StyledBookmarkIconFilled = styled(BookmarkIconFilled)``;
