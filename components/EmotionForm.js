@@ -49,6 +49,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     onSubmit(inputData);
     event.target.reset();
+    setSelectedEmotionType("");
     setFormError("");
   }
 
