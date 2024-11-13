@@ -95,7 +95,9 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
             onChange={(intensity) => setSelectedIntensity(intensity)}
           />
 
-          <label htmlFor="date-time">Date and Time*</label>
+          <StyledLabelNoPadding htmlFor="date-time">
+            Date and Time*
+          </StyledLabelNoPadding>
           <StyledDateAndTimeInput
             id="date-time"
             name="dateTime"
@@ -188,7 +190,7 @@ const SelectEmotionContainer = styled.div`
 
 const StyledSelectEmotion = styled.select`
   width: 100%;
-  padding: 10px 15px;
+  padding: 6px 0;
   background-color: transparent;
   border: none;
   border-bottom: 1px dotted var(--color-primary);
@@ -208,23 +210,9 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
-const StyledSliderContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const StyledSlider = styled.input`
-  width: 100%;
-  height: 3px;
-  accent-color: var(--color-primary);
-  cursor: pointer;
-`;
-
 const StyledDateAndTimeInput = styled.input`
+  padding: 0 0 6px 0;
   width: 100%;
-  padding: 1rem;
   border: none;
   border-bottom: 1px dotted var(--color-primary);
   background-color: transparent;
@@ -236,9 +224,17 @@ const StyledDateAndTimeInput = styled.input`
   }
 `;
 
+const StyledLabelNoPadding = styled.label`
+  padding: 0;
+`;
+
 const StyledTextArea = styled.textarea`
-  width: 100%;
-  padding: 0 10px 10px 10px;
+  padding: 0;
+  height: 36px;
+  max-height: 300px;
+  line-height: 1.5;
+  max-width: 100%;
+  min-width: 100%;
   border: none;
   border-bottom: 1px dotted var(--color-primary);
   background-color: transparent;
@@ -247,6 +243,7 @@ const StyledTextArea = styled.textarea`
   cursor: text;
 
   &::placeholder {
+    padding-top: 0;
     color: var(--color-primary);
     font-size: 1rem;
   }
@@ -307,6 +304,7 @@ const StyledCancelButton = styled.button`
     opacity: 70%;
   }
 `;
+
 const ButtonContainer = styled.div`
   display: flex;
   gap: 1px;
