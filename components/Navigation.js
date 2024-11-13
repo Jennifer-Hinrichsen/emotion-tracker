@@ -38,16 +38,15 @@ const StyledNavigationBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-
   background-color: var(--color-frame);
   border-top: 1px solid var(--color-border);
-
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 3.75rem;
   gap: 1.25rem;
   border-top: 1px solid var(--color-frame);
+  z-index: 2;
 `;
 
 const CenterWrapper = styled.div`
