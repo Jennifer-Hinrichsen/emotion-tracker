@@ -12,7 +12,7 @@ export default function SliderIntensity({
   const emotion = emotionList.find(
     (emotion) => emotion.emotionType === emotionType
   );
-  const $thumbColor = emotion ? emotion.color : "#8295c6";
+  const $thumbColor = emotion ? emotion.color : "var(--color-primary)";
 
   const handleSliderChange = (event) => {
     const value = event.target.value;

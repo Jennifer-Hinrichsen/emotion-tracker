@@ -27,5 +27,5 @@ const StyledHeading = styled.h1`
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: #313366;
+  color: var(--color-secondary);
 `;

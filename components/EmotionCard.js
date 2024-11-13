@@ -15,7 +15,7 @@ export default function EmotionCard({
 
   function getEmotionColor(type) {
     const emotion = emotionList.find((item) => item.emotionType === type);
-    return emotion ? emotion.color : "#e0e1f0";
+    return emotion ? emotion.color : "var(--color-frame)";
   }
 
   const emotionColor = getEmotionColor(emotion.emotionType);
@@ -83,7 +83,7 @@ const StyledOuterBox = styled.div`
 const StyledTopBox = styled.div`
   display: flex;
   justify-content: flex-start;
-  background-color: ${({ color }) => color || "#e0e1f0"};
+  background-color: ${({ color }) => color || "var(--color-background)"};
   padding: 5px;
 `;
 

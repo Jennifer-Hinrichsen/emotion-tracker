@@ -131,7 +131,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 const StyledFormContainer = styled.div`
   width: 90%;
   margin: 0 auto;
-  background-color: #e0e1f0;
+  background-color: var(--color-frame);
   border: 1px solid (--color-border);
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px var(--color-shadow);

@@ -59,7 +59,7 @@ const CenterWrapper = styled.div`
 `;
 
 const LogoCanvas = styled.div`
-  color: #313366;
+  color: var(--color-secondary);
   width: 3.5rem;
   height: 3.5rem;
   display: flex;
@@ -91,7 +91,7 @@ const LogoCanvas = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: #313366;
+  color: var(--color-secondary);
   font-size: 1rem;
   padding: 0.625rem;
 
@@ -103,7 +103,7 @@ const StyledLink = styled(Link)`
 const HomeText = styled.span`
   font-size: 1rem;
   font-weight: normal;
-  color: #313366;
+  color: var(--color-secondary);
   margin-bottom: 1.25rem;
 `;
 
