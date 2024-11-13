@@ -15,14 +15,16 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [selectedEmotionType, setSelectedEmotionType] = useState(
+    defaultValue?.emotionType || ""
+  );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-  const [selectedEmotionType, setSelectedEmotionType] = useState("");
 
-  const handleChangeEmotionType = (event) => {
+  function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
-  };
+  }
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
