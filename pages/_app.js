@@ -2,9 +2,7 @@ import GlobalStyle from "../styles";
 import { initialEmotionEntries } from "@/lib/initialEmotionEntries";
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "use-local-storage-state";
-
 import Layout from "@/components/Layout";
-
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
 

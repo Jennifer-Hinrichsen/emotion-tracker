@@ -22,7 +22,6 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: var(--color-background);
     padding-bottom: 66px;
-
   }
 
   h1, h2 {
