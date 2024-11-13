@@ -49,7 +49,6 @@ const StyledSlider = styled.input`
   height: 8px;
   background: #ddd;
   outline: none;
-  margin: 20px 0;
   border-radius: 5px;
   position: relative;
 

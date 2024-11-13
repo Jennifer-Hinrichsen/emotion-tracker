@@ -1,21 +1,30 @@
 import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
-import EmotionList from "@/components/EmotionList";
-import Image from "next/image";
 import styled from "styled-components";
-import SliderIntensity from "@/components/SliderIntensity";
+import List from "@/components/List";
+import Filter from "@/components/Filter";
+import { useState } from "react";
+
 export default function HomePage({
   emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
 }) {
+  const [selectedFilterButton, setSelectedFilterButton] = useState("");
+
   return (
     <>
       <StyledHeading>Mood Wave</StyledHeading>
       <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
-      <EmotionList
+      <Filter
         emotions={emotions}
+        selectedFilterButton={selectedFilterButton}
+        setSelectedFilterButton={setSelectedFilterButton}
+      />
+      <List
+        emotions={emotions}
+        selectedFilterButton={selectedFilterButton}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
       />

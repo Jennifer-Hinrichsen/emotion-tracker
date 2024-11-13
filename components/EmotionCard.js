@@ -102,8 +102,13 @@ const StyledTime = styled.p`
 `;
 
 const StyledEmotionCard = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  font-size: 1rem;
+  margin: 16px 8px;
   padding: 10px;
-  background-color: var(--color-background);
+  background-color: #f9f9f9;
   border-radius: 8px;
   word-break: break-word;
 `;
