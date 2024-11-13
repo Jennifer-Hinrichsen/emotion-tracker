@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
-import BookmarkIcon from "assets/bookmarkicons/BookmarkPinIcon.svg";
+import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
@@ -13,10 +13,10 @@ export default function Navigation() {
       <StyledLink href="/bookmarks">
         <IconWrapper $isActive={$isActive("/bookmarks")}>
           <StyledBookmarkIcon
-            src="/BookmarkPinIcon.svg"
+            src="/Bookmark-filled.svg"
             alt="Bookmark Icon"
-            width={24}
-            height={24}
+            width={8}
+            height={8}
           />
           My Emotions
         </IconWrapper>
@@ -122,7 +122,7 @@ const IconWrapper = styled.div`
 `;
 
 const StyledBookmarkIcon = styled(BookmarkIcon)`
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 30px;
   fill: "#313366";
 `;
