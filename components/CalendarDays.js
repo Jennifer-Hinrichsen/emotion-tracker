@@ -17,7 +17,7 @@ export default function CalendarDays({ day, changeCurrentDay }) {
     }
 
     let calendarDay = {
-      currentMonth: firstDayOfMonth.getMonth() === day.getMonth(),
+      $currentMonth: firstDayOfMonth.getMonth() === day.getMonth(),
       date: new Date(firstDayOfMonth),
       month: firstDayOfMonth.getMonth(),
       number: firstDayOfMonth.getDate(),
@@ -33,7 +33,7 @@ export default function CalendarDays({ day, changeCurrentDay }) {
       {currentDays.map((calendarDay, index) => (
         <StyledCalendarDay
           key={index}
-          currentMonth={calendarDay.currentMonth}
+          $currentMonth={calendarDay.$currentMonth}
           selected={calendarDay.selected}
           onClick={() => changeCurrentDay(calendarDay)}
         >
