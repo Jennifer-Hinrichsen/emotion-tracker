@@ -43,14 +43,14 @@ export default function Calendar() {
         </StyledTitle>
         <StyledTools>
           <button onClick={previousDay}>
-            <span className="material-icons">arrow_back</span>
+            <span className="material-icons">{"<"}</span>
           </button>
           <p>
             {months[currentDay.getMonth()].substring(0, 3)}{" "}
             {currentDay.getDate()}
           </p>
           <button onClick={nextDay}>
-            <span className="material-icons">arrow_forward</span>
+            <span className="material-icons">{">"}</span>
           </button>
         </StyledTools>
       </StyledCalendarHeader>
@@ -69,13 +69,12 @@ export default function Calendar() {
 }
 
 const StyledCalendarContainer = styled.div`
-  width: 900px;
-  height: 600px;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 2rem auto 0 auto;
 `;
 
 const StyledCalendarHeader = styled.div`

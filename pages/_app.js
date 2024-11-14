@@ -89,7 +89,6 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-
       <Layout>
         <Component
           emotions={emotions}

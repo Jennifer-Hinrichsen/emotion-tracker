@@ -1,10 +1,11 @@
 import Calendar from "@/components/Calendar";
+import Heading from "@/components/Heading";
 
 export default function CalendarPage() {
   return (
-    <div>
-      <h1>Calendar Page</h1>
+    <>
+      <Heading>My Calendar</Heading>
       <Calendar />
-    </div>
+    </>
   );
 }

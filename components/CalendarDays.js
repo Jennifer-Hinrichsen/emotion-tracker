@@ -45,28 +45,29 @@ export default function CalendarDays({ day, changeCurrentDay }) {
 }
 
 const StyledTableContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Always 7 columns */
+  gap: 1px; /* Gap between cells */
   width: 100%;
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  box-sizing: border-box;
+  height: 100%;
 `;
 
 const StyledCalendarDay = styled.div`
-  width: 125px;
-  height: 75px;
-  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.6; /* Maintains cell aspect ratio */
   border: 1px solid #a6a6a6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
   p {
-    position: absolute;
-    right: 10px;
     color: #a6a6a6;
+    font-size: 1rem;
   }
 
   &.current p {
@@ -76,5 +77,24 @@ const StyledCalendarDay = styled.div`
   &.selected p {
     color: #cc0000;
     font-weight: bold;
+  }
+
+  /* Media queries for responsiveness */
+  @media (max-width: 768px) {
+    p {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    p {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    p {
+      font-size: 0.625rem;
+    }
   }
 `;
