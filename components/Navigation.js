@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
+import CalendarIcon from "assets/calendarIcons/calendar-month.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
@@ -24,6 +25,12 @@ export default function Navigation() {
           </LogoCanvas>
         </Link>
       </CenterWrapper>
+      <StyledLink href="/calendar">
+        <IconWrapper $isActive={$isActive("/calendar")}>
+          <StyledCalendarIcon src="/calendar-month.svg" alt="Calendar Icon" />
+          My Calendar
+        </IconWrapper>
+      </StyledLink>
     </StyledNavigationBar>
   );
 }
@@ -117,6 +124,12 @@ const IconWrapper = styled.div`
 
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
+  height: 28px;
+  fill: "#313366";
+`;
+
+const StyledCalendarIcon = styled(CalendarIcon)`
+  width: 24px;
   height: 28px;
   fill: "#313366";
 `;
