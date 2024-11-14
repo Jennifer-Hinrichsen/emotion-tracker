@@ -3,6 +3,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
+import MoodPlusIcon from "@/assets/formIcons/MoodPlusIcon.svg";
+import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 
 export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
@@ -87,6 +89,12 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
             </StyledSelectEmotion>
             <StyledArrow>▼</StyledArrow>
           </SelectEmotionContainer>
+          <StyledCreateEmotionLink
+            href="/createemotiontype"
+            aria-label="Create a new emotion type"
+          >
+            Create your Emotion Type <MoodPlusIcon />
+          </StyledCreateEmotionLink>
 
           <label htmlFor="intensity">Emotion intensity*</label>
           <SliderIntensity
@@ -208,6 +216,19 @@ const StyledArrow = styled.span`
   transform: translateY(-50%);
   color: var(--color-primary);
   pointer-events: none;
+`;
+
+const StyledCreateEmotionLink = styled(Link)`
+  padding: 10px 20px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-secondary);
+  }
 `;
 
 const StyledDateAndTimeInput = styled.input`
