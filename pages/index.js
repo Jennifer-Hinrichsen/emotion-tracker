@@ -4,6 +4,7 @@ import styled from "styled-components";
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import { useState } from "react";
+import Calendar from "@/components/Calendar";
 
 export default function HomePage({
   emotions,

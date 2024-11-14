@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export default function CalendarDays({ day, changeCurrentDay }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
@@ -27,18 +29,52 @@ export default function CalendarDays({ day, changeCurrentDay }) {
   }
 
   return (
-    <div className={styles.tableContent}>
-      {currentDays.map((day, index) => (
-        <div
+    <StyledTableContent>
+      {currentDays.map((calendarDay, index) => (
+        <StyledCalendarDay
           key={index}
-          className={`${styles.calendarDay} ${
-            day.currentMonth ? styles.current : ""
-          } ${day.selected ? styles.selected : ""}`}
-          onClick={() => changeCurrentDay(day)}
+          currentMonth={calendarDay.currentMonth}
+          selected={calendarDay.selected}
+          onClick={() => changeCurrentDay(calendarDay)}
         >
-          <p>{day.number}</p>
-        </div>
+          <p>{calendarDay.number}</p>
+        </StyledCalendarDay>
       ))}
-    </div>
+    </StyledTableContent>
   );
 }
+
+const StyledTableContent = styled.div`
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
+`;
+
+const StyledCalendarDay = styled.div`
+  width: 125px;
+  height: 75px;
+  position: relative;
+  border: 1px solid #a6a6a6;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    position: absolute;
+    right: 10px;
+    color: #a6a6a6;
+  }
+
+  &.current p {
+    color: #000000;
+  }
+
+  &.selected p {
+    color: #cc0000;
+    font-weight: bold;
+  }
+`;
