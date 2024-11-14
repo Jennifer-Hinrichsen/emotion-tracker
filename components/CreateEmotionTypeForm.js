@@ -1,18 +1,25 @@
 import {
   customEmotionTypes,
   customColors,
-  customEmojis,
+  customEmotionIcons,
 } from "@/lib/customEmotionOptions";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function CreateEmotionTypeForm() {
   const router = useRouter();
 
+  const [selectedEmotionIcon, setSelectedEmotionIcon] = useState("");
+
+  const handleEmotionIconSelect = (customIcon) => {
+    setSelectedEmotionIcon(customIcon);
+  };
+
   return (
     <StyledFormContainer>
       <StyledFormHead>
-        <StyledSubheadline>Add your Emotion type</StyledSubheadline>
+        <StyledSubheadline>Create your Emotion type</StyledSubheadline>
       </StyledFormHead>
 
       <StyledEmotionForm>
@@ -25,18 +32,46 @@ export default function CreateEmotionTypeForm() {
           >
             <option value="">---Choose an Emotion---</option>
             {customEmotionTypes.map((emotion) => (
-              <option key={emotion.emotionType} value={emotion.emotionType}>
+              <option key={emotion.id} value={emotion.emotionType}>
                 {emotion.emotionType}
               </option>
             ))}
           </StyledSelectEmotion>
           <StyledArrow>▼</StyledArrow>
         </StyledSelectEmotionContainer>
+        <label htmlFor="emotionType">Color for your Emotion*</label>
+        <StyledSelectEmotionContainer>
+          <StyledSelectEmotion
+            id="emotionType"
+            name="emotionType"
+            // onChange={handleChangeEmotionType}
+          >
+            <option value="">---Choose a Color---</option>
+            {customColors.map((emotion) => (
+              <option key={emotion.id} value={emotion.color}>
+                {emotion.color}
+              </option>
+            ))}
+          </StyledSelectEmotion>
+          <StyledArrow>▼</StyledArrow>
+        </StyledSelectEmotionContainer>
+        <label htmlFor="emotionType">Icon for your Emotion*</label>
+        <StyledEmojiContainer>
+          {customEmotionIcons.map((emotion) => (
+            <StyledEmojiIcon
+              key={emotion.id}
+              $isSelected={selectedEmotionIcon === emotion.customIcon}
+              onClick={() => handleEmotionIconSelect(emotion.customIcon)}
+            >
+              {emotion.customIcon}
+            </StyledEmojiIcon>
+          ))}
+        </StyledEmojiContainer>
         <StyledButtonContainer>
           <StyledCancelButton type="button" onClick={() => router.push("/")}>
             Cancel
           </StyledCancelButton>
-          <StyledButton type="submit">Submit</StyledButton>
+          <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
         </StyledButtonContainer>
       </StyledEmotionForm>
     </StyledFormContainer>
@@ -106,7 +141,31 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
-const StyledButton = styled.button`
+const StyledEmojiContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+`;
+
+const StyledEmojiIcon = styled.button`
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "#4caf50" : "var--color-background"};
+  color: ${({ $isSelected }) => ($isSelected ? "#fff" : "#000")};
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  opacity: 70%;
+
+  &:hover {
+    opacity: 100%;
+  }
+`;
+
+const StyledSubmitButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
   background-color: var(--color-primary);
