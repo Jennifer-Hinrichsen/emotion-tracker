@@ -46,15 +46,15 @@ export default function CalendarDays({ day, changeCurrentDay }) {
 
 const StyledTableContent = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* Always 7 columns */
-  gap: 1px; /* Gap between cells */
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
   width: 100%;
   height: 100%;
 `;
 
 const StyledCalendarDay = styled.div`
   width: 100%;
-  aspect-ratio: 1 / 1.6; /* Maintains cell aspect ratio */
+  aspect-ratio: 1 / 1.6;
   border: 1px solid #a6a6a6;
   display: flex;
   align-items: center;
@@ -79,7 +79,6 @@ const StyledCalendarDay = styled.div`
     font-weight: bold;
   }
 
-  /* Media queries for responsiveness */
   @media (max-width: 768px) {
     p {
       font-size: 0.875rem;

@@ -25,35 +25,34 @@ export default function Calendar() {
     setCurrentDay(new Date(day.year, day.month, day.number));
   };
 
-  const nextDay = () => {
-    setCurrentDay(new Date(currentDay.setDate(currentDay.getDate() + 1)));
+  const nextMonth = () => {
+    setCurrentDay((prevDate) => {
+      const newMonth = prevDate.getMonth() + 1;
+      return new Date(prevDate.getFullYear(), newMonth, 1);
+    });
   };
 
-  const previousDay = () => {
-    setCurrentDay(new Date(currentDay.setDate(currentDay.getDate() - 1)));
+  const previousMonth = () => {
+    setCurrentDay((prevDate) => {
+      const newMonth = prevDate.getMonth() - 1;
+      return new Date(prevDate.getFullYear(), newMonth, 1);
+    });
   };
 
   return (
     <StyledCalendarContainer>
-      <StyledCalendarHeader>
-        <StyledTitle>
-          <h2>
-            {months[currentDay.getMonth()]} {currentDay.getFullYear()}
-          </h2>
-        </StyledTitle>
-        <StyledTools>
-          <button onClick={previousDay}>
-            <span className="material-icons">{"<"}</span>
-          </button>
-          <p>
-            {months[currentDay.getMonth()].substring(0, 3)}{" "}
-            {currentDay.getDate()}
-          </p>
-          <button onClick={nextDay}>
-            <span className="material-icons">{">"}</span>
-          </button>
-        </StyledTools>
-      </StyledCalendarHeader>
+      <StyledCalendarMonth>
+        <StyledButton onClick={previousMonth}>
+          <span>{"<"}</span>
+        </StyledButton>
+        <p>
+          {months[currentDay.getMonth()]} {currentDay.getFullYear()}
+        </p>
+        <StyledButton onClick={nextMonth}>
+          <span>{">"}</span>
+        </StyledButton>
+      </StyledCalendarMonth>
+
       <StyledCalendarBody>
         <StyledTableHeader>
           {weekdays.map((weekday, index) => (
@@ -69,64 +68,39 @@ export default function Calendar() {
 }
 
 const StyledCalendarContainer = styled.div`
-  width: 100%;
-  max-width: 900px;
-  height: auto;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  margin: 2rem auto 0 auto;
+  margin: 1rem auto 2rem auto;
 `;
 
-const StyledCalendarHeader = styled.div`
-  width: 100%;
-  height: 50px;
+const StyledCalendarMonth = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0;
+
+  color: var(--color-secondary);
+`;
+
+const StyledButton = styled.button`
   margin: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-`;
-
-const StyledTitle = styled.div`
-  width: 25%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-
-  h2 {
-    margin: auto;
-  }
-`;
-
-const StyledTools = styled.div`
-  width: 25%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-
-  button {
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    border: none;
-
-    span:hover {
-      color: #99cccc;
-    }
-  }
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: none;
 `;
 
 const StyledCalendarBody = styled.div`
   width: 100%;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 const StyledTableHeader = styled.div`
-  height: 100px;
+  height: 2rem;
   width: 100%;
   display: flex;
   align-items: center;
