@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { emotionList } from "@/lib/emotionList";
 
 export default function CalendarDays({ day, changeCurrentDay, emotions }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
@@ -7,6 +6,8 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
   let currentDays = [];
 
   const currentDate = new Date(firstDayOfMonth);
+
+  console.log(emotions);
 
   for (let i = 0; i < 42; i++) {
     if (i === 0 && weekdayOfFirstDay === 0) {
@@ -29,18 +30,32 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
     currentDays.push(calendarDay);
   }
 
+  const getEmotionsForDay = (date) => {
+    return emotions.filter((emotion) => {
+      const emotionDate = new Date(emotion.dateTime);
+      return emotionDate.toDateString() === date.toDateString();
+    });
+  };
+
   return (
     <StyledTableContent>
-      {currentDays.map((calendarDay, index) => (
-        <StyledCalendarDay
-          key={index}
-          $currentMonth={calendarDay.$currentMonth}
-          $selected={calendarDay.$selected}
-          onClick={() => changeCurrentDay(calendarDay)}
-        >
-          <p>{calendarDay.number}</p>
-        </StyledCalendarDay>
-      ))}
+      {currentDays.map((calendarDay, index) => {
+        const emotionsForDay = getEmotionsForDay(calendarDay.date);
+
+        return (
+          <StyledCalendarDay
+            key={index}
+            $currentMonth={calendarDay.$currentMonth}
+            $selected={calendarDay.$selected}
+            onClick={() => changeCurrentDay(calendarDay)}
+          >
+            <p>{calendarDay.number}</p>
+            {emotionsForDay.map((emotion) => (
+              <EmotionTag key={emotion.id} emotion={emotion} />
+            ))}
+          </StyledCalendarDay>
+        );
+      })}
     </StyledTableContent>
   );
 }
@@ -70,4 +85,15 @@ const StyledCalendarDay = styled.div`
     color: var(--color-border);
     font-size: 1rem;
   }
+`;
+
+const EmotionTag = styled.div`
+  width: 80%;
+  margin-top: 5px;
+  padding: 2px;
+  background-color: ${(props) => props.emotion.color || "#ccc"};
+  color: #fff;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 5px;
 `;
