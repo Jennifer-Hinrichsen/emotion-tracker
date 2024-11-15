@@ -187,7 +187,7 @@ const StyledArrow = styled.span`
 `;
 
 const StyledButtonGroupColor = styled.button`
-  margin-right: 10px;
+  margin: 0 10px 10px 0;
   font-size: 1rem;
   height: 50px;
   width: 50px;
@@ -195,7 +195,6 @@ const StyledButtonGroupColor = styled.button`
   border: ${(props) =>
     props.$isSelected ? "2px solid black" : "2px solid transparent"};
   transition: border 0.2s ease, background-color 0.2s ease;
-  border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -205,12 +204,9 @@ const StyledButtonGroupColor = styled.button`
     border: solid black;
   }
 
-  /* &:active {
-    border: 2px solid black;
-  } */
-
   &:focus {
     border: 2px solid black;
+    outline: none;
   }
 `;
 
