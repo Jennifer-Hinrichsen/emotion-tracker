@@ -2,20 +2,23 @@ import { useState, useEffect } from "react";
 import SunTheme from "assets/SunTheme.svg";
 import MoonTheme from "assets/MoonTheme.svg";
 import styled from "styled-components";
+import styles from "@/styles";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
+    // Holen des gespeicherten Themas aus dem localStorage
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
       setTheme(storedTheme);
     } else {
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("theme", "light"); // Standardwert
     }
   }, []);
 
   useEffect(() => {
+    // Beim Ändern des Themas: passende Klasse auf das body anwenden
     if (theme === "dark") {
       document.body.classList.add("dark-theme");
       document.body.classList.remove("light-theme");
@@ -23,12 +26,11 @@ export default function ThemeToggle() {
       document.body.classList.add("light-theme");
       document.body.classList.remove("dark-theme");
     }
-
-    localStorage.setItem("theme", theme);
+    localStorage.setItem("theme", theme); // Speichern des aktuellen Themas
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(theme === "dark" ? "light" : "dark"); // Umschalten zwischen dark und light
   };
 
   return (
@@ -36,7 +38,7 @@ export default function ThemeToggle() {
       <Input
         type="checkbox"
         id="switch"
-        checked={theme === "dark"}
+        checked={theme === "dark"} // Der Schalter wird je nach Thema gesetzt
         onChange={toggleTheme}
         aria-label="Toggle theme"
       />

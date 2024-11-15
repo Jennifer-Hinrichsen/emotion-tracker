@@ -166,6 +166,7 @@ const StyledVisibilityIcons = styled.button`
   background-color: var(--color-background);
   position: absolute;
   left: calc(50% + 120px);
+  color: var(--color-secondary);
 `;
 
 const StyledEmotionForm = styled.form`

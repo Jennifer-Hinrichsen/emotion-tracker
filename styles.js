@@ -9,6 +9,14 @@ export default createGlobalStyle`
     --color-success: #5cb85c; 
     --color-shadow: #00000029;
     --color-frame: #e0e1f0;
+    --color-background-cards: #f9f9f9;
+    --color-secondary-cards: #313366;
+  }
+  .dark-theme{
+    --color-background: #1C1C1E;
+    --color-frame: #4e545b;
+    --color-secondary: #e0e1f0;
+    --color-background-cards: #4e545b;
   }
 
   *,
