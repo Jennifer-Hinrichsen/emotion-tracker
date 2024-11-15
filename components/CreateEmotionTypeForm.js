@@ -19,12 +19,14 @@ export default function CreateEmotionTypeForm() {
     setSelectedEmotionType(event.target.value);
   }
 
-  function handleEmotionColorSelect(color, event) {
+  function handleChangeEmotionColor(event, color) {
     event.preventDefault();
     setSelectedEmotionColor(color);
   }
 
-  function handleEmotionIconSelect(customIcon) {
+  function handleChangeEmotionIcon(event, customIcon) {
+    console.log(event.target);
+    event.preventDefault();
     setSelectedEmotionIcon(customIcon);
   }
 
@@ -36,25 +38,29 @@ export default function CreateEmotionTypeForm() {
 
     if (!inputData.emotionType) {
       setFormError("Please choose an emotion type.");
-      // setSuccessMessage("");
       return;
     }
 
     if (!inputData.color) {
       setFormError("Please select an emotion color.");
-      // setSuccessMessage("");
       return;
     }
 
-    // onSubmit(inputData);
+    if (!inputData.customIcon) {
+      setFormError("Please select an emotion icon.");
+      return;
+    }
+
     event.target.reset();
     setSelectedEmotionType("");
     setSelectedEmotionColor("");
+    setSelectedEmotionIcon("");
     setFormError("");
 
     console.log("testlog after submitting", {
       selectedEmotionType,
       selectedEmotionColor,
+      selectedEmotionIcon,
     });
   }
 
@@ -91,25 +97,29 @@ export default function CreateEmotionTypeForm() {
               $isSelected={selectedEmotionColor === emotion.color}
               $bgColor={emotion.color}
               onClick={(event) =>
-                handleEmotionColorSelect(emotion.color, event)
+                handleChangeEmotionColor(event, emotion.color)
               }
             ></StyledButtonGroupColor>
           ))}
         </StyledContainer>
         <input type="hidden" name="color" value={selectedEmotionColor} />
 
-        <label htmlFor="emotionColor">Icon for your Emotion*</label>
+        <label htmlFor="customIcon">Icon for your Emotion*</label>
         <StyledContainer>
           {customEmotionIcons.map((emotion) => (
             <StyledButtonGroupIcon
               key={emotion.id}
               $isSelected={selectedEmotionIcon === emotion.customIcon}
-              onClick={() => handleEmotionIconSelect(emotion.customIcon)}
+              $isSelectedColor={selectedEmotionColor}
+              onClick={(event) =>
+                handleChangeEmotionIcon(event, emotion.customIcon)
+              }
             >
               {emotion.customIcon}
             </StyledButtonGroupIcon>
           ))}
         </StyledContainer>
+        <input type="hidden" name="customIcon" value={selectedEmotionIcon} />
 
         <StyledButtonContainer>
           <StyledCancelButton type="button" onClick={() => router.push("/")}>
@@ -187,42 +197,49 @@ const StyledArrow = styled.span`
 `;
 
 const StyledButtonGroupColor = styled.button`
-  margin: 0 10px 10px 0;
+  margin: 0 8px 10px 0;
   font-size: 1rem;
   height: 50px;
   width: 50px;
   background-color: ${(props) => props.$bgColor};
   border: ${(props) =>
-    props.$isSelected ? "2px solid black" : "2px solid transparent"};
-  transition: border 0.2s ease, background-color 0.2s ease;
+    props.$isSelected
+      ? "2px solid var(--color-primary)"
+      : "2px solid transparent"};
+  transition: border 0.3s ease, background-color 0.3s ease;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  opacity: 70%;
 
   &:hover {
-    border: solid black;
+    border: solid var(--color-primary);
   }
 
   &:focus {
-    border: 2px solid black;
+    border: 2px solid var(--color-primary);
     outline: none;
   }
 `;
 
 const StyledButtonGroupIcon = styled.button`
-  margin-right: 10px;
-  padding: 10px 15px;
+  margin: 0 8px 10px 0;
   font-size: 1rem;
-  background-color: ${(props) => (props.$isSelected ? "#4caf50" : "")};
-  border: none;
+  border: ${(props) =>
+    props.$isSelected
+      ? "2px solid var(--color-primary)"
+      : "2px solid transparent"};
+  background-color: ${(props) => props.$isSelectedColor};
+  transition: fill 0.3s ease;
+  transition: border 0.3s ease, background-color 0.3s ease;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  opacity: 70%;
 
   &:hover {
-    opacity: 100%;
+    border: solid var(--color-primary);
+  }
+
+  &:focus {
+    border: 2px solid var(--color-primary);
+    outline: none;
   }
 `;
 
