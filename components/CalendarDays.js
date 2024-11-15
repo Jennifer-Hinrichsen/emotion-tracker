@@ -45,27 +45,23 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
 
   return (
     <StyledTableContent>
-      {currentDays.map((calendarDay, index) => {
-        const emotionsForDay = getEmotionsForDay(calendarDay.date);
-
-        return (
-          <StyledCalendarDay
-            key={index}
-            $currentMonth={calendarDay.$currentMonth}
-            $selected={calendarDay.$selected}
-            onClick={() => changeCurrentDay(calendarDay)}
-          >
-            <p>{calendarDay.number}</p>
-            {emotionsForDay.map(($emotion) => (
-              <StyledEmotionTag
-                key={$emotion.id}
-                $emotion={$emotion}
-                color={getColorByEmotionType($emotion.emotionType)}
-              />
-            ))}
-          </StyledCalendarDay>
-        );
-      })}
+      {currentDays.map((calendarDay, index) => (
+        <StyledCalendarDay
+          key={index}
+          $currentMonth={calendarDay.$currentMonth}
+          $selected={calendarDay.$selected}
+          onClick={() => changeCurrentDay(calendarDay)}
+        >
+          <p>{calendarDay.number}</p>
+          {getEmotionsForDay(calendarDay.date).map(($emotion) => (
+            <StyledEmotionTag
+              key={$emotion.id}
+              $emotion={$emotion}
+              color={getColorByEmotionType($emotion.emotionType)}
+            />
+          ))}
+        </StyledCalendarDay>
+      ))}
     </StyledTableContent>
   );
 }
@@ -81,7 +77,7 @@ const StyledTableContent = styled.div`
 const StyledCalendarDay = styled.div`
   width: 100%;
   aspect-ratio: 1 / 1.4;
-  border: 1px solid #a6a6a6;
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,8 +97,7 @@ const StyledEmotionTag = styled.div`
   width: 80%;
   margin-top: 5px;
   padding: 2px;
-  background-color: ${(props) => props.color || "#ccc"};
-  color: #fff;
+  background-color: ${(props) => props.color || "var(--color-background)"};
   text-align: center;
   font-size: 0.8rem;
   border-radius: 5px;
