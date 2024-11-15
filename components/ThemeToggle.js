@@ -8,17 +8,15 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    // Holen des gespeicherten Themas aus dem localStorage
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
       setTheme(storedTheme);
     } else {
-      localStorage.setItem("theme", "light"); // Standardwert
+      localStorage.setItem("theme", "light");
     }
   }, []);
 
   useEffect(() => {
-    // Beim Ändern des Themas: passende Klasse auf das body anwenden
     if (theme === "dark") {
       document.body.classList.add("dark-theme");
       document.body.classList.remove("light-theme");
@@ -26,11 +24,11 @@ export default function ThemeToggle() {
       document.body.classList.add("light-theme");
       document.body.classList.remove("dark-theme");
     }
-    localStorage.setItem("theme", theme); // Speichern des aktuellen Themas
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark"); // Umschalten zwischen dark und light
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -38,7 +36,7 @@ export default function ThemeToggle() {
       <Input
         type="checkbox"
         id="switch"
-        checked={theme === "dark"} // Der Schalter wird je nach Thema gesetzt
+        checked={theme === "dark"}
         onChange={toggleTheme}
         aria-label="Toggle theme"
       />
