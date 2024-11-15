@@ -42,15 +42,15 @@ export default function Calendar() {
   return (
     <StyledCalendarContainer>
       <StyledCalendarMonth>
-        <StyledButton onClick={previousMonth}>
+        <StyledArrowButton onClick={previousMonth}>
           <span>{"<"}</span>
-        </StyledButton>
+        </StyledArrowButton>
         <p>
           {months[currentDay.getMonth()]} {currentDay.getFullYear()}
         </p>
-        <StyledButton onClick={nextMonth}>
+        <StyledArrowButton onClick={nextMonth}>
           <span>{">"}</span>
-        </StyledButton>
+        </StyledArrowButton>
       </StyledCalendarMonth>
 
       <StyledCalendarBody>
@@ -71,25 +71,23 @@ const StyledCalendarContainer = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
-  margin: 1rem auto 2rem auto;
+  margin: 1rem auto 2rem;
 `;
 
 const StyledCalendarMonth = styled.div`
   display: flex;
   justify-content: center;
-  margin: 0;
-
+  align-items: center;
   color: var(--color-secondary);
 `;
 
-const StyledButton = styled.button`
+const StyledArrowButton = styled.button`
   margin: auto;
   display: flex;
-  align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   border: none;
+  cursor: pointer;
 `;
 
 const StyledCalendarBody = styled.div`

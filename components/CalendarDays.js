@@ -5,24 +5,24 @@ export default function CalendarDays({ day, changeCurrentDay }) {
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];
 
+  const currentDate = new Date(firstDayOfMonth);
+
   for (let i = 0; i < 42; i++) {
     if (i === 0 && weekdayOfFirstDay === 0) {
-      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
+      currentDate.setDate(currentDate.getDate() - 7);
     } else if (i === 0) {
-      firstDayOfMonth.setDate(
-        firstDayOfMonth.getDate() + (i - weekdayOfFirstDay)
-      );
+      currentDate.setDate(currentDate.getDate() + (i - weekdayOfFirstDay));
     } else {
-      firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
+      currentDate.setDate(currentDate.getDate() + 1);
     }
 
     let calendarDay = {
-      $currentMonth: firstDayOfMonth.getMonth() === day.getMonth(),
-      date: new Date(firstDayOfMonth),
-      month: firstDayOfMonth.getMonth(),
-      number: firstDayOfMonth.getDate(),
-      selected: firstDayOfMonth.toDateString() === day.toDateString(),
-      year: firstDayOfMonth.getFullYear(),
+      $currentMonth: currentDate.getMonth() === day.getMonth(),
+      date: new Date(currentDate),
+      month: currentDate.getMonth(),
+      number: currentDate.getDate(),
+      $selected: currentDate.toDateString() === day.toDateString(),
+      year: currentDate.getFullYear(),
     };
 
     currentDays.push(calendarDay);
@@ -34,7 +34,7 @@ export default function CalendarDays({ day, changeCurrentDay }) {
         <StyledCalendarDay
           key={index}
           $currentMonth={calendarDay.$currentMonth}
-          selected={calendarDay.selected}
+          $selected={calendarDay.$selected}
           onClick={() => changeCurrentDay(calendarDay)}
         >
           <p>{calendarDay.number}</p>
@@ -47,14 +47,14 @@ export default function CalendarDays({ day, changeCurrentDay }) {
 const StyledTableContent = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
+  gap: 0.1rem;
   width: 100%;
   height: 100%;
 `;
 
 const StyledCalendarDay = styled.div`
   width: 100%;
-  aspect-ratio: 1 / 1.6;
+  aspect-ratio: 1 / 1.4;
   border: 1px solid #a6a6a6;
   display: flex;
   align-items: center;
@@ -62,38 +62,11 @@ const StyledCalendarDay = styled.div`
   position: relative;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--color-primary);
   }
 
   p {
-    color: #a6a6a6;
+    color: var(--color-border);
     font-size: 1rem;
-  }
-
-  &.current p {
-    color: #000000;
-  }
-
-  &.selected p {
-    color: #cc0000;
-    font-weight: bold;
-  }
-
-  @media (max-width: 768px) {
-    p {
-      font-size: 0.875rem;
-    }
-  }
-
-  @media (max-width: 576px) {
-    p {
-      font-size: 0.75rem;
-    }
-  }
-
-  @media (max-width: 400px) {
-    p {
-      font-size: 0.625rem;
-    }
   }
 `;
