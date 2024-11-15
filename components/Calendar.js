@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CalendarDays from "./CalendarDays";
 import styled from "styled-components";
+import { initialEmotionEntries } from "@/lib/initialEmotionEntries";
 
 export default function Calendar() {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -61,7 +62,11 @@ export default function Calendar() {
             </StyledWeekday>
           ))}
         </StyledTableHeader>
-        <CalendarDays day={currentDay} changeCurrentDay={changeCurrentDay} />
+        <CalendarDays
+          day={currentDay}
+          changeCurrentDay={changeCurrentDay}
+          emotions={initialEmotionEntries}
+        />
       </StyledCalendarBody>
     </StyledCalendarContainer>
   );

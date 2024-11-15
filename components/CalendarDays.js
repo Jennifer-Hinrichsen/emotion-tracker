@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { emotionList } from "@/lib/emotionList";
 
-export default function CalendarDays({ day, changeCurrentDay }) {
+export default function CalendarDays({ day, changeCurrentDay, emotions }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];
