@@ -5,7 +5,6 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
 
 export default function App({ Component, pageProps }) {
   const [emotions, setEmotions] = useLocalStorageState("emotions", {
@@ -89,28 +88,25 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <ThemeProvider attribute="class" defaultTheme="system">
-        <GlobalStyle />
-
-        <Layout>
-          <Component
-            emotions={emotions}
-            onCreateEmotion={handleCreateEmotion}
-            onDeleteEmotion={handleDeleteEmotion}
-            onUpdateEmotion={handleUpdateEmotion}
-            myBookmarkedEmotions={myBookmarkedEmotions}
-            onToggleBookmark={handleToggleBookmark}
-            {...pageProps}
+      <GlobalStyle />
+      <Layout>
+        <Component
+          emotions={emotions}
+          onCreateEmotion={handleCreateEmotion}
+          onDeleteEmotion={handleDeleteEmotion}
+          onUpdateEmotion={handleUpdateEmotion}
+          myBookmarkedEmotions={myBookmarkedEmotions}
+          onToggleBookmark={handleToggleBookmark}
+          {...pageProps}
+        />
+        {toasts.map((toast) => (
+          <ToastMessage
+            key={toast.id}
+            message={toast.message}
+            visible={toast.visible}
           />
-          {toasts.map((toast) => (
-            <ToastMessage
-              key={toast.id}
-              message={toast.message}
-              visible={toast.visible}
-            />
-          ))}
-        </Layout>
-      </ThemeProvider>
+        ))}
+      </Layout>
     </>
   );
 }
