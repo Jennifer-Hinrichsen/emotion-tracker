@@ -10,11 +10,53 @@ import { useState } from "react";
 export default function CreateEmotionTypeForm() {
   const router = useRouter();
 
+  const [selectedEmotionType, setSelectedEmotionType] = useState("");
+  const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [selectedEmotionIcon, setSelectedEmotionIcon] = useState("");
+  const [formError, setFormError] = useState("");
 
-  const handleEmotionIconSelect = (customIcon) => {
+  function handleChangeEmotionType(event) {
+    setSelectedEmotionType(event.target.value);
+  }
+
+  function handleEmotionColorSelect(color, event) {
+    event.preventDefault();
+    setSelectedEmotionColor(color);
+  }
+
+  function handleEmotionIconSelect(customIcon) {
     setSelectedEmotionIcon(customIcon);
-  };
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const inputData = Object.fromEntries(formData);
+
+    if (!inputData.emotionType) {
+      setFormError("Please choose an emotion type.");
+      // setSuccessMessage("");
+      return;
+    }
+
+    if (!inputData.color) {
+      setFormError("Please select an emotion color.");
+      // setSuccessMessage("");
+      return;
+    }
+
+    // onSubmit(inputData);
+    event.target.reset();
+    setSelectedEmotionType("");
+    setSelectedEmotionColor("");
+    setFormError("");
+
+    console.log("testlog after submitting", {
+      selectedEmotionType,
+      selectedEmotionColor,
+    });
+  }
 
   return (
     <StyledFormContainer>
@@ -22,13 +64,14 @@ export default function CreateEmotionTypeForm() {
         <StyledSubheadline>Create your Emotion type</StyledSubheadline>
       </StyledFormHead>
 
-      <StyledEmotionForm>
+      <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotionType">Emotion Type*</label>
-        <StyledSelectEmotionContainer>
-          <StyledSelectEmotion
+        <StyledContainer>
+          <StyledEmotion
+            value={selectedEmotionType}
             id="emotionType"
             name="emotionType"
-            // onChange={handleChangeEmotionType}
+            onChange={handleChangeEmotionType}
           >
             <option value="">---Choose an Emotion---</option>
             {customEmotionTypes.map((emotion) => (
@@ -36,43 +79,45 @@ export default function CreateEmotionTypeForm() {
                 {emotion.emotionType}
               </option>
             ))}
-          </StyledSelectEmotion>
+          </StyledEmotion>
           <StyledArrow>▼</StyledArrow>
-        </StyledSelectEmotionContainer>
-        <label htmlFor="emotionType">Color for your Emotion*</label>
-        <StyledSelectEmotionContainer>
-          <StyledSelectEmotion
-            id="emotionType"
-            name="emotionType"
-            // onChange={handleChangeEmotionType}
-          >
-            <option value="">---Choose a Color---</option>
-            {customColors.map((emotion) => (
-              <option key={emotion.id} value={emotion.color}>
-                {emotion.color}
-              </option>
-            ))}
-          </StyledSelectEmotion>
-          <StyledArrow>▼</StyledArrow>
-        </StyledSelectEmotionContainer>
-        <label htmlFor="emotionType">Icon for your Emotion*</label>
-        <StyledEmojiContainer>
+        </StyledContainer>
+
+        <label>Color for your Emotion*</label>
+        <StyledContainer>
+          {customColors.map((emotion) => (
+            <StyledButtonGroupColor
+              key={emotion.id}
+              $isSelected={selectedEmotionColor === emotion.color}
+              $bgColor={emotion.color}
+              onClick={(event) =>
+                handleEmotionColorSelect(emotion.color, event)
+              }
+            ></StyledButtonGroupColor>
+          ))}
+        </StyledContainer>
+        <input type="hidden" name="color" value={selectedEmotionColor} />
+
+        <label htmlFor="emotionColor">Icon for your Emotion*</label>
+        <StyledContainer>
           {customEmotionIcons.map((emotion) => (
-            <StyledEmojiIcon
+            <StyledButtonGroupIcon
               key={emotion.id}
               $isSelected={selectedEmotionIcon === emotion.customIcon}
               onClick={() => handleEmotionIconSelect(emotion.customIcon)}
             >
               {emotion.customIcon}
-            </StyledEmojiIcon>
+            </StyledButtonGroupIcon>
           ))}
-        </StyledEmojiContainer>
+        </StyledContainer>
+
         <StyledButtonContainer>
           <StyledCancelButton type="button" onClick={() => router.push("/")}>
             Cancel
           </StyledCancelButton>
           <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
         </StyledButtonContainer>
+        {formError && <StyledError>{formError}</StyledError>}
       </StyledEmotionForm>
     </StyledFormContainer>
   );
@@ -80,7 +125,7 @@ export default function CreateEmotionTypeForm() {
 
 const StyledFormContainer = styled.div`
   width: 90%;
-  margin: 0 auto;
+  margin: 16px auto;
   background-color: var(--color-frame);
   border: 1px solid (--color-border);
   border-radius: 0.5rem;
@@ -114,12 +159,12 @@ const StyledEmotionForm = styled.form`
   color: var(--color-secondary);
 `;
 
-const StyledSelectEmotionContainer = styled.div`
+const StyledContainer = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const StyledSelectEmotion = styled.select`
+const StyledEmotion = styled.select`
   width: 100%;
   padding: 6px 0;
   background-color: transparent;
@@ -141,19 +186,39 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
-const StyledEmojiContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  flex-wrap: wrap;
+const StyledButtonGroupColor = styled.button`
+  margin-right: 10px;
+  font-size: 1rem;
+  height: 50px;
+  width: 50px;
+  background-color: ${(props) => props.$bgColor};
+  border: ${(props) =>
+    props.$isSelected ? "2px solid black" : "2px solid transparent"};
+  transition: border 0.2s ease, background-color 0.2s ease;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  opacity: 70%;
+
+  &:hover {
+    border: solid black;
+  }
+
+  /* &:active {
+    border: 2px solid black;
+  } */
+
+  &:focus {
+    border: 2px solid black;
+  }
 `;
 
-const StyledEmojiIcon = styled.button`
+const StyledButtonGroupIcon = styled.button`
+  margin-right: 10px;
   padding: 10px 15px;
   font-size: 1rem;
-  background-color: ${({ $isSelected }) =>
-    $isSelected ? "#4caf50" : "var--color-background"};
-  color: ${({ $isSelected }) => ($isSelected ? "#fff" : "#000")};
+  background-color: ${(props) => (props.$isSelected ? "#4caf50" : "")};
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -162,6 +227,20 @@ const StyledEmojiIcon = styled.button`
 
   &:hover {
     opacity: 100%;
+  }
+`;
+
+const StyledCancelButton = styled.button`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #a6a6a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 70%;
   }
 `;
 
@@ -180,18 +259,10 @@ const StyledSubmitButton = styled.button`
   }
 `;
 
-const StyledCancelButton = styled.button`
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #a6a6a6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 70%;
-  }
+const StyledError = styled.p`
+  color: red;
+  font-size: 1rem;
+  margin-top: 8px;
 `;
 
 const StyledButtonContainer = styled.div`
