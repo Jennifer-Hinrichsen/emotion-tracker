@@ -40,7 +40,7 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
     const $emotion = emotionList.find(
       (emotion) => emotion.emotionType === type
     );
-    return $emotion ? $emotion.color : "#ccc"; // Return a default color if not found
+    return $emotion ? $emotion.color : "var(--color-background)";
   };
 
   return (

@@ -89,7 +89,7 @@ const StyledArrowButton = styled.button`
   margin: auto;
   display: flex;
   justify-content: center;
-  background-color: #f9f9f9;
+  background-color: var(--color-background);
   border: none;
   cursor: pointer;
 `;

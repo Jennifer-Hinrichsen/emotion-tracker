@@ -67,9 +67,12 @@ const LogoCanvas = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: ${(props) => (props.$isOnHomePage ? "#fff" : "#E0E1F0")};
+  background-color: ${(props) =>
+    props.$isOnHomePage ? "var(--color-background)" : "var(--color-frame)"};
   border-radius: 50%;
-  border: 1px solid ${(props) => (props.$isOnHomePage ? "#313366" : "#E0E1F0")};
+  border: 1px solid
+    ${(props) =>
+      props.$isOnHomePage ? "var(--color-secondary)" : "var(--color-frame)"};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 3.125rem;
   transition: transform 0.3s ease;
@@ -115,9 +118,10 @@ const IconWrapper = styled.div`
   gap: 4px;
   padding: 7px;
   text-align: center;
-  border-left: ${(props) => (props.$isActive ? "0.5px solid #313366" : "none")};
+  border-left: ${(props) =>
+    props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
   border-right: ${(props) =>
-    props.$isActive ? "0.5px solid #313366" : "none"};
+    props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
   background-color: ${(props) =>
     props.$isActive ? "rgba(249, 249, 249, 1)" : "transparent"};
 `;
@@ -125,11 +129,11 @@ const IconWrapper = styled.div`
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
   height: 28px;
-  fill: "#313366";
+  fill: "var(--color-secondary)";
 `;
 
 const StyledCalendarIcon = styled(CalendarIcon)`
   width: 24px;
   height: 28px;
-  fill: "#313366";
+  fill: "var(--color-secondary)";
 `;
