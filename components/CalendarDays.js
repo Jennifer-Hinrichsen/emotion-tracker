@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { emotionList } from "@/lib/emotionList";
 
 export default function CalendarDays({ day, changeCurrentDay, emotions }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
@@ -6,8 +7,6 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
   let currentDays = [];
 
   const currentDate = new Date(firstDayOfMonth);
-
-  console.log(emotions);
 
   for (let i = 0; i < 42; i++) {
     if (i === 0 && weekdayOfFirstDay === 0) {
@@ -31,10 +30,17 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
   }
 
   const getEmotionsForDay = (date) => {
-    return emotions.filter((emotion) => {
-      const emotionDate = new Date(emotion.dateTime);
+    return emotions.filter(($emotion) => {
+      const emotionDate = new Date($emotion.dateTime);
       return emotionDate.toDateString() === date.toDateString();
     });
+  };
+
+  const getColorByEmotionType = (type) => {
+    const $emotion = emotionList.find(
+      (emotion) => emotion.emotionType === type
+    );
+    return $emotion ? $emotion.color : "#ccc"; // Return a default color if not found
   };
 
   return (
@@ -50,8 +56,12 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
             onClick={() => changeCurrentDay(calendarDay)}
           >
             <p>{calendarDay.number}</p>
-            {emotionsForDay.map((emotion) => (
-              <EmotionTag key={emotion.id} emotion={emotion} />
+            {emotionsForDay.map(($emotion) => (
+              <StyledEmotionTag
+                key={$emotion.id}
+                $emotion={$emotion}
+                color={getColorByEmotionType($emotion.emotionType)}
+              />
             ))}
           </StyledCalendarDay>
         );
@@ -87,11 +97,11 @@ const StyledCalendarDay = styled.div`
   }
 `;
 
-const EmotionTag = styled.div`
+const StyledEmotionTag = styled.div`
   width: 80%;
   margin-top: 5px;
   padding: 2px;
-  background-color: ${(props) => props.emotion.color || "#ccc"};
+  background-color: ${(props) => props.color || "#ccc"};
   color: #fff;
   text-align: center;
   font-size: 0.8rem;
