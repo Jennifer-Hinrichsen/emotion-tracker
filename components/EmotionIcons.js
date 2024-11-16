@@ -33,5 +33,5 @@ export const emotionsIcons = [
     emotionType: "Love",
     emotionIcon: <LoveEmoji />,
   },
-  { id: "8", emotionType: "Tired", emotionIcon: <TiredEmoji /> },
+  { id: "9", emotionType: "Tired", emotionIcon: <TiredEmoji /> },
 ];

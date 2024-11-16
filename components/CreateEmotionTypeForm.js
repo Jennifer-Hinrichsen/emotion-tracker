@@ -107,7 +107,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
             <StyledButtonGroupIcon
               key={emotion.id}
               $isSelected={selectedEmotionIcon === emotion.emotionIcon}
-              $isSelectedColor={selectedEmotionColor}
+              $isSelectedColor={selectedEmotionColor} // ausgewählte Farbe
               onClick={(event) =>
                 handleChangeEmotionIcon(event, emotion.emotionIcon)
               }
@@ -116,6 +116,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
             </StyledButtonGroupIcon>
           ))}
         </StyledContainer>
+
         <input type="hidden" name="emotionIcon" value={selectedEmotionIcon} />
 
         <StyledButtonContainer>
@@ -224,9 +225,8 @@ const StyledButtonGroupIcon = styled.button`
     props.$isSelected
       ? "2px solid var(--color-primary)"
       : "2px solid transparent"};
-  background-color: ${(props) => props.$isSelectedColor};
-  transition: fill 0.3s ease;
-  transition: border 0.3s ease, background-color 0.3s ease;
+  color: ${(props) => props.$isSelectedColor};
+  transition: fill 0.3s ease, color 0.3s ease, border 0.3s ease;
   border-radius: 8px;
   cursor: pointer;
 

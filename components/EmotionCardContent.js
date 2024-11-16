@@ -1,14 +1,23 @@
 import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
+import { emotionList } from "@/lib/emotionList";
 
 export default function EmotionCardContent({ emotion }) {
   const matchedEmotion = emotionsIcons.find(
     (icon) => icon.emotionType === emotion.emotionType
   );
 
+  const matchedEmotionColor = emotionList.find(
+    (color) => color.emotionType === emotion.emotionType
+  );
+  console.log("Emotion:", emotion);
+  console.log("Matched Emotion Color:", matchedEmotionColor);
+
   return (
     <StyledEmotionCardContent>
-      <StyledEmojiIcon>{matchedEmotion?.emotionIcon}</StyledEmojiIcon>
+      <StyledEmojiIcon $color={matchedEmotionColor?.color}>
+        {matchedEmotion?.emotionIcon}
+      </StyledEmojiIcon>
       <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
       <StyledIntensity>{emotion.intensity}</StyledIntensity>
       <StyledNotes>{emotion.notes}</StyledNotes>
@@ -32,10 +41,13 @@ const StyledEmojiIcon = styled.span`
   align-self: start;
   width: 50px;
   height: 50px;
-  color: var(--color-secondary);
 
   svg {
-    stroke-width: 0.8px;
+    color: ${(props) => props.$color || "var(--color-frame)"};
+    /* color: ${(props) => {
+      console.log(props.$color); // Loggt die übergebene Farbe
+      return props.$color || "var(--color-frame)";
+    }}; */
   }
 `;
 
