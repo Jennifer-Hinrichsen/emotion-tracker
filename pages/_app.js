@@ -89,7 +89,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleCreateEmotionType(newEmotionType) {
-    setEmotionType(() => [{ id: uuidv4(), ...newEmotionType }]);
+    setEmotionType(newEmotionType);
     showToastMessage("Successfully added!");
   }
 

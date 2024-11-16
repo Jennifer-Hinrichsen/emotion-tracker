@@ -1,5 +1,5 @@
 import { customEmotionTypes, customColors } from "@/lib/customEmotionOptions";
-import { emotionIcons, emotionsIcons } from "./EmotionIcons";
+import { emotionsIcons } from "./EmotionIcons";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
@@ -21,9 +21,9 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
     setSelectedEmotionColor(color);
   }
 
-  function handleChangeEmotionIcon(event, emotionIcon) {
+  function handleChangeEmotionIcon(event, emotionId) {
     event.preventDefault();
-    setSelectedEmotionIcon(emotionIcon);
+    setSelectedEmotionIcon(emotionId);
   }
 
   function handleSubmit(event) {
@@ -42,10 +42,16 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       return;
     }
 
-    if (!inputData.emotionIcon) {
+    if (!selectedEmotionIcon) {
       setFormError("Please select an emotion icon.");
       return;
     }
+
+    // Beispiel: Emotion-Icon später aus Array abrufen
+    // const matchedIcon = emotionsIcons.find(
+    //   (icon) => icon.id === selectedEmotionIcon
+    // );
+    // console.log("Selected Emotion Icon Element:", matchedIcon?.emotionIcon);
 
     onSubmit(inputData);
     event.target.reset();
@@ -53,12 +59,6 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
     setSelectedEmotionColor("");
     setSelectedEmotionIcon("");
     setFormError("");
-
-    console.log("testlog after submitting from createpage", {
-      selectedEmotionType,
-      selectedEmotionColor,
-      selectedEmotionIcon,
-    });
   }
 
   return (
@@ -106,11 +106,9 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
           {emotionsIcons.map((emotion) => (
             <StyledButtonGroupIcon
               key={emotion.id}
-              $isSelected={selectedEmotionIcon === emotion.emotionIcon}
+              $isSelected={selectedEmotionIcon === emotion.emotionIconId}
               $isSelectedColor={selectedEmotionColor} // ausgewählte Farbe
-              onClick={(event) =>
-                handleChangeEmotionIcon(event, emotion.emotionIcon)
-              }
+              onClick={(event) => handleChangeEmotionIcon(event, emotion.id)}
             >
               {emotion.emotionIcon}
             </StyledButtonGroupIcon>

@@ -9,8 +9,8 @@ export default function CreateEmotionType({ onCreateEmotionType }) {
     <>
       <Heading>Create Emotion Type</Heading>
       <CreateEmotionTypeForm
-        onSubmit={() => {
-          onCreateEmotionType;
+        onSubmit={(data) => {
+          onCreateEmotionType(data);
           router.push("/");
         }}
       />
