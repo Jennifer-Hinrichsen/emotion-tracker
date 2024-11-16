@@ -1,8 +1,5 @@
-import {
-  customEmotionTypes,
-  customColors,
-  customEmotionIcons,
-} from "@/lib/customEmotionOptions";
+import { customEmotionTypes, customColors } from "@/lib/customEmotionOptions";
+import { emotionIcons, emotionsIcons } from "./EmotionIcons";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
@@ -24,9 +21,9 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
     setSelectedEmotionColor(color);
   }
 
-  function handleChangeEmotionIcon(event, customIcon) {
+  function handleChangeEmotionIcon(event, emotionIcon) {
     event.preventDefault();
-    setSelectedEmotionIcon(customIcon);
+    setSelectedEmotionIcon(emotionIcon);
   }
 
   function handleSubmit(event) {
@@ -45,7 +42,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       return;
     }
 
-    if (!inputData.customIcon) {
+    if (!inputData.emotionIcon) {
       setFormError("Please select an emotion icon.");
       return;
     }
@@ -104,22 +101,22 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
         </StyledContainer>
         <input type="hidden" name="color" value={selectedEmotionColor} />
 
-        <label htmlFor="customIcon">Icon for your Emotion*</label>
+        <label htmlFor="emotionIcon">Icon for your Emotion*</label>
         <StyledContainer>
-          {customEmotionIcons.map((emotion) => (
+          {emotionsIcons.map((emotion) => (
             <StyledButtonGroupIcon
               key={emotion.id}
-              $isSelected={selectedEmotionIcon === emotion.customIcon}
+              $isSelected={selectedEmotionIcon === emotion.emotionIcon}
               $isSelectedColor={selectedEmotionColor}
               onClick={(event) =>
-                handleChangeEmotionIcon(event, emotion.customIcon)
+                handleChangeEmotionIcon(event, emotion.emotionIcon)
               }
             >
-              {emotion.customIcon}
+              {emotion.emotionIcon}
             </StyledButtonGroupIcon>
           ))}
         </StyledContainer>
-        <input type="hidden" name="customIcon" value={selectedEmotionIcon} />
+        <input type="hidden" name="emotionIcon" value={selectedEmotionIcon} />
 
         <StyledButtonContainer>
           <StyledCancelButton type="button" onClick={() => router.push("/")}>

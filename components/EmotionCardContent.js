@@ -2,9 +2,13 @@ import styled from "styled-components";
 import { emotionsIcons } from "./EmotionIcons";
 
 export default function EmotionCardContent({ emotion }) {
+  const matchedEmotion = emotionsIcons.find(
+    (icon) => icon.emotionType === emotion.emotionType
+  );
+
   return (
     <StyledEmotionCardContent>
-      <StyledEmojiIcon>{emotionsIcons[emotion.emotionType]}</StyledEmojiIcon>
+      <StyledEmojiIcon>{matchedEmotion?.emotionIcon}</StyledEmojiIcon>
       <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
       <StyledIntensity>{emotion.intensity}</StyledIntensity>
       <StyledNotes>{emotion.notes}</StyledNotes>
