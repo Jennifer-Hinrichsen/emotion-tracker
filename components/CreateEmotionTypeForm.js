@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function CreateEmotionTypeForm() {
+export default function CreateEmotionTypeForm({ onSubmit }) {
   const router = useRouter();
 
   const [selectedEmotionType, setSelectedEmotionType] = useState("");
@@ -25,7 +25,6 @@ export default function CreateEmotionTypeForm() {
   }
 
   function handleChangeEmotionIcon(event, customIcon) {
-    console.log(event.target);
     event.preventDefault();
     setSelectedEmotionIcon(customIcon);
   }
@@ -51,13 +50,14 @@ export default function CreateEmotionTypeForm() {
       return;
     }
 
+    onSubmit(inputData);
     event.target.reset();
     setSelectedEmotionType("");
     setSelectedEmotionColor("");
     setSelectedEmotionIcon("");
     setFormError("");
 
-    console.log("testlog after submitting", {
+    console.log("testlog after submitting from createpage", {
       selectedEmotionType,
       selectedEmotionColor,
       selectedEmotionIcon,
@@ -268,7 +268,23 @@ const StyledSubmitButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--color-secondary);
+    background-color: var(--color-success);
+  }
+
+  &.clicked {
+    animation: greenFlash 6s forwards;
+  }
+
+  @keyframes greenFlash {
+    0% {
+      background-color: var(--color-primary);
+    }
+    50% {
+      background-color: var(--color-success);
+    }
+    100% {
+      background-color: var(--color-primary);
+    }
   }
 `;
 

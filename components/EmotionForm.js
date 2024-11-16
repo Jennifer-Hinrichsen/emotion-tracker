@@ -16,7 +16,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  // const [successMessage, setSuccessMessage] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
     defaultValue?.emotionType || ""
   );
@@ -134,7 +134,7 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
           </ButtonContainer>
           {formError && <StyledError>{formError}</StyledError>}
 
-          {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
+          {/* {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>} */}
         </StyledEmotionForm>
       </StyledFormContainer>
     </>

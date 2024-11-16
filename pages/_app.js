@@ -53,6 +53,8 @@ export default function App({ Component, pageProps }) {
     }
   );
 
+  const [emotionType, setEmotionType] = useState();
+
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
       prevBookmarks.includes(id)
@@ -86,6 +88,12 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
+  function handleCreateEmotionType(newEmotionType) {
+    setEmotionType(() => [{ id: uuidv4(), ...newEmotionType }]);
+    console.log(emotionType);
+    showToastMessage("Successfully added!");
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -98,6 +106,7 @@ export default function App({ Component, pageProps }) {
           onUpdateEmotion={handleUpdateEmotion}
           myBookmarkedEmotions={myBookmarkedEmotions}
           onToggleBookmark={handleToggleBookmark}
+          onCreateEmotionType={handleCreateEmotionType}
           {...pageProps}
         />
         {toasts.map((toast) => (
