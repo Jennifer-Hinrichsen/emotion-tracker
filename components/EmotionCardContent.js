@@ -10,8 +10,6 @@ export default function EmotionCardContent({ emotion }) {
   const matchedEmotionColor = emotionList.find(
     (color) => color.emotionType === emotion.emotionType
   );
-  console.log("Emotion:", emotion);
-  console.log("Matched Emotion Color:", matchedEmotionColor);
 
   return (
     <StyledEmotionCardContent>
@@ -44,10 +42,6 @@ const StyledEmojiIcon = styled.span`
 
   svg {
     color: ${(props) => props.$color || "var(--color-frame)"};
-    /* color: ${(props) => {
-      console.log(props.$color); // Loggt die übergebene Farbe
-      return props.$color || "var(--color-frame)";
-    }}; */
   }
 `;
 
