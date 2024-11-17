@@ -95,19 +95,27 @@ export default function App({ Component, pageProps }) {
   }
 
   // function handleCreateEmotionType(newEmotionType) {
-  //   // setEmotionTypes((prevTypes) => [...prevTypes, newEmotionType]);
-  //   setEmotionTypes((prevTypes) => [
-  //     ...prevTypes,
-  //     newEmotionType.emotionType, // Nur den Typ hinzufügen
-  //   ]);
+  //   setEmotionTypes((prevTypes) => [...prevTypes, newEmotionType]); // Neues Objekt hinzufügen
   //   showToastMessage("Successfully added!");
   //   console.log("newEmotionType:", newEmotionType);
   // }
-
   function handleCreateEmotionType(newEmotionType) {
-    setEmotionTypes((prevTypes) => [...prevTypes, newEmotionType]); // Neues Objekt hinzufügen
+    const maxId = emotionTypes.reduce((max, emotion) => {
+      const currentId = parseInt(emotion.id, 10) || 0;
+      return currentId > max ? currentId : max;
+    }, 0);
+
+    const emotionWithId = {
+      id: (maxId + 1).toString(), // Neue fortlaufende ID
+      ...newEmotionType,
+    };
+
+    setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
     showToastMessage("Successfully added!");
-    console.log("newEmotionType:", newEmotionType);
+    console.log("log from app.js emotionTypes:", [
+      ...emotionTypes,
+      emotionWithId,
+    ]);
   }
   console.log("log from app.js emotionTypes:", emotionTypes);
 
