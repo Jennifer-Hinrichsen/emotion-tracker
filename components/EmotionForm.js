@@ -95,13 +95,14 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
             </StyledSelectEmotion>
             <StyledArrow>▼</StyledArrow>
           </SelectEmotionContainer>
-          <StyledCreateEmotionLink
-            href="/createemotiontype"
-            aria-label="Create a new emotion type"
-          >
-            Create your Emotion Type <MoodPlusIcon />
-          </StyledCreateEmotionLink>
-
+          {!defaultValue && (
+            <StyledCreateEmotionLink
+              href="/createemotiontype"
+              aria-label="Create a new emotion type"
+            >
+              Create your Emotion Type <MoodPlusIcon />
+            </StyledCreateEmotionLink>
+          )}
           <label htmlFor="intensity">Emotion intensity*</label>
           <SliderIntensity
             emotionType={selectedEmotionType}
