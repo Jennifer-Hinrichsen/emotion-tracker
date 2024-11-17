@@ -10,11 +10,21 @@ export default function EmotionCard({
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
+  emotionTypes,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
+  // function getEmotionColor(type) {
+  //   const emotion = emotionTypes.find((item) => item.emotionType === type);
+  //   return emotion ? emotion.color : "var(--color-frame)";
+  // }
+
   function getEmotionColor(type) {
-    const emotion = emotionList.find((item) => item.emotionType === type);
+    if (!emotionTypes || emotionTypes.length === 0) {
+      return "var(--color-frame)"; // Standardfarbe, wenn keine Daten vorhanden
+    }
+
+    const emotion = emotionTypes.find((item) => item.emotionType === type);
     return emotion ? emotion.color : "var(--color-frame)";
   }
 

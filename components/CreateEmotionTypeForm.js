@@ -106,7 +106,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
           {emotionsIcons.map((emotion) => (
             <StyledButtonGroupIcon
               key={emotion.id}
-              $isSelected={selectedEmotionIcon === emotion.emotionIconId}
+              $isSelected={selectedEmotionIcon === emotion.emotionIcon}
               $isSelectedColor={selectedEmotionColor} // ausgewählte Farbe
               onClick={(event) => handleChangeEmotionIcon(event, emotion.id)}
             >

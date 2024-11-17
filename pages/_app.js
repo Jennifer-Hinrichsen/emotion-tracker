@@ -117,7 +117,6 @@ export default function App({ Component, pageProps }) {
       emotionWithId,
     ]);
   }
-  console.log("log from app.js emotionTypes:", emotionTypes);
 
   return (
     <>

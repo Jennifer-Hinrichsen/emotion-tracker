@@ -32,6 +32,7 @@ export default function HomePage({
         selectedFilterButton={selectedFilterButton}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
+        emotionTypes={emotionTypes}
       />
     </>
   );
