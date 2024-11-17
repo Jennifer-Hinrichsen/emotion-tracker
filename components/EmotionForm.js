@@ -17,7 +17,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
-  // const [successMessage, setSuccessMessage] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
     defaultValue?.emotionType || ""
   );
@@ -50,13 +49,11 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");
-      setSuccessMessage("");
       return;
     }
 
     if (!inputData.dateTime) {
       setFormError("Please select a date and time.");
-      setSuccessMessage("");
       return;
     }
 
@@ -142,8 +139,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
             </StyledButton>
           </ButtonContainer>
           {formError && <StyledError>{formError}</StyledError>}
-
-          {/* {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>} */}
         </StyledEmotionForm>
       </StyledFormContainer>
     </>
@@ -285,11 +280,6 @@ const StyledError = styled.p`
   margin-top: 8px;
 `;
 
-const StyledSuccess = styled.p`
-  color: var(--color-success);
-  font-size: 1rem;
-  margin-top: 8px;
-`;
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
