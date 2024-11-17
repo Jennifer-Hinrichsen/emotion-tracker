@@ -10,13 +10,18 @@ export default function HomePage({
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
+  emotionTypes,
 }) {
   const [selectedFilterButton, setSelectedFilterButton] = useState("");
 
   return (
     <>
       <StyledHeading>Mood Wave</StyledHeading>
-      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+      <EmotionForm
+        emotions={emotions}
+        onSubmit={onCreateEmotion}
+        emotionTypes={emotionTypes}
+      />
       <Filter
         emotions={emotions}
         selectedFilterButton={selectedFilterButton}

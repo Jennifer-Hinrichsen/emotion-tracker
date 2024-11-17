@@ -5,6 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
+import { emotionList } from "@/lib/emotionList";
 
 export default function App({ Component, pageProps }) {
   const [emotions, setEmotions] = useLocalStorageState("emotions", {
@@ -53,7 +54,12 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  const [emotionType, setEmotionType] = useState();
+  // const [emotionTypes, setEmotionTypes] = useLocalStorageState("emotionTypes", {
+  //   defaultValue: emotionList.map((emotion) => emotion.emotionType),
+  // });
+  const [emotionTypes, setEmotionTypes] = useLocalStorageState("emotionTypes", {
+    defaultValue: emotionList, // Übernimm das gesamte emotionList-Array
+  });
 
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
@@ -88,10 +94,22 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
+  // function handleCreateEmotionType(newEmotionType) {
+  //   // setEmotionTypes((prevTypes) => [...prevTypes, newEmotionType]);
+  //   setEmotionTypes((prevTypes) => [
+  //     ...prevTypes,
+  //     newEmotionType.emotionType, // Nur den Typ hinzufügen
+  //   ]);
+  //   showToastMessage("Successfully added!");
+  //   console.log("newEmotionType:", newEmotionType);
+  // }
+
   function handleCreateEmotionType(newEmotionType) {
-    setEmotionType(newEmotionType);
+    setEmotionTypes((prevTypes) => [...prevTypes, newEmotionType]); // Neues Objekt hinzufügen
     showToastMessage("Successfully added!");
+    console.log("newEmotionType:", newEmotionType);
   }
+  console.log("log from app.js emotionTypes:", emotionTypes);
 
   return (
     <>
@@ -106,6 +124,7 @@ export default function App({ Component, pageProps }) {
           myBookmarkedEmotions={myBookmarkedEmotions}
           onToggleBookmark={handleToggleBookmark}
           onCreateEmotionType={handleCreateEmotionType}
+          emotionTypes={emotionTypes}
           {...pageProps}
         />
         {toasts.map((toast) => (

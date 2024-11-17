@@ -8,7 +8,12 @@ import MoodPlusIcon from "@/assets/formIcons/MoodPlusIcon.svg";
 import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 
-export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
+export default function EmotionForm({
+  onSubmit,
+  defaultValue,
+  onCancel,
+  emotionTypes,
+}) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -87,8 +92,8 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {emotionList.map((emotion) => (
-                <option key={emotion.emotionType} value={emotion.emotionType}>
+              {emotionTypes.map((emotion) => (
+                <option key={emotion.id} value={emotion.emotionType}>
                   {emotion.emotionType}
                 </option>
               ))}
