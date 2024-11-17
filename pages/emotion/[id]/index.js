@@ -6,6 +6,7 @@ export default function EmotionDetailPage({
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
+  emotionTypes,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -30,6 +31,7 @@ export default function EmotionDetailPage({
       onDeleteEmotion={handleDelete}
       myBookmarkedEmotions={myBookmarkedEmotions}
       onToggleBookmark={onToggleBookmark}
+      emotionTypes={emotionTypes}
     />
   );
 }

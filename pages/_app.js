@@ -94,11 +94,6 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
-  // function handleCreateEmotionType(newEmotionType) {
-  //   setEmotionTypes((prevTypes) => [...prevTypes, newEmotionType]); // Neues Objekt hinzufügen
-  //   showToastMessage("Successfully added!");
-  //   console.log("newEmotionType:", newEmotionType);
-  // }
   function handleCreateEmotionType(newEmotionType) {
     const maxId = emotionTypes.reduce((max, emotion) => {
       const currentId = parseInt(emotion.id, 10) || 0;
@@ -106,16 +101,12 @@ export default function App({ Component, pageProps }) {
     }, 0);
 
     const emotionWithId = {
-      id: (maxId + 1).toString(), // Neue fortlaufende ID
+      id: (maxId + 1).toString(),
       ...newEmotionType,
     };
 
     setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
     showToastMessage("Successfully added!");
-    console.log("log from app.js emotionTypes:", [
-      ...emotionTypes,
-      emotionWithId,
-    ]);
   }
 
   return (

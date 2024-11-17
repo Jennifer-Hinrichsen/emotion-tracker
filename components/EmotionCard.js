@@ -3,7 +3,6 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
-import { emotionList } from "@/lib/emotionList";
 
 export default function EmotionCard({
   emotion,
@@ -14,14 +13,9 @@ export default function EmotionCard({
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
-  // function getEmotionColor(type) {
-  //   const emotion = emotionTypes.find((item) => item.emotionType === type);
-  //   return emotion ? emotion.color : "var(--color-frame)";
-  // }
-
   function getEmotionColor(type) {
     if (!emotionTypes || emotionTypes.length === 0) {
-      return "var(--color-frame)"; // Standardfarbe, wenn keine Daten vorhanden
+      return "var(--color-frame)";
     }
 
     const emotion = emotionTypes.find((item) => item.emotionType === type);
@@ -39,7 +33,7 @@ export default function EmotionCard({
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
-            <EmotionCardContent emotion={emotion} />
+            <EmotionCardContent emotion={emotion} emotionTypes={emotionTypes} />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion.id)}
@@ -55,7 +49,10 @@ export default function EmotionCard({
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
-                <EmotionCardContent emotion={emotion} />
+                <EmotionCardContent
+                  emotion={emotion}
+                  emotionTypes={emotionTypes}
+                />
               </StyledEmotionCard>
             </StyledOuterBox>
           </StyledLink>

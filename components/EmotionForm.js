@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { emotionList } from "@/lib/emotionList";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
@@ -113,6 +112,7 @@ export default function EmotionForm({
             emotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
+            emotionTypes={emotionTypes}
           />
 
           <StyledLabelNoPadding htmlFor="date-time">

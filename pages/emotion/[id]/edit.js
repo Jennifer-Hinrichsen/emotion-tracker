@@ -2,7 +2,7 @@ import EmotionForm from "@/components/EmotionForm";
 import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 
-export default function EditPage({ emotions, onUpdateEmotion }) {
+export default function EditPage({ emotions, onUpdateEmotion, emotionTypes }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -23,6 +23,7 @@ export default function EditPage({ emotions, onUpdateEmotion }) {
         onCancel={() => {
           router.push(`/emotion/${id}`);
         }}
+        emotionTypes={emotionTypes}
       />
     </>
   );

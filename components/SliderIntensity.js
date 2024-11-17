@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { emotionList } from "@/lib/emotionList";
 
 export default function SliderIntensity({
   emotionType,
   defaultIntensity,
   onChange,
+  emotionTypes,
 }) {
   const [newValue, setNewValue] = useState(defaultIntensity || 1);
 
-  const emotion = emotionList.find(
+  const emotion = emotionTypes.find(
     (emotion) => emotion.emotionType === emotionType
   );
   const $thumbColor = emotion ? emotion.color : "var(--color-primary)";

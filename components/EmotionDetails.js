@@ -9,6 +9,7 @@ export default function EmotionDetails({
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
+  emotionTypes,
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -33,6 +34,7 @@ export default function EmotionDetails({
         onToggleBookmark={onToggleBookmark}
         isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
         isDetailsPage={true}
+        emotionTypes={emotionTypes}
       />
       <StyledEditLink href={`/emotion/${emotion.id}/edit`}>Edit</StyledEditLink>
 

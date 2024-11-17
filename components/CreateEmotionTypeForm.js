@@ -47,12 +47,6 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       return;
     }
 
-    // Beispiel: Emotion-Icon später aus Array abrufen
-    // const matchedIcon = emotionsIcons.find(
-    //   (icon) => icon.id === selectedEmotionIcon
-    // );
-    // console.log("Selected Emotion Icon Element:", matchedIcon?.emotionIcon);
-
     onSubmit(inputData);
     event.target.reset();
     setSelectedEmotionType("");
