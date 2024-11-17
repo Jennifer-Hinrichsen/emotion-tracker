@@ -11,7 +11,7 @@ export default function CreateEmotionType({ onCreateEmotionType }) {
       <CreateEmotionTypeForm
         onSubmit={(data) => {
           onCreateEmotionType(data);
-          router.push("/");
+          router.push("/?showForm=true");
         }}
       />
     </>

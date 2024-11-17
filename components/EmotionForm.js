@@ -1,5 +1,6 @@
+import { useRouter } from "next/router";
 import { emotionList } from "@/lib/emotionList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
@@ -23,6 +24,14 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.isReady && router.query.showForm === "true") {
+      setFormVisibility(true);
+    }
+  }, [router.isReady, router.query.showForm]);
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
