@@ -1,8 +1,8 @@
 import styled from "styled-components";
+import MultipleIcon from "assets/calendarIcons/circles.svg";
 
 export default function CalendarDays({
   day,
-  emotions,
   getColorByEmotionType,
   onDayClick,
   getEmotionsForDay,
@@ -50,7 +50,7 @@ export default function CalendarDays({
           <StyledDayContent>
             <p>{calendarDay.number}</p>
             {getEmotionsForDay(calendarDay.date).length > 2 ? (
-              <StyledEmotionDot color="var(--color-various)" />
+              <StyledMultipleIcon src="/circles.svg" alt="Multiple Icon" />
             ) : (
               getEmotionsForDay(calendarDay.date).map(($emotion) => (
                 <StyledEmotionDot
@@ -98,6 +98,12 @@ const StyledDayContent = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 90%;
+`;
+
+const StyledMultipleIcon = styled(MultipleIcon)`
+  width: 20px;
+  height: 24px;
+  color: #313366;
 `;
 
 const StyledEmotionDot = styled.div`
