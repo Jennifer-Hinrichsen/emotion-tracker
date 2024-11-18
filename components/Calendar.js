@@ -148,4 +148,5 @@ const StyledTableHeader = styled.div`
 const StyledWeekday = styled.div`
   width: 100px;
   text-align: center;
+  color: var(--color-secondary);
 `;

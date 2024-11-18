@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function CalendarPopup({
   getEmotionsForDay,
@@ -20,7 +21,9 @@ export default function CalendarPopup({
               <StyledEmotionDot
                 color={getColorByEmotionType($emotion.emotionType)}
               />
-              {$emotion.emotionType}
+              <StyledLink href={`/emotion/${$emotion.id}`}>
+                {$emotion.emotionType}
+              </StyledLink>
             </li>
           ))}
         </StyledEmotionList>
@@ -76,6 +79,12 @@ const StyledEmotionList = styled.ul`
   align-items: flex-start;
   list-style: none;
   padding: 0;
+`;
+
+const StyledLink = styled(Link)`
+  color: var(--color-secondary);
+  cursor: pointer;
+  font-size: 1rem;
 `;
 
 const StyledCloseButton = styled.button`
