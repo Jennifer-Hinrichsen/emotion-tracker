@@ -17,6 +17,7 @@ export default createGlobalStyle`
     --color-frame: #4e545b;
     --color-secondary: #e0e1f0;
     --color-background-cards: #4e545b;
+    --color-secondary-cards: #1C1C1E;
     --color-shadow: #4e545b;
   }
 

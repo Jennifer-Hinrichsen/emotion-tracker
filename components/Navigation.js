@@ -32,15 +32,14 @@ const StyledNavigationBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 12px 10px 10px 10px;
   background-color: var(--color-frame);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-frame);
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 3.75rem;
   gap: 1.25rem;
-  border-top: 1px solid var(--color-frame);
   z-index: 2;
 `;
 
@@ -53,7 +52,7 @@ const CenterWrapper = styled.div`
 `;
 
 const LogoCanvas = styled.div`
-  color: var(--color-secondary);
+  color: var(--color-border);
   width: 3.5rem;
   height: 3.5rem;
   display: flex;
@@ -81,6 +80,10 @@ const LogoCanvas = styled.div`
   img {
     margin-bottom: 2px;
     margin-left: 4px;
+  }
+  body.dark-theme & {
+    background-color: var(--color-border);
+    border: 1px solid var(--color-frame);
   }
 `;
 
