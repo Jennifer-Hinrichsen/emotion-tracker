@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { emotionList } from "@/lib/emotionList";
 
 export default function CalendarDays({
   day,
   emotions,
+  getColorByEmotionType,
   onDayClick,
   getEmotionsForDay,
 }) {
@@ -33,13 +33,6 @@ export default function CalendarDays({
 
     currentDays.push(calendarDay);
   }
-
-  const getColorByEmotionType = (type) => {
-    const $emotion = emotionList.find(
-      (emotion) => emotion.emotionType === type
-    );
-    return $emotion ? $emotion.color : "var(--color-background)";
-  };
 
   return (
     <StyledTableContent>

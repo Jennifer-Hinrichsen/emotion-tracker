@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 export default function CalendarPopup({
   getEmotionsForDay,
   selectedDay,
   setPopupVisible,
+  getColorByEmotionType,
 }) {
   const closePopup = () => {
     setPopupVisible(false);
@@ -13,20 +13,29 @@ export default function CalendarPopup({
   return (
     <StyledPopup>
       <StyledPopupContent>
-        <h2>Emotions</h2>
-        <ul>
+        <StyledSubheadline>Emotions</StyledSubheadline>
+        <StyledEmotionList>
           {getEmotionsForDay(selectedDay.date).map(($emotion) => (
             <li key={$emotion.id}>
-              <StyledEmotionDot color={$emotion.color} />
+              <StyledEmotionDot
+                color={getColorByEmotionType($emotion.emotionType)}
+              />
               {$emotion.emotionType}
             </li>
           ))}
-        </ul>
+        </StyledEmotionList>
         <StyledCloseButton onClick={closePopup}>Close</StyledCloseButton>
       </StyledPopupContent>
     </StyledPopup>
   );
 }
+
+const StyledSubheadline = styled.h2`
+  margin: 0;
+  padding: 10px 0;
+  color: var(--color-secondary);
+  text-align: center;
+`;
 
 const StyledPopup = styled.div`
   display: flex;
@@ -41,6 +50,9 @@ const StyledPopup = styled.div`
 `;
 
 const StyledPopupContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: var(--color-background-light);
   padding: 1rem;
   border-radius: 0.5rem;
@@ -52,10 +64,18 @@ const StyledPopupContent = styled.div`
 const StyledEmotionDot = styled.span`
   background-color: ${(props) => props.color};
   display: inline-block;
-  width: 1rem;
-  height: 1rem;
+  width: 0.6rem;
+  height: 0.6rem;
   border-radius: 50%;
   margin-right: 0.5rem;
+`;
+
+const StyledEmotionList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0;
 `;
 
 const StyledCloseButton = styled.button`
