@@ -3,13 +3,11 @@ import { emotionsIcons } from "./EmotionIcons";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
 
 export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
   const router = useRouter();
 
-  const [selectedEmotionType, setSelectedEmotionType] =
-    useLocalStorageState("");
+  const [selectedEmotionType, setSelectedEmotionType] = useState("");
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [selectedEmotionIcon, setSelectedEmotionIcon] = useState("");
   const [formError, setFormError] = useState("");
@@ -86,11 +84,10 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
                 <option value="">---Choose an Emotion Type---</option>
                 {customEmotionTypes
                   .filter((emotion) => {
-                    // Überprüfen, ob der emotionType nicht bereits in emotionTypes vorhanden ist
                     const isDuplicate = emotionTypes.some(
                       (type) => type.emotionType === emotion.emotionType
                     );
-                    return !isDuplicate; // Nur die Elemente, die nicht doppelt sind
+                    return !isDuplicate;
                   })
                   .map((emotion) => (
                     <option key={emotion.id} value={emotion.emotionType}>
