@@ -54,11 +54,8 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  // const [emotionTypes, setEmotionTypes] = useLocalStorageState("emotionTypes", {
-  //   defaultValue: emotionList.map((emotion) => emotion.emotionType),
-  // });
   const [emotionTypes, setEmotionTypes] = useLocalStorageState("emotionTypes", {
-    defaultValue: emotionList, // Übernimm das gesamte emotionList-Array
+    defaultValue: emotionList,
   });
 
   function handleToggleBookmark(id) {
@@ -117,7 +114,6 @@ export default function App({ Component, pageProps }) {
 
     setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
     showToastMessage("Successfully added!");
-    console.log("emotionTypes von app:", newEmotionType);
   }
 
   return (

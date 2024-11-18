@@ -31,10 +31,15 @@ export default function EmotionForm({
   const router = useRouter();
 
   useEffect(() => {
-    if (router.isReady && router.query.showForm === "true") {
-      setFormVisibility(true);
+    if (router.isReady) {
+      if (router.query.showForm === "true") {
+        setFormVisibility(true);
+      }
+      if (router.query.selectedEmotionType) {
+        setSelectedEmotionType(router.query.selectedEmotionType);
+      }
     }
-  }, [router.isReady, router.query.showForm]);
+  }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);

@@ -1,6 +1,5 @@
 import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
-import styled from "styled-components";
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import { useState } from "react";
@@ -13,10 +12,10 @@ export default function HomePage({
   emotionTypes,
 }) {
   const [selectedFilterButton, setSelectedFilterButton] = useState("");
-  console.log("emotionTypes from index:", emotionTypes);
+
   return (
     <>
-      <StyledHeading>Mood Wave</StyledHeading>
+      <Heading>Mood Wave</Heading>
       <EmotionForm
         emotions={emotions}
         onSubmit={onCreateEmotion}
@@ -37,10 +36,3 @@ export default function HomePage({
     </>
   );
 }
-
-const StyledHeading = styled.h1`
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  color: var(--color-secondary);
-`;

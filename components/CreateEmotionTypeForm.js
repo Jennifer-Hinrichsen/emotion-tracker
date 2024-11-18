@@ -3,11 +3,13 @@ import { emotionsIcons } from "./EmotionIcons";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
   const router = useRouter();
 
-  const [selectedEmotionType, setSelectedEmotionType] = useState("");
+  const [selectedEmotionType, setSelectedEmotionType] =
+    useLocalStorageState("");
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [selectedEmotionIcon, setSelectedEmotionIcon] = useState("");
   const [formError, setFormError] = useState("");
@@ -29,15 +31,18 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const inputData = Object.fromEntries(formData);
+    const formData = {
+      emotionType: selectedEmotionType,
+      color: selectedEmotionColor,
+      emotionIcon: selectedEmotionIcon,
+    };
 
-    if (!inputData.emotionType) {
+    if (!selectedEmotionType) {
       setFormError("Please choose an emotion type.");
       return;
     }
 
-    if (!inputData.color) {
+    if (!selectedEmotionColor) {
       setFormError("Please select an emotion color.");
       return;
     }
@@ -47,7 +52,7 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
       return;
     }
 
-    onSubmit(inputData);
+    onSubmit(formData);
     event.target.reset();
     setSelectedEmotionType("");
     setSelectedEmotionColor("");
