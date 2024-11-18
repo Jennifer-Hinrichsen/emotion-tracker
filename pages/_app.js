@@ -101,14 +101,24 @@ export default function App({ Component, pageProps }) {
     "Excited",
     "Releived",
   ];
-  function handleCreateEmotionType(newEmotionType) {
-    const maxId = emotionTypes.reduce((max, emotion) => {
-      const currentId = parseInt(emotion.id, 10) || 0;
-      return currentId > max ? currentId : max;
-    }, 0);
+  // function handleCreateEmotionType(newEmotionType) {
+  //   const maxId = emotionTypes.reduce((max, emotion) => {
+  //     const currentId = parseInt(emotion.id, 10) || 0;
+  //     return currentId > max ? currentId : max;
+  //   }, 0);
 
+  //   const emotionWithId = {
+  //     id: (maxId + 1).toString(),
+  //     ...newEmotionType,
+  //   };
+
+  //   setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
+  //   showToastMessage("Successfully added!");
+  // }
+
+  function handleCreateEmotionType(newEmotionType) {
     const emotionWithId = {
-      id: (maxId + 1).toString(),
+      id: uuidv4(),
       ...newEmotionType,
     };
 
