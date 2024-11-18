@@ -111,6 +111,9 @@ const StyledDivWrapper = styled.div`
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
+  body.dark-theme & {
+    background-color: var(--color-background-cards);
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -126,12 +129,19 @@ const StyledIconLeft = styled.div`
   height: 100%;
   width: 120px;
   font-size: 1.5rem;
-  color: #313366;
+  color: var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
   background: linear-gradient(90deg, #f6f4f3 40%, transparent);
+  body.dark-theme & {
+    background: linear-gradient(
+      90deg,
+      var(--color-background-cards) 40%,
+      transparent
+    );
+  }
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -153,13 +163,13 @@ const StyledTabsBox = styled.ul`
 `;
 
 const StyledTab = styled.li`
-  color: #313366;
+  color: var(--color-secondary);
   cursor: pointer;
   font-size: 1rem;
   white-space: nowrap;
-  background: #f9f9f9;
+  background: var(--color-background-cards);
   padding: 8px 10px;
-  border: 1px solid #e0e1f0;
+  border: 1px solid var(--color-frame);
   border-radius: 8px;
   transition: background-color 0.3s ease;
   opacity: 70%;
@@ -180,11 +190,18 @@ const StyledIconRight = styled.div`
   height: 100%;
   width: 120px;
   font-size: 1.5rem;
-  color: #313366;
+  color: var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(-90deg, #f6f4f3 40%, transparent);
+  body.dark-theme & {
+    background: linear-gradient(
+      -90deg,
+      var(--color-background-cards) 40%,
+      transparent
+    );
+  }
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -193,24 +210,30 @@ const StyledIconRight = styled.div`
 const StyledAppliedInfo = styled.p`
   margin: 0;
   padding: 10px 0 10px 20px;
-  color: #313366;
+  color: var(--color-secondary);
 `;
 
 const StyledClearFilter = styled.span`
   margin-left: 4px;
   cursor: pointer;
   color: #a6a6a6;
+  body.dark-theme & {
+    color: var(--color-background);
+  }
   position: relative;
   top: -6px;
 
   &:hover {
-    color: #313366;
+    color: var(--color-secondary);
   }
 `;
 
 const StyledMessage = styled.p`
   text-align: center;
   color: #777;
+  body.dark-theme & {
+    color: var(--color-background);
+  }
   font-size: 1.1rem;
   padding: 24px 16px;
 `;

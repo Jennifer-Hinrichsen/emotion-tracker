@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import SunTheme from "assets/SunTheme.svg";
 import MoonTheme from "assets/MoonTheme.svg";
 import styled from "styled-components";
-import styles from "@/styles";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState("light");
@@ -11,24 +10,18 @@ export default function ThemeToggle() {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
       setTheme(storedTheme);
+      document.body.classList.add(storedTheme + "-theme");
     } else {
-      localStorage.setItem("theme", "light");
+      document.body.classList.add("light-theme");
     }
   }, []);
 
-  useEffect(() => {
-    if (theme === "dark") {
-      document.body.classList.add("dark-theme");
-      document.body.classList.remove("light-theme");
-    } else {
-      document.body.classList.add("light-theme");
-      document.body.classList.remove("dark-theme");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    document.body.classList.remove(theme + "-theme");
+    document.body.classList.add(newTheme + "-theme");
+    localStorage.setItem("theme", newTheme);
   };
 
   return (
