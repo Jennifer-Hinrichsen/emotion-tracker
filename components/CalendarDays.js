@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { emotionList } from "@/lib/emotionList";
 
-export default function CalendarDays({ day, changeCurrentDay, emotions }) {
+export default function CalendarDays({
+  day,
+  emotions,
+  onDayClick,
+  getEmotionsForDay,
+}) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];
@@ -29,13 +34,6 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
     currentDays.push(calendarDay);
   }
 
-  const getEmotionsForDay = (date) => {
-    return emotions.filter(($emotion) => {
-      const emotionDate = new Date($emotion.dateTime);
-      return emotionDate.toDateString() === date.toDateString();
-    });
-  };
-
   const getColorByEmotionType = (type) => {
     const $emotion = emotionList.find(
       (emotion) => emotion.emotionType === type
@@ -49,17 +47,26 @@ export default function CalendarDays({ day, changeCurrentDay, emotions }) {
         <StyledCalendarDay
           key={index}
           $currentMonth={calendarDay.$currentMonth}
-          $selected={calendarDay.$selected}
-          onClick={() => changeCurrentDay(calendarDay)}
+          onClick={() =>
+            onDayClick({
+              date: calendarDay.date,
+              emotions: getEmotionsForDay(calendarDay.date),
+            })
+          }
         >
-          <p>{calendarDay.number}</p>
-          {getEmotionsForDay(calendarDay.date).map(($emotion) => (
-            <StyledEmotionTag
-              key={$emotion.id}
-              $emotion={$emotion}
-              color={getColorByEmotionType($emotion.emotionType)}
-            />
-          ))}
+          <StyledDayContent>
+            <p>{calendarDay.number}</p>
+            {getEmotionsForDay(calendarDay.date).length > 2 ? (
+              <StyledEmotionDot color="var(--color-various)" />
+            ) : (
+              getEmotionsForDay(calendarDay.date).map(($emotion) => (
+                <StyledEmotionDot
+                  key={$emotion.id}
+                  color={getColorByEmotionType($emotion.emotionType)}
+                />
+              ))
+            )}
+          </StyledDayContent>
         </StyledCalendarDay>
       ))}
     </StyledTableContent>
@@ -81,7 +88,6 @@ const StyledCalendarDay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 
   &:hover {
     background-color: var(--color-primary);
@@ -93,12 +99,18 @@ const StyledCalendarDay = styled.div`
   }
 `;
 
-const StyledEmotionTag = styled.div`
-  width: 80%;
-  margin-top: 5px;
-  padding: 2px;
+const StyledDayContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+`;
+
+const StyledEmotionDot = styled.div`
+  gap: 0.2rem;
+  width: 0.6rem;
+  height: 0.6rem;
   background-color: ${(props) => props.color || "var(--color-background)"};
-  text-align: center;
-  font-size: 0.8rem;
-  border-radius: 5px;
+  border-radius: 50%;
 `;

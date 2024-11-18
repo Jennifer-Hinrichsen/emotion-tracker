@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CalendarDays from "./CalendarDays";
 import styled from "styled-components";
+import CalendarPopup from "./CalendarPopup";
 
 export default function Calendar({ emotions }) {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -21,8 +22,17 @@ export default function Calendar({ emotions }) {
 
   const [currentDay, setCurrentDay] = useState(new Date());
 
+  const [selectedDay, setSelectedDay] = useState(null);
+
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
   const changeCurrentDay = (day) => {
     setCurrentDay(new Date(day.year, day.month, day.number));
+  };
+
+  const handleDayClick = (day) => {
+    setSelectedDay(day);
+    setPopupVisible(true);
   };
 
   const nextMonth = () => {
@@ -36,6 +46,13 @@ export default function Calendar({ emotions }) {
     setCurrentDay((prevDate) => {
       const newMonth = prevDate.getMonth() - 1;
       return new Date(prevDate.getFullYear(), newMonth, 1);
+    });
+  };
+
+  const getEmotionsForDay = (date) => {
+    return emotions.filter(($emotion) => {
+      const emotionDate = new Date($emotion.dateTime);
+      return emotionDate.toDateString() === date.toDateString();
     });
   };
 
@@ -65,8 +82,17 @@ export default function Calendar({ emotions }) {
           day={currentDay}
           changeCurrentDay={changeCurrentDay}
           emotions={emotions}
+          onDayClick={handleDayClick}
+          getEmotionsForDay={getEmotionsForDay}
         />
       </StyledCalendarBody>
+      {isPopupVisible && selectedDay && (
+        <CalendarPopup
+          getEmotionsForDay={getEmotionsForDay}
+          selectedDay={selectedDay}
+          setPopupVisible={setPopupVisible}
+        />
+      )}
     </StyledCalendarContainer>
   );
 }
