@@ -181,6 +181,9 @@ const StyledTab = styled.li`
       background: ${$color};
       opacity: 100%;
     `}
+  body.dark-theme & {
+    border: 1px solid var(--color-secondary);
+  }
 `;
 
 const StyledIconRight = styled.div`

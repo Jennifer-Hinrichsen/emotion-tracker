@@ -167,6 +167,9 @@ const StyledVisibilityIcons = styled.button`
   position: absolute;
   left: calc(50% + 120px);
   color: var(--color-secondary);
+  body.dark-theme & {
+    background-color: var(--color-frame);
+  }
 `;
 
 const StyledEmotionForm = styled.form`
@@ -222,6 +225,7 @@ const StyledDateAndTimeInput = styled.input`
 
   &::-webkit-calendar-picker-indicator {
     cursor: pointer;
+    color: var(--color-secondary);
   }
 `;
 
