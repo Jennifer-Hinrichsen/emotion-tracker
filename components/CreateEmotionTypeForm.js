@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function CreateEmotionTypeForm({ onSubmit }) {
+export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
   const router = useRouter();
 
   const [selectedEmotionType, setSelectedEmotionType] = useState("");
@@ -70,12 +70,30 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
             name="emotionType"
             onChange={handleChangeEmotionType}
           >
-            <option value="">---Choose an Emotion---</option>
-            {customEmotionTypes.map((emotion) => (
-              <option key={emotion.id} value={emotion.emotionType}>
-                {emotion.emotionType}
-              </option>
-            ))}
+            {customEmotionTypes.every((emotion) =>
+              emotionTypes.some(
+                (type) => type.emotionType === emotion.emotionType
+              )
+            ) ? (
+              <option value="">---Already all Emotions selected---</option>
+            ) : (
+              <>
+                <option value="">---Choose an Emotion Type---</option>
+                {customEmotionTypes
+                  .filter((emotion) => {
+                    // Überprüfen, ob der emotionType nicht bereits in emotionTypes vorhanden ist
+                    const isDuplicate = emotionTypes.some(
+                      (type) => type.emotionType === emotion.emotionType
+                    );
+                    return !isDuplicate; // Nur die Elemente, die nicht doppelt sind
+                  })
+                  .map((emotion) => (
+                    <option key={emotion.id} value={emotion.emotionType}>
+                      {emotion.emotionType}
+                    </option>
+                  ))}
+              </>
+            )}
           </StyledEmotion>
           <StyledArrow>▼</StyledArrow>
         </StyledContainer>
@@ -201,7 +219,7 @@ const StyledButtonGroupColor = styled.button`
   cursor: pointer;
 
   &:hover {
-    border: solid var(--color-primary);
+    border: 2px solid var(--color-primary);
   }
 
   &:focus {
@@ -223,7 +241,7 @@ const StyledButtonGroupIcon = styled.button`
   cursor: pointer;
 
   &:hover {
-    border: solid var(--color-primary);
+    border: 2px solid var(--color-primary);
   }
 
   &:focus {

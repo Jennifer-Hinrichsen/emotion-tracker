@@ -13,7 +13,7 @@ export default function HomePage({
   emotionTypes,
 }) {
   const [selectedFilterButton, setSelectedFilterButton] = useState("");
-
+  console.log("emotionTypes from index:", emotionTypes);
   return (
     <>
       <StyledHeading>Mood Wave</StyledHeading>

@@ -2,13 +2,17 @@ import CreateEmotionTypeForm from "@/components/CreateEmotionTypeForm";
 import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 
-export default function CreateEmotionType({ onCreateEmotionType }) {
+export default function CreateEmotionType({
+  onCreateEmotionType,
+  emotionTypes,
+}) {
   const router = useRouter();
 
   return (
     <>
       <Heading>Create Emotion Type</Heading>
       <CreateEmotionTypeForm
+        emotionTypes={emotionTypes}
         onSubmit={(data) => {
           onCreateEmotionType(data);
           router.push("/?showForm=true");

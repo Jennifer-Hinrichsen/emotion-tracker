@@ -94,6 +94,16 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
+  const existingEmotionTypes = [
+    "Love",
+    "Tired",
+    "Annoyed",
+    "Proud",
+    "Hopeful",
+    "Confident",
+    "Excited",
+    "Releived",
+  ];
   function handleCreateEmotionType(newEmotionType) {
     const maxId = emotionTypes.reduce((max, emotion) => {
       const currentId = parseInt(emotion.id, 10) || 0;
@@ -107,6 +117,7 @@ export default function App({ Component, pageProps }) {
 
     setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
     showToastMessage("Successfully added!");
+    console.log("emotionTypes von app:", newEmotionType);
   }
 
   return (
@@ -123,6 +134,7 @@ export default function App({ Component, pageProps }) {
           onToggleBookmark={handleToggleBookmark}
           onCreateEmotionType={handleCreateEmotionType}
           emotionTypes={emotionTypes}
+          existingEmotionTypes={existingEmotionTypes}
           {...pageProps}
         />
         {toasts.map((toast) => (
