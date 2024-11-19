@@ -34,16 +34,21 @@ export default function CalendarDays({
     currentDays.push(calendarDay);
   }
 
+  const daysWithEmotions = currentDays.map((calendarDay) => {
+    const emotionsForDay = getEmotionsForDay(calendarDay.date);
+    return { ...calendarDay, emotionsForDay };
+  });
+
   return (
     <StyledTableContent>
-      {currentDays.map((calendarDay, index) => (
+      {daysWithEmotions.map((calendarDay, index) => (
         <StyledCalendarDay
           key={index}
           $currentMonth={calendarDay.$currentMonth}
           onClick={() =>
             onDayClick({
               date: calendarDay.date,
-              emotions: getEmotionsForDay(calendarDay.date),
+              emotions: calendarDay.emotionsForDay,
             })
           }
         >
