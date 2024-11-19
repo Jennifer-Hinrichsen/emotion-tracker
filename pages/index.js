@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Heading from "@/components/Heading";
+import { useState, useEffect } from "react";
 import EmotionForm from "@/components/EmotionForm";
 import EmotionList from "@/components/EmotionList";
 import styled from "styled-components";
@@ -12,6 +11,7 @@ export default function HomePage({
 }) {
   const [filteredEmotions, setFilteredEmotions] = useState(emotions);
   const [searchTerm, setSearchTerm] = useState("");
+
   const handleSearch = (term) => {
     const filtered = emotions.filter((emotion) =>
       emotion.notes.toLowerCase().includes(term.toLowerCase())
@@ -19,10 +19,30 @@ export default function HomePage({
     setFilteredEmotions(filtered);
     setSearchTerm(term);
   };
+  useEffect(() => {
+    const savedSearchTerm = localStorage.getItem("searchTerm");
+    if (savedSearchTerm) {
+      setSearchTerm(savedSearchTerm);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      localStorage.setItem("searchTerm", searchTerm);
+    }
+  }, [searchTerm]);
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+  };
 
   return (
     <>
-      <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
+      <SearchBar
+        searchTerm={searchTerm}
+        onSearch={handleSearch}
+        onClearSearch={handleClearSearch}
+      />
       <StyledHeading>Mood Wave</StyledHeading>
       <EmotionForm emotions={filteredEmotions} onSubmit={onCreateEmotion} />
       <EmotionList
