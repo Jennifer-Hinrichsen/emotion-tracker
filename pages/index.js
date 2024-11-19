@@ -3,7 +3,7 @@ import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
 import EmotionList from "@/components/EmotionList";
 import styled from "styled-components";
-import SearchBar from "@/components/Searcbar/Searchbar";
+import SearchBar from "@/components/Searchbar/Searchbar";
 export default function HomePage({
   emotions,
   onCreateEmotion,

@@ -44,11 +44,11 @@ export default function EmotionList({
           </StyledFilterList>
         ))}
       </StyledList>
-
       {filteredEmotions.length === 0 ? (
         <StyledMessage>
-          No emotions found for the search term or filter. Please try a
-          different keyword or reset the filter.
+          {searchTerm
+            ? "No emotions found for the search term. Please try a different keyword."
+            : "No emotions found for the selected filter. Please reset the filter or choose another option."}
         </StyledMessage>
       ) : (
         <StyledList>
