@@ -41,9 +41,9 @@ export default function CalendarDays({
 
   return (
     <StyledTableContent>
-      {daysWithEmotions.map((calendarDay, index) => (
+      {daysWithEmotions.map((calendarDay) => (
         <StyledCalendarDay
-          key={index}
+          key={calendarDay.date.toISOString()}
           $currentMonth={calendarDay.$currentMonth}
           onClick={() =>
             onDayClick({
