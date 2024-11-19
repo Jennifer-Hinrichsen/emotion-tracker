@@ -1,51 +1,59 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EmotionForm from "@/components/EmotionForm";
-import EmotionList from "@/components/EmotionList";
+
 import styled from "styled-components";
 import SearchBar from "@/components/Searchbar/Searchbar";
+
+import List from "@/components/List";
+import Filter from "@/components/Filter";
+import useLocalStorageState from "use-local-storage-state";
+
 export default function HomePage({
   emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
 }) {
-  const [filteredEmotions, setFilteredEmotions] = useState(emotions);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
+    defaultValue: "",
+  });
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   const handleSearch = (term) => {
-    const filtered = emotions.filter((emotion) =>
-      emotion.notes.toLowerCase().includes(term.toLowerCase())
-    );
-    setFilteredEmotions(filtered);
     setSearchTerm(term);
   };
-  useEffect(() => {
-    const savedSearchTerm = localStorage.getItem("searchTerm");
-    if (savedSearchTerm) {
-      setSearchTerm(savedSearchTerm);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (searchTerm) {
-      localStorage.setItem("searchTerm", searchTerm);
-    }
-  }, [searchTerm]);
 
   const handleClearSearch = () => {
     setSearchTerm("");
   };
+  const filteredEmotions = emotions.filter((emotion) => {
+    const matchesFilter = selectedFilter
+      ? emotion.emotionType === selectedFilter
+      : true;
+
+    const matchesSearchTerm = searchTerm
+      ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+
+    return matchesFilter && matchesSearchTerm;
+  });
 
   return (
     <>
+      <StyledHeading>Mood Wave</StyledHeading>
+      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+
+      <Filter
+        emotions={emotions}
+        selectedFilter={selectedFilter}
+        setSelectedFilter={setSelectedFilter}
+      />
       <SearchBar
         searchTerm={searchTerm}
         onSearch={handleSearch}
         onClearSearch={handleClearSearch}
       />
-      <StyledHeading>Mood Wave</StyledHeading>
-      <EmotionForm emotions={filteredEmotions} onSubmit={onCreateEmotion} />
-      <EmotionList
+      <List
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
@@ -59,5 +67,5 @@ const StyledHeading = styled.h1`
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: #313366;
+  color: var(--color-secondary);
 `;
