@@ -3,24 +3,10 @@ import CalendarDays from "./CalendarDays";
 import styled from "styled-components";
 import CalendarPopup from "./CalendarPopup";
 import { emotionList } from "@/lib/emotionList";
+import { weekdays } from "@/lib/calendarDaysMonths";
+import { months } from "@/lib/calendarDaysMonths";
 
 export default function Calendar({ emotions }) {
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const [currentDay, setCurrentDay] = useState(new Date());
 
   const [selectedDay, setSelectedDay] = useState(null);
