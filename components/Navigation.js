@@ -18,13 +18,13 @@ export default function Navigation() {
             src="/Bookmark-filled.svg"
             alt="Bookmark Icon"
           />
-          My Emotions
+          <BookmarkText>My Emotions</BookmarkText>
         </IconWrapper>
       </StyledLink>
       <CenterWrapper>
         <Link href="/">
           <LogoCanvas $isActive={isActive("/")}>
-            <MoodwaveLogo height={`45`} />
+            <StyledLogo />
             <HomeText>Home</HomeText>
           </LogoCanvas>
         </Link>
@@ -32,6 +32,11 @@ export default function Navigation() {
     </StyledNavigationBar>
   );
 }
+const StyledLogo = styled(MoodwaveLogo)`
+  height: 45px;
+  width: auto;
+  fill: red;
+`;
 
 const StyledNavigationBar = styled.nav`
   display: flex;
@@ -95,8 +100,14 @@ const LogoCanvas = styled.div`
   }
   body.dark-theme & {
     background-color: ${(props) =>
-      props.$isActive ? "var(--color-border)" : "var(--color-frame)"};
-    border: 1px solid ${(props) => (props.$isActive ? "" : "#E0E1F0")};
+      props.$isActive
+        ? "var(--color-highlighted-background)"
+        : "var(--color-frame)"};
+    border: 1px solid
+      ${(props) =>
+        props.$isActive
+          ? "var(--color-cards-foreground)"
+          : "var(--color-cards-frame)"};
   }
 `;
 
@@ -114,14 +125,21 @@ const HomeText = styled.span`
   font-size: 1rem;
   font-weight: normal;
   margin-bottom: 1.25rem;
-  color: ${(props) =>
-    props.$isDarkTheme
-      ? props.$isOnHomePage
-        ? "#4e545b"
-        : "var(--color-secondary)"
-      : "var(--color-secondary)"};
+  body.dark-theme & {
+    color: ${(props) =>
+      props.$isActive ? "var(--color-highlighted-foreground)" : "inherit"};
+  }
 `;
-
+const BookmarkText = styled.span`
+  font-size: 1rem;
+  font-weight: normal;
+  body.dark-theme & {
+    color: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
+  }
+`;
 const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -134,14 +152,21 @@ const IconWrapper = styled.div`
     props.$isActive ? "0.5px solid #313366" : "none"};
   background-color: ${(props) =>
     props.$isActive ? "rgba(249, 249, 249, 1)" : "transparent"};
+
+  body.dark-theme & {
+    border-left: ${(props) =>
+      props.$isActive ? `0.5px solid var(--color-cards-foreground)` : "none"};
+    border-right: ${(props) =>
+      props.$isActive ? `0.5px solid var(--color-cards-foreground)` : "none"};
+  }
 `;
 
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
   height: 28px;
   fill: "#313366";
-  fill: ${(props) =>
-    props.$isActive
-      ? "#313366"
-      : "#A0A0A0"}; // Setzt das Icon auf grau, wenn nicht aktiv
+  fill: ${(props) => (props.$isActive ? "#313366" : "#A0A0A0")};
+  body.dark-theme & {
+    fill: ${(props) => (props.$isActive ? "#00ff99" : "#9989")};
+  }
 `;
