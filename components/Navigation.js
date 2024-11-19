@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
-import MoodwaveLogo from "assets/moodwave-logo.svg";
+import BookmarkIcon from "@/assets/bookmarkicons/Bookmark-filled.svg";
+import MoodwaveLogo from "@/assets/MoodwaveLogo.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
   const isActive = (page) => pathname === page;
 
-  console.log(MoodwaveLogo);
+  console.log(MoodwaveLogo());
   return (
     <StyledNavigationBar>
       <StyledLink href="/bookmarks">
@@ -24,7 +24,7 @@ export default function Navigation() {
       <CenterWrapper>
         <Link href="/">
           <LogoCanvas $isActive={isActive("/")}>
-            <MoodwaveLogo height={`45`} />
+            <MoodwaveLogo />
             <HomeText>Home</HomeText>
           </LogoCanvas>
         </Link>
@@ -51,6 +51,7 @@ const StyledNavigationBar = styled.nav`
 const CenterWrapper = styled.div`
   position: absolute;
   left: 50%;
+  top: -20px;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
@@ -58,12 +59,14 @@ const CenterWrapper = styled.div`
 
 const LogoCanvas = styled.div`
   color: var(--color-border);
-  width: 3.5rem;
-  height: 3.5rem;
+
+  width: 100px;
+  height: 100px;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 4px;
   background-color: ${(props) =>
     props.$isActive
       ? "var(--color-home-icon-background-active)"
@@ -75,28 +78,10 @@ const LogoCanvas = styled.div`
   border-radius: 50%;
   border: 1px solid ${(props) => (props.$isActive ? "#313366" : "#E0E1F0")};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 3.125rem;
   transition: transform 0.3s ease;
-  transform: scale(1);
 
   &:hover {
     transform: scale(1.1);
-  }
-
-  @media (hover: none) and (pointer: coarse) {
-    &:hover {
-      transform: scale(1);
-    }
-  }
-
-  img {
-    margin-bottom: 2px;
-    margin-left: 4px;
-  }
-  body.dark-theme & {
-    background-color: ${(props) =>
-      props.$isActive ? "var(--color-border)" : "var(--color-frame)"};
-    border: 1px solid ${(props) => (props.$isActive ? "" : "#E0E1F0")};
   }
 `;
 
@@ -113,13 +98,6 @@ const StyledLink = styled(Link)`
 const HomeText = styled.span`
   font-size: 1rem;
   font-weight: normal;
-  margin-bottom: 1.25rem;
-  color: ${(props) =>
-    props.$isDarkTheme
-      ? props.$isOnHomePage
-        ? "#4e545b"
-        : "var(--color-secondary)"
-      : "var(--color-secondary)"};
 `;
 
 const IconWrapper = styled.div`
@@ -135,7 +113,6 @@ const IconWrapper = styled.div`
   background-color: ${(props) =>
     props.$isActive ? "rgba(249, 249, 249, 1)" : "transparent"};
 `;
-
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
   height: 28px;
