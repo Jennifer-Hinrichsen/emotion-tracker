@@ -3,12 +3,10 @@ import Heading from "@/components/Heading";
 import styled from "styled-components";
 
 export default function CalendarPage({ emotions }) {
-  const createdEmotions = emotions.filter((emotion) => emotion.id);
-
   return (
     <>
       <Heading>My Calendar</Heading>
-      <Calendar emotions={createdEmotions} />
+      <Calendar emotions={emotions} />
     </>
   );
 }
