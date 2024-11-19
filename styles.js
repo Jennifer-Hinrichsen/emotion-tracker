@@ -3,23 +3,35 @@ import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
 :root {
     --color-background: #f9f9f9;
-    --color-primary: #8295c6;
-    --color-secondary: #313366;
-    --color-border: #d3d3d3;
-    --color-success: #5cb85c; 
-    --color-shadow: #00000029;
     --color-frame: #e0e1f0;
+    --color-secondary: #313366;
     --color-background-cards: #f9f9f9;
-    --color-secondary-cards: #313366;
+    --color-cards-foreground: #313366;
+    --color-shadow: #4e545b;
+    --color-foreground: #e0e1f0;
+    --color-highlighted-foreground: #4e545b;
+    --color-highlighted-background: #e0e1f0;
+    --color-home-icon-foreground:#d3d3d3;
+    --color-home-icon-background:#4e545b;
+    --color-home-icon-foreground-active:#4e545b;
+    --color-home-icon-background-active:#e0e1f0;
   }
   .dark-theme{
     --color-background: #1C1C1E;
     --color-frame: #4e545b;
     --color-secondary: #e0e1f0;
     --color-background-cards: #4e545b;
-    --color-secondary-cards: #1C1C1E;
+    --color-cards-foreground: #1C1C1E;
     --color-shadow: #4e545b;
+    --color-foreground: #e0e1f0;
+    --color-highlighted-foreground: #4e545b;
+    --color-highlighted-background: #e0e1f0;
+    --color-home-icon-foreground:#d3d3d3;
+    --color-home-icon-background:#4e545b;
+    --color-home-icon-foreground-active:#4e545b;
+    --color-home-icon-background-active:#e0e1f0;
   }
+ 
 
   *,
   *::before,

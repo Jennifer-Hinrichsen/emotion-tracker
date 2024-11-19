@@ -91,14 +91,14 @@ const StyledDate = styled.p`
   margin: 0;
   padding-left: 1rem;
   font-size: 0.8rem;
-  color: var(--color-secondary-cards);
+  color: var(--color-cards-foreground);
 `;
 
 const StyledTime = styled.p`
   margin: 0;
   padding-left: 1rem;
   font-size: 0.8rem;
-  color: var(--color-secondary-cards);
+  color: var(--color-cards-foreground);
 `;
 
 const StyledEmotionCard = styled.section`
