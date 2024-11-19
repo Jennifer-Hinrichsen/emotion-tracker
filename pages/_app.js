@@ -5,7 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
-import { emotionList } from "@/lib/emotionList";
+import { emotionMapping } from "@/lib/emotionMapping";
 
 export default function App({ Component, pageProps }) {
   const [emotions, setEmotions] = useLocalStorageState("emotions", {
@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }) {
   );
 
   const [emotionTypes, setEmotionTypes] = useLocalStorageState("emotionTypes", {
-    defaultValue: emotionList,
+    defaultValue: emotionMapping,
   });
 
   function handleToggleBookmark(id) {

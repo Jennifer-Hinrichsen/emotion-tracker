@@ -13,16 +13,11 @@ export default function EmotionCard({
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
-  function getEmotionColor(type) {
-    if (!emotionTypes || emotionTypes.length === 0) {
-      return "var(--color-frame)";
-    }
+  const getEmotionColor = (type) =>
+    emotionTypes.find((item) => item.emotionType === type)?.color ||
+    "var(--color-frame)";
 
-    const emotion = emotionTypes.find((item) => item.emotionType === type);
-    return emotion ? emotion.color : "var(--color-frame)";
-  }
-
-  const emotionColor = getEmotionColor(emotion.emotionType);
+  const emotionColor = getEmotionColor(emotion.emotionTyp);
 
   return (
     <StyledCardWrapper>
