@@ -8,7 +8,6 @@ export default function Navigation() {
   const { pathname } = useRouter();
   const isActive = (page) => pathname === page;
 
-  console.log(MoodwaveLogo);
   return (
     <StyledNavigationBar>
       <StyledLink href="/bookmarks">
@@ -18,14 +17,16 @@ export default function Navigation() {
             src="/Bookmark-filled.svg"
             alt="Bookmark Icon"
           />
-          <BookmarkText>My Emotions</BookmarkText>
+          <BookmarkText $isActive={isActive("/bookmarks")}>
+            My Emotions
+          </BookmarkText>
         </IconWrapper>
       </StyledLink>
       <CenterWrapper>
         <Link href="/">
           <LogoCanvas $isActive={isActive("/")}>
             <StyledLogo />
-            <HomeText>Home</HomeText>
+            <HomeText $isActive={isActive("/")}>Home</HomeText>
           </LogoCanvas>
         </Link>
       </CenterWrapper>
@@ -33,8 +34,6 @@ export default function Navigation() {
   );
 }
 const StyledLogo = styled(MoodwaveLogo)`
-  height: 45px;
-  width: auto;
   fill: red;
 `;
 
@@ -56,6 +55,7 @@ const StyledNavigationBar = styled.nav`
 const CenterWrapper = styled.div`
   position: absolute;
   left: 50%;
+  top: -20px;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
@@ -63,16 +63,18 @@ const CenterWrapper = styled.div`
 
 const LogoCanvas = styled.div`
   color: var(--color-border);
-  width: 3.5rem;
-  height: 3.5rem;
+
+  width: 100px;
+  height: 100px;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 4px;
   background-color: ${(props) =>
     props.$isActive
       ? "var(--color-home-icon-background-active)"
-      : "var(--color-home-icon-background)"};
+      : "var(--color-highlighted-background)"};
   color: ${(props) =>
     props.$isActive
       ? "var(--color-home-icon-foreground-active)"
@@ -80,23 +82,10 @@ const LogoCanvas = styled.div`
   border-radius: 50%;
   border: 1px solid ${(props) => (props.$isActive ? "#313366" : "#E0E1F0")};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 3.125rem;
   transition: transform 0.3s ease;
-  transform: scale(1);
 
   &:hover {
     transform: scale(1.1);
-  }
-
-  @media (hover: none) and (pointer: coarse) {
-    &:hover {
-      transform: scale(1);
-    }
-  }
-
-  img {
-    margin-bottom: 2px;
-    margin-left: 4px;
   }
   body.dark-theme & {
     background-color: ${(props) =>
@@ -125,9 +114,12 @@ const HomeText = styled.span`
   font-size: 1rem;
   font-weight: normal;
   margin-bottom: 1.25rem;
+  color: var(--color-secondary);
   body.dark-theme & {
     color: ${(props) =>
-      props.$isActive ? "var(--color-highlighted-foreground)" : "inherit"};
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
   }
 `;
 const BookmarkText = styled.span`
@@ -137,7 +129,7 @@ const BookmarkText = styled.span`
     color: ${(props) =>
       props.$isActive
         ? "var(--color-highlighted-foreground)"
-        : "var(--color-foreground)"};
+        : "var(--color-highlighted-background)"};
   }
 `;
 const IconWrapper = styled.div`
@@ -167,6 +159,6 @@ const StyledBookmarkIcon = styled(BookmarkIcon)`
   fill: "#313366";
   fill: ${(props) => (props.$isActive ? "#313366" : "#A0A0A0")};
   body.dark-theme & {
-    fill: ${(props) => (props.$isActive ? "#00ff99" : "#9989")};
+    fill: ${(props) => (props.$isActive ? "#000" : "#9989")};
   }
 `;
