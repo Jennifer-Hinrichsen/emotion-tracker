@@ -13,10 +13,6 @@ export default function Filter({
   const scrollContainerRef = useRef(null);
   const screenSize = useScreenSize();
 
-  const filteredEmotions = selectedFilterButton
-    ? emotions.filter((emotion) => emotion.emotionType === selectedFilterButton)
-    : emotions;
-
   function updateArrowVisibility() {
     const tabsBox = scrollContainerRef.current;
     if (tabsBox) {
@@ -206,19 +202,4 @@ const StyledClearFilter = styled.span`
   &:hover {
     color: #313366;
   }
-`;
-
-const StyledMessage = styled.p`
-  text-align: center;
-  color: #777;
-  font-size: 1.1rem;
-  padding: 24px 16px;
-`;
-
-const StyledUlContainer = styled.ul`
-  padding: 0;
-`;
-
-const StyledCardList = styled.li`
-  list-style-type: none;
 `;

@@ -26,6 +26,13 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
     setSelectedEmotionIcon(emotionId);
   }
 
+  function filteredEmotionTypes() {
+    return customEmotionTypes.filter((emotion) =>
+      emotionTypes.every((type) => type.emotionType !== emotion.emotionType)
+    );
+  }
+  const allCustomEmotionsUsed = filteredEmotionTypes().length === 0;
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -73,27 +80,16 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
             name="emotionType"
             onChange={handleChangeEmotionType}
           >
-            {customEmotionTypes.every((emotion) =>
-              emotionTypes.some(
-                (type) => type.emotionType === emotion.emotionType
-              )
-            ) ? (
+            {allCustomEmotionsUsed ? (
               <option value="">---Already all Emotions selected---</option>
             ) : (
               <>
                 <option value="">---Choose an Emotion Type---</option>
-                {customEmotionTypes
-                  .filter((emotion) => {
-                    const isDuplicate = emotionTypes.some(
-                      (type) => type.emotionType === emotion.emotionType
-                    );
-                    return !isDuplicate;
-                  })
-                  .map((emotion) => (
-                    <option key={emotion.id} value={emotion.emotionType}>
-                      {emotion.emotionType}
-                    </option>
-                  ))}
+                {filteredEmotionTypes().map((type) => (
+                  <option key={type.id} value={type.emotionType}>
+                    {type.emotionType}
+                  </option>
+                ))}
               </>
             )}
           </StyledEmotion>
@@ -102,29 +98,29 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
 
         <label>Color for your Emotion*</label>
         <StyledContainer>
-          {customColors.map((emotion) => (
+          {customColors.map((color) => (
             <StyledButtonGroupColor
-              key={emotion.id}
-              $isSelected={selectedEmotionColor === emotion.color}
-              $bgColor={emotion.color}
-              onClick={(event) =>
-                handleChangeEmotionColor(event, emotion.color)
-              }
-            ></StyledButtonGroupColor>
+              type="button"
+              key={color.id}
+              $isSelected={selectedEmotionColor === color.color}
+              $bgColor={color.color}
+              onClick={(event) => handleChangeEmotionColor(event, color.color)}
+            />
           ))}
         </StyledContainer>
         <input type="hidden" name="color" value={selectedEmotionColor} />
 
         <label htmlFor="emotionIcon">Icon for your Emotion*</label>
         <StyledContainer>
-          {emotionsIcons.map((emotion) => (
+          {emotionsIcons.map((icon) => (
             <StyledButtonGroupIcon
-              key={emotion.id}
-              $isSelected={selectedEmotionIcon === emotion.emotionIcon}
+              type="button"
+              key={icon.id}
+              $isSelected={selectedEmotionIcon === icon.emotionIcon}
               $isSelectedColor={selectedEmotionColor} // ausgewählte Farbe
-              onClick={(event) => handleChangeEmotionIcon(event, emotion.id)}
+              onClick={(event) => handleChangeEmotionIcon(event, icon.id)}
             >
-              {emotion.emotionIcon}
+              {icon.emotionIcon}
             </StyledButtonGroupIcon>
           ))}
         </StyledContainer>
