@@ -1,4 +1,3 @@
-import Heading from "@/components/Heading";
 import EmotionForm from "@/components/EmotionForm";
 import styled from "styled-components";
 import List from "@/components/List";

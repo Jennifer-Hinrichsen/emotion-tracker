@@ -47,7 +47,7 @@ const StyledSlider = styled.input`
   appearance: none;
   width: 100%;
   height: 8px;
-  background: #ddd;
+  background: var(--color-border);
   outline: none;
   border-radius: 5px;
   position: relative;
