@@ -15,6 +15,7 @@ export default createGlobalStyle`
     --color-home-icon-background:#4e545b;
     --color-home-icon-foreground-active:#4e545b;
     --color-home-icon-background-active:#e0e1f0;
+    --color-home-nav-background-active: rgba(249, 249, 249, 1);
   }
   .dark-theme{
     --color-background: #1C1C1E;
@@ -30,6 +31,7 @@ export default createGlobalStyle`
     --color-home-icon-background:#4e545b;
     --color-home-icon-foreground-active:#4e545b;
     --color-home-icon-background-active:#e0e1f0;
+    --color-home-nav-background-active: #e0e1f0;
   }
  
 

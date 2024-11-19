@@ -25,7 +25,7 @@ export default function Navigation() {
       <CenterWrapper>
         <Link href="/">
           <LogoCanvas $isActive={isActive("/")}>
-            <StyledLogo />
+            <StyledLogo $isActive={isActive("/")} />
             <HomeText $isActive={isActive("/")}>Home</HomeText>
           </LogoCanvas>
         </Link>
@@ -34,16 +34,26 @@ export default function Navigation() {
   );
 }
 const StyledLogo = styled(MoodwaveLogo)`
-  fill: red;
+  width: 43px;
+  height: auto;
+  padding-top: 2px;
+  color: var(--color-secondary);
+  body.dark-theme & {
+    color: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
+  }
 `;
 
 const StyledNavigationBar = styled.nav`
+  font-family: "Baskerville", serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 10px 10px 10px;
   background-color: var(--color-frame);
-  border-top: 1px solid var(--color-frame);
+  border-top: 1px solid var(--color-secondary);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -63,14 +73,13 @@ const CenterWrapper = styled.div`
 
 const LogoCanvas = styled.div`
   color: var(--color-border);
-
   width: 100px;
   height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 1px;
   background-color: ${(props) =>
     props.$isActive
       ? "var(--color-home-icon-background-active)"
@@ -136,14 +145,16 @@ const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 1px;
   padding: 7px;
   text-align: center;
   border-left: ${(props) => (props.$isActive ? "0.5px solid #313366" : "none")};
   border-right: ${(props) =>
     props.$isActive ? "0.5px solid #313366" : "none"};
   background-color: ${(props) =>
-    props.$isActive ? "rgba(249, 249, 249, 1)" : "transparent"};
+    props.$isActive
+      ? "var(--color-home-nav-background-active)"
+      : "transparent"};
 
   body.dark-theme & {
     border-left: ${(props) =>
@@ -156,9 +167,12 @@ const IconWrapper = styled.div`
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
   height: 28px;
-  fill: "#313366";
-  fill: ${(props) => (props.$isActive ? "#313366" : "#A0A0A0")};
+  fill: #313366;
+
   body.dark-theme & {
-    fill: ${(props) => (props.$isActive ? "#000" : "#9989")};
+    fill: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
   }
 `;
