@@ -8,10 +8,7 @@ import { months } from "@/lib/calendarDaysMonths";
 
 export default function Calendar({ emotions }) {
   const [currentDay, setCurrentDay] = useState(new Date());
-
   const [selectedDay, setSelectedDay] = useState(null);
-
-  const [isPopupVisible, setPopupVisible] = useState(false);
 
   const changeCurrentDay = (day) => {
     setCurrentDay(new Date(day.year, day.month, day.number));
@@ -19,7 +16,10 @@ export default function Calendar({ emotions }) {
 
   const handleDayClick = (day) => {
     setSelectedDay(day);
-    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedDay(null);
   };
 
   const nextMonth = () => {
@@ -81,11 +81,11 @@ export default function Calendar({ emotions }) {
           getColorByEmotionType={getColorByEmotionType}
         />
       </StyledCalendarBody>
-      {isPopupVisible && selectedDay && (
+      {selectedDay && (
         <CalendarPopup
           getEmotionsForDay={getEmotionsForDay}
           selectedDay={selectedDay}
-          setPopupVisible={setPopupVisible}
+          onClosePopup={handleClosePopup}
           getColorByEmotionType={getColorByEmotionType}
         />
       )}

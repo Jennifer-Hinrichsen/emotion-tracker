@@ -4,13 +4,9 @@ import Link from "next/link";
 export default function CalendarPopup({
   getEmotionsForDay,
   selectedDay,
-  setPopupVisible,
+  onClosePopup,
   getColorByEmotionType,
 }) {
-  const closePopup = () => {
-    setPopupVisible(false);
-  };
-
   return (
     <StyledPopup>
       <StyledPopupContent>
@@ -27,7 +23,7 @@ export default function CalendarPopup({
             </li>
           ))}
         </StyledEmotionList>
-        <StyledCloseButton onClick={closePopup}>Close</StyledCloseButton>
+        <StyledCloseButton onClick={onClosePopup}>Close</StyledCloseButton>
       </StyledPopupContent>
     </StyledPopup>
   );
