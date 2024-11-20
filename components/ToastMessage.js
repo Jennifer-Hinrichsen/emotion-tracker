@@ -34,12 +34,12 @@ const ToastWrapper = styled.div`
   );
   color: #2b532b;
   border-radius: 10px 0 0 10px;
-  animation: ${({ visible }) => (visible === "enter" ? slideIn : slideOut)} 0.3s
-    ease forwards;
+  animation: ${({ $visible }) => ($visible === "enter" ? slideIn : slideOut)}
+    0.3s ease forwards;
   transition: opacity 0.3s ease;
   z-index: 1000;
 `;
 
-export default function ToastMessage({ message, visible }) {
-  return <ToastWrapper visible={visible}>{message}</ToastWrapper>;
+export default function ToastMessage({ message, $visible }) {
+  return <ToastWrapper $visible={$visible}>{message}</ToastWrapper>;
 }

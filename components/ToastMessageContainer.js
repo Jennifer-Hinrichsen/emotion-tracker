@@ -6,7 +6,7 @@ const ToastMessageContainer = ({ messages }) => (
       <ToastMessage
         key={message.id}
         message={message.text}
-        visible={message.visible}
+        $visible={message.$visible}
       />
     ))}
   </div>
