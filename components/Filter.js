@@ -5,17 +5,13 @@ import useScreenSize from "../lib/hooks/useScreenSize";
 
 export default function Filter({
   emotions,
-  selectedFilterButton,
-  setSelectedFilterButton,
+  selectedFilter,
+  setSelectedFilter,
 }) {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
   const screenSize = useScreenSize();
-
-  const filteredEmotions = selectedFilterButton
-    ? emotions.filter((emotion) => emotion.emotionType === selectedFilterButton)
-    : emotions;
 
   function updateArrowVisibility() {
     const tabsBox = scrollContainerRef.current;
@@ -66,13 +62,13 @@ export default function Filter({
               <StyledTab
                 key={emotion.id}
                 onClick={() =>
-                  setSelectedFilterButton(
-                    emotion.emotionType === selectedFilterButton
+                  setSelectedFilter(
+                    emotion.emotionType === selectedFilter
                       ? ""
                       : emotion.emotionType
                   )
                 }
-                $isSelected={emotion.emotionType === selectedFilterButton}
+                $isSelected={emotion.emotionType === selectedFilter}
                 $color={emotion.color}
               >
                 {emotion.emotionType}
@@ -90,10 +86,10 @@ export default function Filter({
         </StyledWrapper>
       </StyledDivWrapper>
       <StyledAppliedInfo>
-        {selectedFilterButton ? (
+        {selectedFilter ? (
           <>
-            #{selectedFilterButton}
-            <StyledClearFilter onClick={() => setSelectedFilterButton("")}>
+            #{selectedFilter}
+            <StyledClearFilter onClick={() => setSelectedFilter("")}>
               ×
             </StyledClearFilter>
           </>
