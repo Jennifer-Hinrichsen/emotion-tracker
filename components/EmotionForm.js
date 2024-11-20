@@ -203,6 +203,13 @@ const StyledSelectEmotion = styled.select`
   outline: none;
   cursor: pointer;
   appearance: none;
+  body.dark-theme & {
+    background-color: var(--color-dropdown-background);
+    option {
+      background-color: var(--color-dropdown-background);
+      color: var(--color-dropdown-foreground);
+    }
+  }
 `;
 
 const StyledArrow = styled.span`

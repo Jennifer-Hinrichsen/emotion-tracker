@@ -18,6 +18,8 @@ export default createGlobalStyle`
     --color-home-nav-background-active: rgba(249, 249, 249, 1);
     --color-form-foreground:#313366;
     --color-button-success: #5CB85C;
+    --color-dropdown-background:#4e545b;
+    --color-dropdown-foreground:#f9f9f9;
   }
   .dark-theme{
     --color-background: #1C1C1E;
@@ -36,6 +38,8 @@ export default createGlobalStyle`
     --color-home-nav-background-active: #e0e1f0;
     --color-form-foreground:#e0e1f0;
     --color-button-success: #5CB85C;
+    --color-dropdown-background:#1C1C1E;
+    --color-dropdown-foreground:#e0e1f0;
   }
  
 
