@@ -1,9 +1,12 @@
 import styled, { css } from "styled-components";
 import { useState, useRef, useEffect } from "react";
-import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import useScreenSize from "../lib/hooks/useScreenSize";
 
-export default function Filter({ selectedFilter, setSelectedFilter }) {
+export default function Filter({
+  selectedFilter,
+  setSelectedFilter,
+  customEmotionTypes,
+}) {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -38,6 +41,10 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
     }
   }, [screenSize.width]);
 
+  const filteredEmotionTypes = customEmotionTypes.filter(
+    (customEmotionType) => customEmotionType.emotionType
+  );
+
   return (
     <>
       <StyledDivWrapper>
@@ -54,7 +61,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {initialEmotionTypes.map((emotion) => (
+            {filteredEmotionTypes.map((emotion) => (
               <StyledTab
                 key={emotion.id}
                 onClick={() =>

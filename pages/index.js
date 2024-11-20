@@ -4,6 +4,7 @@ import SearchBar from "@/components/Searchbar/Searchbar";
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
+import Heading from "@/components/Heading";
 
 export default function HomePage({
   emotions,
@@ -47,6 +48,7 @@ export default function HomePage({
         emotions={emotions}
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
+        customEmotionTypes={customEmotionTypes}
       />
       <SearchBar
         searchTerm={searchTerm}

@@ -3,24 +3,17 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
-<<<<<<< HEAD
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
-=======
 import Highlighter from "react-highlight-words";
-import { emotionList } from "@/lib/emotionList";
->>>>>>> main
 
 export default function EmotionCard({
   emotion,
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
-<<<<<<< HEAD
   customEmotionTypes,
-=======
   intensity,
   searchTerm,
->>>>>>> main
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
@@ -42,11 +35,8 @@ export default function EmotionCard({
           </StyledTopBox>
           <StyledEmotionCard>
             <EmotionCardContent
-<<<<<<< HEAD
-              emotion={emotion}
               emotionColor={emotionTypeData.color}
               emotionIcon={emotionIcon}
-=======
               emotion={{
                 ...emotion,
                 notes: (
@@ -57,7 +47,6 @@ export default function EmotionCard({
                   />
                 ),
               }}
->>>>>>> main
             />
             <BookmarkButton
               isBookmarked={isBookmarked}
@@ -75,11 +64,8 @@ export default function EmotionCard({
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent
-<<<<<<< HEAD
-                  emotion={emotion}
                   emotionColor={emotionTypeData.color}
                   emotionIcon={emotionIcon}
-=======
                   emotion={{
                     ...emotion,
                     notes: (
@@ -91,7 +77,6 @@ export default function EmotionCard({
                     ),
                   }}
                   intensity={intensity}
->>>>>>> main
                 />
               </StyledEmotionCard>
             </StyledOuterBox>
@@ -158,7 +143,4 @@ const StyledEmotionCard = styled.section`
   background-color: var(--color-background);
   border-radius: 8px;
   word-break: break-word;
-`;
-const StyledHighlighter = styled(Highlighter)`
-  background-color: yellow;
 `;

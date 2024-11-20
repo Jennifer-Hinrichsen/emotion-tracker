@@ -243,7 +243,7 @@ const StyledSpan = styled.span`
   border: 2px solid transparent;
 `;
 
-const StyledLinkCancel = styled.Link`
+const StyledLinkCancel = styled(Link)`
   margin: 10px;
   padding: 10px 20px;
   background-color: #a6a6a6;
