@@ -5,7 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
-import { emotionMapping } from "@/lib/emotionMapping";
+import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }) {
   const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
     "emotionTypes",
     {
-      defaultValue: emotionMapping,
+      defaultValue: initialEmotionTypes,
     }
   );
 
