@@ -229,6 +229,13 @@ const StyledClearFilter = styled.span`
   &:hover {
     color: var(--color-secondary);
   }
+  body.dark-theme & {
+    color: var(--color-secondary);
+
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }
 `;
 
 const StyledMessage = styled.p`

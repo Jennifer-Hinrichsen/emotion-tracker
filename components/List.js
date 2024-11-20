@@ -37,7 +37,7 @@ export default function EmotionList({
 
 const StyledMessage = styled.p`
   text-align: center;
-  color: #777;
+  color: var(--color-secondary);
   font-size: 1.1rem;
   padding: 24px 16px;
 `;
