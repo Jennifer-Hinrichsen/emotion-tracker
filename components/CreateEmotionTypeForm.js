@@ -6,6 +6,7 @@ import {
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function CreateEmotionTypeForm({
   onSubmit,
@@ -118,9 +119,7 @@ export default function CreateEmotionTypeForm({
         </StyledFieldset>
 
         <StyledButtonContainer>
-          <StyledButtonCancel type="button" onClick={() => router.push("/")}>
-            Cancel
-          </StyledButtonCancel>
+          <StyledLinkCancel href="/">Cancel</StyledLinkCancel>
           <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
         </StyledButtonContainer>
         {formError && <StyledError>{formError}</StyledError>}
@@ -244,7 +243,7 @@ const StyledSpan = styled.span`
   border: 2px solid transparent;
 `;
 
-const StyledButtonCancel = styled.button`
+const StyledLinkCancel = styled.Link`
   margin: 10px;
   padding: 10px 20px;
   background-color: #a6a6a6;
