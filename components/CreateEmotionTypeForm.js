@@ -65,7 +65,7 @@ export default function CreateEmotionTypeForm({
       <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotionType">Emotion Type*</label>
         <StyledContainer>
-          <StyledEmotion id="emotionType" name="emotionType">
+          <StyledSelectEmotion id="emotionType" name="emotionType">
             {allCustomEmotionsUsed ? (
               <option value="">---Already all Emotions selected---</option>
             ) : (
@@ -78,11 +78,11 @@ export default function CreateEmotionTypeForm({
                 ))}
               </>
             )}
-          </StyledEmotion>
+          </StyledSelectEmotion>
           <StyledArrow>▼</StyledArrow>
         </StyledContainer>
 
-        <StyledRadioGroup>
+        <StyledFieldset>
           <StyledLegendColor>Choose a Color*</StyledLegendColor>
           {allEmotionColors.map((color) => (
             <StyledLabelColors
@@ -90,7 +90,7 @@ export default function CreateEmotionTypeForm({
               $isSelected={selectedEmotionColor === color.color}
               $bgColor={color.color}
             >
-              <StyledButtonGroupColor
+              <StyledInputColor
                 type="radio"
                 name="color"
                 value={color.color}
@@ -98,16 +98,16 @@ export default function CreateEmotionTypeForm({
               />
             </StyledLabelColors>
           ))}
-        </StyledRadioGroup>
+        </StyledFieldset>
 
-        <StyledRadioGroup>
+        <StyledFieldset>
           <StyledLegendIcon>Choose an Icon*</StyledLegendIcon>
           {allEmotionIcons.map((icon) => (
             <StyledLabelIcons
               key={icon.emotionIconId}
               $isSelectedColor={selectedEmotionColor}
             >
-              <StyledButtonGroupIcon
+              <StyledInputIcon
                 type="radio"
                 name="emotionIconId"
                 value={icon.emotionIconId}
@@ -115,13 +115,13 @@ export default function CreateEmotionTypeForm({
               <StyledSpan>{icon.emotionIcon}</StyledSpan>
             </StyledLabelIcons>
           ))}
-        </StyledRadioGroup>
+        </StyledFieldset>
 
         <StyledButtonContainer>
-          <StyledCancelButton type="button" onClick={() => router.push("/")}>
+          <StyledButtonCancel type="button" onClick={() => router.push("/")}>
             Cancel
-          </StyledCancelButton>
-          <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+          </StyledButtonCancel>
+          <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
         </StyledButtonContainer>
         {formError && <StyledError>{formError}</StyledError>}
       </StyledEmotionForm>
@@ -170,7 +170,7 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const StyledEmotion = styled.select`
+const StyledSelectEmotion = styled.select`
   width: 100%;
   padding: 6px 0;
   background-color: transparent;
@@ -192,7 +192,7 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
-const StyledRadioGroup = styled.fieldset`
+const StyledFieldset = styled.fieldset`
   padding: 0;
   position: relative;
   width: 100%;
@@ -217,11 +217,11 @@ const StyledLabelColors = styled.label`
   border-radius: 0.5rem;
 `;
 
-const StyledButtonGroupColor = styled.input`
+const StyledInputColor = styled.input`
   display: none;
 `;
 
-const StyledButtonGroupIcon = styled.input`
+const StyledInputIcon = styled.input`
   display: none;
 
   &:checked + span {
@@ -244,7 +244,7 @@ const StyledSpan = styled.span`
   border: 2px solid transparent;
 `;
 
-const StyledCancelButton = styled.button`
+const StyledButtonCancel = styled.button`
   margin: 10px;
   padding: 10px 20px;
   background-color: #a6a6a6;
@@ -258,7 +258,7 @@ const StyledCancelButton = styled.button`
   }
 `;
 
-const StyledSubmitButton = styled.button`
+const StyledButtonSubmit = styled.button`
   margin: 10px;
   padding: 10px 20px;
   background-color: var(--color-primary);
