@@ -21,6 +21,13 @@ export default function App({ Component, pageProps }) {
     setIsInitialLoad(false);
   }, []);
 
+  const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
+    "emotionTypes",
+    {
+      defaultValue: emotionMapping,
+    }
+  );
+
   function showToastMessage(message) {
     if (isInitialLoad) return;
 
@@ -90,20 +97,11 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
-  const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
-    "emotionTypes",
-    {
-      defaultValue: emotionMapping,
-    }
-  );
-
   function handleCreateEmotionType(newEmotionType) {
     const emotionWithId = {
       id: uuidv4(),
-      ...newEmotionType, // enthält emotionIcon
-      // emotionIconId: newEmotionType.emotionIconId, // Icon-ID explizit hinzufügen
+      ...newEmotionType,
     };
-    console.log(newEmotionType);
     setCustomEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
     showToastMessage("Successfully added!");
     router.push({

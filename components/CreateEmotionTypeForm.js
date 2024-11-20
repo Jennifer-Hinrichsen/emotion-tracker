@@ -17,7 +17,6 @@ export default function CreateEmotionTypeForm({
   const [formError, setFormError] = useState("");
 
   function handleChangeEmotionColor(event) {
-    event.preventDefault();
     setSelectedEmotionColor(event.target.value);
   }
 
@@ -35,7 +34,6 @@ export default function CreateEmotionTypeForm({
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log("data:", data);
 
     if (!data.emotionType) {
       setFormError("Please choose an emotion type.");
@@ -85,8 +83,9 @@ export default function CreateEmotionTypeForm({
         </StyledContainer>
 
         <StyledRadioGroup>
+          <StyledLegendColor>Choose a Color*</StyledLegendColor>
           {allEmotionColors.map((color) => (
-            <StyledLabel
+            <StyledLabelColors
               key={color.id}
               $isSelected={selectedEmotionColor === color.color}
               $bgColor={color.color}
@@ -97,11 +96,12 @@ export default function CreateEmotionTypeForm({
                 value={color.color}
                 onChange={handleChangeEmotionColor}
               />
-            </StyledLabel>
+            </StyledLabelColors>
           ))}
         </StyledRadioGroup>
 
         <StyledRadioGroup>
+          <StyledLegendIcon>Choose an Icon*</StyledLegendIcon>
           {allEmotionIcons.map((icon) => (
             <StyledLabelIcons
               key={icon.emotionIconId}
@@ -170,14 +170,6 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const StyledRadioGroup = styled.div`
-  position: relative;
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-`;
-
 const StyledEmotion = styled.select`
   width: 100%;
   padding: 6px 0;
@@ -200,19 +192,29 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
-const StyledLabel = styled.label`
-  padding: 25px 25px;
+const StyledRadioGroup = styled.fieldset`
+  padding: 0;
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border: none;
+`;
+
+const StyledLegendColor = styled.legend`
+  padding: 20px 0;
+`;
+
+const StyledLabelColors = styled.label`
+  padding: 20px 20px;
   background-color: ${(props) => props.$bgColor};
   border: ${(props) =>
     props.$isSelected
       ? "2px solid var(--color-primary)"
       : "2px solid transparent"};
   transition: border 0.3s ease, background-color 0.3s ease;
-  border-radius: 8px;
-
-  &:hover {
-    border: 2px solid var(--color-secondary);
-  }
+  border-radius: 0.5rem;
 `;
 
 const StyledButtonGroupColor = styled.input`
@@ -226,9 +228,10 @@ const StyledButtonGroupIcon = styled.input`
     border: 2px solid var(--color-primary);
     outline: none;
   }
-  &:hover + span {
-    border: 2px solid var(--color-border);
-  }
+`;
+
+const StyledLegendIcon = styled.legend`
+  padding-top: 10px;
 `;
 
 const StyledLabelIcons = styled.label`
@@ -237,7 +240,7 @@ const StyledLabelIcons = styled.label`
 
 const StyledSpan = styled.span`
   padding: 50px 15px 5px;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 2px solid transparent;
 `;
 
@@ -247,7 +250,7 @@ const StyledCancelButton = styled.button`
   background-color: #a6a6a6;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   cursor: pointer;
 
   &:hover {
@@ -261,7 +264,7 @@ const StyledSubmitButton = styled.button`
   background-color: var(--color-primary);
   color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 

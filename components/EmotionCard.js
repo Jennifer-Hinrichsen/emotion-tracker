@@ -3,7 +3,6 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
-import { emotionMapping } from "@/lib/emotionMapping";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 
 export default function EmotionCard({
@@ -15,47 +14,26 @@ export default function EmotionCard({
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
-  const getEmotionColor = (type) => {
-    // const colorPredefinedMapping = emotionMapping?.find(
-    //   (color) => color.emotionType === type
-    // )?.color;
-    const colorFromCustomTypes = customEmotionTypes?.find(
-      (color) => color.emotionType === type
-    )?.color;
-    return colorFromCustomTypes || "var(--default-color)";
-  };
-  const emotionColor = getEmotionColor(emotion.emotionType);
+  const emotionTypeData = customEmotionTypes.find(
+    (customEmotionType) => customEmotionType.emotionType === emotion.emotionType
+  );
 
-  const getEmotionIcon = (type) => {
-    const iconFromCustomTypes = customEmotionTypes?.find(
-      (icon) => icon.emotionType === type
-    );
-
-    const emotionIconId =
-      iconFromCustomTypes?.emotionIconId || iconFromCustomTypes?.emotionIcon;
-
-    // Icon aus dem Mapping basierend auf emotionIconId abrufen
-    const matchedIcon = allEmotionIcons.find(
-      (icon) => icon.emotionIconId === String(emotionIconId)
-    )?.emotionIcon;
-
-    return matchedIcon || null;
-  };
-
-  const emotionIcon = getEmotionIcon(emotion.emotionType);
+  const emotionIcon = allEmotionIcons.find(
+    (emotionIcon) => emotionIcon.emotionIconId === emotionTypeData.emotionIconId
+  )?.emotionIcon;
 
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <StyledOuterBox color={emotionColor}>
-          <StyledTopBox color={emotionColor}>
+        <StyledOuterBox color={emotionTypeData.color}>
+          <StyledTopBox color={emotionTypeData.color}>
             <StyledDate>{date}</StyledDate>
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
             <EmotionCardContent
               emotion={emotion}
-              emotionColor={emotionColor}
+              emotionColor={emotionTypeData.color}
               emotionIcon={emotionIcon}
             />
             <BookmarkButton
@@ -67,15 +45,15 @@ export default function EmotionCard({
       ) : (
         <>
           <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
-            <StyledOuterBox color={emotionColor}>
-              <StyledTopBox color={emotionColor}>
+            <StyledOuterBox color={emotionTypeData.color}>
+              <StyledTopBox color={emotionTypeData.color}>
                 <StyledDate>{date}</StyledDate>
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent
                   emotion={emotion}
-                  emotionColor={emotionColor}
+                  emotionColor={emotionTypeData.color}
                   emotionIcon={emotionIcon}
                 />
               </StyledEmotionCard>

@@ -1,40 +1,10 @@
 import styled from "styled-components";
-import { allEmotionIcons, emotionsIcons } from "@/lib/allEmotionOptions";
 
 export default function EmotionCardContent({
   emotion,
   emotionColor,
   emotionIcon,
 }) {
-  // const matchedEmotionIcon = (() => {
-  //   // Hole die zugehörige emotionIcon-ID aus emotionTypes
-  //   const customEmotion = customEmotionTypes.find(
-  //     (item) => item.emotionType === emotion.emotionType
-  //   );
-  //   if (customEmotion?.emotionIcon) {
-  //     // Finde das passende Icon in emotionsIcons basierend auf der ID
-  //     return allEmotionIcons.find(
-  //       (icon) => icon.emotionIconId === customEmotion.emotionIcon
-  //     );
-  //   }
-  //   // Fallback: Nutze emotionType als Schlüssel, falls keine emotionIcon-ID definiert ist
-  //   return allEmotionIcons.find(
-  //     (icon) => icon.emotionType === emotion.emotionType
-  //   );
-  // })();
-
-  // const matchedEmotionColor = customEmotionTypes.find(
-  //   (color) => color.emotionType === emotion.emotionType
-  // );
-
-  // !!!!!!!!!!! der code reicht, sofern ich konsistent die id speichern kann"!!!
-  // const getEmotionIcon = (type) => {
-  //   const iconFromCustomTypes = customEmotionTypes?.find(
-  //     (icon) => icon.emotionType === type
-  //   )?.emotionIconId || ?.emotionIcon;
-  //   return iconFromCustomTypes;
-  // };
-
   return (
     <StyledEmotionCardContent>
       <StyledEmojiIcon $color={emotionColor}>{emotionIcon}</StyledEmojiIcon>
