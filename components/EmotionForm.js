@@ -11,7 +11,7 @@ export default function EmotionForm({
   onSubmit,
   defaultValue,
   onCancel,
-  emotionTypes,
+  customEmotionTypes,
 }) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
@@ -96,7 +96,7 @@ export default function EmotionForm({
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {emotionTypes.map((emotion) => (
+              {customEmotionTypes.map((emotion) => (
                 <option key={emotion.id} value={emotion.emotionType}>
                   {emotion.emotionType}
                 </option>
@@ -117,7 +117,7 @@ export default function EmotionForm({
             emotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
-            emotionTypes={emotionTypes}
+            customEmotionTypes={customEmotionTypes}
           />
 
           <StyledLabelNoPadding htmlFor="date-time">

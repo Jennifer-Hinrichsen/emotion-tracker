@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components";
 import { useState, useRef, useEffect } from "react";
-import { emotionList } from "@/lib/emotionMapping";
+import { emotionMapping } from "@/lib/emotionMapping";
 import useScreenSize from "../lib/hooks/useScreenSize";
 
 export default function Filter({
-  emotions,
   selectedFilterButton,
   setSelectedFilterButton,
 }) {
@@ -58,7 +57,7 @@ export default function Filter({
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {emotionList.map((emotion) => (
+            {emotionMapping.map((emotion) => (
               <StyledTab
                 key={emotion.id}
                 onClick={() =>

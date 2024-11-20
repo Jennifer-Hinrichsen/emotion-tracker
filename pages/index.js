@@ -9,7 +9,7 @@ export default function HomePage({
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
-  emotionTypes,
+  customEmotionTypes,
 }) {
   const [selectedFilterButton, setSelectedFilterButton] = useState("");
 
@@ -19,7 +19,7 @@ export default function HomePage({
       <EmotionForm
         emotions={emotions}
         onSubmit={onCreateEmotion}
-        emotionTypes={emotionTypes}
+        customEmotionTypes={customEmotionTypes}
       />
       <Filter
         emotions={emotions}
@@ -31,7 +31,7 @@ export default function HomePage({
         selectedFilterButton={selectedFilterButton}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
-        emotionTypes={emotionTypes}
+        customEmotionTypes={customEmotionTypes}
       />
     </>
   );

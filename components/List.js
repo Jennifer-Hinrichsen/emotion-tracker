@@ -6,7 +6,7 @@ export default function EmotionList({
   selectedFilterButton,
   onToggleBookmark,
   myBookmarkedEmotions,
-  emotionTypes,
+  customEmotionTypes,
 }) {
   const filteredEmotions = selectedFilterButton
     ? emotions.filter((emotion) => emotion.emotionType === selectedFilterButton)
@@ -27,7 +27,7 @@ export default function EmotionList({
                 emotion={emotion}
                 onToggleBookmark={onToggleBookmark}
                 isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
-                emotionTypes={emotionTypes}
+                customEmotionTypes={customEmotionTypes}
               />
             </StyledCardList>
           ))}

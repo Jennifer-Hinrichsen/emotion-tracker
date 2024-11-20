@@ -3,21 +3,46 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
+import { emotionMapping } from "@/lib/emotionMapping";
+import { allEmotionIcons } from "@/lib/allEmotionOptions";
 
 export default function EmotionCard({
   emotion,
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
-  emotionTypes,
+  customEmotionTypes,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
-  const getEmotionColor = (type) =>
-    emotionTypes.find((item) => item.emotionType === type)?.color ||
-    "var(--color-frame)";
+  const getEmotionColor = (type) => {
+    // const colorPredefinedMapping = emotionMapping?.find(
+    //   (color) => color.emotionType === type
+    // )?.color;
+    const colorFromCustomTypes = customEmotionTypes?.find(
+      (color) => color.emotionType === type
+    )?.color;
+    return colorFromCustomTypes || "var(--default-color)";
+  };
+  const emotionColor = getEmotionColor(emotion.emotionType);
 
-  const emotionColor = getEmotionColor(emotion.emotionTyp);
+  const getEmotionIcon = (type) => {
+    const iconFromCustomTypes = customEmotionTypes?.find(
+      (icon) => icon.emotionType === type
+    );
+
+    const emotionIconId =
+      iconFromCustomTypes?.emotionIconId || iconFromCustomTypes?.emotionIcon;
+
+    // Icon aus dem Mapping basierend auf emotionIconId abrufen
+    const matchedIcon = allEmotionIcons.find(
+      (icon) => icon.emotionIconId === String(emotionIconId)
+    )?.emotionIcon;
+
+    return matchedIcon || null;
+  };
+
+  const emotionIcon = getEmotionIcon(emotion.emotionType);
 
   return (
     <StyledCardWrapper>
@@ -28,7 +53,11 @@ export default function EmotionCard({
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
-            <EmotionCardContent emotion={emotion} emotionTypes={emotionTypes} />
+            <EmotionCardContent
+              emotion={emotion}
+              emotionColor={emotionColor}
+              emotionIcon={emotionIcon}
+            />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion.id)}
@@ -46,7 +75,8 @@ export default function EmotionCard({
               <StyledEmotionCard>
                 <EmotionCardContent
                   emotion={emotion}
-                  emotionTypes={emotionTypes}
+                  emotionColor={emotionColor}
+                  emotionIcon={emotionIcon}
                 />
               </StyledEmotionCard>
             </StyledOuterBox>

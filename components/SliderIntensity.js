@@ -5,11 +5,11 @@ export default function SliderIntensity({
   emotionType,
   defaultIntensity,
   onChange,
-  emotionTypes,
+  customEmotionTypes,
 }) {
   const [newValue, setNewValue] = useState(defaultIntensity || 1);
 
-  const emotion = emotionTypes.find(
+  const emotion = customEmotionTypes.find(
     (emotion) => emotion.emotionType === emotionType
   );
   const $thumbColor = emotion ? emotion.color : "var(--color-primary)";

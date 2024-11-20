@@ -6,8 +6,11 @@ import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
 import { emotionMapping } from "@/lib/emotionMapping";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
   const [emotions, setEmotions] = useLocalStorageState("emotions", {
     defaultValue: initialEmotionEntries,
   });
@@ -54,10 +57,6 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  const [emotionTypes, setEmotionTypes] = useLocalStorageState("emotionTypes", {
-    defaultValue: emotionMapping,
-  });
-
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
       prevBookmarks.includes(id)
@@ -91,39 +90,29 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
-  const existingEmotionTypes = [
-    "Love",
-    "Tired",
-    "Annoyed",
-    "Proud",
-    "Hopeful",
-    "Confident",
-    "Excited",
-    "Releived",
-  ];
-  // function handleCreateEmotionType(newEmotionType) {
-  //   const maxId = emotionTypes.reduce((max, emotion) => {
-  //     const currentId = parseInt(emotion.id, 10) || 0;
-  //     return currentId > max ? currentId : max;
-  //   }, 0);
-
-  //   const emotionWithId = {
-  //     id: (maxId + 1).toString(),
-  //     ...newEmotionType,
-  //   };
-
-  //   setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
-  //   showToastMessage("Successfully added!");
-  // }
+  const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
+    "emotionTypes",
+    {
+      defaultValue: emotionMapping,
+    }
+  );
 
   function handleCreateEmotionType(newEmotionType) {
     const emotionWithId = {
       id: uuidv4(),
-      ...newEmotionType,
+      ...newEmotionType, // enthält emotionIcon
+      // emotionIconId: newEmotionType.emotionIconId, // Icon-ID explizit hinzufügen
     };
-
-    setEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
+    console.log(newEmotionType);
+    setCustomEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
     showToastMessage("Successfully added!");
+    router.push({
+      pathname: "/",
+      query: {
+        showForm: "true",
+        selectedEmotionType: newEmotionType.emotionType,
+      },
+    });
   }
 
   return (
@@ -139,8 +128,7 @@ export default function App({ Component, pageProps }) {
           myBookmarkedEmotions={myBookmarkedEmotions}
           onToggleBookmark={handleToggleBookmark}
           onCreateEmotionType={handleCreateEmotionType}
-          emotionTypes={emotionTypes}
-          existingEmotionTypes={existingEmotionTypes}
+          customEmotionTypes={customEmotionTypes}
           {...pageProps}
         />
         {toasts.map((toast) => (

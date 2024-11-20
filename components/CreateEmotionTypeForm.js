@@ -1,34 +1,31 @@
-import { customEmotionTypes, customColors } from "@/lib/customEmotionOptions";
-import { emotionsIcons } from "./EmotionIcons";
+import {
+  allEmotionTypes,
+  allEmotionColors,
+  allEmotionIcons,
+} from "@/lib/allEmotionOptions";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
+export default function CreateEmotionTypeForm({
+  onSubmit,
+  customEmotionTypes,
+}) {
   const router = useRouter();
 
-  const [selectedEmotionType, setSelectedEmotionType] = useState("");
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
-  const [selectedEmotionIcon, setSelectedEmotionIcon] = useState("");
   const [formError, setFormError] = useState("");
 
-  function handleChangeEmotionType(event) {
-    setSelectedEmotionType(event.target.value);
-  }
-
-  function handleChangeEmotionColor(event, color) {
+  function handleChangeEmotionColor(event) {
     event.preventDefault();
-    setSelectedEmotionColor(color);
-  }
-
-  function handleChangeEmotionIcon(event, emotionId) {
-    event.preventDefault();
-    setSelectedEmotionIcon(emotionId);
+    setSelectedEmotionColor(event.target.value);
   }
 
   function filteredEmotionTypes() {
-    return customEmotionTypes.filter((emotion) =>
-      emotionTypes.every((type) => type.emotionType !== emotion.emotionType)
+    return allEmotionTypes.filter((emotion) =>
+      customEmotionTypes.every(
+        (type) => type.emotionType !== emotion.emotionType
+      )
     );
   }
   const allCustomEmotionsUsed = filteredEmotionTypes().length === 0;
@@ -36,32 +33,28 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = {
-      emotionType: selectedEmotionType,
-      color: selectedEmotionColor,
-      emotionIcon: selectedEmotionIcon,
-    };
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    console.log("data:", data);
 
-    if (!selectedEmotionType) {
+    if (!data.emotionType) {
       setFormError("Please choose an emotion type.");
       return;
     }
 
-    if (!selectedEmotionColor) {
+    if (!data.color) {
       setFormError("Please select an emotion color.");
       return;
     }
 
-    if (!selectedEmotionIcon) {
+    if (!data.emotionIconId) {
       setFormError("Please select an emotion icon.");
       return;
     }
 
-    onSubmit(formData);
+    onSubmit(data);
     event.target.reset();
-    setSelectedEmotionType("");
     setSelectedEmotionColor("");
-    setSelectedEmotionIcon("");
     setFormError("");
   }
 
@@ -74,12 +67,7 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
       <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotionType">Emotion Type*</label>
         <StyledContainer>
-          <StyledEmotion
-            value={selectedEmotionType}
-            id="emotionType"
-            name="emotionType"
-            onChange={handleChangeEmotionType}
-          >
+          <StyledEmotion id="emotionType" name="emotionType">
             {allCustomEmotionsUsed ? (
               <option value="">---Already all Emotions selected---</option>
             ) : (
@@ -96,36 +84,38 @@ export default function CreateEmotionTypeForm({ onSubmit, emotionTypes }) {
           <StyledArrow>▼</StyledArrow>
         </StyledContainer>
 
-        <label>Color for your Emotion*</label>
-        <StyledContainer>
-          {customColors.map((color) => (
-            <StyledButtonGroupColor
-              type="button"
+        <StyledRadioGroup>
+          {allEmotionColors.map((color) => (
+            <StyledLabel
               key={color.id}
               $isSelected={selectedEmotionColor === color.color}
               $bgColor={color.color}
-              onClick={(event) => handleChangeEmotionColor(event, color.color)}
-            />
-          ))}
-        </StyledContainer>
-        <input type="hidden" name="color" value={selectedEmotionColor} />
-
-        <label htmlFor="emotionIcon">Icon for your Emotion*</label>
-        <StyledContainer>
-          {emotionsIcons.map((icon) => (
-            <StyledButtonGroupIcon
-              type="button"
-              key={icon.id}
-              $isSelected={selectedEmotionIcon === icon.emotionIcon}
-              $isSelectedColor={selectedEmotionColor} // ausgewählte Farbe
-              onClick={(event) => handleChangeEmotionIcon(event, icon.id)}
             >
-              {icon.emotionIcon}
-            </StyledButtonGroupIcon>
+              <StyledButtonGroupColor
+                type="radio"
+                name="color"
+                value={color.color}
+                onChange={handleChangeEmotionColor}
+              />
+            </StyledLabel>
           ))}
-        </StyledContainer>
+        </StyledRadioGroup>
 
-        <input type="hidden" name="emotionIcon" value={selectedEmotionIcon} />
+        <StyledRadioGroup>
+          {allEmotionIcons.map((icon) => (
+            <StyledLabelIcons
+              key={icon.emotionIconId}
+              $isSelectedColor={selectedEmotionColor}
+            >
+              <StyledButtonGroupIcon
+                type="radio"
+                name="emotionIconId"
+                value={icon.emotionIconId}
+              />
+              <StyledSpan>{icon.emotionIcon}</StyledSpan>
+            </StyledLabelIcons>
+          ))}
+        </StyledRadioGroup>
 
         <StyledButtonContainer>
           <StyledCancelButton type="button" onClick={() => router.push("/")}>
@@ -180,6 +170,14 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
+const StyledRadioGroup = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+`;
+
 const StyledEmotion = styled.select`
   width: 100%;
   padding: 6px 0;
@@ -202,11 +200,8 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
-const StyledButtonGroupColor = styled.button`
-  margin: 0 8px 10px 0;
-  font-size: 1rem;
-  height: 50px;
-  width: 50px;
+const StyledLabel = styled.label`
+  padding: 25px 25px;
   background-color: ${(props) => props.$bgColor};
   border: ${(props) =>
     props.$isSelected
@@ -214,38 +209,36 @@ const StyledButtonGroupColor = styled.button`
       : "2px solid transparent"};
   transition: border 0.3s ease, background-color 0.3s ease;
   border-radius: 8px;
-  cursor: pointer;
 
   &:hover {
-    border: 2px solid var(--color-primary);
-  }
-
-  &:focus {
-    border: 2px solid var(--color-primary);
-    outline: none;
+    border: 2px solid var(--color-secondary);
   }
 `;
 
-const StyledButtonGroupIcon = styled.button`
-  margin: 0 8px 10px 0;
-  font-size: 1rem;
-  border: ${(props) =>
-    props.$isSelected
-      ? "2px solid var(--color-primary)"
-      : "2px solid transparent"};
-  color: ${(props) => props.$isSelectedColor};
-  transition: fill 0.3s ease, color 0.3s ease, border 0.3s ease;
-  border-radius: 8px;
-  cursor: pointer;
+const StyledButtonGroupColor = styled.input`
+  display: none;
+`;
 
-  &:hover {
-    border: 2px solid var(--color-primary);
-  }
+const StyledButtonGroupIcon = styled.input`
+  display: none;
 
-  &:focus {
+  &:checked + span {
     border: 2px solid var(--color-primary);
     outline: none;
   }
+  &:hover + span {
+    border: 2px solid var(--color-border);
+  }
+`;
+
+const StyledLabelIcons = styled.label`
+  color: ${(props) => props.$isSelectedColor};
+`;
+
+const StyledSpan = styled.span`
+  padding: 50px 15px 5px;
+  border-radius: 8px;
+  border: 2px solid transparent;
 `;
 
 const StyledCancelButton = styled.button`
