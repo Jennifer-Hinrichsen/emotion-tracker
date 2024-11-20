@@ -295,7 +295,7 @@ const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-background);
   border: none;
   border-radius: 5px;
   cursor: pointer;

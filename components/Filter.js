@@ -3,10 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import useScreenSize from "../lib/hooks/useScreenSize";
 
-export default function Filter({
-  selectedFilterButton,
-  setSelectedFilterButton,
-}) {
+export default function Filter({ selectedFilter, setSelectedFilter }) {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -61,13 +58,13 @@ export default function Filter({
               <StyledTab
                 key={emotion.id}
                 onClick={() =>
-                  setSelectedFilterButton(
-                    emotion.emotionType === selectedFilterButton
+                  setSelectedFilter(
+                    emotion.emotionType === selectedFilter
                       ? ""
                       : emotion.emotionType
                   )
                 }
-                $isSelected={emotion.emotionType === selectedFilterButton}
+                $isSelected={emotion.emotionType === selectedFilter}
                 $color={emotion.color}
               >
                 {emotion.emotionType}
@@ -85,10 +82,10 @@ export default function Filter({
         </StyledWrapper>
       </StyledDivWrapper>
       <StyledAppliedInfo>
-        {selectedFilterButton ? (
+        {selectedFilter ? (
           <>
-            #{selectedFilterButton}
-            <StyledClearFilter onClick={() => setSelectedFilterButton("")}>
+            #{selectedFilter}
+            <StyledClearFilter onClick={() => setSelectedFilter("")}>
               ×
             </StyledClearFilter>
           </>
@@ -121,7 +118,7 @@ const StyledIconLeft = styled.div`
   height: 100%;
   width: 120px;
   font-size: 1.5rem;
-  color: #313366;
+  color: var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,13 +145,13 @@ const StyledTabsBox = styled.ul`
 `;
 
 const StyledTab = styled.li`
-  color: #313366;
+  color: var(--color-secondary);
   cursor: pointer;
   font-size: 1rem;
   white-space: nowrap;
-  background: #f9f9f9;
+  background: var(--color-background);
   padding: 8px 10px;
-  border: 1px solid #e0e1f0;
+  border: 1px solid var(--color-frame);
   border-radius: 8px;
   transition: background-color 0.3s ease;
   opacity: 70%;
@@ -188,7 +185,7 @@ const StyledIconRight = styled.div`
 const StyledAppliedInfo = styled.p`
   margin: 0;
   padding: 10px 0 10px 20px;
-  color: #313366;
+  color: var(--color-secondary);
 `;
 
 const StyledClearFilter = styled.span`
@@ -199,6 +196,6 @@ const StyledClearFilter = styled.span`
   top: -6px;
 
   &:hover {
-    color: #313366;
+    color: var(--color-secondary);
   }
 `;

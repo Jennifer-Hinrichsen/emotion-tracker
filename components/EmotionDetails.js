@@ -110,7 +110,7 @@ const StyledDialogOverlay = styled.div`
 `;
 
 const StyledDialogBox = styled.div`
-  background: #fff;
+  background: var(--color-background);
   padding: 20px;
   margin: 12px;
   border-radius: 8px;

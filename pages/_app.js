@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
     const newToast = {
       message: <strong>{message}</strong>,
       id: uuidv4(),
-      visible: "enter",
+      $visible: "enter",
     };
 
     setToasts((prevToasts) => {
@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }) {
     setTimeout(() => {
       setToasts((prevToasts) =>
         prevToasts.map((toast) =>
-          toast.id === newToast.id ? { ...toast, visible: "exit" } : toast
+          toast.id === newToast.id ? { ...toast, $visible: "exit" } : toast
         )
       );
     }, 3000);
@@ -116,7 +116,6 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-
       <Layout>
         <Component
           emotions={emotions}
@@ -133,7 +132,7 @@ export default function App({ Component, pageProps }) {
           <ToastMessage
             key={toast.id}
             message={toast.message}
-            visible={toast.visible}
+            $={toast.$visible}
           />
         ))}
       </Layout>
