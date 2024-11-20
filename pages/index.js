@@ -1,5 +1,8 @@
 
-import { useState } from "react":
+import { useState } from "react";
+
+
+
 import EmotionForm from "@/components/EmotionForm";
 
 import styled from "styled-components";
