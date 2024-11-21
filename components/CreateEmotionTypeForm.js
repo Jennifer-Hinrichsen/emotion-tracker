@@ -132,7 +132,7 @@ const StyledFormContainer = styled.div`
   width: 90%;
   margin: 16px auto;
   background-color: var(--color-frame);
-  border: 1px solid (--color-border);
+  border: "1px solid var(--color-highlighted-foreground)";
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px var(--color-shadow);
   margin-bottom: 48px;
@@ -174,9 +174,9 @@ const StyledSelectEmotion = styled.select`
   padding: 6px 0;
   background-color: transparent;
   border: none;
-  border-bottom: 1px dotted var(--color-primary);
+  border-bottom: 1px dotted var(--color-form-foreground);
   font-size: 1rem;
-  color: var(--color-primary);
+  color: var(--color-form-foreground);
   outline: none;
   cursor: pointer;
   appearance: none;
@@ -187,7 +187,7 @@ const StyledArrow = styled.span`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-primary);
+  color: var(--color-form-foreground);
   pointer-events: none;
 `;
 
@@ -210,7 +210,7 @@ const StyledLabelColors = styled.label`
   background-color: ${(props) => props.$bgColor};
   border: ${(props) =>
     props.$isSelected
-      ? "2px solid var(--color-primary)"
+      ? "2px solid var(--color-form-foreground);"
       : "2px solid transparent"};
   transition: border 0.3s ease, background-color 0.3s ease;
   border-radius: 0.5rem;
@@ -224,7 +224,7 @@ const StyledInputIcon = styled.input`
   display: none;
 
   &:checked + span {
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-form-foreground);
     outline: none;
   }
 `;
@@ -260,7 +260,7 @@ const StyledLinkCancel = styled(Link)`
 const StyledButtonSubmit = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: var(--color-primary);
+  background-color: var(--color-form-foreground);
   color: #ffffff;
   border: none;
   border-radius: 0.5rem;
@@ -277,13 +277,13 @@ const StyledButtonSubmit = styled.button`
 
   @keyframes greenFlash {
     0% {
-      background-color: var(--color-primary);
+      background-color: var(--color-secondary);
     }
     50% {
-      background-color: var(--color-success);
+      background-color: var(--color-button-success);
     }
     100% {
-      background-color: var(--color-primary);
+      background-color: var(--color-secondary);
     }
   }
 `;

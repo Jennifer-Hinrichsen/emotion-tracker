@@ -110,6 +110,9 @@ const StyledDivWrapper = styled.div`
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
+  body.dark-theme & {
+    background-color: var(--color-background-cards);
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -131,6 +134,13 @@ const StyledIconLeft = styled.div`
   justify-content: center;
   z-index: 1;
   background: linear-gradient(90deg, #f6f4f3 40%, transparent);
+  body.dark-theme & {
+    background: linear-gradient(
+      90deg,
+      var(--color-background-cards) 40%,
+      transparent
+    );
+  }
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -156,7 +166,7 @@ const StyledTab = styled.li`
   cursor: pointer;
   font-size: 1rem;
   white-space: nowrap;
-  background: var(--color-background);
+  background: var(--color-background-cards);
   padding: 8px 10px;
   border: 1px solid var(--color-frame);
   border-radius: 8px;
@@ -170,6 +180,9 @@ const StyledTab = styled.li`
       background: ${$color};
       opacity: 100%;
     `}
+  body.dark-theme & {
+    border: 1px solid var(--color-secondary);
+  }
 `;
 
 const StyledIconRight = styled.div`
@@ -179,11 +192,18 @@ const StyledIconRight = styled.div`
   height: 100%;
   width: 120px;
   font-size: 1.5rem;
-  color: #313366;
+  color: var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(-90deg, #f6f4f3 40%, transparent);
+  body.dark-theme & {
+    background: linear-gradient(
+      -90deg,
+      var(--color-background-cards) 40%,
+      transparent
+    );
+  }
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -199,10 +219,20 @@ const StyledClearFilter = styled.span`
   margin-left: 4px;
   cursor: pointer;
   color: #a6a6a6;
+  body.dark-theme & {
+    color: var(--color-background);
+  }
   position: relative;
   top: -6px;
 
   &:hover {
     color: var(--color-secondary);
+  }
+  body.dark-theme & {
+    color: var(--color-secondary);
+
+    &:hover {
+      color: var(--color-secondary);
+    }
   }
 `;

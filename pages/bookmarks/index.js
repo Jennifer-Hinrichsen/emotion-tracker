@@ -6,6 +6,7 @@ export default function BookmarksPage({
   emotions,
   myBookmarkedEmotions,
   onToggleBookmark,
+  customEmotionTypes,
 }) {
   const bookmarkedEmotions = emotions.filter((emotion) =>
     myBookmarkedEmotions.includes(emotion.id)
@@ -18,6 +19,7 @@ export default function BookmarksPage({
         {bookmarkedEmotions.length > 0 ? (
           bookmarkedEmotions.map((emotion) => (
             <EmotionCard
+              customEmotionTypes={customEmotionTypes}
               key={emotion.id}
               emotion={emotion}
               onToggleBookmark={onToggleBookmark}
@@ -25,7 +27,9 @@ export default function BookmarksPage({
             />
           ))
         ) : (
-          <p>You have no bookmarked emotions anymore.</p>
+          <StyledMessage>
+            You have no bookmarked emotions anymore.
+          </StyledMessage>
         )}
       </StyledList>
     </>
@@ -35,4 +39,11 @@ export default function BookmarksPage({
 const StyledList = styled.ul`
   margin-bottom: 48px;
   padding: 0 1rem;
+`;
+const StyledMessage = styled.p`
+  color: var(--color-form-foreground);
+
+  body.dark-theme & {
+    color: var(--color-form-foreground);
+  }
 `;

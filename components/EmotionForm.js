@@ -189,6 +189,10 @@ const StyledVisibilityIcons = styled.button`
   background-color: var(--color-background);
   position: absolute;
   left: calc(50% + 120px);
+  color: var(--color-secondary);
+  body.dark-theme & {
+    background-color: var(--color-frame);
+  }
 `;
 
 const StyledEmotionForm = styled.form`
@@ -203,7 +207,7 @@ const StyledEmotionForm = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: var(--color-secondary);
+  color: var(--color-form-foreground);
 `;
 
 const SelectEmotionContainer = styled.div`
@@ -216,12 +220,19 @@ const StyledSelectEmotion = styled.select`
   padding: 6px 0;
   background-color: transparent;
   border: none;
-  border-bottom: 1px dotted var(--color-primary);
+  border-bottom: 1px dotted var(--color-form-foreground);
   font-size: 1rem;
-  color: var(--color-primary);
+  color: var(--color-form-foreground);
   outline: none;
   cursor: pointer;
   appearance: none;
+  body.dark-theme & {
+    background-color: var(--color-dropdown-background);
+    option {
+      background-color: var(--color-dropdown-background);
+      color: var(--color-dropdown-foreground);
+    }
+  }
 `;
 
 const StyledArrow = styled.span`
@@ -229,13 +240,13 @@ const StyledArrow = styled.span`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-primary);
+  color: var(--color-form-foreground);
   pointer-events: none;
 `;
 
 const StyledCreateEmotionLink = styled(Link)`
   padding: 10px 20px;
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   color: white;
   border: none;
   border-radius: 5px;
@@ -250,13 +261,14 @@ const StyledDateAndTimeInput = styled.input`
   padding: 0 0 6px 0;
   width: 100%;
   border: none;
-  border-bottom: 1px dotted var(--color-primary);
+  border-bottom: 1px dotted var(--color-form-foreground);
   background-color: transparent;
-  color: var(--color-primary);
+  color: var(--color-form-foreground);
   font-size: 1rem;
 
   &::-webkit-calendar-picker-indicator {
     cursor: pointer;
+    color: var(--color-form-foreground);
   }
 `;
 
@@ -272,15 +284,15 @@ const StyledTextArea = styled.textarea`
   max-width: 100%;
   min-width: 100%;
   border: none;
-  border-bottom: 1px dotted var(--color-primary);
+  border-bottom: 1px dotted var(--color-form-foreground);
   background-color: transparent;
-  color: var(--color-primary);
+  color: var(--color-form-foreground);
   font-size: 1rem;
   cursor: text;
 
   &::placeholder {
     padding-top: 0;
-    color: var(--color-primary);
+    color: var(--color-form-foreground);
     font-size: 1rem;
   }
 `;
@@ -294,15 +306,15 @@ const StyledError = styled.p`
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: var(--color-primary);
-  color: var(--color-background);
+  background-color: var(--color-form-foreground);
+  color: var(--color-background-cards);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--color-success);
+    background-color: var(--color-button-success);
   }
 
   &.clicked {
@@ -311,13 +323,13 @@ const StyledButton = styled.button`
 
   @keyframes greenFlash {
     0% {
-      background-color: var(--color-primary);
+      background-color: var(--color-form-foreground);
     }
     50% {
-      background-color: var(--color-success);
+      background-color: var(--color-button-success);
     }
     100% {
-      background-color: var(--color-primary);
+      background-color: var(--color-form-foreground);
     }
   }
 `;

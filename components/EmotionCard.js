@@ -24,6 +24,7 @@ export default function EmotionCard({
   const emotionIcon = allEmotionIcons.find(
     (emotionIcon) => emotionIcon.emotionIconId === emotionTypeData.emotionIconId
   )?.emotionIcon;
+  console.log(customEmotionTypes);
 
   return (
     <StyledCardWrapper>
@@ -123,14 +124,14 @@ const StyledDate = styled.p`
   margin: 0;
   padding-left: 1rem;
   font-size: 0.8rem;
-  color: var(--color-secondary);
+  color: var(--color-cards-foreground);
 `;
 
 const StyledTime = styled.p`
   margin: 0;
   padding-left: 1rem;
   font-size: 0.8rem;
-  color: var(--color-secondary);
+  color: var(--color-cards-foreground);
 `;
 
 const StyledEmotionCard = styled.section`
@@ -138,9 +139,7 @@ const StyledEmotionCard = styled.section`
   flex-direction: column;
   align-items: left;
   font-size: 1rem;
-  margin: 16px 8px;
-  padding: 10px;
-  background-color: var(--color-background);
-  border-radius: 8px;
+  padding: 26px 8px;
+  background-color: var(--color-background-cards);
   word-break: break-word;
 `;
