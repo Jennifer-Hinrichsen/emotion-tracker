@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
 import MoodwaveLogo from "assets/moodwave-logo.svg";
+import CalendarIcon from "assets/calendarIcons/calendar-month.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
@@ -30,6 +31,12 @@ export default function Navigation() {
           </LogoCanvas>
         </Link>
       </CenterWrapper>
+      <StyledLink href="/calendar">
+        <IconWrapper $isActive={isActive("/calendar")}>
+          <StyledCalendarIcon src="/calendar-month.svg" alt="Calendar Icon" />
+          My Calendar
+        </IconWrapper>
+      </StyledLink>
     </StyledNavigationBar>
   );
 }
@@ -148,9 +155,10 @@ const IconWrapper = styled.div`
   gap: 1px;
   padding: 7px;
   text-align: center;
-  border-left: ${(props) => (props.$isActive ? "0.5px solid #313366" : "none")};
+  border-left: ${(props) =>
+    props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
   border-right: ${(props) =>
-    props.$isActive ? "0.5px solid #313366" : "none"};
+    props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
   background-color: ${(props) =>
     props.$isActive
       ? "var(--color-home-nav-background-active)"
@@ -175,4 +183,10 @@ const StyledBookmarkIcon = styled(BookmarkIcon)`
         ? "var(--color-highlighted-foreground)"
         : "var(--color-foreground)"};
   }
+`;
+
+const StyledCalendarIcon = styled(CalendarIcon)`
+  width: 24px;
+  height: 28px;
+  fill: "var(--color-secondary)";
 `;

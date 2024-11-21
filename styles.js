@@ -20,6 +20,7 @@ export default createGlobalStyle`
     --color-button-success: #5CB85C;
     --color-dropdown-background:#4e545b;
     --color-dropdown-foreground:#f9f9f9;
+    --color-slider-intensity:#d3d3d3;
   }
   .dark-theme{
     --color-background: #1C1C1E;
@@ -40,6 +41,7 @@ export default createGlobalStyle`
     --color-button-success: #5CB85C;
     --color-dropdown-background:#1C1C1E;
     --color-dropdown-foreground:#e0e1f0;
+    --color-slider-intensity:#d3d3d3;
   }
  
 
