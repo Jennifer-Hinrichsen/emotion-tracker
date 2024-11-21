@@ -24,7 +24,6 @@ export default function EmotionCard({
   const emotionIcon = allEmotionIcons.find(
     (emotionIcon) => emotionIcon.emotionIconId === emotionTypeData.emotionIconId
   )?.emotionIcon;
-  console.log(customEmotionTypes);
 
   return (
     <StyledCardWrapper>
