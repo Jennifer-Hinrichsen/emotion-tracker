@@ -6,6 +6,7 @@ export default function BookmarksPage({
   emotions,
   myBookmarkedEmotions,
   onToggleBookmark,
+  customEmotionTypes,
 }) {
   const bookmarkedEmotions = emotions.filter((emotion) =>
     myBookmarkedEmotions.includes(emotion.id)
@@ -18,6 +19,7 @@ export default function BookmarksPage({
         {bookmarkedEmotions.length > 0 ? (
           bookmarkedEmotions.map((emotion) => (
             <EmotionCard
+              customEmotionTypes={customEmotionTypes}
               key={emotion.id}
               emotion={emotion}
               onToggleBookmark={onToggleBookmark}

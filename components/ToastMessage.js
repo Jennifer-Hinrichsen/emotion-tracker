@@ -40,6 +40,6 @@ const ToastWrapper = styled.div`
   z-index: 1000;
 `;
 
-export default function ToastMessage({ message, $visible }) {
-  return <ToastWrapper $visible={$visible}>{message}</ToastWrapper>;
+export default function ToastMessage({ message, visible }) {
+  return <ToastWrapper $visible={visible}>{message}</ToastWrapper>;
 }

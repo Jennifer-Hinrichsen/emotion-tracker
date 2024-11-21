@@ -1,22 +1,17 @@
-
 import { useState } from "react";
-
-
-
 import EmotionForm from "@/components/EmotionForm";
-
-import styled from "styled-components";
 import SearchBar from "@/components/Searchbar/Searchbar";
-
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
+import Heading from "@/components/Heading";
 
 export default function HomePage({
   emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
+  customEmotionTypes,
 }) {
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",
@@ -44,13 +39,16 @@ export default function HomePage({
 
   return (
     <>
-      <StyledHeading>Mood Wave</StyledHeading>
-      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
-
+      <Heading>Mood Wave</Heading>
+      <EmotionForm
+        onSubmit={onCreateEmotion}
+        customEmotionTypes={customEmotionTypes}
+      />
       <Filter
         emotions={emotions}
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
+        customEmotionTypes={customEmotionTypes}
       />
       <SearchBar
         searchTerm={searchTerm}
@@ -61,15 +59,9 @@ export default function HomePage({
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
+        customEmotionTypes={customEmotionTypes}
         searchTerm={searchTerm}
       />
     </>
   );
 }
-
-const StyledHeading = styled.h1`
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  color: var(--color-secondary);
-`;

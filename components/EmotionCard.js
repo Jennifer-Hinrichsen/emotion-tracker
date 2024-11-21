@@ -3,36 +3,41 @@ import BookmarkButton from "./BookmarkButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
+import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
-import { emotionList } from "@/lib/emotionList";
 
 export default function EmotionCard({
   emotion,
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
+  customEmotionTypes,
   intensity,
   searchTerm,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
-  function getEmotionColor(type) {
-    const emotion = emotionList.find((item) => item.emotionType === type);
-    return emotion ? emotion.color : "var(--color-frame)";
-  }
+  const emotionTypeData = customEmotionTypes.find(
+    (customEmotionType) => customEmotionType.emotionType === emotion.emotionType
+  );
 
-  const emotionColor = getEmotionColor(emotion.emotionType);
+  const emotionIcon = allEmotionIcons.find(
+    (emotionIcon) => emotionIcon.emotionIconId === emotionTypeData.emotionIconId
+  )?.emotionIcon;
+  console.log(customEmotionTypes);
 
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <StyledOuterBox color={emotionColor}>
-          <StyledTopBox color={emotionColor}>
+        <StyledOuterBox color={emotionTypeData.color}>
+          <StyledTopBox color={emotionTypeData.color}>
             <StyledDate>{date}</StyledDate>
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
             <EmotionCardContent
+              emotionColor={emotionTypeData.color}
+              emotionIcon={emotionIcon}
               emotion={{
                 ...emotion,
                 notes: (
@@ -53,13 +58,15 @@ export default function EmotionCard({
       ) : (
         <>
           <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
-            <StyledOuterBox color={emotionColor}>
-              <StyledTopBox color={emotionColor}>
+            <StyledOuterBox color={emotionTypeData.color}>
+              <StyledTopBox color={emotionTypeData.color}>
                 <StyledDate>{date}</StyledDate>
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent
+                  emotionColor={emotionTypeData.color}
+                  emotionIcon={emotionIcon}
                   emotion={{
                     ...emotion,
                     notes: (
@@ -135,7 +142,4 @@ const StyledEmotionCard = styled.section`
   padding: 26px 8px;
   background-color: var(--color-background-cards);
   word-break: break-word;
-`;
-const StyledHighlighter = styled(Highlighter)`
-  background-color: yellow;
 `;

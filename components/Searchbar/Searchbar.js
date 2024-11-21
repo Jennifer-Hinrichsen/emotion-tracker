@@ -32,7 +32,7 @@ export default function SearchBar({ searchTerm, onSearch, onClearSearch }) {
         )}
       </StyledSearchInputWrapper>
       <StyledSearchButton onClick={toggleSearchBar}>
-        <StyledSearchIcon isActive={isExpanded} />
+        <StyledSearchIcon $isActive={isExpanded} />
       </StyledSearchButton>
     </StyledSearchWrapper>
   );
@@ -69,7 +69,7 @@ const StyledSearchButton = styled.button`
 `;
 
 const StyledSearchIcon = styled(SearchIcon)`
-  opacity: ${(props) => (props.isActive ? "100%" : "40%")};
+  opacity: ${(props) => (props.$isActive ? "100%" : "40%")};
   transition: opacity 0.3s ease;
 `;
 

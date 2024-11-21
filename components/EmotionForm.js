@@ -1,11 +1,18 @@
-import { emotionList } from "@/lib/emotionList";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PlusIcon from "@/assets/formIcons/PlusIcon.svg";
 import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
+import MoodPlusIcon from "@/assets/formIcons/MoodPlusIcon.svg";
+import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 
-export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
+export default function EmotionForm({
+  onSubmit,
+  defaultValue,
+  onCancel,
+  customEmotionTypes,
+}) {
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -14,13 +21,25 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
     defaultValue?.emotionType || ""
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.isReady) {
+      if (router.query.showForm === "true") {
+        setFormVisibility(true);
+      }
+      if (router.query.selectedEmotionType) {
+        setSelectedEmotionType(router.query.selectedEmotionType);
+      }
+    }
+  }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
@@ -39,13 +58,11 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
 
     if (!inputData.emotionType) {
       setFormError("Please choose an emotion.");
-      setSuccessMessage("");
       return;
     }
 
     if (!inputData.dateTime) {
       setFormError("Please select a date and time.");
-      setSuccessMessage("");
       return;
     }
 
@@ -79,20 +96,28 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {emotionList.map((emotion) => (
-                <option key={emotion.emotionType} value={emotion.emotionType}>
+              {customEmotionTypes.map((emotion) => (
+                <option key={emotion.id} value={emotion.emotionType}>
                   {emotion.emotionType}
                 </option>
               ))}
             </StyledSelectEmotion>
             <StyledArrow>▼</StyledArrow>
           </SelectEmotionContainer>
-
+          {!defaultValue && (
+            <StyledCreateEmotionLink
+              href="/createemotiontype"
+              aria-label="Create a new emotion type"
+            >
+              Create your Emotion Type <MoodPlusIcon />
+            </StyledCreateEmotionLink>
+          )}
           <label htmlFor="intensity">Emotion intensity*</label>
           <SliderIntensity
             emotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
+            customEmotionTypes={customEmotionTypes}
           />
 
           <StyledLabelNoPadding htmlFor="date-time">
@@ -125,8 +150,6 @@ export default function EmotionForm({ onSubmit, defaultValue, onCancel }) {
             </StyledButton>
           </ButtonContainer>
           {formError && <StyledError>{formError}</StyledError>}
-
-          {successMessage && <StyledSuccess>{successMessage}</StyledSuccess>}
         </StyledEmotionForm>
       </StyledFormContainer>
     </>
@@ -221,6 +244,19 @@ const StyledArrow = styled.span`
   pointer-events: none;
 `;
 
+const StyledCreateEmotionLink = styled(Link)`
+  padding: 10px 20px;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-secondary);
+  }
+`;
+
 const StyledDateAndTimeInput = styled.input`
   padding: 0 0 6px 0;
   width: 100%;
@@ -267,11 +303,6 @@ const StyledError = styled.p`
   margin-top: 8px;
 `;
 
-const StyledSuccess = styled.p`
-  color: var(--color-button-success);
-  font-size: 1rem;
-  margin-top: 8px;
-`;
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;

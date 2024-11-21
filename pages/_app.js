@@ -5,8 +5,12 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
+import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
   const [emotions, setEmotions] = useLocalStorageState("emotions", {
     defaultValue: initialEmotionEntries,
   });
@@ -16,6 +20,13 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     setIsInitialLoad(false);
   }, []);
+
+  const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
+    "emotionTypes",
+    {
+      defaultValue: initialEmotionTypes,
+    }
+  );
 
   function showToastMessage(message) {
     if (isInitialLoad) return;
@@ -86,6 +97,22 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
+  function handleCreateEmotionType(newEmotionType) {
+    const emotionWithId = {
+      id: uuidv4(),
+      ...newEmotionType,
+    };
+    setCustomEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
+    showToastMessage("Successfully added!");
+    router.push({
+      pathname: "/",
+      query: {
+        showForm: "true",
+        selectedEmotionType: newEmotionType.emotionType,
+      },
+    });
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -97,13 +124,15 @@ export default function App({ Component, pageProps }) {
           onUpdateEmotion={handleUpdateEmotion}
           myBookmarkedEmotions={myBookmarkedEmotions}
           onToggleBookmark={handleToggleBookmark}
+          onCreateEmotionType={handleCreateEmotionType}
+          customEmotionTypes={customEmotionTypes}
           {...pageProps}
         />
         {toasts.map((toast) => (
           <ToastMessage
             key={toast.id}
             message={toast.message}
-            $={toast.$visible}
+            $visible={toast.$visible}
           />
         ))}
       </Layout>

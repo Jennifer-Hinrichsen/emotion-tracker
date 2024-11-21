@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
 import { useState, useRef, useEffect } from "react";
-import { emotionList } from "@/lib/emotionList";
 import useScreenSize from "../lib/hooks/useScreenSize";
 
 export default function Filter({
-  emotions,
   selectedFilter,
   setSelectedFilter,
+  customEmotionTypes,
 }) {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
@@ -42,6 +41,10 @@ export default function Filter({
     }
   }, [screenSize.width]);
 
+  const filteredEmotionTypes = customEmotionTypes.filter(
+    (customEmotionType) => customEmotionType.emotionType
+  );
+
   return (
     <>
       <StyledDivWrapper>
@@ -58,7 +61,7 @@ export default function Filter({
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {emotionList.map((emotion) => (
+            {filteredEmotionTypes.map((emotion) => (
               <StyledTab
                 key={emotion.id}
                 onClick={() =>
@@ -232,22 +235,4 @@ const StyledClearFilter = styled.span`
       color: var(--color-secondary);
     }
   }
-`;
-
-const StyledMessage = styled.p`
-  text-align: center;
-  color: #777;
-  body.dark-theme & {
-    color: var(--color-background);
-  }
-  font-size: 1.1rem;
-  padding: 24px 16px;
-`;
-
-const StyledUlContainer = styled.ul`
-  padding: 0;
-`;
-
-const StyledCardList = styled.li`
-  list-style-type: none;
 `;
