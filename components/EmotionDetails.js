@@ -61,7 +61,7 @@ const StyledBackLink = styled(Link)`
   font-size: 24px;
   margin-left: 10px;
   text-decoration: none;
-  color: #000;
+  color: var(--color-secondary);
 `;
 
 const StyledEditLink = styled(Link)`

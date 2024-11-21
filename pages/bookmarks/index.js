@@ -25,7 +25,9 @@ export default function BookmarksPage({
             />
           ))
         ) : (
-          <p>You have no bookmarked emotions anymore.</p>
+          <StyledMessage>
+            You have no bookmarked emotions anymore.
+          </StyledMessage>
         )}
       </StyledList>
     </>
@@ -35,4 +37,11 @@ export default function BookmarksPage({
 const StyledList = styled.ul`
   margin-bottom: 48px;
   padding: 0 1rem;
+`;
+const StyledMessage = styled.p`
+  color: var(--color-form-foreground);
+
+  body.dark-theme & {
+    color: var(--color-form-foreground);
+  }
 `;
