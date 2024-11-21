@@ -2,7 +2,7 @@ import { useState } from "react";
 import CalendarDays from "./CalendarDays";
 import styled from "styled-components";
 import CalendarPopup from "./CalendarPopup";
-import { emotionList } from "@/lib/emotionList";
+import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { weekdays } from "@/lib/calendarDaysMonths";
 import { months } from "@/lib/calendarDaysMonths";
 
@@ -44,7 +44,7 @@ export default function Calendar({ emotions }) {
   };
 
   const getColorByEmotionType = (type) => {
-    const $emotion = emotionList.find(
+    const $emotion = initialEmotionTypes.find(
       (emotion) => emotion.emotionType === type
     );
     return $emotion ? $emotion.color : "var(--color-background)";
