@@ -7,6 +7,9 @@ import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
 import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { useRouter } from "next/router";
+import { SWRConfig } from "swr";
+
+const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -117,24 +120,26 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Layout>
-        <Component
-          emotions={emotions}
-          onCreateEmotion={handleCreateEmotion}
-          onDeleteEmotion={handleDeleteEmotion}
-          onUpdateEmotion={handleUpdateEmotion}
-          myBookmarkedEmotions={myBookmarkedEmotions}
-          onToggleBookmark={handleToggleBookmark}
-          onCreateEmotionType={handleCreateEmotionType}
-          customEmotionTypes={customEmotionTypes}
-          {...pageProps}
-        />
-        {toasts.map((toast) => (
-          <ToastMessage
-            key={toast.id}
-            message={toast.message}
-            visible={toast.visible}
+        <SWRConfig value={{ fetcher }}>
+          <Component
+            emotions={emotions}
+            onCreateEmotion={handleCreateEmotion}
+            onDeleteEmotion={handleDeleteEmotion}
+            onUpdateEmotion={handleUpdateEmotion}
+            myBookmarkedEmotions={myBookmarkedEmotions}
+            onToggleBookmark={handleToggleBookmark}
+            onCreateEmotionType={handleCreateEmotionType}
+            customEmotionTypes={customEmotionTypes}
+            {...pageProps}
           />
-        ))}
+          {toasts.map((toast) => (
+            <ToastMessage
+              key={toast.id}
+              message={toast.message}
+              visible={toast.visible}
+            />
+          ))}
+        </SWRConfig>
       </Layout>
     </>
   );

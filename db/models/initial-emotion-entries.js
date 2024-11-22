@@ -6,7 +6,7 @@ const initialEmotionEntriesSchema = new Schema({
   notes: { type: String },
   dateTime: { type: String, required: true },
 });
-const initialEmotionEntries =
-  mongoose.models.initialEmotionEntries ||
-  mongoose.model("initialEmotionEntries", initialEmotionEntriesSchema);
-export default initialEmotionEntries;
+const initialEmotionEntry =
+  mongoose.models.initialEmotionEntry ||
+  mongoose.model("initialEmotionEntry", initialEmotionEntriesSchema);
+export default initialEmotionEntry;
