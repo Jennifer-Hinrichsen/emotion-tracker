@@ -145,7 +145,7 @@ export default function App({ Component, pageProps }) {
             <ToastMessage
               key={toast.id}
               message={toast.message}
-              visible={toast.visible}
+              $visible={toast.$visible}
             />
           ))}
         </SWRConfig>

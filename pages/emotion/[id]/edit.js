@@ -22,10 +22,10 @@ export default function EditPage({
         defaultValue={existingEmotion}
         onSubmit={(data) => {
           onUpdateEmotion({ ...data, id });
-          router.push(`/emotion/${_id}`);
+          router.push(`/emotion/${id}`);
         }}
         onCancel={() => {
-          router.push(`/emotion/${_id}`);
+          router.push(`/emotion/${id}`);
         }}
         customEmotionTypes={customEmotionTypes}
       />
