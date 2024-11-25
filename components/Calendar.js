@@ -37,17 +37,17 @@ export default function Calendar({ emotions }) {
   };
 
   const getEmotionsForDay = (date) => {
-    return emotions.filter(($emotion) => {
-      const emotionDate = new Date($emotion.dateTime);
+    return emotions.filter((emotion) => {
+      const emotionDate = new Date(emotion.dateTime);
       return emotionDate.toDateString() === date.toDateString();
     });
   };
 
   const getColorByEmotionType = (type) => {
-    const $emotion = initialEmotionTypes.find(
+    const emotion = initialEmotionTypes.find(
       (emotion) => emotion.emotionType === type
     );
-    return $emotion ? $emotion.color : "var(--color-background)";
+    return emotion ? emotion.color : "var(--color-background)";
   };
 
   return (

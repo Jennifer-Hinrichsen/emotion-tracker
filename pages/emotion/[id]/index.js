@@ -1,8 +1,8 @@
 import EmotionDetails from "@/components/EmotionDetails";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 export default function EmotionDetailPage({
-  emotions,
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
@@ -11,15 +11,18 @@ export default function EmotionDetailPage({
   const router = useRouter();
   const { id } = router.query;
 
+  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+
   const selectedEmotion = emotions?.find((emotion) => emotion._id === id);
 
-  if (!id) {
-    return <p>Loading...</p>;
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
-  if (!selectedEmotion) {
-    return <p>No emotion found.</p>;
+  if (error || !emotions) {
+    return <h1>Error loading emotionEntries: {error.message}</h1>;
   }
+
   function handleDelete() {
     onDeleteEmotion(id);
     router.push("/");

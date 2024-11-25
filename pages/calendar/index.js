@@ -1,6 +1,6 @@
 import Calendar from "@/components/Calendar";
 import Heading from "@/components/Heading";
-import styled from "styled-components";
+
 import useSWR from "swr";
 
 export default function CalendarPage() {
@@ -20,8 +20,3 @@ export default function CalendarPage() {
     </>
   );
 }
-
-const StyledList = styled.ul`
-  margin-bottom: 48px;
-  padding: 0 1rem;
-`;
