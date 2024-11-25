@@ -5,14 +5,16 @@ import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
+import useSWR from "swr";
 
 export default function HomePage({
-  emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
   customEmotionTypes,
 }) {
+  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",
   });
@@ -25,6 +27,15 @@ export default function HomePage({
   const handleClearSearch = () => {
     setSearchTerm("");
   };
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error || !emotions) {
+    return <h1>Error loading emotionEntries: {error.message}</h1>;
+  }
+
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.emotionType === selectedFilter

@@ -6,13 +6,15 @@ import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 import MoodPlusIcon from "@/assets/formIcons/MoodPlusIcon.svg";
 import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
+import useSWR from "swr";
 
 export default function EmotionForm({
-  onSubmit,
   defaultValue,
   onCancel,
   customEmotionTypes,
 }) {
+  const { mutate } = useSWR("/api/emotionEntries");
+
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -49,27 +51,24 @@ export default function EmotionForm({
     setFormVisibility(!formVisibility);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
     inputData.intensity = selectedIntensity;
 
-    if (!inputData.emotionType) {
-      setFormError("Please choose an emotion.");
-      return;
-    }
+    const response = await fetch("/api/emotionEntries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputData),
+    });
 
-    if (!inputData.dateTime) {
-      setFormError("Please select a date and time.");
-      return;
+    if (response.ok) {
+      mutate();
     }
-
-    onSubmit(inputData);
-    event.target.reset();
-    setSelectedEmotionType("");
-    setFormError("");
   }
 
   return (

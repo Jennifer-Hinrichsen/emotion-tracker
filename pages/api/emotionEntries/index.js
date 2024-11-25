@@ -12,10 +12,9 @@ export default async function handler(request, response) {
     }
 
     if (request.method === "POST") {
-      const data = request.body;
-
-      await EmotionEntry.create(data);
-
+      const inputData = request.body;
+      console.log(inputData);
+      await EmotionEntry.create(inputData);
       response.json({ message: "Success!" });
       return;
     }

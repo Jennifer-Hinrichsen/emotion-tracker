@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { useRouter } from "next/router";
 import { SWRConfig } from "swr";
-import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
@@ -23,12 +22,6 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  const {
-    data: emotionEntries,
-    error,
-    isLoading,
-  } = useSWR("/api/emotionEntries", fetcher);
-
   useEffect(() => {
     setIsInitialLoad(false);
   }, []);
@@ -38,14 +31,6 @@ export default function App({ Component, pageProps }) {
       defaultValue: [""],
     }
   );
-
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (error || !emotionEntries) {
-    return <h1>Error loading emotionEntries: {error.message}</h1>;
-  }
 
   function showToastMessage(message) {
     if (isInitialLoad) return;
@@ -131,7 +116,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <SWRConfig value={{ fetcher }}>
           <Component
-            emotions={emotionEntries}
+            emotions={emotions}
             onCreateEmotion={handleCreateEmotion}
             onDeleteEmotion={handleDeleteEmotion}
             onUpdateEmotion={handleUpdateEmotion}
