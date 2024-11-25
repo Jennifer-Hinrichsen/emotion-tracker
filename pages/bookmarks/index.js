@@ -1,13 +1,23 @@
 import EmotionCard from "@/components/EmotionCard";
 import Heading from "@/components/Heading";
 import styled from "styled-components";
+import useSWR from "swr";
 
 export default function BookmarksPage({
-  emotions,
   myBookmarkedEmotions,
   onToggleBookmark,
   customEmotionTypes,
 }) {
+  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error || !emotions) {
+    return <h1>Error loading emotionEntries: {error.message}</h1>;
+  }
+
   const bookmarkedEmotions = emotions.filter((emotion) =>
     myBookmarkedEmotions.includes(emotion._id)
   );
@@ -23,7 +33,7 @@ export default function BookmarksPage({
               key={emotion._id}
               emotion={emotion}
               onToggleBookmark={onToggleBookmark}
-              $isBookmarked={true}
+              isBookmarked={true}
             />
           ))
         ) : (

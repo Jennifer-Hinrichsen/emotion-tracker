@@ -57,10 +57,10 @@ export default function CalendarDays({
             {getEmotionsForDay(calendarDay.date).length > 2 ? (
               <StyledMultipleIcon src="/circles.svg" alt="Multiple Icon" />
             ) : (
-              getEmotionsForDay(calendarDay.date).map(($emotion) => (
+              getEmotionsForDay(calendarDay.date).map((emotion) => (
                 <StyledEmotionDot
-                  key={$emotion.id}
-                  color={getColorByEmotionType($emotion.emotionType)}
+                  key={emotion._id}
+                  color={getColorByEmotionType(emotion.emotionType)}
                 />
               ))
             )}

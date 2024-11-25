@@ -12,13 +12,13 @@ export default function CalendarPopup({
       <StyledPopupContent>
         <StyledSubheadline>Emotions</StyledSubheadline>
         <StyledEmotionList>
-          {getEmotionsForDay(selectedDay.date).map(($emotion) => (
-            <li key={$emotion.id}>
+          {getEmotionsForDay(selectedDay.date).map((emotion) => (
+            <li key={emotion._id}>
               <StyledEmotionDot
-                color={getColorByEmotionType($emotion.emotionType)}
+                color={getColorByEmotionType(emotion.emotionType)}
               />
-              <StyledLink href={`/emotion/${$emotion.id}`}>
-                {$emotion.emotionType}
+              <StyledLink href={`/emotion/${emotion._id}`}>
+                {emotion.emotionType}
               </StyledLink>
             </li>
           ))}

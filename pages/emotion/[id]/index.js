@@ -21,7 +21,7 @@ export default function EmotionDetailPage({
     return <p>No emotion found.</p>;
   }
   function handleDelete() {
-    onDeleteEmotion(_id);
+    onDeleteEmotion(id);
     router.push("/");
   }
 

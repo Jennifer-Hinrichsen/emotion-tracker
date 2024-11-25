@@ -1,6 +1,7 @@
 import Calendar from "@/components/Calendar";
 import Heading from "@/components/Heading";
 import styled from "styled-components";
+import useSWR from "swr";
 
 export default function CalendarPage() {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
