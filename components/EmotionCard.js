@@ -5,6 +5,7 @@ import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
+import useSWR from "swr";
 
 export default function EmotionCard({
   emotion,
@@ -15,6 +16,15 @@ export default function EmotionCard({
   intensity,
   searchTerm,
 }) {
+  const { data, isLoading } = useSWR("/api/initialEmotionEntries");
+  if (isLoading) {
+    return <h1>Loadingggg...</h1>;
+  }
+
+  if (!data) {
+    return;
+  }
+
   const { date, time } = formatDate(emotion.dateTime);
 
   const emotionTypeData = customEmotionTypes.find(

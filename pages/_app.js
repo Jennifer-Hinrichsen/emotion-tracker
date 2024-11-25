@@ -9,22 +9,11 @@ import { useRouter } from "next/router";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
 
-// Fetcher-Funktion für SWR
-const fetcher = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    const error = new Error("An error occurred while fetching the data.");
-    error.info = await response.json();
-    error.status = response.status;
-    throw error;
-  }
-  return response.json();
-};
+const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [toasts, setToasts] = useState([]);
-
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
     "emotionTypes",
@@ -32,6 +21,13 @@ export default function App({ Component, pageProps }) {
       defaultValue: initialEmotionTypes,
     }
   );
+
+  const {
+    data: initialEmotionEntries,
+    error,
+    isLoading,
+  } = useSWR("/api/initialEmotionEntries", fetcher);
+
   useEffect(() => {
     setIsInitialLoad(false);
   }, []);
@@ -42,22 +38,13 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  // Nutzung von SWR zum Abrufen der Daten
-  const {
-    data: initialEmotionEntries,
-    error,
-    isLoading,
-  } = useSWR("/api/initialEmotionEntries", fetcher);
-
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <h1>Loadingggg...</h1>;
   }
 
   if (error || !initialEmotionEntries) {
     return <h1>Error loading initialEmotionEntries: {error.message}</h1>;
   }
-
-  console.log(data);
 
   function showToastMessage(message) {
     if (isInitialLoad) return;
@@ -141,9 +128,9 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Layout>
-        <SWRConfig>
+        <SWRConfig value={{ fetcher }}>
           <Component
-            emotions={data}
+            emotions={initialEmotionEntries}
             onCreateEmotion={handleCreateEmotion}
             onDeleteEmotion={handleDeleteEmotion}
             onUpdateEmotion={handleUpdateEmotion}
