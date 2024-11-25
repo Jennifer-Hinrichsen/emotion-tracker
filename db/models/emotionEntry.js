@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
-const initialEmotionEntriesSchema = new Schema(
+
+const emotionEntriesSchema = new Schema(
   {
     emotionType: { type: String, required: true },
     intensity: { type: Number, required: true },
@@ -9,7 +10,8 @@ const initialEmotionEntriesSchema = new Schema(
   },
   { collection: "initial-emotion-entries" }
 );
-const InitialEmotionEntry =
-  mongoose.models.InitialEmotionEntry ||
-  mongoose.model("InitialEmotionEntry", initialEmotionEntriesSchema);
-export default InitialEmotionEntry;
+const EmotionEntry =
+  mongoose.models.EmotionEntry ||
+  mongoose.model("EmotionEntry", emotionEntriesSchema);
+
+export default EmotionEntry;

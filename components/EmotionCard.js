@@ -16,7 +16,7 @@ export default function EmotionCard({
   intensity,
   searchTerm,
 }) {
-  const { data, isLoading } = useSWR("/api/initialEmotionEntries");
+  const { data, isLoading } = useSWR("/api/emotionEntries");
   if (isLoading) {
     return <h1>Loadingggg...</h1>;
   }

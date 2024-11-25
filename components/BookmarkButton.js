@@ -7,7 +7,7 @@ export default function BookmarkButton({ isBookmarked, onToggleBookmark }) {
     <StyledButton
       onClick={onToggleBookmark}
       aria-label="Toggle Bookmark"
-      isBookmarked={isBookmarked}
+      $isBookmarked={isBookmarked}
     >
       {isBookmarked ? <BookmarkIconFilled /> : <BookmarkIcon />}
     </StyledButton>
@@ -25,9 +25,9 @@ const StyledButton = styled.button`
   cursor: pointer;
   touch-action: manipulation;
   color: ${(props) =>
-    props.isBookmarked ? "var(--color-cards-foreground)" : "inherit"};
+    props.$isBookmarked ? "var(--color-cards-foreground)" : "inherit"};
   body.dark-theme & {
     color: ${(props) =>
-      props.isBookmarked ? "var(--color-secondary)" : "inherit"};
+      props.$isBookmarked ? "var(--color-secondary)" : "inherit"};
   }
 `;

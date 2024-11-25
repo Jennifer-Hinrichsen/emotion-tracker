@@ -23,10 +23,10 @@ export default function App({ Component, pageProps }) {
   );
 
   const {
-    data: initialEmotionEntries,
+    data: emotionEntries,
     error,
     isLoading,
-  } = useSWR("/api/initialEmotionEntries", fetcher);
+  } = useSWR("/api/emotionEntries", fetcher);
 
   useEffect(() => {
     setIsInitialLoad(false);
@@ -39,11 +39,11 @@ export default function App({ Component, pageProps }) {
   );
 
   if (isLoading) {
-    return <h1>Loadingggg...</h1>;
+    return <h1>Loading...</h1>;
   }
 
-  if (error || !initialEmotionEntries) {
-    return <h1>Error loading initialEmotionEntries: {error.message}</h1>;
+  if (error || !emotionEntries) {
+    return <h1>Error loading emotionEntries: {error.message}</h1>;
   }
 
   function showToastMessage(message) {
@@ -130,7 +130,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <SWRConfig value={{ fetcher }}>
           <Component
-            emotions={initialEmotionEntries}
+            emotions={emotionEntries}
             onCreateEmotion={handleCreateEmotion}
             onDeleteEmotion={handleDeleteEmotion}
             onUpdateEmotion={handleUpdateEmotion}

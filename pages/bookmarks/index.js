@@ -23,7 +23,7 @@ export default function BookmarksPage({
               key={emotion.id}
               emotion={emotion}
               onToggleBookmark={onToggleBookmark}
-              isBookmarked={true}
+              $isBookmarked={true}
             />
           ))
         ) : (
