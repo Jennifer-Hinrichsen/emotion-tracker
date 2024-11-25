@@ -60,13 +60,13 @@ export default function EmotionCard({
             />
             <BookmarkButton
               isBookmarked={isBookmarked}
-              onToggleBookmark={() => onToggleBookmark(emotion.id)}
+              onToggleBookmark={() => onToggleBookmark(emotion._id)}
             />
           </StyledEmotionCard>
         </StyledOuterBox>
       ) : (
         <>
-          <StyledLink key={emotion.id} href={`emotion/${emotion.id}`}>
+          <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
             <StyledOuterBox color={emotionTypeData.color}>
               <StyledTopBox color={emotionTypeData.color}>
                 <StyledDate>{date}</StyledDate>
@@ -93,7 +93,7 @@ export default function EmotionCard({
           </StyledLink>
           <BookmarkButton
             isBookmarked={isBookmarked}
-            onToggleBookmark={() => onToggleBookmark(emotion.id)}
+            onToggleBookmark={() => onToggleBookmark(emotion._id)}
           />
         </>
       )}

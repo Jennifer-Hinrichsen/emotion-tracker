@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [toasts, setToasts] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [emotions, setEmotions] = useState([]);
   const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
     "emotionTypes",
     {
@@ -93,13 +94,13 @@ export default function App({ Component, pageProps }) {
   }
   function handleDeleteEmotion(id) {
     setEmotions((prevEmotions) =>
-      prevEmotions.filter((emotion) => emotion.id !== id)
+      prevEmotions.filter((emotion) => emotion._id !== id)
     );
   }
 
   function handleUpdateEmotion(updatedEmotion) {
     const updatedEmotions = emotions.map((emotion) =>
-      emotion.id === updatedEmotion.id ? updatedEmotion : emotion
+      emotion._id === updatedEmotion._id ? updatedEmotion : emotion
     );
     const sortedEmotions = updatedEmotions.sort(
       (a, b) => new Date(b.dateTime) - new Date(a.dateTime)

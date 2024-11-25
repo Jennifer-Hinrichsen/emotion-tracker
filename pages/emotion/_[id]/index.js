@@ -11,7 +11,7 @@ export default function EmotionDetailPage({
   const router = useRouter();
   const { id } = router.query;
 
-  const selectedEmotion = emotions?.find((emotion) => emotion.id === id);
+  const selectedEmotion = emotions?.find((emotion) => emotion._id === id);
 
   if (!id) {
     return <p>Loading...</p>;
@@ -21,7 +21,7 @@ export default function EmotionDetailPage({
     return <p>No emotion found.</p>;
   }
   function handleDelete() {
-    onDeleteEmotion(id);
+    onDeleteEmotion(_id);
     router.push("/");
   }
 

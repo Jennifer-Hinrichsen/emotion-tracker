@@ -15,11 +15,11 @@ export default function EmotionList({
       ) : (
         <StyledList>
           {emotions.map((emotion) => (
-            <StyledCardList key={emotion.id}>
+            <StyledCardList key={emotion._id}>
               <EmotionCard
                 emotion={emotion}
                 onToggleBookmark={onToggleBookmark}
-                isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
+                isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
                 customEmotionTypes={customEmotionTypes}
                 intensity={emotion.intensity}
                 searchTerm={searchTerm}

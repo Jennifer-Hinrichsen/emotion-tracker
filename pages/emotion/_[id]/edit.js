@@ -10,7 +10,7 @@ export default function EditPage({
   const router = useRouter();
   const { id } = router.query;
 
-  const existingEmotion = emotions.find((emotion) => emotion.id === id);
+  const existingEmotion = emotions.find((emotion) => emotion._id === id);
   if (!existingEmotion) {
     return <p>Loading...</p>;
   }
@@ -22,10 +22,10 @@ export default function EditPage({
         defaultValue={existingEmotion}
         onSubmit={(data) => {
           onUpdateEmotion({ ...data, id });
-          router.push(`/emotion/${id}`);
+          router.push(`/emotion/${_id}`);
         }}
         onCancel={() => {
-          router.push(`/emotion/${id}`);
+          router.push(`/emotion/${_id}`);
         }}
         customEmotionTypes={customEmotionTypes}
       />

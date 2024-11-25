@@ -1,19 +1,17 @@
+import EmotionEntry from "@/db/models/emotionEntry";
 import dbConnect from "../../../db/connect";
-import InitialEmotionEntry from "@/db/models/emotionEntry";
 
 export default async function handler(request, response) {
   await dbConnect();
   const { id } = request.query;
 
   if (request.method === "GET") {
-    const InitialEmotionEntry = await InitialEmotionEntry.findById(id).populate(
-      "reviews"
-    );
+    const emotionEntry = await EmotionEntry.findById(id).populate("reviews");
 
-    if (!InitialEmotionEntry) {
+    if (!EmotionEntry) {
       return response.status(404).json({ status: "Not Found" });
     }
 
-    response.status(200).json(InitialEmotionEntry);
+    response.status(200).json(emotionEntry);
   }
 }
