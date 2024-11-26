@@ -8,7 +8,7 @@ export default function EmotionCardContent({
   return (
     <StyledEmotionCardContent>
       <StyledEmojiIcon $color={emotionColor}>{emotionIcon}</StyledEmojiIcon>
-      <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
+      <StyledEmotionType>{emotion.emotionType.emotionType}</StyledEmotionType>
       <StyledIntensity>{emotion.intensity}</StyledIntensity>
       <StyledNotes>{emotion.notes}</StyledNotes>
     </StyledEmotionCardContent>

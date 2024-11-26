@@ -16,10 +16,10 @@ export default function CalendarPopup({
           {getEmotionsForDay(selectedDay.date).map((emotion) => (
             <li key={emotion._id}>
               <StyledEmotionDot
-                color={getColorByEmotionType(emotion.emotionType)}
+                color={getColorByEmotionType(emotion.emotionType.emotionType)}
               />
               <StyledLink href={`/emotion/${emotion._id}`}>
-                {emotion.emotionType}
+                {emotion.emotionType.emotionType}
               </StyledLink>
             </li>
           ))}

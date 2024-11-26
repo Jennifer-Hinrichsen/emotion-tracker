@@ -96,8 +96,11 @@ export default function EmotionForm({
             >
               <option value="">---Choose an Emotion---</option>
               {customEmotionTypes.map((emotion) => (
-                <option key={emotion.id} value={emotion.emotionType}>
-                  {emotion.emotionType}
+                <option
+                  key={emotion.id}
+                  value={emotion.emotionType.emotionType}
+                >
+                  {emotion.emotionType.emotionType}
                 </option>
               ))}
             </StyledSelectEmotion>

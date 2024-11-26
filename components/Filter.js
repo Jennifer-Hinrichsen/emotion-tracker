@@ -66,15 +66,15 @@ export default function Filter({
                 key={emotion.id}
                 onClick={() =>
                   setSelectedFilter(
-                    emotion.emotionType === selectedFilter
+                    emotion.emotionType.emotionType === selectedFilter
                       ? ""
-                      : emotion.emotionType
+                      : emotion.emotionType.emotionType
                   )
                 }
-                $isSelected={emotion.emotionType === selectedFilter}
+                $isSelected={emotion.emotionType.emotionType === selectedFilter}
                 $color={emotion.color}
               >
-                {emotion.emotionType}
+                {emotion.emotionType.emotionType}
               </StyledTab>
             ))}
           </StyledTabsBox>

@@ -12,7 +12,7 @@ export default function EmotionCard({
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
-  customEmotionTypes,
+
   intensity,
   searchTerm,
 }) {
@@ -27,27 +27,21 @@ export default function EmotionCard({
 
   const { date, time } = formatDate(emotion.dateTime);
 
-  const emotionTypeData = customEmotionTypes.find(
-    (customEmotionType) => customEmotionType.emotionType === emotion.emotionType
-  );
-
-  console.log("Emotiontype:", emotionTypeData);
-
   const emotionIcon = allEmotionIcons.find(
-    (emotionIcon) => emotionIcon.emotionIconId === emotionTypeData.emotionIconId
+    (emotionIcon) => emotionIcon.emotionIconId === emotion.emotionIconId
   )?.emotionIcon;
 
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <StyledOuterBox color={emotionTypeData.color}>
-          <StyledTopBox color={emotionTypeData.color}>
+        <StyledOuterBox color={emotion.color}>
+          <StyledTopBox color={emotion.color}>
             <StyledDate>{date}</StyledDate>
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
             <EmotionCardContent
-              emotionColor={emotionTypeData.color}
+              emotionColor={emotion.emotionType.color}
               emotionIcon={emotionIcon}
               emotion={{
                 ...emotion,
@@ -69,14 +63,14 @@ export default function EmotionCard({
       ) : (
         <>
           <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
-            <StyledOuterBox color={emotionTypeData.color}>
-              <StyledTopBox color={emotionTypeData.color}>
+            <StyledOuterBox color={emotion.color}>
+              <StyledTopBox color={emotion.color}>
                 <StyledDate>{date}</StyledDate>
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent
-                  emotionColor={emotionTypeData.color}
+                  emotionColor={emotion.color}
                   emotionIcon={emotionIcon}
                   emotion={{
                     ...emotion,

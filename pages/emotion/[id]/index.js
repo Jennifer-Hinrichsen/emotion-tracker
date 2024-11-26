@@ -11,15 +11,17 @@ export default function EmotionDetailPage({
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+  const {
+    data: selectedEmotion,
+    error,
+    isLoading,
+  } = useSWR(`/api/emotionEntries/${id}`);
 
-  const selectedEmotion = emotions?.find((emotion) => emotion._id === id);
-
-  if (isLoading) {
+  if (isLoading || !router.isReady) {
     return <h1>Loading...</h1>;
   }
 
-  if (error || !emotions) {
+  if (error || !selectedEmotion) {
     return <h1>Error loading emotionEntries: {error.message}</h1>;
   }
 
