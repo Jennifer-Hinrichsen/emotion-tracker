@@ -3,9 +3,9 @@ import { Schema } from "mongoose";
 
 const emotionTypeSchema = new Schema(
   {
-    emotionType: { type: String, required: true },
     color: { type: String, required: true },
     emotionIconId: { type: String, required: true },
+    name: { type: String, required: true },
   },
   { collection: "emotion-types" }
 );

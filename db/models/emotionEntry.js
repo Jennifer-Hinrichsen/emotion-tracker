@@ -4,7 +4,7 @@ import { Schema } from "mongoose";
 
 const emotionEntriesSchema = new Schema(
   {
-    emotionType: { type: Schema.Types.ObjectId, ref: "EmotionType" },
+    type: { type: Schema.Types.ObjectId, ref: "EmotionType" },
     intensity: { type: Number, required: true },
     notes: { type: String },
     dateTime: { type: String, required: true },
