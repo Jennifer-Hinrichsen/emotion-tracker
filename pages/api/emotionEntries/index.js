@@ -8,7 +8,7 @@ export default async function handler(request, response) {
     if (request.method === "GET") {
       const emotionEntries = await EmotionEntry.find();
       response.status(200).json(emotionEntries);
-      console.log("EmotionEntries:", emotionEntries);
+
       return;
     }
 

@@ -10,7 +10,6 @@ export default async function handler(request, response) {
       const emotionEntry = await EmotionEntry.findById(id).populate(
         "emotionType"
       );
-      console.log(emotionEntry);
 
       if (!emotionEntry) {
         return response.status(404).json({ status: "Not Found" });

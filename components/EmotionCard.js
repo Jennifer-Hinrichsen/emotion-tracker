@@ -49,7 +49,7 @@ export default function EmotionCard({
                   <Highlighter
                     searchWords={[searchTerm]}
                     autoEscape={true}
-                    textToHighlight={emotion.notes}
+                    textToHighlight={emotion.emotionType.notes}
                   />
                 ),
               }}

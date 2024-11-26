@@ -7,8 +7,8 @@ export default function EmotionCardContent({
 }) {
   return (
     <StyledEmotionCardContent>
-      <StyledEmojiIcon $color={emotionColor}>{emotionIcon}</StyledEmojiIcon>
-      <StyledEmotionType>{emotion.emotionType.emotionType}</StyledEmotionType>
+      <StyledEmojiIcon color={emotionColor}>{emotionIcon}</StyledEmojiIcon>
+      <StyledEmotionType>{emotion.emotionType}</StyledEmotionType>
       <StyledIntensity>{emotion.intensity}</StyledIntensity>
       <StyledNotes>{emotion.notes}</StyledNotes>
     </StyledEmotionCardContent>
@@ -33,7 +33,7 @@ const StyledEmojiIcon = styled.span`
   height: 50px;
 
   svg {
-    color: ${(props) => props.$color || "var(--color-frame)"};
+    color: ${(props) => props.color || "var(--color-frame)"};
   }
 `;
 
