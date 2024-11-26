@@ -31,6 +31,8 @@ export default function EmotionCard({
     (customEmotionType) => customEmotionType.emotionType === emotion.emotionType
   );
 
+  console.log("Emotiontype:", emotionTypeData);
+
   const emotionIcon = allEmotionIcons.find(
     (emotionIcon) => emotionIcon.emotionIconId === emotionTypeData.emotionIconId
   )?.emotionIcon;

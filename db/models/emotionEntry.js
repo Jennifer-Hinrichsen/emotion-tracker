@@ -3,12 +3,12 @@ import { Schema } from "mongoose";
 
 const emotionEntriesSchema = new Schema(
   {
-    emotionType: { type: String, required: true },
+    emotionType: { type: [Schema.Types.ObjectId], ref: "EmotionType" },
     intensity: { type: Number, required: true },
     notes: { type: String },
     dateTime: { type: String, required: true },
   },
-  { collection: "moodwave-database" }
+  { collection: "emotion-entries" }
 );
 const EmotionEntry =
   mongoose.models.EmotionEntry ||

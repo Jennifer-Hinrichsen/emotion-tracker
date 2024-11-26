@@ -1,19 +1,9 @@
-import {
-  allEmotionTypes,
-  allEmotionColors,
-  allEmotionIcons,
-} from "@/lib/allEmotionOptions";
-import { useRouter } from "next/router";
+import { allEmotionColors, allEmotionIcons } from "@/lib/allEmotionOptions";
 import styled from "styled-components";
 import { useState } from "react";
 import Link from "next/link";
 
-export default function CreateEmotionTypeForm({
-  onSubmit,
-  customEmotionTypes,
-}) {
-  const router = useRouter();
-
+export default function CreateEmotionTypeForm({ onSubmit }) {
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [formError, setFormError] = useState("");
 
@@ -21,14 +11,13 @@ export default function CreateEmotionTypeForm({
     setSelectedEmotionColor(event.target.value);
   }
 
-  function filteredEmotionTypes() {
-    return allEmotionTypes.filter((emotion) =>
-      customEmotionTypes.every(
-        (type) => type.emotionType !== emotion.emotionType
-      )
-    );
-  }
-  const allCustomEmotionsUsed = filteredEmotionTypes().length === 0;
+  // function filteredEmotionTypes() {
+  //   return allEmotionTypes.filter((emotion) =>
+  //     customEmotionTypes.every(
+  //       (type) => type.emotionType !== emotion.emotionType
+  //     )
+  //   );
+  // }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -65,23 +54,12 @@ export default function CreateEmotionTypeForm({
 
       <StyledEmotionForm onSubmit={handleSubmit}>
         <label htmlFor="emotionType">Emotion Type*</label>
-        <StyledContainer>
-          <StyledSelectEmotion id="emotionType" name="emotionType">
-            {allCustomEmotionsUsed ? (
-              <option value="">---Already all Emotions selected---</option>
-            ) : (
-              <>
-                <option value="">---Choose an Emotion Type---</option>
-                {filteredEmotionTypes().map((type) => (
-                  <option key={type._id} value={type.emotionType}>
-                    {type.emotionType}
-                  </option>
-                ))}
-              </>
-            )}
-          </StyledSelectEmotion>
-          <StyledArrow>▼</StyledArrow>
-        </StyledContainer>
+        <StyledTextArea
+          id="emotionType"
+          name="emotionType"
+          placeholder="Please describe your feelings"
+          maxLength="50"
+        ></StyledTextArea>
 
         <StyledFieldset>
           <StyledLegendColor>Choose a Color*</StyledLegendColor>
@@ -164,31 +142,25 @@ const StyledEmotionForm = styled.form`
   color: var(--color-secondary);
 `;
 
-const StyledContainer = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const StyledSelectEmotion = styled.select`
-  width: 100%;
-  padding: 6px 0;
-  background-color: transparent;
+const StyledTextArea = styled.textarea`
+  padding: 0;
+  height: 36px;
+  max-height: 300px;
+  line-height: 1.5;
+  max-width: 100%;
+  min-width: 100%;
   border: none;
   border-bottom: 1px dotted var(--color-form-foreground);
+  background-color: transparent;
+  color: var(--color-form-foreground);
   font-size: 1rem;
-  color: var(--color-form-foreground);
-  outline: none;
-  cursor: pointer;
-  appearance: none;
-`;
+  cursor: text;
 
-const StyledArrow = styled.span`
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-form-foreground);
-  pointer-events: none;
+  &::placeholder {
+    padding-top: 0;
+    color: var(--color-form-foreground);
+    font-size: 1rem;
+  }
 `;
 
 const StyledFieldset = styled.fieldset`
