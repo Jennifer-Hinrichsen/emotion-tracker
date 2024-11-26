@@ -128,9 +128,9 @@ export default function App({ Component, pageProps }) {
           />
           {toasts.map((toast) => (
             <ToastMessage
-              key={toast.id}
+              key={toast._id}
               message={toast.message}
-              $visible={toast.$visible}
+              visible={toast.visible}
             />
           ))}
         </SWRConfig>

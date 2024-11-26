@@ -73,7 +73,7 @@ export default function CreateEmotionTypeForm({
               <>
                 <option value="">---Choose an Emotion Type---</option>
                 {filteredEmotionTypes().map((type) => (
-                  <option key={type.id} value={type.emotionType}>
+                  <option key={type._id} value={type.emotionType}>
                     {type.emotionType}
                   </option>
                 ))}
@@ -87,7 +87,7 @@ export default function CreateEmotionTypeForm({
           <StyledLegendColor>Choose a Color*</StyledLegendColor>
           {allEmotionColors.map((color) => (
             <StyledLabelColors
-              key={color.id}
+              key={color._id}
               $isSelected={selectedEmotionColor === color.color}
               $bgColor={color.color}
             >

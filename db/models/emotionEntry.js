@@ -8,7 +8,7 @@ const emotionEntriesSchema = new Schema(
     notes: { type: String },
     dateTime: { type: String, required: true },
   },
-  { collection: "initial-emotion-entries" }
+  { collection: "moodwave-database" }
 );
 const EmotionEntry =
   mongoose.models.EmotionEntry ||
