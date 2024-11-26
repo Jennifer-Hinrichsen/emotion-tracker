@@ -17,6 +17,8 @@ export default function EmotionDetailPage({
     isLoading,
   } = useSWR(`/api/emotionEntries/${id}`);
 
+  console.log(selectedEmotion);
+
   if (isLoading || !router.isReady) {
     return <h1>Loading...</h1>;
   }

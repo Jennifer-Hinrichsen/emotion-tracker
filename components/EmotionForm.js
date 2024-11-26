@@ -24,7 +24,7 @@ export default function EmotionForm({
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.emotionType || ""
+    defaultValue?.emotion.type.name || ""
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
@@ -96,11 +96,8 @@ export default function EmotionForm({
             >
               <option value="">---Choose an Emotion---</option>
               {customEmotionTypes.map((emotion) => (
-                <option
-                  key={emotion.id}
-                  value={emotion.emotionType.emotionType}
-                >
-                  {emotion.emotionType.emotionType}
+                <option key={emotion.id} value={emotion.name}>
+                  {emotion.name}
                 </option>
               ))}
             </StyledSelectEmotion>

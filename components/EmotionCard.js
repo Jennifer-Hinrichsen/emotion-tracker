@@ -12,7 +12,6 @@ export default function EmotionCard({
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
-
   intensity,
   searchTerm,
 }) {
@@ -34,14 +33,14 @@ export default function EmotionCard({
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
-        <StyledOuterBox color={emotion.color}>
-          <StyledTopBox color={emotion.color}>
+        <StyledOuterBox color={emotion.type.color}>
+          <StyledTopBox color={emotion.type.color}>
             <StyledDate>{date}</StyledDate>
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
             <EmotionCardContent
-              emotionColor={emotion.emotionType.color}
+              emotionColor={emotion.type.color}
               emotionIcon={emotionIcon}
               emotion={{
                 ...emotion,
@@ -49,7 +48,7 @@ export default function EmotionCard({
                   <Highlighter
                     searchWords={[searchTerm]}
                     autoEscape={true}
-                    textToHighlight={emotion.emotionType.notes}
+                    textToHighlight={emotion.notes}
                   />
                 ),
               }}
@@ -63,14 +62,14 @@ export default function EmotionCard({
       ) : (
         <>
           <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
-            <StyledOuterBox color={emotion.color}>
-              <StyledTopBox color={emotion.color}>
+            <StyledOuterBox color={emotion.type.color}>
+              <StyledTopBox color={emotion.type.color}>
                 <StyledDate>{date}</StyledDate>
                 <StyledTime>{time}</StyledTime>
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent
-                  emotionColor={emotion.color}
+                  emotionColor={emotion.type.color}
                   emotionIcon={emotionIcon}
                   emotion={{
                     ...emotion,
