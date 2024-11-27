@@ -15,19 +15,20 @@ export default function EmotionCard({
   intensity,
   searchTerm,
 }) {
-  const { data, isLoading } = useSWR("/api/emotionEntries");
-  if (isLoading) {
-    return <h1>Loadingggg...</h1>;
-  }
+  // const { data: emotions, isLoading } = useSWR("/api/emotionEntries");
+  // if (isLoading) {
+  //   return <h1>Loading...</h1>;
+  // }
 
-  if (!data) {
-    return;
-  }
+  // if (!emotions) {
+  //   return;
+  // }
+  console.log("emotion neu: ", emotion);
 
   const { date, time } = formatDate(emotion.dateTime);
 
   const emotionIcon = allEmotionIcons.find(
-    (emotionIcon) => emotionIcon.emotionIconId === emotion.emotionIconId
+    (emotionIcon) => emotionIcon.emotionIconId === emotion.type.emotionIconId
   )?.emotionIcon;
 
   return (
@@ -69,7 +70,6 @@ export default function EmotionCard({
               </StyledTopBox>
               <StyledEmotionCard>
                 <EmotionCardContent
-                  emotionColor={emotion.type.color}
                   emotionIcon={emotionIcon}
                   emotion={{
                     ...emotion,

@@ -4,7 +4,6 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
-import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { useRouter } from "next/router";
 import { SWRConfig } from "swr";
 
@@ -18,7 +17,7 @@ export default function App({ Component, pageProps }) {
   const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
     "emotionTypes",
     {
-      defaultValue: initialEmotionTypes,
+      defaultValue: emotions,
     }
   );
 
@@ -116,7 +115,6 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <SWRConfig value={{ fetcher }}>
           <Component
-            emotions={emotions}
             onCreateEmotion={handleCreateEmotion}
             onDeleteEmotion={handleDeleteEmotion}
             onUpdateEmotion={handleUpdateEmotion}

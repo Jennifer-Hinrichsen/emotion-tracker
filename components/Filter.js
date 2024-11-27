@@ -12,6 +12,8 @@ export default function Filter({
   const scrollContainerRef = useRef(null);
   const screenSize = useScreenSize();
 
+  console.log("selectedFilter:", selectedFilter);
+
   function updateArrowVisibility() {
     const tabsBox = scrollContainerRef.current;
     if (tabsBox) {
@@ -41,10 +43,6 @@ export default function Filter({
     }
   }, [screenSize.width]);
 
-  const filteredEmotionTypes = customEmotionTypes.filter(
-    (customEmotionType) => customEmotionType.emotionType
-  );
-
   return (
     <>
       <StyledDivWrapper>
@@ -61,20 +59,18 @@ export default function Filter({
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {filteredEmotionTypes.map((emotion) => (
+            {customEmotionTypes.map((emotion) => (
               <StyledTab
-                key={emotion.id}
+                key={emotion._id}
                 onClick={() =>
                   setSelectedFilter(
-                    emotion.emotionType.emotionType === selectedFilter
-                      ? ""
-                      : emotion.emotionType.emotionType
+                    emotion.name === selectedFilter ? "" : emotion.name
                   )
                 }
-                $isSelected={emotion.emotionType.emotionType === selectedFilter}
+                $isSelected={emotion.name === selectedFilter}
                 $color={emotion.color}
               >
-                {emotion.emotionType.emotionType}
+                {emotion.name}
               </StyledTab>
             ))}
           </StyledTabsBox>

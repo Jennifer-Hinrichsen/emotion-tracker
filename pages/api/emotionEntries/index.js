@@ -6,7 +6,7 @@ export default async function handler(request, response) {
 
   try {
     if (request.method === "GET") {
-      const emotionEntries = await EmotionEntry.find();
+      const emotionEntries = await EmotionEntry.find().populate("type");
       response.status(200).json(emotionEntries);
 
       return;
@@ -14,7 +14,7 @@ export default async function handler(request, response) {
 
     if (request.method === "POST") {
       const inputData = request.body;
-
+      console.log("inputdatareqe:", request.body);
       await EmotionEntry.create(inputData);
       response.json({ message: "Success!" });
       return;

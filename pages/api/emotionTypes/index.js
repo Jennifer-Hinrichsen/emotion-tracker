@@ -1,20 +1,20 @@
 import dbConnect from "../../../db/connect";
-import EmotionEntry from "@/db/models/emotionEntry";
+import EmotionType from "@/db/models/emotionType";
 
 export default async function handler(request, response) {
   await dbConnect();
 
   try {
     if (request.method === "GET") {
-      const emotionEntries = await EmotionType.find();
-      response.status(200).json(emotionEntries);
+      const emotionTypes = await EmotionType.find();
+      response.status(200).json(emotionTypes);
       return;
     }
 
     if (request.method === "POST") {
       const inputData = request.body;
 
-      await EmotionEntry.create(inputData);
+      await EmotionType.create(inputData);
       response.json({ message: "Success!" });
       return;
     }
