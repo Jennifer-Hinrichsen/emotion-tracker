@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function SliderIntensity({
-  emotionType,
+  selectedEmotionType,
   defaultIntensity,
   onChange,
   customEmotionTypes,
 }) {
   const [newValue, setNewValue] = useState(defaultIntensity || 1);
 
-  const emotion = customEmotionTypes.find((e) => e.name === emotionType);
+  const emotion = customEmotionTypes.find(
+    (e) => e.name === selectedEmotionType
+  );
   const $thumbColor = emotion ? emotion.color : "var(--color-form-foreground)";
-
+  console.log("customemotiontypes", customEmotionTypes);
   const handleSliderChange = (event) => {
     const value = event.target.value;
     setNewValue(value);

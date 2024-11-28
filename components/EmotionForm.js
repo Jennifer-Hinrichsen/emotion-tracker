@@ -14,7 +14,6 @@ export default function EmotionForm({
   customEmotionTypes,
 }) {
   const { mutate } = useSWR("/api/emotionEntries");
-
   const currentDateTime = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -44,8 +43,13 @@ export default function EmotionForm({
   }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
 
   function handleChangeEmotionType(event) {
-    setSelectedEmotionType(event.target.value);
+    const selectedEmotion = customEmotionTypes.find(
+      (emotion) => emotion._id === event.target.value
+    );
+    setSelectedEmotionType(selectedEmotion);
   }
+  console.log("customEmotionTypes", customEmotionTypes);
+  console.log("selectedEmotionType", selectedEmotionType);
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
@@ -86,17 +90,17 @@ export default function EmotionForm({
         </StyledFormHead>
 
         <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
-          <label htmlFor="emotionType">Emotion (type)*</label>
+          <label htmlFor="type">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
               value={selectedEmotionType}
-              id="emotionType"
-              name="emotionType"
+              id="type"
+              name="type"
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
               {customEmotionTypes.map((emotion) => (
-                <option key={emotion.id} value={emotion.name}>
+                <option key={emotion._id} value={selectedEmotionType}>
                   {emotion.name}
                 </option>
               ))}
@@ -113,7 +117,7 @@ export default function EmotionForm({
           )}
           <label htmlFor="intensity">Emotion intensity*</label>
           <SliderIntensity
-            emotionType={selectedEmotionType}
+            selectedEmotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
             customEmotionTypes={customEmotionTypes}
