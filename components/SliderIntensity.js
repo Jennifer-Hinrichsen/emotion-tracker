@@ -5,11 +5,11 @@ export default function SliderIntensity({
   emotionType,
   defaultIntensity,
   onChange,
-  customEmotionTypes,
+  emotions,
 }) {
   const [newValue, setNewValue] = useState(defaultIntensity || 1);
 
-  const emotion = customEmotionTypes.find((e) => e._id === emotionType);
+  const emotion = emotions.find((e) => e._id === emotionType);
   const $thumbColor = emotion ? emotion.color : "var(--color-form-foreground)";
 
   const handleSliderChange = (event) => {

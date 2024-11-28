@@ -5,7 +5,7 @@ import useScreenSize from "../lib/hooks/useScreenSize";
 export default function Filter({
   selectedFilter,
   setSelectedFilter,
-  customEmotionTypes,
+  emotionTypes,
 }) {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
@@ -57,7 +57,7 @@ export default function Filter({
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {customEmotionTypes.map((emotion) => (
+            {emotionTypes.map((emotion) => (
               <StyledTab
                 key={emotion._id}
                 onClick={() =>

@@ -53,10 +53,10 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       </StyledFormHead>
 
       <StyledEmotionForm onSubmit={handleSubmit}>
-        <label htmlFor="emotionType">Emotion Type*</label>
+        <label htmlFor="type">Emotion Type*</label>
         <StyledTextArea
-          id="emotionType"
-          name="emotionType"
+          id="type"
+          name="type"
           placeholder="Please describe your feelings"
           maxLength="50"
         ></StyledTextArea>

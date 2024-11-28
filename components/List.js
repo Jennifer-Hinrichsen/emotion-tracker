@@ -5,7 +5,6 @@ export default function EmotionList({
   emotions,
   onToggleBookmark,
   myBookmarkedEmotions,
-  customEmotionTypes,
   searchTerm,
 }) {
   return (
@@ -20,7 +19,6 @@ export default function EmotionList({
                 emotion={emotion}
                 onToggleBookmark={onToggleBookmark}
                 isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
-                customEmotionTypes={customEmotionTypes}
                 intensity={emotion.intensity}
                 searchTerm={searchTerm}
               />

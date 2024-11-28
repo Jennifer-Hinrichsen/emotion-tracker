@@ -11,7 +11,6 @@ export default function HomePage({
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
-  customEmotionTypes,
 }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
   const { data: emotionTypes } = useSWR("/api/emotionTypes");
@@ -52,15 +51,11 @@ export default function HomePage({
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <EmotionForm
-        emotions={emotions}
-        onSubmit={onCreateEmotion}
-        customEmotionTypes={emotionTypes}
-      />
+      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
       <Filter
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
-        customEmotionTypes={emotionTypes}
+        emotionTypes={emotionTypes}
       />
       <SearchBar
         searchTerm={searchTerm}
@@ -71,7 +66,6 @@ export default function HomePage({
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
-        customEmotionTypes={emotionTypes}
         searchTerm={searchTerm}
       />
     </>

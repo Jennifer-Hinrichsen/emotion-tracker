@@ -8,11 +8,7 @@ import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 import useSWR from "swr";
 
-export default function EmotionForm({
-  defaultValue,
-  onCancel,
-  customEmotionTypes,
-}) {
+export default function EmotionForm({ defaultValue, onCancel, emotions }) {
   const { mutate } = useSWR("/api/emotionEntries");
 
   const currentDateTime = new Date(
@@ -43,7 +39,7 @@ export default function EmotionForm({
       }
     }
   }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
-  console.log("router.query", router.query);
+
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
   }
@@ -96,7 +92,7 @@ export default function EmotionForm({
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {customEmotionTypes.map((emotion) => (
+              {emotions.map((emotion) => (
                 <option key={emotion._id} value={emotion._id}>
                   {emotion.name}
                 </option>
@@ -117,7 +113,7 @@ export default function EmotionForm({
             emotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
-            customEmotionTypes={customEmotionTypes}
+            emotions={emotions}
           />
 
           <StyledLabelNoPadding htmlFor="date-time">

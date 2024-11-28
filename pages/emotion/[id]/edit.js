@@ -3,14 +3,11 @@ import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function EditPage({ onUpdateEmotion, customEmotionTypes }) {
+export default function EditPage({ onUpdateEmotion }) {
   const router = useRouter();
   const { id } = router.query;
 
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
-
-  const existingEmotion = emotions.find((emotion) => emotion._id === id);
-
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -19,6 +16,9 @@ export default function EditPage({ onUpdateEmotion, customEmotionTypes }) {
     return <h1>Error loading emotionEntries: {error.message}</h1>;
   }
 
+  const existingEmotion = emotions.find((emotion) => emotion._id === id);
+
+  console.log("emotions", emotions);
   return (
     <>
       <Heading>Edit Emotion</Heading>
@@ -31,7 +31,7 @@ export default function EditPage({ onUpdateEmotion, customEmotionTypes }) {
         onCancel={() => {
           router.push(`/emotion/${id}`);
         }}
-        customEmotionTypes={customEmotionTypes}
+        emotions={emotions}
       />
     </>
   );
