@@ -24,11 +24,12 @@ export default function EmotionForm({
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.emotion.type.name || ""
+    defaultValue?.type.name || ""
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
+  console.log("defaultValue", defaultValue);
 
   const router = useRouter();
 
@@ -42,7 +43,7 @@ export default function EmotionForm({
       }
     }
   }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
-
+  console.log("router.query", router.query);
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
   }

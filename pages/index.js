@@ -53,6 +53,7 @@ export default function HomePage({
     <>
       <Heading>Mood Wave</Heading>
       <EmotionForm
+        emotions={emotions}
         onSubmit={onCreateEmotion}
         customEmotionTypes={emotionTypes}
       />
