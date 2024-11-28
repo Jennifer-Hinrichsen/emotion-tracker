@@ -36,7 +36,7 @@ export default function HomePage({
   if (error || !emotionTypes) {
     return <h1>Error loading emotionEntries: {error}</h1>;
   }
-  console.log("emotions on HP:", emotions);
+
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.type.name === selectedFilter

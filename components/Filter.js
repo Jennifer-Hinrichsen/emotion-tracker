@@ -12,8 +12,6 @@ export default function Filter({
   const scrollContainerRef = useRef(null);
   const screenSize = useScreenSize();
 
-  console.log("selectedFilter:", selectedFilter);
-
   function updateArrowVisibility() {
     const tabsBox = scrollContainerRef.current;
     if (tabsBox) {

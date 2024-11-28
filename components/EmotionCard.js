@@ -15,16 +15,6 @@ export default function EmotionCard({
   intensity,
   searchTerm,
 }) {
-  // const { data: emotions, isLoading } = useSWR("/api/emotionEntries");
-  // if (isLoading) {
-  //   return <h1>Loading...</h1>;
-  // }
-
-  // if (!emotions) {
-  //   return;
-  // }
-  console.log("emotion neu: ", emotion);
-
   const { date, time } = formatDate(emotion.dateTime);
 
   const emotionIcon = allEmotionIcons.find(
