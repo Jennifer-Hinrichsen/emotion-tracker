@@ -42,6 +42,10 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
+
+    if (event.target.value) {
+      setFormError("");
+    }
   }
 
   function toggleVisibilityForm() {
@@ -54,6 +58,11 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
     inputData.intensity = selectedIntensity;
+
+    if (!inputData.type) {
+      setFormError("Please choose an emotion type.");
+      return;
+    }
 
     const response = await fetch("/api/emotionEntries", {
       method: "POST",
@@ -69,14 +78,10 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
       setSelectedEmotionType("");
       setFormError("");
     }
-    if (isLoading) {
-      return <h1>Loading...</h1>;
-    }
-    console.log("inputData", inputData);
-    if (!inputData.type.name) {
-      setFormError("Please choose an emotion typeeee.");
-      return;
-    }
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
   return (
