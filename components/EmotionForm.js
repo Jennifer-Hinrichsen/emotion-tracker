@@ -56,7 +56,7 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
     inputData.intensity = selectedIntensity;
-    console.log("inputDatea", inputData);
+
     if (!inputData.type) {
       setFormError("Please choose an emotion type.");
       return;

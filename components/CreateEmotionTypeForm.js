@@ -2,22 +2,15 @@ import { allEmotionColors, allEmotionIcons } from "@/lib/allEmotionOptions";
 import styled from "styled-components";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function CreateEmotionTypeForm({ onSubmit }) {
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [formError, setFormError] = useState("");
-
+  const router = useRouter();
   function handleChangeEmotionColor(event) {
     setSelectedEmotionColor(event.target.value);
   }
-
-  // function filteredEmotionTypes() {
-  //   return allEmotionTypes.filter((emotion) =>
-  //     customEmotionTypes.every(
-  //       (type) => type.emotionType !== emotion.emotionType
-  //     )
-  //   );
-  // }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -44,6 +37,14 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
     event.target.reset();
     setSelectedEmotionColor("");
     setFormError("");
+    router.push({
+      pathname: "/",
+      query: {
+        showForm: "true",
+        selectedEmotionType: data.name,
+      },
+    });
+    console.log("data", data);
   }
 
   return (

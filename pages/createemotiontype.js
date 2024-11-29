@@ -10,6 +10,7 @@ export default function CreateEmotionType({ customEmotionTypes }) {
       },
       body: JSON.stringify(data),
     });
+    console.log("data", data);
   }
 
   return (
