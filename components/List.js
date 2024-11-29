@@ -8,6 +8,7 @@ export default function EmotionList({
   searchTerm,
 }) {
   emotions.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+  console.log(emotions);
 
   return (
     <>

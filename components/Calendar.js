@@ -39,7 +39,6 @@ export default function Calendar({ emotions }) {
   const getEmotionsForDay = (date) => {
     return emotions.filter((emotion) => {
       const emotionDate = new Date(emotion.dateTime);
-      // console.log("date", date);
 
       return emotionDate.toDateString() === date.toDateString();
     });

@@ -7,16 +7,14 @@ import MoodPlusIcon from "@/assets/formIcons/MoodPlusIcon.svg";
 import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 import useSWR from "swr";
+import { format } from "date-fns";
 
 export default function EmotionForm({ defaultValue, onCancel, emotions }) {
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
   const { mutate } = useSWR("/api/emotionEntries");
 
-  const currentDateTime = new Date(
-    new Date().getTime() - new Date().getTimezoneOffset() * 60000
-  )
-    .toISOString()
-    .slice(0, 16);
+  const currentDate = format(new Date(), "yyyy-MM-dd");
+  const currentTime = format(new Date(), "HH:mm");
 
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
@@ -58,7 +56,7 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
     inputData.intensity = selectedIntensity;
-
+    console.log("inputDatea", inputData);
     if (!inputData.type) {
       setFormError("Please choose an emotion type.");
       return;
@@ -140,7 +138,9 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
             id="date-time"
             name="dateTime"
             type="datetime-local"
-            defaultValue={defaultValue?.dateTime || currentDateTime}
+            defaultValue={
+              defaultValue?.dateTime || currentDate + "T" + currentTime
+            }
           />
 
           <label htmlFor="notes">Notes</label>

@@ -14,9 +14,9 @@ export default async function handler(request, response) {
 
     if (request.method === "POST") {
       const inputData = request.body;
-
       await EmotionEntry.create(inputData);
       response.json({ message: "Success!" });
+      console.log("inputData", inputData);
       return;
     }
   } catch (error) {
