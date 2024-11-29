@@ -9,6 +9,7 @@ import SliderIntensity from "./SliderIntensity";
 import useSWR from "swr";
 
 export default function EmotionForm({ defaultValue, onCancel, emotions }) {
+  const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
   const { mutate } = useSWR("/api/emotionEntries");
 
   const currentDateTime = new Date(
@@ -20,12 +21,11 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.type.name || ""
+    defaultValue?.type._id || null
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-  console.log("defaultValue", defaultValue);
 
   const router = useRouter();
 
@@ -65,6 +65,17 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
 
     if (response.ok) {
       mutate();
+      event.target.reset();
+      setSelectedEmotionType("");
+      setFormError("");
+    }
+    if (isLoading) {
+      return <h1>Loading...</h1>;
+    }
+    console.log("inputData", inputData);
+    if (!inputData.type.name) {
+      setFormError("Please choose an emotion typeeee.");
+      return;
     }
   }
 
@@ -92,7 +103,7 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {emotions.map((emotion) => (
+              {emotionTypes.map((emotion) => (
                 <option key={emotion._id} value={emotion._id}>
                   {emotion.name}
                 </option>
@@ -110,10 +121,11 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
           )}
           <label htmlFor="intensity">Emotion intensity*</label>
           <SliderIntensity
-            emotionType={selectedEmotionType}
+            selectedEmotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
             emotions={emotions}
+            emotionTypes={emotionTypes}
           />
 
           <StyledLabelNoPadding htmlFor="date-time">

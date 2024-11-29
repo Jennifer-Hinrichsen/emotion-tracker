@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import useScreenSize from "../lib/hooks/useScreenSize";
+import useSWR from "swr";
 
-export default function Filter({
-  selectedFilter,
-  setSelectedFilter,
-  emotionTypes,
-}) {
+export default function Filter({ selectedFilter, setSelectedFilter }) {
+  const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
+
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -40,6 +39,10 @@ export default function Filter({
       updateArrowVisibility();
     }
   }, [screenSize.width]);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>

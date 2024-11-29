@@ -7,6 +7,8 @@ export default function EmotionList({
   myBookmarkedEmotions,
   searchTerm,
 }) {
+  emotions.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
   return (
     <>
       {emotions.length === 0 ? (

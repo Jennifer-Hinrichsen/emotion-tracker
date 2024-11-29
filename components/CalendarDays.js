@@ -60,7 +60,7 @@ export default function CalendarDays({
               getEmotionsForDay(calendarDay.date).map((emotion) => (
                 <StyledEmotionDot
                   key={emotion._id}
-                  color={getColorByEmotionType(emotion.emotionType.emotionType)}
+                  color={getColorByEmotionType(emotion.type.name)}
                 />
               ))
             )}

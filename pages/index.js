@@ -13,7 +13,6 @@ export default function HomePage({
   myBookmarkedEmotions,
 }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
-  const { data: emotionTypes } = useSWR("/api/emotionTypes");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",
@@ -32,7 +31,7 @@ export default function HomePage({
     return <h1>Loading...</h1>;
   }
 
-  if (error || !emotionTypes) {
+  if (error) {
     return <h1>Error loading emotionEntries: {error}</h1>;
   }
 
@@ -52,10 +51,10 @@ export default function HomePage({
     <>
       <Heading>Mood Wave</Heading>
       <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+
       <Filter
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
-        emotionTypes={emotionTypes}
       />
       <SearchBar
         searchTerm={searchTerm}

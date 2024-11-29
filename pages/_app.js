@@ -73,6 +73,7 @@ export default function App({ Component, pageProps }) {
     );
     showToastMessage("Successfully added!");
   }
+
   function handleDeleteEmotion(id) {
     setEmotions((prevEmotions) =>
       prevEmotions.filter((emotion) => emotion._id !== id)
@@ -90,22 +91,6 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
-  function handleCreateEmotionType(newEmotionType) {
-    const emotionWithId = {
-      id: uuidv4(),
-      ...newEmotionType,
-    };
-    setCustomEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
-    showToastMessage("Successfully added!");
-    router.push({
-      pathname: "/",
-      query: {
-        showForm: "true",
-        selectedEmotionType: newEmotionType.emotionType,
-      },
-    });
-  }
-
   return (
     <>
       <GlobalStyle />
@@ -117,7 +102,6 @@ export default function App({ Component, pageProps }) {
             onUpdateEmotion={handleUpdateEmotion}
             myBookmarkedEmotions={myBookmarkedEmotions}
             onToggleBookmark={handleToggleBookmark}
-            onCreateEmotionType={handleCreateEmotionType}
             {...pageProps}
           />
           {toasts.map((toast) => (

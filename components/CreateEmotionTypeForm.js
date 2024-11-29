@@ -25,7 +25,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    if (!data.emotionType) {
+    if (!data.name) {
       setFormError("Please choose an emotion type.");
       return;
     }
@@ -53,10 +53,10 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       </StyledFormHead>
 
       <StyledEmotionForm onSubmit={handleSubmit}>
-        <label htmlFor="type">Emotion Type*</label>
+        <label htmlFor="name">Emotion Type*</label>
         <StyledTextArea
-          id="type"
-          name="type"
+          id="name"
+          name="name"
           placeholder="Please describe your feelings"
           maxLength="50"
         ></StyledTextArea>

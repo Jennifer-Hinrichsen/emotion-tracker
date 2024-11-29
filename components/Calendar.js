@@ -44,9 +44,7 @@ export default function Calendar({ emotions }) {
   };
 
   const getColorByEmotionType = (type) => {
-    const emotion = initialEmotionTypes.find(
-      (emotion) => emotion.emotionType === type
-    );
+    const emotion = emotions.find((emotion) => emotion.type === type);
     return emotion ? emotion.color : "var(--color-background)";
   };
 
