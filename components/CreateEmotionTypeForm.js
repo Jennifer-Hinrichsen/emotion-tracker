@@ -12,7 +12,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
     setSelectedEmotionColor(event.target.value);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -33,7 +33,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       return;
     }
 
-    onSubmit(data);
+    const createdId = await onSubmit(data);
     event.target.reset();
     setSelectedEmotionColor("");
     setFormError("");
@@ -41,10 +41,9 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
       pathname: "/",
       query: {
         showForm: "true",
-        selectedEmotionType: data.name,
+        selectedEmotionType: createdId,
       },
     });
-    console.log("data", data);
   }
 
   return (

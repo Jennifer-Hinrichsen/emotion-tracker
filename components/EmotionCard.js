@@ -5,7 +5,6 @@ import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
-import useSWR from "swr";
 
 export default function EmotionCard({
   emotion,

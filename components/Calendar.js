@@ -4,7 +4,6 @@ import styled from "styled-components";
 import CalendarPopup from "./CalendarPopup";
 import { weekdays } from "@/lib/calendarDaysMonths";
 import { months } from "@/lib/calendarDaysMonths";
-import useSWR from "swr";
 
 export default function Calendar({ emotions }) {
   const [currentDay, setCurrentDay] = useState(new Date());

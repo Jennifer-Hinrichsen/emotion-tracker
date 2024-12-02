@@ -18,7 +18,6 @@ export default function EditPage({ onUpdateEmotion }) {
 
   const existingEmotion = emotions.find((emotion) => emotion._id === id);
 
-  console.log("emotions", emotions);
   return (
     <>
       <Heading>Edit Emotion</Heading>

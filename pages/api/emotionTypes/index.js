@@ -13,10 +13,9 @@ export default async function handler(request, response) {
 
     if (request.method === "POST") {
       const inputData = request.body;
-      console.log("inputData", inputData);
 
-      await EmotionType.create(inputData);
-      response.json({ message: "Success!" });
+      const createdType = await EmotionType.create(inputData);
+      response.json({ message: "Success!", id: createdType._id });
       return;
     }
   } catch (error) {
@@ -25,3 +24,9 @@ export default async function handler(request, response) {
     return;
   }
 }
+
+function create(string) {
+  return string.toUpperCase();
+}
+
+const createString = create("Hallo");
