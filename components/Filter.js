@@ -60,18 +60,18 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {emotionTypes.map((emotion) => (
+            {emotionTypes.map((emotionType) => (
               <StyledTab
-                key={emotion._id}
+                key={emotionType._id}
                 onClick={() =>
                   setSelectedFilter(
-                    emotion.name === selectedFilter ? "" : emotion.name
+                    emotionType.name === selectedFilter ? "" : emotionType._id
                   )
                 }
-                $isSelected={emotion.name === selectedFilter}
-                $color={emotion.color}
+                $isSelected={emotionType._id === selectedFilter}
+                $color={emotionType.color}
               >
-                {emotion.name}
+                {emotionType.name}
               </StyledTab>
             ))}
           </StyledTabsBox>

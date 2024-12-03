@@ -43,15 +43,6 @@ export default function Calendar({ emotions }) {
     });
   };
 
-  const getColorByEmotionType = (emotionId) => {
-    const foundEmotion = emotions.find(
-      (emotion) => emotion.type.name === emotionId
-    );
-
-    console.log(foundEmotion);
-    return foundEmotion ? foundEmotion.type.color : "var(--color-background)";
-  };
-
   return (
     <StyledCalendarContainer>
       <StyledCalendarMonth>
@@ -80,7 +71,6 @@ export default function Calendar({ emotions }) {
           emotions={emotions}
           onDayClick={handleDayClick}
           getEmotionsForDay={getEmotionsForDay}
-          getColorByEmotionType={getColorByEmotionType}
         />
       </StyledCalendarBody>
       {selectedDay && (
@@ -88,7 +78,6 @@ export default function Calendar({ emotions }) {
           getEmotionsForDay={getEmotionsForDay}
           selectedDay={selectedDay}
           onClosePopup={handleClosePopup}
-          getColorByEmotionType={getColorByEmotionType}
         />
       )}
     </StyledCalendarContainer>

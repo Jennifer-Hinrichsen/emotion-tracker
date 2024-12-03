@@ -37,8 +37,10 @@ export default function HomePage({
 
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
-      ? emotion.type.name === selectedFilter
+      ? emotion.name === selectedFilter
       : true;
+
+    console.log(selectedFilter);
 
     const matchesSearchTerm = searchTerm
       ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())
