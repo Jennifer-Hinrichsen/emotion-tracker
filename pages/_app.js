@@ -13,10 +13,6 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [toasts, setToasts] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  // const [emotions, setEmotions] = useState([]);
-  // const [customEmotionTypes, setCustomEmotionTypes] = useState("emotionTypes", {
-  //   defaultValue: emotions,
-  // });
 
   useEffect(() => {
     setIsInitialLoad(false);

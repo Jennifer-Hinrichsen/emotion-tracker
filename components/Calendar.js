@@ -43,9 +43,13 @@ export default function Calendar({ emotions }) {
     });
   };
 
-  const getColorByEmotionType = (type) => {
-    const emotionCol = emotions.find((emotion) => emotion.type.name === type);
-    return emotionCol ? emotionCol.type.color : "var(--color-background)";
+  const getColorByEmotionType = (emotionId) => {
+    const foundEmotion = emotions.find(
+      (emotion) => emotion.type.name === emotionId
+    );
+
+    console.log(foundEmotion);
+    return foundEmotion ? foundEmotion.type.color : "var(--color-background)";
   };
 
   return (

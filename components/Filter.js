@@ -88,7 +88,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
       <StyledAppliedInfo>
         {selectedFilter ? (
           <>
-            #{selectedFilter}
+            {selectedFilter}
             <StyledClearFilter onClick={() => setSelectedFilter("")}>
               ×
             </StyledClearFilter>
