@@ -1,11 +1,11 @@
 import { useState } from "react";
 import EmotionForm from "@/components/EmotionForm";
-import SearchBar from "@/components/Searchbar/Searchbar";
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
+import SearchBar from "@/components/Searchbar";
 
 export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");

@@ -1,7 +1,7 @@
 import CreateEmotionTypeForm from "@/components/CreateEmotionTypeForm";
 import Heading from "@/components/Heading";
 
-export default function CreateEmotionType({ customEmotionTypes }) {
+export default function CreateEmotionType() {
   async function handleCreateEmotionType(data) {
     const response = await fetch("/api/emotionTypes", {
       method: "POST",
@@ -18,10 +18,7 @@ export default function CreateEmotionType({ customEmotionTypes }) {
   return (
     <>
       <Heading>Create Emotion Type</Heading>
-      <CreateEmotionTypeForm
-        customEmotionTypes={customEmotionTypes}
-        onSubmit={handleCreateEmotionType}
-      />
+      <CreateEmotionTypeForm onSubmit={handleCreateEmotionType} />
     </>
   );
 }
