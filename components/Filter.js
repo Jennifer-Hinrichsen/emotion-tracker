@@ -44,6 +44,10 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
     return <h1>Loading...</h1>;
   }
 
+  const selectedEmotionType = emotionTypes.find((emotionType) => {
+    return emotionType._id === selectedFilter;
+  });
+
   return (
     <>
       <StyledDivWrapper>
@@ -65,7 +69,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
                 key={emotionType._id}
                 onClick={() =>
                   setSelectedFilter(
-                    emotionType.name === selectedFilter ? "" : emotionType._id
+                    emotionType._id === selectedFilter ? "" : emotionType._id
                   )
                 }
                 $isSelected={emotionType._id === selectedFilter}
@@ -88,7 +92,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
       <StyledAppliedInfo>
         {selectedFilter ? (
           <>
-            {selectedFilter}
+            {selectedEmotionType.name}
             <StyledClearFilter onClick={() => setSelectedFilter("")}>
               ×
             </StyledClearFilter>

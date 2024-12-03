@@ -37,7 +37,7 @@ export default function HomePage({
 
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
-      ? emotion.name === selectedFilter
+      ? emotion.type._id === selectedFilter
       : true;
 
     console.log(selectedFilter);
