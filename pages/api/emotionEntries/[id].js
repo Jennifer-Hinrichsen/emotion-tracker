@@ -18,4 +18,11 @@ export default async function handler(request, response) {
       console.error("Error fetching emotion entry:", error);
       response.status(500).json({ status: "Server Error" });
     }
+
+  if (request.method === "DELETE") {
+    await EmotionEntry.findByIdAndDelete(id);
+    response
+      .status(200)
+      .json({ status: `EmotionEntry ${id} successfully deleted.` });
+  }
 }

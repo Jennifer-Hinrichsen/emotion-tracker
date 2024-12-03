@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 
 export default function EmotionDetailPage({
-  onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
   customEmotionTypes,
@@ -25,9 +24,13 @@ export default function EmotionDetailPage({
     return <h1>Error loading emotionEntries: {error.message}</h1>;
   }
 
-  function handleDelete() {
-    onDeleteEmotion(id);
-    router.push("/");
+  async function handleDelete() {
+    const response = await fetch(`/api/emotionEntries/${id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      router.push("/");
+    }
   }
 
   return (

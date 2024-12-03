@@ -74,12 +74,6 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully added!");
   }
 
-  function handleDeleteEmotion(id) {
-    setEmotions((prevEmotions) =>
-      prevEmotions.filter((emotion) => emotion._id !== id)
-    );
-  }
-
   function handleUpdateEmotion(updatedEmotion) {
     const updatedEmotions = emotions.map((emotion) =>
       emotion._id === updatedEmotion._id ? updatedEmotion : emotion
@@ -98,7 +92,6 @@ export default function App({ Component, pageProps }) {
         <SWRConfig value={{ fetcher }}>
           <Component
             onCreateEmotion={handleCreateEmotion}
-            onDeleteEmotion={handleDeleteEmotion}
             onUpdateEmotion={handleUpdateEmotion}
             myBookmarkedEmotions={myBookmarkedEmotions}
             onToggleBookmark={handleToggleBookmark}
