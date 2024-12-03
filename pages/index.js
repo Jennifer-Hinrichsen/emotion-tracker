@@ -7,11 +7,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
 
-export default function HomePage({
-  onCreateEmotion,
-  onToggleBookmark,
-  myBookmarkedEmotions,
-}) {
+export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
@@ -50,7 +46,7 @@ export default function HomePage({
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+      <EmotionForm emotions={emotions} />
 
       <Filter
         selectedFilter={selectedFilter}

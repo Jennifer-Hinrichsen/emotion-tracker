@@ -3,7 +3,7 @@ import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function EditPage({ onUpdateEmotion }) {
+export default function EditPage() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -23,10 +23,6 @@ export default function EditPage({ onUpdateEmotion }) {
       <Heading>Edit Emotion</Heading>
       <EmotionForm
         defaultValue={existingEmotion}
-        onSubmit={(data) => {
-          onUpdateEmotion({ ...data, id });
-          router.push(`/emotion/${id}`);
-        }}
         onCancel={() => {
           router.push(`/emotion/${id}`);
         }}

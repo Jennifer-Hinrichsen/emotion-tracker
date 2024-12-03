@@ -23,6 +23,12 @@ export default async function handler(request, response) {
     await EmotionEntry.findByIdAndDelete(id);
     response
       .status(200)
-      .json({ status: `EmotionEntry ${id} successfully deleted.` });
+      .json({ status: `Emotion ${id} successfully deleted.` });
+  }
+
+  if (request.method === "PUT") {
+    const emotionData = request.body;
+    await EmotionEntry.findByIdAndUpdate(id, emotionData);
+    return response.status(200).json({ status: `Emotion ${id} updated!` });
   }
 }

@@ -4,19 +4,13 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { SWRConfig } from "swr";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter();
   const [toasts, setToasts] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  // const [emotions, setEmotions] = useState([]);
-  // const [customEmotionTypes, setCustomEmotionTypes] = useState("emotionTypes", {
-  //   defaultValue: emotions,
-  // });
 
   useEffect(() => {
     setIsInitialLoad(false);
@@ -65,34 +59,12 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  function handleCreateEmotion(newEmotion) {
-    setEmotions((prevEmotions) =>
-      [{ id: uuidv4(), ...newEmotion }, ...prevEmotions].sort(
-        (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
-      )
-    );
-    showToastMessage("Successfully added!");
-  }
-
-  function handleUpdateEmotion(updatedEmotion) {
-    const updatedEmotions = emotions.map((emotion) =>
-      emotion._id === updatedEmotion._id ? updatedEmotion : emotion
-    );
-    const sortedEmotions = updatedEmotions.sort(
-      (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
-    );
-    setEmotions(sortedEmotions);
-    showToastMessage("Successfully edited!");
-  }
-
   return (
     <>
       <GlobalStyle />
       <Layout>
         <SWRConfig value={{ fetcher }}>
           <Component
-            onCreateEmotion={handleCreateEmotion}
-            onUpdateEmotion={handleUpdateEmotion}
             myBookmarkedEmotions={myBookmarkedEmotions}
             onToggleBookmark={handleToggleBookmark}
             {...pageProps}

@@ -10,8 +10,12 @@ import useSWR from "swr";
 import { format } from "date-fns";
 
 export default function EmotionForm({ defaultValue, onCancel, emotions }) {
+  const router = useRouter();
+  const { id } = router.query;
+
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
   const { mutate } = useSWR("/api/emotionEntries");
+  const { data: inputData } = useSWR(`/api/emotionEntries/${id}`);
 
   const currentDate = format(new Date(), "yyyy-MM-dd");
   const currentTime = format(new Date(), "HH:mm");
@@ -19,13 +23,11 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.type._id || null
+    defaultValue?.type?._id || null
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-
-  const router = useRouter();
 
   useEffect(() => {
     if (router.isReady) {
@@ -40,7 +42,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
-
     if (event.target.value) {
       setFormError("");
     }
@@ -52,7 +53,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
     inputData.intensity = selectedIntensity;
@@ -62,13 +62,25 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
       return;
     }
 
-    const response = await fetch("/api/emotionEntries", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(inputData),
-    });
+    let response;
+    if (id) {
+      response = await fetch(`/api/emotionEntries/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputData),
+      });
+      router.push(`/emotion/${id}`);
+    } else {
+      response = await fetch("/api/emotionEntries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputData),
+      });
+    }
 
     if (response.ok) {
       mutate();
@@ -95,7 +107,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
             </StyledVisibilityIcons>
           )}
         </StyledFormHead>
-
         <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
           <label htmlFor="type">Emotion (type)*</label>
           <SelectEmotionContainer>
@@ -106,7 +117,7 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {emotionTypes.map((emotion) => (
+              {emotionTypes?.map((emotion) => (
                 <option key={emotion._id} value={emotion._id}>
                   {emotion.name}
                 </option>
@@ -130,7 +141,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
             emotions={emotions}
             emotionTypes={emotionTypes}
           />
-
           <StyledLabelNoPadding htmlFor="date-time">
             Date and Time*
           </StyledLabelNoPadding>
@@ -142,7 +152,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
               defaultValue?.dateTime || currentDate + "T" + currentTime
             }
           />
-
           <label htmlFor="notes">Notes</label>
           <StyledTextArea
             id="notes"
@@ -151,7 +160,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
             placeholder="Please describe your feelings"
             maxLength="150"
           ></StyledTextArea>
-
           <ButtonContainer>
             {defaultValue && (
               <StyledCancelButton type="button" onClick={onCancel}>
