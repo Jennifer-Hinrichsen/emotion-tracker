@@ -6,23 +6,20 @@ import MinusIcon from "@/assets/formIcons/MinusIcon.svg";
 import MoodPlusIcon from "@/assets/formIcons/MoodPlusIcon.svg";
 import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
+import useSWR from "swr";
+import { format } from "date-fns";
 
-export default function EmotionForm({
-  onSubmit,
-  defaultValue,
-  onCancel,
-  customEmotionTypes,
-}) {
-  const currentDateTime = new Date(
-    new Date().getTime() - new Date().getTimezoneOffset() * 60000
-  )
-    .toISOString()
-    .slice(0, 16);
+export default function EmotionForm({ defaultValue, onCancel, emotions }) {
+  const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
+  const { mutate } = useSWR("/api/emotionEntries");
+
+  const currentDate = format(new Date(), "yyyy-MM-dd");
+  const currentTime = format(new Date(), "HH:mm");
 
   const [formVisibility, setFormVisibility] = useState(!!defaultValue);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.emotionType || ""
+    defaultValue?.type._id || null
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
@@ -43,33 +40,46 @@ export default function EmotionForm({
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
+
+    if (event.target.value) {
+      setFormError("");
+    }
   }
 
   function toggleVisibilityForm() {
     setFormVisibility(!formVisibility);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
     inputData.intensity = selectedIntensity;
 
-    if (!inputData.emotionType) {
-      setFormError("Please choose an emotion.");
+    if (!inputData.type) {
+      setFormError("Please choose an emotion type.");
       return;
     }
 
-    if (!inputData.dateTime) {
-      setFormError("Please select a date and time.");
-      return;
-    }
+    const response = await fetch("/api/emotionEntries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputData),
+    });
 
-    onSubmit(inputData);
-    event.target.reset();
-    setSelectedEmotionType("");
-    setFormError("");
+    if (response.ok) {
+      mutate();
+      event.target.reset();
+      setSelectedEmotionType("");
+      setFormError("");
+    }
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
   return (
@@ -87,18 +97,18 @@ export default function EmotionForm({
         </StyledFormHead>
 
         <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
-          <label htmlFor="emotionType">Emotion (type)*</label>
+          <label htmlFor="type">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
               value={selectedEmotionType}
-              id="emotionType"
-              name="emotionType"
+              id="type"
+              name="type"
               onChange={handleChangeEmotionType}
             >
               <option value="">---Choose an Emotion---</option>
-              {customEmotionTypes.map((emotion) => (
-                <option key={emotion.id} value={emotion.emotionType}>
-                  {emotion.emotionType}
+              {emotionTypes.map((emotion) => (
+                <option key={emotion._id} value={emotion._id}>
+                  {emotion.name}
                 </option>
               ))}
             </StyledSelectEmotion>
@@ -114,10 +124,11 @@ export default function EmotionForm({
           )}
           <label htmlFor="intensity">Emotion intensity*</label>
           <SliderIntensity
-            emotionType={selectedEmotionType}
+            selectedEmotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
-            customEmotionTypes={customEmotionTypes}
+            emotions={emotions}
+            emotionTypes={emotionTypes}
           />
 
           <StyledLabelNoPadding htmlFor="date-time">
@@ -127,7 +138,9 @@ export default function EmotionForm({
             id="date-time"
             name="dateTime"
             type="datetime-local"
-            defaultValue={defaultValue?.dateTime || currentDateTime}
+            defaultValue={
+              defaultValue?.dateTime || currentDate + "T" + currentTime
+            }
           />
 
           <label htmlFor="notes">Notes</label>

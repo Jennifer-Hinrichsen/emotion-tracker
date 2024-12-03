@@ -5,9 +5,10 @@ export default function EmotionList({
   emotions,
   onToggleBookmark,
   myBookmarkedEmotions,
-  customEmotionTypes,
   searchTerm,
 }) {
+  emotions.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
   return (
     <>
       {emotions.length === 0 ? (
@@ -15,12 +16,11 @@ export default function EmotionList({
       ) : (
         <StyledList>
           {emotions.map((emotion) => (
-            <StyledCardList key={emotion.id}>
+            <StyledCardList key={emotion._id}>
               <EmotionCard
                 emotion={emotion}
                 onToggleBookmark={onToggleBookmark}
-                isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
-                customEmotionTypes={customEmotionTypes}
+                isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
                 intensity={emotion.intensity}
                 searchTerm={searchTerm}
               />

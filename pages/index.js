@@ -5,14 +5,15 @@ import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
+import useSWR from "swr";
 
 export default function HomePage({
-  emotions,
   onCreateEmotion,
   onToggleBookmark,
   myBookmarkedEmotions,
-  customEmotionTypes,
 }) {
+  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",
   });
@@ -25,10 +26,21 @@ export default function HomePage({
   const handleClearSearch = () => {
     setSearchTerm("");
   };
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Error loading emotionEntries: {error}</h1>;
+  }
+
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
-      ? emotion.emotionType === selectedFilter
+      ? emotion.type._id === selectedFilter
       : true;
+
+    console.log(selectedFilter);
 
     const matchesSearchTerm = searchTerm
       ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())
@@ -40,15 +52,11 @@ export default function HomePage({
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <EmotionForm
-        onSubmit={onCreateEmotion}
-        customEmotionTypes={customEmotionTypes}
-      />
+      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+
       <Filter
-        emotions={emotions}
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
-        customEmotionTypes={customEmotionTypes}
       />
       <SearchBar
         searchTerm={searchTerm}
@@ -59,7 +67,6 @@ export default function HomePage({
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
-        customEmotionTypes={customEmotionTypes}
         searchTerm={searchTerm}
       />
     </>

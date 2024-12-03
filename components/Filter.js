@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import useScreenSize from "../lib/hooks/useScreenSize";
+import useSWR from "swr";
 
-export default function Filter({
-  selectedFilter,
-  setSelectedFilter,
-  customEmotionTypes,
-}) {
+export default function Filter({ selectedFilter, setSelectedFilter }) {
+  const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
+
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -41,9 +40,13 @@ export default function Filter({
     }
   }, [screenSize.width]);
 
-  const filteredEmotionTypes = customEmotionTypes.filter(
-    (customEmotionType) => customEmotionType.emotionType
-  );
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  const selectedEmotionType = emotionTypes.find((emotionType) => {
+    return emotionType._id === selectedFilter;
+  });
 
   return (
     <>
@@ -61,20 +64,18 @@ export default function Filter({
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {filteredEmotionTypes.map((emotion) => (
+            {emotionTypes.map((emotionType) => (
               <StyledTab
-                key={emotion.id}
+                key={emotionType._id}
                 onClick={() =>
                   setSelectedFilter(
-                    emotion.emotionType === selectedFilter
-                      ? ""
-                      : emotion.emotionType
+                    emotionType._id === selectedFilter ? "" : emotionType._id
                   )
                 }
-                $isSelected={emotion.emotionType === selectedFilter}
-                $color={emotion.color}
+                $isSelected={emotionType._id === selectedFilter}
+                $color={emotionType.color}
               >
-                {emotion.emotionType}
+                {emotionType.name}
               </StyledTab>
             ))}
           </StyledTabsBox>
@@ -91,7 +92,7 @@ export default function Filter({
       <StyledAppliedInfo>
         {selectedFilter ? (
           <>
-            #{selectedFilter}
+            {selectedEmotionType.name}
             <StyledClearFilter onClick={() => setSelectedFilter("")}>
               ×
             </StyledClearFilter>

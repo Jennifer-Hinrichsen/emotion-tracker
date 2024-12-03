@@ -4,7 +4,7 @@ const ToastMessageContainer = ({ messages }) => (
   <div>
     {messages.map((message) => (
       <ToastMessage
-        key={message.id}
+        key={message._id}
         message={message.text}
         visible={message.visible}
       />

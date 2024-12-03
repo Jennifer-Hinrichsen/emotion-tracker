@@ -2,7 +2,6 @@ import { useState } from "react";
 import CalendarDays from "./CalendarDays";
 import styled from "styled-components";
 import CalendarPopup from "./CalendarPopup";
-import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { weekdays } from "@/lib/calendarDaysMonths";
 import { months } from "@/lib/calendarDaysMonths";
 
@@ -37,17 +36,11 @@ export default function Calendar({ emotions }) {
   };
 
   const getEmotionsForDay = (date) => {
-    return emotions.filter(($emotion) => {
-      const emotionDate = new Date($emotion.dateTime);
+    return emotions.filter((emotion) => {
+      const emotionDate = new Date(emotion.dateTime);
+
       return emotionDate.toDateString() === date.toDateString();
     });
-  };
-
-  const getColorByEmotionType = (type) => {
-    const $emotion = initialEmotionTypes.find(
-      (emotion) => emotion.emotionType === type
-    );
-    return $emotion ? $emotion.color : "var(--color-background)";
   };
 
   return (
@@ -78,7 +71,6 @@ export default function Calendar({ emotions }) {
           emotions={emotions}
           onDayClick={handleDayClick}
           getEmotionsForDay={getEmotionsForDay}
-          getColorByEmotionType={getColorByEmotionType}
         />
       </StyledCalendarBody>
       {selectedDay && (
@@ -86,7 +78,6 @@ export default function Calendar({ emotions }) {
           getEmotionsForDay={getEmotionsForDay}
           selectedDay={selectedDay}
           onClosePopup={handleClosePopup}
-          getColorByEmotionType={getColorByEmotionType}
         />
       )}
     </StyledCalendarContainer>

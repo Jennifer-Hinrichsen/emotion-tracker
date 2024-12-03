@@ -1,30 +1,26 @@
 import GlobalStyle from "../styles";
-import { initialEmotionEntries } from "@/lib/initialEmotionEntries";
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import ToastMessage from "@/components/ToastMessage";
 import { useState, useEffect } from "react";
-import { initialEmotionTypes } from "@/lib/initialEmotionTypes";
 import { useRouter } from "next/router";
+import { SWRConfig } from "swr";
+
+const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-
-  const [emotions, setEmotions] = useLocalStorageState("emotions", {
-    defaultValue: initialEmotionEntries,
-  });
   const [toasts, setToasts] = useState([]);
-
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   useEffect(() => {
     setIsInitialLoad(false);
   }, []);
-
-  const [customEmotionTypes, setCustomEmotionTypes] = useLocalStorageState(
-    "emotionTypes",
+  const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
+    "myBookmarkedEmotions",
     {
-      defaultValue: initialEmotionTypes,
+      defaultValue: [""],
     }
   );
 
@@ -57,13 +53,6 @@ export default function App({ Component, pageProps }) {
     }, 3300);
   }
 
-  const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
-    "myBookmarkedEmotions",
-    {
-      defaultValue: [""],
-    }
-  );
-
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
       prevBookmarks.includes(id)
@@ -80,15 +69,16 @@ export default function App({ Component, pageProps }) {
     );
     showToastMessage("Successfully added!");
   }
+
   function handleDeleteEmotion(id) {
     setEmotions((prevEmotions) =>
-      prevEmotions.filter((emotion) => emotion.id !== id)
+      prevEmotions.filter((emotion) => emotion._id !== id)
     );
   }
 
   function handleUpdateEmotion(updatedEmotion) {
     const updatedEmotions = emotions.map((emotion) =>
-      emotion.id === updatedEmotion.id ? updatedEmotion : emotion
+      emotion._id === updatedEmotion._id ? updatedEmotion : emotion
     );
     const sortedEmotions = updatedEmotions.sort(
       (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
@@ -97,44 +87,27 @@ export default function App({ Component, pageProps }) {
     showToastMessage("Successfully edited!");
   }
 
-  function handleCreateEmotionType(newEmotionType) {
-    const emotionWithId = {
-      id: uuidv4(),
-      ...newEmotionType,
-    };
-    setCustomEmotionTypes((prevTypes) => [...prevTypes, emotionWithId]);
-    showToastMessage("Successfully added!");
-    router.push({
-      pathname: "/",
-      query: {
-        showForm: "true",
-        selectedEmotionType: newEmotionType.emotionType,
-      },
-    });
-  }
-
   return (
     <>
       <GlobalStyle />
       <Layout>
-        <Component
-          emotions={emotions}
-          onCreateEmotion={handleCreateEmotion}
-          onDeleteEmotion={handleDeleteEmotion}
-          onUpdateEmotion={handleUpdateEmotion}
-          myBookmarkedEmotions={myBookmarkedEmotions}
-          onToggleBookmark={handleToggleBookmark}
-          onCreateEmotionType={handleCreateEmotionType}
-          customEmotionTypes={customEmotionTypes}
-          {...pageProps}
-        />
-        {toasts.map((toast) => (
-          <ToastMessage
-            key={toast.id}
-            message={toast.message}
-            visible={toast.visible}
+        <SWRConfig value={{ fetcher }}>
+          <Component
+            onCreateEmotion={handleCreateEmotion}
+            onDeleteEmotion={handleDeleteEmotion}
+            onUpdateEmotion={handleUpdateEmotion}
+            myBookmarkedEmotions={myBookmarkedEmotions}
+            onToggleBookmark={handleToggleBookmark}
+            {...pageProps}
           />
-        ))}
+          {toasts.map((toast) => (
+            <ToastMessage
+              key={toast._id}
+              message={toast.message}
+              visible={toast.visible}
+            />
+          ))}
+        </SWRConfig>
       </Layout>
     </>
   );

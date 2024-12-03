@@ -9,7 +9,6 @@ export default function EmotionDetails({
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
-  customEmotionTypes,
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -18,7 +17,7 @@ export default function EmotionDetails({
   }
 
   function handleDelete() {
-    onDeleteEmotion(emotion.id);
+    onDeleteEmotion(emotion._id);
     toggleDeleteDialog();
   }
 
@@ -32,11 +31,12 @@ export default function EmotionDetails({
       <EmotionCard
         emotion={emotion}
         onToggleBookmark={onToggleBookmark}
-        isBookmarked={myBookmarkedEmotions.includes(emotion.id)}
+        isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
         isDetailsPage={true}
-        customEmotionTypes={customEmotionTypes}
       />
-      <StyledEditLink href={`/emotion/${emotion.id}/edit`}>Edit</StyledEditLink>
+      <StyledEditLink href={`/emotion/${emotion._id}/edit`}>
+        Edit
+      </StyledEditLink>
 
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
