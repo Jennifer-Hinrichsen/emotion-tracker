@@ -33,8 +33,10 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
 
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
-      ? emotion.type.name === selectedFilter
+      ? emotion.type._id === selectedFilter
       : true;
+
+    console.log(selectedFilter);
 
     const matchesSearchTerm = searchTerm
       ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())

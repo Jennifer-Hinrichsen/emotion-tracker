@@ -44,6 +44,10 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
     return <h1>Loading...</h1>;
   }
 
+  const selectedEmotionType = emotionTypes.find((emotionType) => {
+    return emotionType._id === selectedFilter;
+  });
+
   return (
     <>
       <StyledDivWrapper>
@@ -60,18 +64,18 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
           >
-            {emotionTypes.map((emotion) => (
+            {emotionTypes.map((emotionType) => (
               <StyledTab
-                key={emotion._id}
+                key={emotionType._id}
                 onClick={() =>
                   setSelectedFilter(
-                    emotion.name === selectedFilter ? "" : emotion.name
+                    emotionType._id === selectedFilter ? "" : emotionType._id
                   )
                 }
-                $isSelected={emotion.name === selectedFilter}
-                $color={emotion.color}
+                $isSelected={emotionType._id === selectedFilter}
+                $color={emotionType.color}
               >
-                {emotion.name}
+                {emotionType.name}
               </StyledTab>
             ))}
           </StyledTabsBox>
@@ -88,7 +92,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
       <StyledAppliedInfo>
         {selectedFilter ? (
           <>
-            #{selectedFilter}
+            {selectedEmotionType.name}
             <StyledClearFilter onClick={() => setSelectedFilter("")}>
               ×
             </StyledClearFilter>

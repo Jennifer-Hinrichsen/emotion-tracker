@@ -145,7 +145,6 @@ const StyledEmotionForm = styled.form`
 const StyledTextArea = styled.textarea`
   padding: 0;
   height: 36px;
-  max-height: 300px;
   line-height: 1.5;
   max-width: 100%;
   min-width: 100%;

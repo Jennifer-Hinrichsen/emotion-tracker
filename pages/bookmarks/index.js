@@ -6,7 +6,6 @@ import useSWR from "swr";
 export default function BookmarksPage({
   myBookmarkedEmotions,
   onToggleBookmark,
-  customEmotionTypes,
 }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
 
@@ -29,7 +28,6 @@ export default function BookmarksPage({
         {bookmarkedEmotions.length > 0 ? (
           bookmarkedEmotions.map((emotion) => (
             <EmotionCard
-              customEmotionTypes={customEmotionTypes}
               key={emotion._id}
               emotion={emotion}
               onToggleBookmark={onToggleBookmark}
