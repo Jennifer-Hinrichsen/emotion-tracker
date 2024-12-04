@@ -5,7 +5,6 @@ export default function SliderIntensity({
   selectedEmotionType,
   defaultIntensity,
   onChange,
-  emotions,
   emotionTypes,
 }) {
   const [newValue, setNewValue] = useState(defaultIntensity || 1);

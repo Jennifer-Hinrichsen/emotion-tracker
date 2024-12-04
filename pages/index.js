@@ -7,11 +7,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
 
-export default function HomePage({
-  onCreateEmotion,
-  onToggleBookmark,
-  myBookmarkedEmotions,
-}) {
+export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
@@ -27,20 +23,36 @@ export default function HomePage({
     setSearchTerm("");
   };
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+  async function onCreateEmotion(newEmotion) {
+    const response = await fetch("/api//api/emotionEntries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEmotion),
+    });
+
+    if (response.ok) {
+      mutate();
+    }
   }
 
-  if (error) {
-    return <h1>Error loading emotionEntries: {error}</h1>;
-  }
+  if (isLoading) return null;
+
+  // if (isLoading) {
+  //   return <h1>Loading...</h1>;
+  // }
+
+  // if (error) {
+  //   return <h1>Error loading emotionEntries: {error}</h1>;
+  // }
 
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.type._id === selectedFilter
       : true;
 
-    console.log(selectedFilter);
+    // console.log(selectedFilter);
 
     const matchesSearchTerm = searchTerm
       ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())

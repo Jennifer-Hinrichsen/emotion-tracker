@@ -9,21 +9,28 @@ import SliderIntensity from "./SliderIntensity";
 import useSWR from "swr";
 import { format } from "date-fns";
 
-export default function EmotionForm({ defaultValue, onCancel, emotions }) {
+export default function EmotionForm({
+  defaultValue,
+  onCancel,
+  onSubmit,
+  editMode = false,
+}) {
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
   const { mutate } = useSWR("/api/emotionEntries");
 
   const currentDate = format(new Date(), "yyyy-MM-dd");
   const currentTime = format(new Date(), "HH:mm");
 
-  const [formVisibility, setFormVisibility] = useState(!!defaultValue);
+  const [formVisibility, setFormVisibility] = useState(!!editMode);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.type._id || null
+    defaultValue?.type.name || undefined
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
+  console.log("defaultValue", defaultValue);
+  // console.log("defaultValue.type", defaultValue.type.name);
 
   const router = useRouter();
 
@@ -72,11 +79,13 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
 
     if (response.ok) {
       mutate();
-      event.target.reset();
+      await onSubmit(inputData);
       setSelectedEmotionType("");
       setFormError("");
+      event.target.reset();
     }
   }
+  console.log("selectedEmotionType", selectedEmotionType);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -87,9 +96,9 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
       <StyledFormContainer>
         <StyledFormHead onClick={toggleVisibilityForm}>
           <StyledSubheadline>
-            {defaultValue ? "Update your Emotion" : "Add your Emotion"}
+            {editMode ? "Update your Emotion" : "Add your Emotion"}
           </StyledSubheadline>
-          {!defaultValue && (
+          {!editMode && (
             <StyledVisibilityIcons aria-label="show-hide-form">
               {formVisibility ? <MinusIcon /> : <PlusIcon />}
             </StyledVisibilityIcons>
@@ -100,7 +109,8 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
           <label htmlFor="type">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              value={selectedEmotionType}
+              // value={selectedEmotionType}
+              defaultValue={defaultValue?.type.name || ""}
               id="type"
               name="type"
               onChange={handleChangeEmotionType}
@@ -114,7 +124,7 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
             </StyledSelectEmotion>
             <StyledArrow>▼</StyledArrow>
           </SelectEmotionContainer>
-          {!defaultValue && (
+          {!editMode && (
             <StyledCreateEmotionLink
               href="/createemotiontype"
               aria-label="Create a new emotion type"
@@ -127,7 +137,6 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
             selectedEmotionType={selectedEmotionType}
             defaultIntensity={selectedIntensity}
             onChange={(intensity) => setSelectedIntensity(intensity)}
-            emotions={emotions}
             emotionTypes={emotionTypes}
           />
 
@@ -153,13 +162,13 @@ export default function EmotionForm({ defaultValue, onCancel, emotions }) {
           ></StyledTextArea>
 
           <ButtonContainer>
-            {defaultValue && (
+            {editMode && (
               <StyledCancelButton type="button" onClick={onCancel}>
                 Cancel
               </StyledCancelButton>
             )}
             <StyledButton type="submit">
-              {defaultValue ? "Save" : "Submit"}
+              {editMode ? "Save" : "Submit"}
             </StyledButton>
           </ButtonContainer>
           {formError && <StyledError>{formError}</StyledError>}
