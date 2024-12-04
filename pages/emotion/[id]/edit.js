@@ -20,8 +20,6 @@ export default function EditPage() {
     return <h1>Error loading emotionEntry: {error.message}</h1>;
   }
 
-  // const existingEmotion = emotions.find((emotion) => emotion._id === id);
-
   async function handleEdit(inputData) {
     const response = await fetch(`/api/emotionEntries/${id}`, {
       method: "PUT",
@@ -36,8 +34,6 @@ export default function EditPage() {
       router.push(`/emotion/${id}`);
     }
   }
-
-  // if (isLoading || !router.isReady) return null;
 
   return (
     <>

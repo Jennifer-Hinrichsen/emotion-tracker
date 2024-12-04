@@ -8,7 +8,7 @@ import Heading from "@/components/Heading";
 import useSWR from "swr";
 
 export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
-  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+  const { data: emotions, isLoading } = useSWR("/api/emotionEntries");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",

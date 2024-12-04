@@ -24,7 +24,7 @@ export default function EmotionForm({
   const [formVisibility, setFormVisibility] = useState(!!editMode);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.type.name || undefined
+    defaultValue?.type?._id || undefined
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
@@ -109,8 +109,7 @@ export default function EmotionForm({
           <label htmlFor="type">Emotion (type)*</label>
           <SelectEmotionContainer>
             <StyledSelectEmotion
-              // value={selectedEmotionType}
-              defaultValue={defaultValue?.type.name || ""}
+              value={selectedEmotionType}
               id="type"
               name="type"
               onChange={handleChangeEmotionType}
