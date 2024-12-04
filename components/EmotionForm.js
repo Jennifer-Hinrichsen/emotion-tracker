@@ -15,8 +15,8 @@ export default function EmotionForm({
   onSubmit,
   editMode = false,
 }) {
+  const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
-  const { mutate } = useSWR("/api/emotionEntries");
 
   const currentDate = format(new Date(), "yyyy-MM-dd");
   const currentTime = format(new Date(), "HH:mm");
@@ -29,8 +29,6 @@ export default function EmotionForm({
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-
-  const router = useRouter();
 
   useEffect(() => {
     if (router.isReady) {
@@ -60,6 +58,7 @@ export default function EmotionForm({
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
+
     inputData.intensity = selectedIntensity;
 
     if (!inputData.type) {
@@ -67,21 +66,8 @@ export default function EmotionForm({
       return;
     }
 
-    const response = await fetch("/api/emotionEntries", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(inputData),
-    });
-
-    if (response.ok) {
-      mutate();
-      await onSubmit(inputData);
-      setSelectedEmotionType("");
-      setFormError("");
-      event.target.reset();
-    }
+    await onSubmit(inputData);
+    event.target.reset();
   }
 
   if (isLoading) {

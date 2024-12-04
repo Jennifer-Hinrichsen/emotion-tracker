@@ -8,7 +8,7 @@ import Heading from "@/components/Heading";
 import useSWR from "swr";
 
 export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
-  const { data: emotions, isLoading } = useSWR("/api/emotionEntries");
+  const { data: emotions, isLoading, mutate } = useSWR("/api/emotionEntries");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",
@@ -23,8 +23,8 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
     setSearchTerm("");
   };
 
-  async function onCreateEmotion(newEmotion) {
-    const response = await fetch("/api//api/emotionEntries", {
+  async function handleAddEmotion(newEmotion) {
+    const response = await fetch("/api/emotionEntries", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+      <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
       <Filter
         selectedFilter={selectedFilter}

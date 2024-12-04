@@ -5,7 +5,7 @@ import CalendarPopup from "./CalendarPopup";
 import { weekdays } from "@/lib/calendarDaysMonths";
 import { months } from "@/lib/calendarDaysMonths";
 
-export default function Calendar() {
+export default function Calendar({ emotions }) {
   const [currentDay, setCurrentDay] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -70,6 +70,7 @@ export default function Calendar() {
           changeCurrentDay={changeCurrentDay}
           onDayClick={handleDayClick}
           getEmotionsForDay={getEmotionsForDay}
+          emotions={emotions}
         />
       </StyledCalendarBody>
       {selectedDay && (
