@@ -1,6 +1,5 @@
 import Calendar from "@/components/Calendar";
 import Heading from "@/components/Heading";
-
 import useSWR from "swr";
 
 export default function CalendarPage() {

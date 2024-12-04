@@ -28,7 +28,6 @@ export default function EditPage() {
       },
       body: JSON.stringify(inputData),
     });
-    console.log("inputData", inputData);
 
     if (response.ok) {
       router.push(`/emotion/${id}`);

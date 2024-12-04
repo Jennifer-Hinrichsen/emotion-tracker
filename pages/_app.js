@@ -1,7 +1,6 @@
 import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
-import ToastMessage from "@/components/ToastMessage";
 import { SWRConfig } from "swr";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());

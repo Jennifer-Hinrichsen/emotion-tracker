@@ -39,20 +39,10 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
 
   if (isLoading) return null;
 
-  // if (isLoading) {
-  //   return <h1>Loading...</h1>;
-  // }
-
-  // if (error) {
-  //   return <h1>Error loading emotionEntries: {error}</h1>;
-  // }
-
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.type._id === selectedFilter
       : true;
-
-    // console.log(selectedFilter);
 
     const matchesSearchTerm = searchTerm
       ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())

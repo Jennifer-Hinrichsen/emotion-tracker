@@ -32,29 +32,9 @@ export default function EmotionList({
   );
 }
 
-const StyledHeadline = styled.h2`
-  text-align: center;
-`;
-
 const StyledList = styled.ul`
   margin-bottom: 48px;
   padding: 0 1rem;
-`;
-
-const StyledFilterList = styled.li`
-  display: inline-flex;
-  list-style-type: none;
-`;
-
-const StyledFilterButtons = styled.button`
-  margin: 5px;
-  border-radius: 15px;
-  border-color: white;
-  min-width: 100px;
-  height: 40px;
-  font-weight: ${({ $isSelected }) => ($isSelected ? "bold" : "normal")};
-  text-decoration: ${({ $isSelected }) => ($isSelected ? "underline" : "none")};
-  background-color: ${({ $isSelected }) => ($isSelected ? "#ddd" : "#f0f0f0")};
 `;
 
 const StyledMessage = styled.p`

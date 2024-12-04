@@ -29,8 +29,6 @@ export default function EmotionForm({
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-  console.log("defaultValue", defaultValue);
-  // console.log("defaultValue.type", defaultValue.type.name);
 
   const router = useRouter();
 
@@ -85,7 +83,6 @@ export default function EmotionForm({
       event.target.reset();
     }
   }
-  console.log("selectedEmotionType", selectedEmotionType);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
