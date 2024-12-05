@@ -37,6 +37,12 @@ export default function Navigation() {
           My Calendar
         </IconWrapper>
       </StyledLink>
+      {/* <StyledLink href="/statistics">
+        <IconWrapper $isActive={isActive("/statistics")}>
+          <StyledCalendarIcon src="/calendar-month.svg" alt="statistics Icon" />
+          My Statistics
+        </IconWrapper>
+      </StyledLink> */}
     </StyledNavigationBar>
   );
 }
@@ -89,7 +95,8 @@ const LogoCanvas = styled.div`
   gap: 1px;
   background-color: ${(props) =>
     props.$isActive
-      ? "var(--color-home-icon-background-active)"
+      ? // ? "var(--color-home-icon-background-active)"
+        "var(--color-home-nav-background-active)"
       : "var(--color-highlighted-background)"};
   color: ${(props) =>
     props.$isActive
