@@ -2,9 +2,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
-import MoodwaveLogo from "assets/moodwave-logo.svg";
+import MoodwaveLogo from "assets/navigationIcon/moodwave-logo.svg";
 import CalendarIcon from "assets/calendarIcons/calendar-month.svg";
-import StatisticIcon from "assets/statisticIcons/statistic-icon.svg";
+import StatisticIcon from "assets/statisticIcon/statistic-icon.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
@@ -208,7 +208,7 @@ const StyledHomeText = styled.span`
 
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
-  height: 28px;
+  height: 22px;
   fill: "var(--color-secondary)";
 
   body.dark-theme & {

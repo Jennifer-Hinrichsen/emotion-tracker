@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import SunTheme from "assets/SunTheme.svg";
-import MoonTheme from "assets/MoonTheme.svg";
+import SunTheme from "assets/darkModeIcons/SunTheme.svg";
+import MoonTheme from "assets/darkModeIcons/MoonTheme.svg";
 import styled from "styled-components";
 
 export default function ThemeToggle() {
