@@ -68,9 +68,9 @@ export default function Calendar({ emotions }) {
         <CalendarDays
           day={currentDay}
           changeCurrentDay={changeCurrentDay}
-          emotions={emotions}
           onDayClick={handleDayClick}
           getEmotionsForDay={getEmotionsForDay}
+          emotions={emotions}
         />
       </StyledCalendarBody>
       {selectedDay && (

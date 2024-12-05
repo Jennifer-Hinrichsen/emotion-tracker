@@ -7,12 +7,8 @@ import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
 
-export default function HomePage({
-  onCreateEmotion,
-  onToggleBookmark,
-  myBookmarkedEmotions,
-}) {
-  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
+  const { data: emotions, isLoading, mutate } = useSWR("/api/emotionEntries");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
     defaultValue: "",
@@ -27,20 +23,26 @@ export default function HomePage({
     setSearchTerm("");
   };
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+  async function handleAddEmotion(newEmotion) {
+    const response = await fetch("/api/emotionEntries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEmotion),
+    });
+
+    if (response.ok) {
+      mutate();
+    }
   }
 
-  if (error) {
-    return <h1>Error loading emotionEntries: {error}</h1>;
-  }
+  if (isLoading) return null;
 
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.type._id === selectedFilter
       : true;
-
-    console.log(selectedFilter);
 
     const matchesSearchTerm = searchTerm
       ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())
@@ -52,7 +54,7 @@ export default function HomePage({
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <EmotionForm emotions={emotions} onSubmit={onCreateEmotion} />
+      <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
       <Filter
         selectedFilter={selectedFilter}

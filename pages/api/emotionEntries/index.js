@@ -16,12 +16,11 @@ export default async function handler(request, response) {
       const inputData = request.body;
       await EmotionEntry.create(inputData);
       response.json({ message: "Success!" });
-
       return;
     }
   } catch (error) {
     console.log(error);
-    response.status(500).json({ message: "Internal Server error" });
+    response.status(500).json({ message: "Internal Server error test" });
     return;
   }
 }

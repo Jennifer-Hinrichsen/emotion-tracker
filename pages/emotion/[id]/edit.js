@@ -3,34 +3,47 @@ import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function EditPage({ onUpdateEmotion }) {
+export default function EditPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+  const {
+    data: emotion,
+    error,
+    isLoading,
+  } = useSWR(`/api/emotionEntries/${id}`);
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (error || !emotions) {
-    return <h1>Error loading emotionEntries: {error.message}</h1>;
+  if (error || !emotion) {
+    return <h1>Error loading emotionEntry: {error.message}</h1>;
   }
 
-  const existingEmotion = emotions.find((emotion) => emotion._id === id);
+  async function handleEdit(inputData) {
+    const response = await fetch(`/api/emotionEntries/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputData),
+    });
+
+    if (response.ok) {
+      router.push(`/emotion/${id}`);
+    }
+  }
 
   return (
     <>
       <Heading>Edit Emotion</Heading>
       <EmotionForm
-        defaultValue={existingEmotion}
-        onSubmit={(data) => {
-          onUpdateEmotion({ ...data, id });
-          router.push(`/emotion/${id}`);
-        }}
+        defaultValue={emotion}
+        onSubmit={handleEdit}
         onCancel={() => {
           router.push(`/emotion/${id}`);
         }}
-        emotions={emotions}
+        editMode
       />
     </>
   );

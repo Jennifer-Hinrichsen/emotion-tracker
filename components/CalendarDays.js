@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import MultipleIcon from "assets/calendarIcons/circles.svg";
 
-export default function CalendarDays({
-  day,
-  getColorByEmotionType,
-  onDayClick,
-  getEmotionsForDay,
-}) {
+export default function CalendarDays({ day, onDayClick, getEmotionsForDay }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
   let currentDays = [];

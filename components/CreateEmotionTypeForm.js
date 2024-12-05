@@ -65,7 +65,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
           <StyledLegendColor>Choose a Color*</StyledLegendColor>
           {allEmotionColors.map((color) => (
             <StyledLabelColors
-              key={color._id}
+              key={color.id}
               $isSelected={selectedEmotionColor === color.color}
               $bgColor={color.color}
             >
