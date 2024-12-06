@@ -6,10 +6,13 @@ export default function CalendarPopup({
   selectedDay,
   onClosePopup,
 }) {
+  const formattedDate = selectedDay.date.toLocaleDateString();
+
   return (
     <StyledPopup>
-      <StyledPopupContent>
-        <StyledSubheadline>Emotions</StyledSubheadline>
+      <StyledContentWrapper>
+        <StyledCloseButton onClick={onClosePopup}>×</StyledCloseButton>
+        <StyledDate>{formattedDate}</StyledDate>
         <StyledEmotionList>
           {getEmotionsForDay(selectedDay.date).map((emotion) => (
             <li key={emotion._id}>
@@ -20,18 +23,10 @@ export default function CalendarPopup({
             </li>
           ))}
         </StyledEmotionList>
-        <StyledCloseButton onClick={onClosePopup}>Close</StyledCloseButton>
-      </StyledPopupContent>
+      </StyledContentWrapper>
     </StyledPopup>
   );
 }
-
-const StyledSubheadline = styled.h2`
-  margin: 0;
-  padding: 10px 0;
-  color: var(--color-secondary);
-  text-align: center;
-`;
 
 const StyledPopup = styled.div`
   display: flex;
@@ -42,19 +37,42 @@ const StyledPopup = styled.div`
   left: 25%;
   width: 50%;
   height: 40%;
-  background-color: #e0e1f0;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--color-secondary);
 `;
 
-const StyledPopupContent = styled.div`
+const StyledContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--color-background-light);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+`;
+
+const StyledCloseButton = styled.button`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-background-cards);
+  cursor: pointer;
+`;
+
+const StyledDate = styled.p`
+  margin: 0;
+  padding-bottom: 1.5rem;
+  color: var(--color-background-cards);
+  font-size: 1.2rem;
+`;
+
+const StyledEmotionList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
 `;
 
 const StyledEmotionDot = styled.span`
@@ -66,29 +84,8 @@ const StyledEmotionDot = styled.span`
   margin-right: 0.5rem;
 `;
 
-const StyledEmotionList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  list-style: none;
-  padding: 0;
-`;
-
 const StyledLink = styled(Link)`
-  color: var(--color-secondary);
+  color: var(--color-background-cards);
   cursor: pointer;
   font-size: 1rem;
-`;
-
-const StyledCloseButton = styled.button`
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #95a5a6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #7f8c8d;
-  }
 `;
