@@ -20,7 +20,7 @@ export default function EmotionForm({
 
   const [selectedDate, setSelectedDate] = useState(() => {
     const currentDate = format(new Date(), "yyyy-MM-dd");
-    return currentDate;
+    return router.query.selectedDate || currentDate;
   });
 
   const currentDate = format(new Date(), "yyyy-MM-dd");
