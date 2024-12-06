@@ -10,6 +10,7 @@ export default function CalendarPopup({
 }) {
   const formattedDate = selectedDay.date.toLocaleDateString();
   const router = useRouter();
+  const emotionsForDay = getEmotionsForDay(selectedDay.date);
 
   const handleCreateEmotion = () => {
     router.push("/?showForm=true");
@@ -20,16 +21,22 @@ export default function CalendarPopup({
       <StyledContentWrapper>
         <StyledCloseButton onClick={onClosePopup}>×</StyledCloseButton>
         <StyledDate>{formattedDate}</StyledDate>
-        <StyledEmotionList>
-          {getEmotionsForDay(selectedDay.date).map((emotion) => (
-            <li key={emotion._id}>
-              <StyledEmotionDot color={emotion.type.color} />
-              <StyledLink href={`/emotion/${emotion._id}`}>
-                {emotion.type.name}
-              </StyledLink>
-            </li>
-          ))}
-        </StyledEmotionList>
+        {emotionsForDay.length === 0 ? (
+          <StyledNoEmotionsMessage>
+            No emotions for this day
+          </StyledNoEmotionsMessage>
+        ) : (
+          <StyledEmotionList>
+            {getEmotionsForDay(selectedDay.date).map((emotion) => (
+              <li key={emotion._id}>
+                <StyledEmotionDot color={emotion.type.color} />
+                <StyledLink href={`/emotion/${emotion._id}`}>
+                  {emotion.type.name}
+                </StyledLink>
+              </li>
+            ))}
+          </StyledEmotionList>
+        )}
         <StyledCreateButton onClick={handleCreateEmotion}>
           <StyledBulbIcon />
           <StyledText>Create Emotion</StyledText>
@@ -76,6 +83,13 @@ const StyledDate = styled.p`
   padding: 1rem;
   color: var(--color-background-cards);
   font-size: 1.2rem;
+`;
+
+const StyledNoEmotionsMessage = styled.p`
+  color: var(--color-background-cards);
+  font-size: 1rem;
+  margin: 1rem;
+  text-align: center;
 `;
 
 const StyledEmotionList = styled.ul`
