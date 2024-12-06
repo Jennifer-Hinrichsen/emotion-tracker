@@ -18,6 +18,11 @@ export default function EmotionForm({
   const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
 
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const currentDate = format(new Date(), "yyyy-MM-dd");
+    return currentDate;
+  });
+
   const currentDate = format(new Date(), "yyyy-MM-dd");
   const currentTime = format(new Date(), "HH:mm");
 
@@ -38,8 +43,16 @@ export default function EmotionForm({
       if (router.query.selectedEmotionType) {
         setSelectedEmotionType(router.query.selectedEmotionType);
       }
+      if (router.query.selectedDate) {
+        setSelectedDate(router.query.selectedDate);
+      }
     }
-  }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
+  }, [
+    router.isReady,
+    router.query.selectedEmotionType,
+    router.query.showForm,
+    router.query.selectedDate,
+  ]);
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
@@ -130,7 +143,8 @@ export default function EmotionForm({
             name="dateTime"
             type="datetime-local"
             defaultValue={
-              defaultValue?.dateTime || currentDate + "T" + currentTime
+              selectedDate + "T" + currentTime ||
+              currentDate + "T" + currentTime
             }
           />
 
