@@ -24,7 +24,21 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
       console.groupCollapsed(emotionType);
       return emotionType;
     })
-    .toSorted((a, b) => b.count - a.count);
+    .toSorted((a, b) => {
+      // Sortieren nach `count` (absteigend)
+      if (b.count !== a.count) {
+        return b.count - a.count;
+      }
+      // Sortieren nach `average`-Intensität
+      const intensityOrder = { High: 1, Medium: 2, Low: 3 };
+      const aIntensityRank = intensityOrder[a.average];
+      const bIntensityRank = intensityOrder[b.average];
+      if (aIntensityRank !== bIntensityRank) {
+        return aIntensityRank - bIntensityRank; // Niedrigere Werte stehen oben
+      }
+      // Sortieren nach `name` (alphabetisch)
+      return a.name.localeCompare(b.name);
+    });
 
   const maxCount = Math.max(
     ...filteredEmotionTypes.map(
@@ -32,7 +46,7 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
     )
   );
 
-  return emotions.length === 0 ? (
+  return filteredEmotionTypes.length === 0 ? (
     <StyledMessage>No entries found.</StyledMessage>
   ) : (
     <StyledList>

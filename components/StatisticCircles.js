@@ -13,7 +13,6 @@ const Circle = styled.div`
   height: ${(props) => props.size}px;
   background-color: ${(props) => props.color};
   border-radius: 50%;
-  flex-shrink: 0; /* Verhindert, dass der Kreis verkleinert wird */
-  margin: 0 16px 8px 0; /* Abstand zum Text */
+  flex-shrink: 0;
+  margin: 0 16px 8px 0;
 `;
-//
