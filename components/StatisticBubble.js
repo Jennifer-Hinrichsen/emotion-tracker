@@ -1,4 +1,6 @@
 import categorizeIntensity from "@/lib/categorizeIntensity";
+import styled from "styled-components";
+import StatisticCircle from "./StatisticCircles";
 
 export default function StatisticBubble({ emotions, emotionTypes }) {
   const typeStatisticData = emotions.reduce((acc, emotion) => {
@@ -19,26 +21,37 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
 
       emotionType.count = typeData.count;
       emotionType.average = categorizeIntensity(average);
-      console.log(emotionType);
+      console.groupCollapsed(emotionType);
       return emotionType;
     })
-    .toSorted(
-      (emotionTypeA, emotionTypeB) => emotionTypeB.count - emotionTypeA.count
-    );
+    .toSorted((a, b) => b.count - a.count);
 
   return (
-    <>
-      <ul>
-        {filteredEmotionTypes.map((emotionType) => (
-          <li key={emotionType._id}>
-            <p>
-              You felt <strong>{emotionType.name} </strong>
-              {emotionType.count} times, with an average intensity of{" "}
-              {emotionType.average}.
-            </p>
-          </li>
-        ))}
-      </ul>
-    </>
+    <StyledList>
+      {filteredEmotionTypes.map((emotionType) => (
+        <StyledListItem key={emotionType._id}>
+          <StatisticCircle
+            count={emotionType.count}
+            color={emotionType.color}
+          />
+          <p>
+            You felt <strong>{emotionType.name} </strong>
+            {emotionType.count} times, with an average intensity of{" "}
+            {emotionType.average}.
+          </p>
+        </StyledListItem>
+      ))}
+    </StyledList>
   );
 }
+
+const StyledList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+`;
+
+const StyledListItem = styled.li`
+  display: flex;
+  align-items: center;
+`;

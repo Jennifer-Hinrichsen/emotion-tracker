@@ -1,5 +1,7 @@
 import Heading from "@/components/Heading";
 import StatisticBubble from "@/components/StatisticBubble";
+import StatisticCircle from "@/components/StatisticCircles";
+import styled from "styled-components";
 import useSWR from "swr";
 
 export default function StatisticPage() {
@@ -14,7 +16,14 @@ export default function StatisticPage() {
   return (
     <>
       <Heading>My Statistic</Heading>
-      <StatisticBubble emotions={emotions} emotionTypes={emotionTypes} />
+      <StyledDiv>
+        {/* <StatisticCircle /> */}
+        <StatisticBubble emotions={emotions} emotionTypes={emotionTypes} />
+      </StyledDiv>
     </>
   );
 }
+
+const StyledDiv = styled.div`
+  display: flex;
+`;
