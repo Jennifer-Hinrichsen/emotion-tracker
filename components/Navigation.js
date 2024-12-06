@@ -14,7 +14,7 @@ export default function Navigation() {
     <StyledNavigationWrapper>
       <StyledNavigationLeft>
         <StyledLink href="/bookmarks">
-          <StyledIconWrapper $isActive={isActive("/bookmarks")}>
+          <StyledIconWrapper $isActive={isActive("/bookmarks")} $isLeft={true}>
             <StyledBookmarkIcon
               $isActive={isActive("/bookmarks")}
               src="/Bookmark-filled.svg"
@@ -37,13 +37,18 @@ export default function Navigation() {
       <StyledNavigationRight>
         <StyledLink href="/calendar">
           <StyledIconWrapper $isActive={isActive("/calendar")}>
-            <StyledCalendarIcon src="/calendar-month.svg" alt="Calendar Icon" />
+            <StyledCalendarIcon
+              $isActive={isActive("/calendar")}
+              src="/calendar-month.svg"
+              alt="Calendar Icon"
+            />
             <StyledText $isActive={isActive("/calendar")}>Calendar</StyledText>
           </StyledIconWrapper>
         </StyledLink>
         <StyledLink href="/statistic">
           <StyledIconWrapper $isActive={isActive("/statistic")}>
             <StyledStatisticIcon
+              $isActive={isActive("/statistic")}
               src="/statistic-icon.svg"
               alt="Statistic Icon"
             />
@@ -98,7 +103,8 @@ const StyledIconWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1px;
-  padding: 7px 6px 7px 6px;
+  padding: ${(props) =>
+    props.$isLeft ? "12px 6px 7px 6px" : "7px 6px 7px 6px"};
   text-align: center;
   border-left: ${(props) =>
     props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
@@ -222,7 +228,13 @@ const StyledBookmarkIcon = styled(BookmarkIcon)`
 const StyledCalendarIcon = styled(CalendarIcon)`
   width: 24px;
   height: 28px;
-  fill: "var(--color-secondary)";
+
+  body.dark-theme & {
+    color: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
+  }
 `;
 
 const StyledStatisticIcon = styled(StatisticIcon)`
@@ -230,6 +242,9 @@ const StyledStatisticIcon = styled(StatisticIcon)`
   height: 28px;
 
   body.dark-theme & {
-    fill: "var(--color-secondary)";
+    color: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
   }
 `;
