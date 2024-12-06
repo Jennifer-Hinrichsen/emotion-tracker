@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
+import BulbIcon from "assets/calendarIcons/bulb.svg";
+import { useRouter } from "next/router";
 
 export default function CalendarPopup({
   getEmotionsForDay,
@@ -7,6 +9,11 @@ export default function CalendarPopup({
   onClosePopup,
 }) {
   const formattedDate = selectedDay.date.toLocaleDateString();
+  const router = useRouter();
+
+  const handleCreateEmotion = () => {
+    router.push("/?showForm=true");
+  };
 
   return (
     <StyledPopup>
@@ -23,6 +30,10 @@ export default function CalendarPopup({
             </li>
           ))}
         </StyledEmotionList>
+        <StyledCreateButton onClick={handleCreateEmotion}>
+          <StyledBulbIcon />
+          <StyledText>Create Emotion</StyledText>
+        </StyledCreateButton>
       </StyledContentWrapper>
     </StyledPopup>
   );
@@ -46,6 +57,7 @@ const StyledContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 90%;
 `;
 
 const StyledCloseButton = styled.button`
@@ -61,7 +73,7 @@ const StyledCloseButton = styled.button`
 
 const StyledDate = styled.p`
   margin: 0;
-  padding-bottom: 1.5rem;
+  padding: 1rem;
   color: var(--color-background-cards);
   font-size: 1.2rem;
 `;
@@ -71,7 +83,7 @@ const StyledEmotionList = styled.ul`
   flex-direction: column;
   align-items: flex-start;
   list-style: none;
-  padding: 0;
+  padding: 1rem;
   overflow-y: auto;
 `;
 
@@ -82,6 +94,30 @@ const StyledEmotionDot = styled.span`
   height: 0.6rem;
   border-radius: 50%;
   margin-right: 0.5rem;
+`;
+
+const StyledCreateButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-highlighted-foreground);
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  width: fit-content;
+  cursor: pointer;
+`;
+
+const StyledBulbIcon = styled(BulbIcon)`
+  margin-top: 0.25rem;
+  color: var(--color-highlighted-foreground);
+`;
+
+const StyledText = styled.p`
+  margin: 0;
+  padding-bottom: 0.25rem;
+  color: var(--color-highlighted-foreground);
 `;
 
 const StyledLink = styled(Link)`
