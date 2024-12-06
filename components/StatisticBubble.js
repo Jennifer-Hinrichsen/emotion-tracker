@@ -26,13 +26,22 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
     })
     .toSorted((a, b) => b.count - a.count);
 
-  return (
+  const maxCount = Math.max(
+    ...filteredEmotionTypes.map(
+      (filteredEmotionType) => filteredEmotionType.count
+    )
+  );
+
+  return emotions.length === 0 ? (
+    <StyledMessage>No entries found.</StyledMessage>
+  ) : (
     <StyledList>
       {filteredEmotionTypes.map((emotionType) => (
         <StyledListItem key={emotionType._id}>
           <StatisticCircle
             count={emotionType.count}
             color={emotionType.color}
+            maxCount={maxCount}
           />
           <p>
             You felt <strong>{emotionType.name} </strong>
@@ -44,6 +53,13 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
     </StyledList>
   );
 }
+
+const StyledMessage = styled.p`
+  text-align: center;
+  color: var(--color-secondary);
+  font-size: 1.1rem;
+  padding: 24px 16px;
+`;
 
 const StyledList = styled.ul`
   list-style: none;
