@@ -47,13 +47,13 @@ export default function Calendar({ emotions }) {
     <StyledCalendarContainer>
       <StyledCalendarMonth>
         <StyledArrowButton onClick={previousMonth}>
-          <span>{"<"}</span>
+          <StyledArrow>{"<"}</StyledArrow>
         </StyledArrowButton>
         <p>
           {months[currentDay.getMonth()]} {currentDay.getFullYear()}
         </p>
         <StyledArrowButton onClick={nextMonth}>
-          <span>{">"}</span>
+          <StyledArrow>{">"}</StyledArrow>
         </StyledArrowButton>
       </StyledCalendarMonth>
 
@@ -105,6 +105,10 @@ const StyledArrowButton = styled.button`
   background-color: var(--color-background);
   border: none;
   cursor: pointer;
+`;
+
+const StyledArrow = styled.span`
+  color: var(--color-secondary);
 `;
 
 const StyledCalendarBody = styled.div`

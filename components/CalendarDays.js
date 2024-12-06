@@ -77,17 +77,17 @@ const StyledTableContent = styled.div`
 const StyledCalendarDay = styled.div`
   width: 100%;
   aspect-ratio: 1 / 1.4;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
-    background-color: var(--color-primary);
+    background-color: var(--color-frame);
   }
 
   p {
-    color: var(--color-border);
+    color: var(--color-secondary);
     font-size: 1rem;
   }
 `;
