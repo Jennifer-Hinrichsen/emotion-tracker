@@ -1,13 +1,26 @@
 import styled from "styled-components";
 
-export default function EmotionCardContent({ emotion, emotionIcon }) {
+export default function EmotionCardContent({
+  emotion,
+  emotionIcon,
+  intensity,
+}) {
   return (
     <StyledEmotionCardContent>
       <StyledEmojiIcon color={emotion.type.color}>
         {emotionIcon}
       </StyledEmojiIcon>
       <StyledEmotionType>{emotion.type.name}</StyledEmotionType>
-      <StyledIntensity>{emotion.intensity}</StyledIntensity>
+      <StyledIntensityWrapper>
+        {[1, 2, 3].map((value) => (
+          <StyledIntensityBubble
+            key={value}
+            size={value}
+            color={emotion.type.color}
+            isActive={intensity >= value}
+          />
+        ))}
+      </StyledIntensityWrapper>
       <StyledNotes>{emotion.notes}</StyledNotes>
     </StyledEmotionCardContent>
   );
@@ -52,12 +65,23 @@ const StyledNotes = styled.p`
   max-width: 100%;
 `;
 
-const StyledIntensity = styled.p`
+const StyledIntensityWrapper = styled.div`
   grid-area: intensity;
-  align-self: start;
-  margin: 6px 12px;
-  text-align: right;
-  font-weight: 400;
-  font-size: 1.2rem;
-  color: var(--color-secondary);
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 36px;
+  right: 20px;
+`;
+
+const StyledIntensityBubble = styled.div`
+  width: ${(props) => props.size * 10}px;
+  height: ${(props) => props.size * 10}px;
+  border-radius: 50%;
+  background-color: ${(props) =>
+    props.isActive
+      ? props.color || "var(--color-frame)"
+      : `${props.color || "var(--color-frame"}80`};
 `;

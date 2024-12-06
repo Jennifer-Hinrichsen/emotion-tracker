@@ -42,6 +42,7 @@ export default function EmotionCard({
                   />
                 ),
               }}
+              intensity={intensity}
             />
             <BookmarkButton
               isBookmarked={isBookmarked}
