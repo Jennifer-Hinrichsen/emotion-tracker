@@ -1,6 +1,7 @@
 import categorizeIntensity from "@/lib/categorizeIntensity";
 import styled from "styled-components";
 import StatisticCircles from "./StatisticCircles";
+import StatisticFilter from "./StatisticFilter";
 
 export default function StatisticBubble({ emotions, emotionTypes }) {
   const typeStatisticData = emotions.reduce((acc, emotion) => {
@@ -46,27 +47,31 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
     )
   );
 
-  return filteredEmotionTypes.length === 0 ? (
-    <StyledMessage $isNoEntry>
-      No entries found to create your emotion statistic.
-    </StyledMessage>
-  ) : (
-    <StyledList>
-      {filteredEmotionTypes.map((emotionType) => (
-        <StyledListItem key={emotionType._id}>
-          <StatisticCircles
-            count={emotionType.count}
-            color={emotionType.color}
-            maxCount={maxCount}
-          />
-          <StyledMessage>
-            You felt <strong>{emotionType.name} </strong>
-            {emotionType.count} times, with an average intensity of{" "}
-            {emotionType.average}.
-          </StyledMessage>
-        </StyledListItem>
-      ))}
-    </StyledList>
+  return (
+    <>
+      <StatisticFilter />
+      {filteredEmotionTypes.length === 0 ? (
+        <StyledMessage $isNoEntry>
+          No entries found to create your emotion statistic.
+        </StyledMessage>
+      ) : (
+        <StyledList>
+          {filteredEmotionTypes.map((emotionType) => (
+            <StyledListItem key={emotionType._id}>
+              <StatisticCircles
+                count={emotionType.count}
+                color={emotionType.color}
+                maxCount={maxCount}
+              />
+              <StyledMessage>
+                You felt <strong>{emotionType.name}</strong> {emotionType.count}{" "}
+                times, with an average intensity of {emotionType.average}.
+              </StyledMessage>
+            </StyledListItem>
+          ))}
+        </StyledList>
+      )}
+    </>
   );
 }
 
