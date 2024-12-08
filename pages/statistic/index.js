@@ -1,5 +1,5 @@
 import Heading from "@/components/Heading";
-import StatisticBubble from "@/components/StatisticBubble";
+import StatisticBubble from "@/components/statistic/StatisticBubble";
 import styled from "styled-components";
 import useSWR from "swr";
 

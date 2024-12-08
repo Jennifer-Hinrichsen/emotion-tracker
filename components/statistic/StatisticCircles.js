@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-export default function StatisticCircle({ count, maxCount, color }) {
+export default function StatisticCircles({ count, maxCount, color }) {
   // Berechnung der Fläche proportional zur Häufigkeit
   const maxRadius = 100; // Maximale Radiusgröße in Pixeln
   const radius = (Math.sqrt(count) / Math.sqrt(maxCount)) * maxRadius;

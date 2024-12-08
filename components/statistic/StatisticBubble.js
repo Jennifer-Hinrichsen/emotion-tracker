@@ -1,6 +1,6 @@
 import categorizeIntensity from "@/lib/categorizeIntensity";
 import styled from "styled-components";
-import StatisticCircle from "./StatisticCircles";
+import StatisticCircles from "./StatisticCircles";
 
 export default function StatisticBubble({ emotions, emotionTypes }) {
   const typeStatisticData = emotions.reduce((acc, emotion) => {
@@ -54,7 +54,7 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
     <StyledList>
       {filteredEmotionTypes.map((emotionType) => (
         <StyledListItem key={emotionType._id}>
-          <StatisticCircle
+          <StatisticCircles
             count={emotionType.count}
             color={emotionType.color}
             maxCount={maxCount}
