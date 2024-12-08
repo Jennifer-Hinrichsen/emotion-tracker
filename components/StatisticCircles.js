@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export default function StatisticCircle({ count, maxCount, color }) {
   // Berechnung der Fläche proportional zur Häufigkeit
@@ -8,6 +8,17 @@ export default function StatisticCircle({ count, maxCount, color }) {
   return <Circle size={radius * 2} color={color} />;
 }
 
+const scaleUp = keyframes`
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
 const Circle = styled.div`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
@@ -15,4 +26,5 @@ const Circle = styled.div`
   border-radius: 50%;
   flex-shrink: 0;
   margin: 0 16px 8px 0;
+  animation: ${scaleUp} 1s ease-in-out;
 `;
