@@ -47,7 +47,9 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
   );
 
   return filteredEmotionTypes.length === 0 ? (
-    <StyledMessage>No entries found.</StyledMessage>
+    <StyledMessage $isNoEntry>
+      No entries found to create your emotion statistic.
+    </StyledMessage>
   ) : (
     <StyledList>
       {filteredEmotionTypes.map((emotionType) => (
@@ -57,11 +59,11 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
             color={emotionType.color}
             maxCount={maxCount}
           />
-          <p>
+          <StyledMessage>
             You felt <strong>{emotionType.name} </strong>
             {emotionType.count} times, with an average intensity of{" "}
             {emotionType.average}.
-          </p>
+          </StyledMessage>
         </StyledListItem>
       ))}
     </StyledList>
@@ -69,7 +71,7 @@ export default function StatisticBubble({ emotions, emotionTypes }) {
 }
 
 const StyledMessage = styled.p`
-  text-align: center;
+  text-align: ${(props) => (props.$isNoEntry ? "center" : "left")};
   color: var(--color-secondary);
   font-size: 1.1rem;
   padding: 24px 16px;
