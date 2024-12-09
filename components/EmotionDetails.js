@@ -33,6 +33,7 @@ export default function EmotionDetails({
         onToggleBookmark={onToggleBookmark}
         isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
         isDetailsPage={true}
+        intensity={emotion.intensity}
       />
       <StyledEditLink href={`/emotion/${emotion._id}/edit`}>
         Edit
