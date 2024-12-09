@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import BookmarkButton from "./BookmarkButton";
+import OptionsButton from "./OptionsButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
@@ -79,6 +80,7 @@ export default function EmotionCard({
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(emotion._id)}
           />
+          <OptionsButton />
         </>
       )}
     </StyledCardWrapper>
