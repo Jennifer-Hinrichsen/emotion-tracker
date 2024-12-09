@@ -41,14 +41,12 @@ export default function StatisticList({
       if (b.count !== a.count) {
         return b.count - a.count;
       }
-      // Sortieren nach Intensität
       const intensityOrder = { High: 1, Medium: 2, Low: 3 };
       const aIntensityRank = intensityOrder[a.average];
       const bIntensityRank = intensityOrder[b.average];
       if (aIntensityRank !== bIntensityRank) {
         return aIntensityRank - bIntensityRank;
       }
-      // Alphabetische Sortierung
       return a.name.localeCompare(b.name);
     });
 
