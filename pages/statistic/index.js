@@ -1,7 +1,7 @@
 import Heading from "@/components/Heading";
-import StatisticBubble from "@/components/statistic/StatisticBubble";
-import styled from "styled-components";
+import StatisticFilter from "@/components/statistic/StatisticFilter";
 import useSWR from "swr";
+import StatisticList from "@/components/statistic/StatisticList";
 
 export default function StatisticPage() {
   const { data: emotions, isLoading } = useSWR("/api/emotionEntries");
@@ -15,7 +15,8 @@ export default function StatisticPage() {
   return (
     <>
       <Heading>My Statistic</Heading>
-      <StatisticBubble emotions={emotions} emotionTypes={emotionTypes} />
+      <StatisticFilter />
+      <StatisticList emotions={emotions} emotionTypes={emotionTypes} />
     </>
   );
 }

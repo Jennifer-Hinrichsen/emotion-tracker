@@ -1,9 +1,25 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function StatisticFilter() {
+  // Zustand für den ausgewählten Monat
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
+
+  // Funktion zum Berechnen des aktuellen Monats im Format YYYY-MM
+  function getCurrentMonth() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Monat 0-basiert
+    return `${year}-${month}`;
+  }
+
+  // Event-Handler, wenn der Monat geändert wird
+  function handleMonthChange(event) {
+    setSelectedMonth(event.target.value);
+  }
+
   return (
     <Styled>
-      {/* <StyledP>Filter period of time</StyledP> */}
       <StyledZwo>
         <StyledDrei>
           <label htmlFor="month">Month</label>
@@ -11,21 +27,17 @@ export default function StatisticFilter() {
             type="month"
             id="month"
             name="month"
-          ></StyledDateAndTimeInput>
+            value={selectedMonth} // Verknüpft mit Zustand
+            onChange={handleMonthChange} // Ändert den Zustand bei Änderungen
+          />
         </StyledDrei>
         <StyledDrei>
           <label htmlFor="calendarWeek">Calendarweek</label>
           <StyledDateAndTimeInput
-            type="datetime"
+            type="number"
             id="calendarWeek"
             name="calendarWeek"
-            // type="text"
-            // id="calendarWeek"
-            // name="calendarWeek"
-            // pattern="\d{4}-W\d{2}"
-            // placeholder="YYYY-WW"
-            // title="Format: YYYY-WW (e.g., 2024-W12)"
-          ></StyledDateAndTimeInput>
+          />
         </StyledDrei>
       </StyledZwo>
     </Styled>
@@ -36,12 +48,6 @@ const Styled = styled.div`
   background-color: var(--color-slider-intensity);
   padding: 12px;
 `;
-
-// const StyledP = styled.div`
-//   padding: 5px 0 20px 0;
-//   font-weight: bold;
-//   font-size: 1.2em;
-// `;
 
 const StyledZwo = styled.div`
   display: flex;
