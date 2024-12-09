@@ -2,41 +2,30 @@ import styled from "styled-components";
 
 export default function StatisticFilter({ selectedMonth, setSelectedMonth }) {
   return (
-    <Styled>
-      <StyledZwo>
-        <StyledDrei>
-          <label htmlFor="month">Month</label>
-          <StyledDateAndTimeInput
-            type="month"
-            id="month"
-            name="month"
-            value={selectedMonth}
-            onChange={(event) => setSelectedMonth(event.target.value)}
-          />
-        </StyledDrei>
-        <StyledDrei></StyledDrei>
-      </StyledZwo>
-    </Styled>
+    <StyledContainer>
+      <StyledLabel htmlFor="month">Month:</StyledLabel>
+      <StyledMonthInput
+        type="month"
+        id="month"
+        name="month"
+        value={selectedMonth}
+        onChange={(event) => setSelectedMonth(event.target.value)}
+      />
+    </StyledContainer>
   );
 }
 
-const Styled = styled.div`
-  background-color: var(--color-slider-intensity);
-  padding: 12px;
+const StyledContainer = styled.div`
+  background-color: var(--color-frame);
+  padding: 16px;
 `;
 
-const StyledZwo = styled.div`
-  display: flex;
-  justify-content: space-evenly;
+const StyledLabel = styled.label`
+  color: var(--color-secondary);
+  font-weight: bold;
 `;
 
-const StyledDrei = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const StyledDateAndTimeInput = styled.input`
+const StyledMonthInput = styled.input`
   padding: 0 0 6px 0;
   width: 100%;
   border: none;
