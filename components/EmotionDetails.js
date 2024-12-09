@@ -21,6 +21,27 @@ export default function EmotionDetails({
     toggleDeleteDialog();
   }
 
+  async function shareEmotion() {
+    const shareData = {
+      title: "Emotion Card",
+      text: `I'm feeling ${emotion.type.name} with intensity ${
+        emotion.intensity
+      }. Note: ${emotion.notes || ""}`,
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        alert("Sharing is not supported in this browser.");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+      alert("Failed to share. Please try again.");
+    }
+  }
+
   return (
     <>
       <Heading>Emotion Details</Heading>
@@ -42,6 +63,9 @@ export default function EmotionDetails({
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
+      <StyledButtonShare type="button" onClick={shareEmotion}>
+        Share
+      </StyledButtonShare>
 
       {isDialogOpen && (
         <StyledDialogOverlay>
@@ -142,5 +166,19 @@ const StyledButtonCancel = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #7f8c8d;
+  }
+`;
+const StyledButtonShare = styled.button`
+  float: right;
+  margin-right: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #27ae60;
   }
 `;
