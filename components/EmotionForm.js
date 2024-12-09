@@ -8,6 +8,7 @@ import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 import useSWR from "swr";
 import { format } from "date-fns";
+import ToastMessage from "./ToastMessage";
 
 export default function EmotionForm({
   defaultValue,
@@ -29,6 +30,7 @@ export default function EmotionForm({
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
+  const [toast, setToast] = useState({ visible: false, message: "" });
 
   useEffect(() => {
     if (router.isReady) {
@@ -68,6 +70,12 @@ export default function EmotionForm({
 
     await onSubmit(inputData);
     event.target.reset();
+    setToast({ visible: true, message: "Emotion successfully submitted!" });
+    setTimeout(() => setToast({ visible: false, message: "" }), 3000);
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
   if (isLoading) {
@@ -156,6 +164,10 @@ export default function EmotionForm({
           {formError && <StyledError>{formError}</StyledError>}
         </StyledEmotionForm>
       </StyledFormContainer>
+      <ToastMessage
+        visible={toast.visible ? "enter" : "leave"}
+        message={toast.message}
+      />
     </>
   );
 }
