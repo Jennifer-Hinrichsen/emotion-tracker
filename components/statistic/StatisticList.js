@@ -56,7 +56,7 @@ export default function StatisticList({
 
   return filteredEmotionTypes.length === 0 ? (
     <StyledMessage $isNoEntry>
-      No entries found for {selectedMonth ? selectedMonth : "all months"}.
+      Sorry, in {selectedMonth} you did not track any emotion.
     </StyledMessage>
   ) : (
     <StyledList>

@@ -18,6 +18,9 @@ export default function StatisticFilter({ selectedMonth, setSelectedMonth }) {
 const StyledContainer = styled.div`
   background-color: var(--color-frame);
   padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 `;
 
 const StyledLabel = styled.label`
