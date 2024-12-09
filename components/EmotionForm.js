@@ -23,7 +23,6 @@ export default function EmotionForm({
     return router.query.selectedDate || currentDate;
   });
 
-  const currentDate = format(new Date(), "yyyy-MM-dd");
   const currentTime = format(new Date(), "HH:mm");
 
   const [formVisibility, setFormVisibility] = useState(!!editMode);
@@ -142,10 +141,7 @@ export default function EmotionForm({
             id="date-time"
             name="dateTime"
             type="datetime-local"
-            defaultValue={
-              selectedDate + "T" + currentTime ||
-              currentDate + "T" + currentTime
-            }
+            defaultValue={selectedDate + "T" + currentTime}
           />
 
           <label htmlFor="notes">Notes</label>

@@ -2,16 +2,13 @@ import styled from "styled-components";
 import Link from "next/link";
 import BulbIcon from "assets/calendarIcons/bulb.svg";
 import { useRouter } from "next/router";
-import { format } from "date-fns";
 
 export default function CalendarPopup({
-  getEmotionsForDay,
-  selectedDay,
   onClosePopup,
+  emotionsForDay,
+  formattedDate,
 }) {
-  const formattedDate = format(selectedDay.date, "yyyy-MM-dd");
   const router = useRouter();
-  const emotionsForDay = getEmotionsForDay(selectedDay.date);
 
   const handleCreateEmotion = () => {
     router.push(`/?showForm=true&selectedDate=${formattedDate}`);
@@ -28,7 +25,7 @@ export default function CalendarPopup({
           </StyledNoEmotionsMessage>
         ) : (
           <StyledEmotionList>
-            {getEmotionsForDay(selectedDay.date).map((emotion) => (
+            {emotionsForDay.map((emotion) => (
               <li key={emotion._id}>
                 <StyledEmotionDot color={emotion.type.color} />
                 <StyledLink href={`/emotion/${emotion._id}`}>
