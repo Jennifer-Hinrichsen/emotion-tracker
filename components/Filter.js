@@ -106,14 +106,11 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
 }
 
 const StyledDivWrapper = styled.div`
-  background-color: #f6f4f3;
+  background-color: var(--color-frame);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
-  body.dark-theme & {
-    background-color: var(--color-background-cards);
-  }
 `;
 
 const StyledWrapper = styled.div`
@@ -134,7 +131,7 @@ const StyledIconLeft = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
-  background: linear-gradient(90deg, #f6f4f3 40%, transparent);
+  background: linear-gradient(90deg, var(--color-frame) 40%, transparent);
   body.dark-theme & {
     background: linear-gradient(
       90deg,
@@ -167,7 +164,7 @@ const StyledTab = styled.li`
   cursor: pointer;
   font-size: 1rem;
   white-space: nowrap;
-  background: var(--color-background-cards);
+  background: var(--color-frame);
   padding: 8px 10px;
   border: 1px solid var(--color-frame);
   border-radius: 8px;
@@ -197,7 +194,7 @@ const StyledIconRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-90deg, #f6f4f3 40%, transparent);
+  background: linear-gradient(-90deg, var(--color-frame) 40%, transparent);
   body.dark-theme & {
     background: linear-gradient(
       -90deg,

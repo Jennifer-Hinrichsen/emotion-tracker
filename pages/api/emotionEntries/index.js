@@ -20,7 +20,7 @@ export default async function handler(request, response) {
     }
   } catch (error) {
     console.log(error);
-    response.status(500).json({ message: "Internal Server error test" });
+    response.status(500).json({ message: "Internal Server error" });
     return;
   }
 }
