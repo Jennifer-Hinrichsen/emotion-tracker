@@ -1,23 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-export default function StatisticFilter() {
-  // Zustand für den ausgewählten Monat
-  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
-
-  // Funktion zum Berechnen des aktuellen Monats im Format YYYY-MM
-  function getCurrentMonth() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0"); // Monat 0-basiert
-    return `${year}-${month}`;
-  }
-
-  // Event-Handler, wenn der Monat geändert wird
-  function handleMonthChange(event) {
-    setSelectedMonth(event.target.value);
-  }
-
+export default function StatisticFilter({ selectedMonth, setSelectedMonth }) {
   return (
     <Styled>
       <StyledZwo>
@@ -27,18 +10,11 @@ export default function StatisticFilter() {
             type="month"
             id="month"
             name="month"
-            value={selectedMonth} // Verknüpft mit Zustand
-            onChange={handleMonthChange} // Ändert den Zustand bei Änderungen
+            value={selectedMonth}
+            onChange={(event) => setSelectedMonth(event.target.value)}
           />
         </StyledDrei>
-        <StyledDrei>
-          <label htmlFor="calendarWeek">Calendarweek</label>
-          <StyledDateAndTimeInput
-            type="number"
-            id="calendarWeek"
-            name="calendarWeek"
-          />
-        </StyledDrei>
+        <StyledDrei></StyledDrei>
       </StyledZwo>
     </Styled>
   );

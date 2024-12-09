@@ -1,9 +1,22 @@
-import categorizeIntensity from "@/lib/categorizeIntensity";
 import styled from "styled-components";
 import StatisticCircles from "./StatisticCircles";
+import categorizeIntensity from "@/lib/categorizeIntensity";
 
-export default function StatisticList({ emotions, emotionTypes }) {
-  const typeStatisticData = emotions.reduce((acc, emotion) => {
+export default function StatisticList({
+  emotions,
+  emotionTypes,
+  selectedMonth,
+}) {
+  const filteredEmotions = selectedMonth
+    ? emotions.filter((emotion) => {
+        const emotionDate = new Date(emotion.dateTime);
+        const emotionMonth = emotionDate.toISOString().slice(0, 7);
+        return emotionMonth === selectedMonth;
+      })
+    : emotions;
+
+  // Statistikdaten pro Emotionstyp berechnen
+  const typeStatisticData = filteredEmotions.reduce((acc, emotion) => {
     const id = emotion.type._id;
     if (!acc[id]) {
       acc[id] = { totalIntensity: 0, count: 0 };
@@ -13,6 +26,7 @@ export default function StatisticList({ emotions, emotionTypes }) {
     return acc;
   }, {});
 
+  // Emotionstypen mit Statistikdaten verbinden
   const filteredEmotionTypes = emotionTypes
     .filter((emotionType) => typeStatisticData[emotionType._id] !== undefined)
     .map((emotionType) => {
@@ -21,34 +35,30 @@ export default function StatisticList({ emotions, emotionTypes }) {
 
       emotionType.count = typeData.count;
       emotionType.average = categorizeIntensity(average);
-      console.groupCollapsed(emotionType);
       return emotionType;
     })
-    .toSorted((a, b) => {
-      // Sortieren nach `count` (absteigend)
+    .sort((a, b) => {
       if (b.count !== a.count) {
         return b.count - a.count;
       }
-      // Sortieren nach `average`-Intensität
+      // Sortieren nach Intensität
       const intensityOrder = { High: 1, Medium: 2, Low: 3 };
       const aIntensityRank = intensityOrder[a.average];
       const bIntensityRank = intensityOrder[b.average];
       if (aIntensityRank !== bIntensityRank) {
-        return aIntensityRank - bIntensityRank; // Niedrigere Werte stehen oben
+        return aIntensityRank - bIntensityRank;
       }
-      // Sortieren nach `name` (alphabetisch)
+      // Alphabetische Sortierung
       return a.name.localeCompare(b.name);
     });
 
   const maxCount = Math.max(
-    ...filteredEmotionTypes.map(
-      (filteredEmotionType) => filteredEmotionType.count
-    )
+    ...filteredEmotionTypes.map((emotionType) => emotionType.count)
   );
 
   return filteredEmotionTypes.length === 0 ? (
     <StyledMessage $isNoEntry>
-      No entries found to create your emotion statistic.
+      No entries found for {selectedMonth ? selectedMonth : "all months"}.
     </StyledMessage>
   ) : (
     <StyledList>
