@@ -5,42 +5,16 @@ import categorizeIntensity from "@/lib/categorizeIntensity";
 export default function StatisticList({
   emotions,
   emotionTypes,
-  // selectedMonth,
-  startDate,
-  endDate,
+  customDateRange,
 }) {
-  // const filteredEmotions = selectedMonth
-  //   ? emotions.filter((emotion) => {
-  //       const emotionDate = new Date(emotion.dateTime);
-  //       const emotionMonth = emotionDate.toISOString().slice(0, 7);
-  //       return emotionMonth === selectedMonth;
-  //     })
-  //   : emotions;
   const filteredEmotions =
-    startDate || endDate
+    customDateRange.start && customDateRange.end
       ? emotions.filter((emotion) => {
           const emotionDate = new Date(emotion.dateTime);
-
-          // If only startDate is set
-          if (startDate && !endDate) {
-            return emotionDate >= new Date(startDate);
-          }
-
-          // If only endDate is set
-          if (!startDate && endDate) {
-            return emotionDate <= new Date(endDate);
-          }
-
-          // If both startDate and endDate are set
-          if (startDate && endDate) {
-            return (
-              emotionDate >= new Date(startDate) &&
-              emotionDate <= new Date(endDate)
-            );
-          }
-
-          // If neither startDate nor endDate is set
-          return true;
+          return (
+            emotionDate >= customDateRange.start &&
+            emotionDate <= customDateRange.end
+          );
         })
       : emotions;
 
@@ -85,7 +59,7 @@ export default function StatisticList({
 
   return filteredEmotionTypes.length === 0 ? (
     <StyledMessage $isNoEntry>
-      Sorry, from {startDate} to {endDate} you did not track any emotion.
+      For your entered time period you did not track any emotion.
     </StyledMessage>
   ) : (
     <StyledList>
@@ -110,7 +84,7 @@ const StyledMessage = styled.p`
   text-align: ${(props) => (props.$isNoEntry ? "center" : "left")};
   color: var(--color-secondary);
   font-size: 1.1rem;
-  padding: 24px 16px;
+  padding: 8px 12px;
 `;
 
 const StyledList = styled.ul`

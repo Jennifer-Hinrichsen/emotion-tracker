@@ -9,11 +9,36 @@ export default function StatisticPage() {
   const { data: emotionTypes, isLoading: isLoadingTypes } =
     useSWR("/api/emotionTypes");
 
-  // const currentMonth = new Date().toISOString().slice(0, 7);
-  // const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [isCustomDatePickerOpen, setIsCustomDatePickerOpen] = useState(false);
+  const [customDateRange, setCustomDateRange] = useState({
+    start: null,
+    end: null,
+  });
 
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  function handleCustomDateChange(dates) {
+    if (Array.isArray(dates)) {
+      let [start, end] = dates;
+
+      if (end) {
+        end = new Date(end);
+        end.setHours(23, 59, 59, 999);
+      }
+
+      setCustomDateRange({ start, end });
+      if (start && end) {
+        setIsCustomDatePickerOpen(false);
+      }
+    }
+  }
+
+  function handleClearCustomDate() {
+    setCustomDateRange({ start: null, end: null });
+    setIsCustomDatePickerOpen(false);
+  }
+
+  function handleToggleCalendar() {
+    setIsCustomDatePickerOpen(!isCustomDatePickerOpen);
+  }
 
   if (isLoading || isLoadingTypes) {
     return <h1>Loading...</h1>;
@@ -23,17 +48,16 @@ export default function StatisticPage() {
     <>
       <Heading>My Statistic</Heading>
       <StatisticFilter
-        startDate={startDate}
-        endDate={endDate}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
+        onCustomDateChange={handleCustomDateChange}
+        onClearCustomDate={handleClearCustomDate}
+        customDateRange={customDateRange}
+        onToggleCalendar={handleToggleCalendar}
+        isCustomDatePickerOpen={isCustomDatePickerOpen}
       />
       <StatisticList
         emotions={emotions}
         emotionTypes={emotionTypes}
-        // selectedMonth={selectedMonth}
-        startDate={startDate}
-        endDate={endDate}
+        customDateRange={customDateRange}
       />
     </>
   );

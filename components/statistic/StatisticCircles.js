@@ -25,6 +25,6 @@ const Circle = styled.div`
   background-color: ${(props) => props.color};
   border-radius: 50%;
   flex-shrink: 0;
-  margin: 0 16px 8px 0;
+  margin: 0 0px 8px 0;
   animation: ${scaleUp} 1s ease-in-out;
 `;
