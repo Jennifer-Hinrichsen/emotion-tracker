@@ -38,7 +38,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
       tabsBox.scrollLeft = (tabsBox.scrollWidth - tabsBox.clientWidth) / 2;
       updateArrowVisibility();
     }
-  }, [screenSize.width]);
+  }, [emotionTypes, screenSize.width]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -132,13 +132,6 @@ const StyledIconLeft = styled.div`
   justify-content: center;
   z-index: 1;
   background: linear-gradient(90deg, var(--color-frame) 40%, transparent);
-  body.dark-theme & {
-    background: linear-gradient(
-      90deg,
-      var(--color-background-cards) 40%,
-      transparent
-    );
-  }
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -152,7 +145,6 @@ const StyledTabsBox = styled.ul`
   overflow-y: hidden;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  margin-right: 30px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -166,7 +158,7 @@ const StyledTab = styled.li`
   white-space: nowrap;
   background: var(--color-frame);
   padding: 8px 10px;
-  border: 1px solid var(--color-frame);
+  border: 1px solid var(--color-secondary);
   border-radius: 8px;
   transition: background-color 0.3s ease;
   opacity: 70%;
@@ -178,9 +170,6 @@ const StyledTab = styled.li`
       background: ${$color};
       opacity: 100%;
     `}
-  body.dark-theme & {
-    border: 1px solid var(--color-secondary);
-  }
 `;
 
 const StyledIconRight = styled.div`
@@ -195,13 +184,6 @@ const StyledIconRight = styled.div`
   align-items: center;
   justify-content: center;
   background: linear-gradient(-90deg, var(--color-frame) 40%, transparent);
-  body.dark-theme & {
-    background: linear-gradient(
-      -90deg,
-      var(--color-background-cards) 40%,
-      transparent
-    );
-  }
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
