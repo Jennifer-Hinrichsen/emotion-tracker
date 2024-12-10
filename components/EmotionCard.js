@@ -14,6 +14,7 @@ export default function EmotionCard({
   isDetailsPage = false,
   intensity,
   searchTerm,
+  onDeleteEmotion,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
@@ -80,7 +81,8 @@ export default function EmotionCard({
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(emotion._id)}
           />
-          <OptionsButton />
+
+          <OptionsButton onDeleteEmotion={() => onDeleteEmotion(emotion._id)} />
         </>
       )}
     </StyledCardWrapper>

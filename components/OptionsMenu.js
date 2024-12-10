@@ -1,18 +1,36 @@
 import styled from "styled-components";
+import { useState } from "react";
 
-export default function OptionsMenu({ onClose, emotion, onDeleteEmotion }) {
+export default function OptionsMenu({ onClose, onDeleteEmotion }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
   }
-  function handleDelete() {
+
+  function handleDelete(emotion) {
     onDeleteEmotion(emotion._id);
     toggleDeleteDialog();
   }
   return (
     <StyledPopupMenu>
       <StyledCloseButton onClick={onClose}>×</StyledCloseButton>
-      <StyledButtonDelete onClick={handleDelete}>Delete</StyledButtonDelete>
-      <StyledContent></StyledContent>
+      <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
+        Delete
+      </StyledButtonDelete>
+
+      {isDialogOpen && (
+        <StyledDialogOverlay>
+          <StyledDialogBox>
+            <p>Are you sure you want to delete this emotion?</p>
+            <StyledButtonConfirm onClick={handleDelete}>
+              Yes
+            </StyledButtonConfirm>
+            <StyledButtonCancel onClick={toggleDeleteDialog}>
+              No
+            </StyledButtonCancel>
+          </StyledDialogBox>
+        </StyledDialogOverlay>
+      )}
     </StyledPopupMenu>
   );
 }
@@ -34,8 +52,8 @@ const StyledPopupMenu = styled.div`
 
 const StyledCloseButton = styled.button`
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.125rem;
+  right: 0.125rem;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -45,7 +63,41 @@ const StyledCloseButton = styled.button`
 
 const StyledButtonDelete = styled.button`
   float: right;
-  margin-top: 20px;
+  margin-top: 32px;
+  padding: 4px 24px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
+const StyledDialogOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledDialogBox = styled.div`
+  background: var(--color-background);
+  padding: 20px;
+  margin: 12px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 10px var(--color-shadow);
+`;
+
+const StyledButtonConfirm = styled.button`
+  margin: 10px;
   padding: 10px 20px;
   background-color: #e74c3c;
   color: white;
@@ -57,17 +109,15 @@ const StyledButtonDelete = styled.button`
   }
 `;
 
-const StyledContent = styled.div`
-  margin-top: 2rem;
-  color: var(--color-background-cards);
-  text-align: center;
-
-  p {
-    margin: 0.5rem 0;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
+const StyledButtonCancel = styled.button`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #7f8c8d;
   }
 `;
