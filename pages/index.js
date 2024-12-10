@@ -39,6 +39,23 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
 
   if (isLoading) return null;
 
+  async function handleDeleteEmotion(id) {
+    try {
+      const response = await fetch(`/api/emotionEntries/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log(`Emotion ${id} successfully deleted.`);
+        mutate();
+      } else {
+        console.error("Failed to delete emotion.");
+      }
+    } catch (error) {
+      console.error("Error during deletion:", error);
+    }
+  }
+
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.type._id === selectedFilter
@@ -65,11 +82,13 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
         onSearch={handleSearch}
         onClearSearch={handleClearSearch}
       />
+
       <List
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
         searchTerm={searchTerm}
+        onDeleteEmotion={handleDeleteEmotion}
       />
     </>
   );

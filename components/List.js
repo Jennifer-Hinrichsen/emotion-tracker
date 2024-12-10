@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import EmotionCard from "./EmotionCard";
+import OptionsMenu from "./OptionsMenu";
 
 export default function EmotionList({
   emotions,
   onToggleBookmark,
   myBookmarkedEmotions,
   searchTerm,
+  onDeleteEmotion,
 }) {
   emotions.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
