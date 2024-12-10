@@ -3,7 +3,7 @@ import OptionsIcon from "assets/optionsIcon/dots-circle-horizontal.svg";
 import { useState } from "react";
 import OptionsMenu from "./OptionsMenu";
 
-export default function OptionsButton({ onDeleteEmotion }) {
+export default function OptionsButton({ onDeleteEmotion, emotion }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleClick = () => {
@@ -23,6 +23,7 @@ export default function OptionsButton({ onDeleteEmotion }) {
         <OptionsMenu
           onClose={handleClosePopup}
           onDeleteEmotion={onDeleteEmotion}
+          emotion={emotion}
         />
       )}
     </>

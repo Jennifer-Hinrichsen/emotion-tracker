@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
+import Link from "next/link";
 
-export default function OptionsMenu({ onClose, onDeleteEmotion }) {
+export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
@@ -11,17 +12,23 @@ export default function OptionsMenu({ onClose, onDeleteEmotion }) {
     onDeleteEmotion(emotion._id);
     toggleDeleteDialog();
   }
+
+  console.log(emotion);
+
   return (
     <StyledPopupMenu>
       <StyledCloseButton onClick={onClose}>×</StyledCloseButton>
+      <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
+        Show Details
+      </StyledLink>
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
-        Delete
+        Delete Card
       </StyledButtonDelete>
 
       {isDialogOpen && (
         <StyledDialogOverlay>
           <StyledDialogBox>
-            <p>Are you sure you want to delete this emotion?</p>
+            <p>Are you sure you want to delete this emotion card?</p>
             <StyledButtonConfirm onClick={handleDelete}>
               Yes
             </StyledButtonConfirm>
@@ -61,18 +68,25 @@ const StyledCloseButton = styled.button`
   cursor: pointer;
 `;
 
+const StyledLink = styled(Link)`
+  float: right;
+  margin-top: 24px;
+  padding: 4px 24px;
+  color: var(--color-background-cards);
+  cursor: pointer;
+  font-size: 0.5rem;
+`;
+
 const StyledButtonDelete = styled.button`
   float: right;
-  margin-top: 32px;
+  margin: 4px;
   padding: 4px 24px;
   background-color: #e74c3c;
-  color: white;
+  color: var(--color-background-cards);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  &:hover {
-    background-color: #c0392b;
-  }
+  font-size: 0.5rem;
 `;
 
 const StyledDialogOverlay = styled.div`

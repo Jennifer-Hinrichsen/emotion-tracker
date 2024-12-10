@@ -82,7 +82,10 @@ export default function EmotionCard({
             onToggleBookmark={() => onToggleBookmark(emotion._id)}
           />
 
-          <OptionsButton onDeleteEmotion={() => onDeleteEmotion(emotion._id)} />
+          <OptionsButton
+            onDeleteEmotion={() => onDeleteEmotion(emotion._id)}
+            emotion={emotion}
+          />
         </>
       )}
     </StyledCardWrapper>
