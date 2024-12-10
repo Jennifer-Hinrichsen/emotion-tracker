@@ -8,13 +8,13 @@ import Link from "next/link";
 import SliderIntensity from "./SliderIntensity";
 import useSWR from "swr";
 import { format } from "date-fns";
-import ToastMessage from "./ToastMessage";
 
 export default function EmotionForm({
   defaultValue,
   onCancel,
   onSubmit,
   editMode = false,
+  onToastMessage,
 }) {
   const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
@@ -30,8 +30,6 @@ export default function EmotionForm({
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
   );
-  const [toast, setToast] = useState({ visible: false, message: "" });
-
   useEffect(() => {
     if (router.isReady) {
       if (router.query.showForm === "true") {
@@ -58,24 +56,21 @@ export default function EmotionForm({
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const inputData = Object.fromEntries(formData);
+    const inputData = {
+      // Deine Input-Daten hier
+    };
 
-    inputData.intensity = selectedIntensity;
-
-    if (!inputData.type) {
-      setFormError("Please choose an emotion type.");
-      return;
-    }
-
+    // Wenn onSubmit erwartet, dass eine Funktion asynchron ist
     await onSubmit(inputData);
-    event.target.reset();
-    setToast({ visible: true, message: "Emotion successfully submitted!" });
-    setTimeout(() => setToast({ visible: false, message: "" }), 3000);
-  }
+    console.log(inputData);
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+    if (onToastMessage) {
+      onToastMessage({
+        visible: "enter",
+        message: "Emotion successfully submitted!",
+      });
+      setTimeout(() => onToastMessage({ visible: "leave", message: "" }), 3000);
+    }
   }
 
   if (isLoading) {
@@ -164,10 +159,6 @@ export default function EmotionForm({
           {formError && <StyledError>{formError}</StyledError>}
         </StyledEmotionForm>
       </StyledFormContainer>
-      <ToastMessage
-        visible={toast.visible ? "enter" : "leave"}
-        message={toast.message}
-      />
     </>
   );
 }

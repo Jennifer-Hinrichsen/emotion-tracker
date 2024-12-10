@@ -11,6 +11,7 @@ export default function EmotionDetails({
   onToggleBookmark,
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [toast, setToast] = useState({ visible: false, message: "" });
 
   function toggleDeleteDialog() {
     setIsDialogOpen(!isDialogOpen);
