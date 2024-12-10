@@ -1,15 +1,47 @@
+// import styled from "styled-components";
+
+// export default function StatisticFilter({ selectedMonth, setSelectedMonth }) {
+//   return (
+//     <StyledContainer>
+//       <StyledLabel htmlFor="month">Month:</StyledLabel>
+//       <StyledMonthInput
+//         type="month"
+//         id="month"
+//         name="month"
+//         value={selectedMonth}
+//         onChange={(event) => setSelectedMonth(event.target.value)}
+//       />
+//     </StyledContainer>
+//   );
+// }
+
 import styled from "styled-components";
 
-export default function StatisticFilter({ selectedMonth, setSelectedMonth }) {
+export default function StatisticFilter({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+}) {
   return (
     <StyledContainer>
-      <StyledLabel htmlFor="month">Month:</StyledLabel>
-      <StyledMonthInput
-        type="month"
-        id="month"
-        name="month"
-        value={selectedMonth}
-        onChange={(event) => setSelectedMonth(event.target.value)}
+      <StyledLabel htmlFor="start-date">Start Date:</StyledLabel>
+      <StyledDateInput
+        type="date"
+        id="start-date"
+        name="start-date"
+        value={startDate}
+        onChange={(event) => setStartDate(event.target.value)}
+      />
+
+      <StyledLabel htmlFor="end-date">End Date:</StyledLabel>
+      <StyledDateInput
+        type="date"
+        id="end-date"
+        name="end-date"
+        value={endDate}
+        min={startDate}
+        onChange={(event) => setEndDate(event.target.value)}
       />
     </StyledContainer>
   );
@@ -28,7 +60,7 @@ const StyledLabel = styled.label`
   font-weight: bold;
 `;
 
-const StyledMonthInput = styled.input`
+const StyledDateInput = styled.input`
   padding: 0 0 6px 0;
   width: 100%;
   border: none;

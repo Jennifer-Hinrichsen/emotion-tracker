@@ -5,15 +5,44 @@ import categorizeIntensity from "@/lib/categorizeIntensity";
 export default function StatisticList({
   emotions,
   emotionTypes,
-  selectedMonth,
+  // selectedMonth,
+  startDate,
+  endDate,
 }) {
-  const filteredEmotions = selectedMonth
-    ? emotions.filter((emotion) => {
-        const emotionDate = new Date(emotion.dateTime);
-        const emotionMonth = emotionDate.toISOString().slice(0, 7);
-        return emotionMonth === selectedMonth;
-      })
-    : emotions;
+  // const filteredEmotions = selectedMonth
+  //   ? emotions.filter((emotion) => {
+  //       const emotionDate = new Date(emotion.dateTime);
+  //       const emotionMonth = emotionDate.toISOString().slice(0, 7);
+  //       return emotionMonth === selectedMonth;
+  //     })
+  //   : emotions;
+  const filteredEmotions =
+    startDate || endDate
+      ? emotions.filter((emotion) => {
+          const emotionDate = new Date(emotion.dateTime);
+
+          // If only startDate is set
+          if (startDate && !endDate) {
+            return emotionDate >= new Date(startDate);
+          }
+
+          // If only endDate is set
+          if (!startDate && endDate) {
+            return emotionDate <= new Date(endDate);
+          }
+
+          // If both startDate and endDate are set
+          if (startDate && endDate) {
+            return (
+              emotionDate >= new Date(startDate) &&
+              emotionDate <= new Date(endDate)
+            );
+          }
+
+          // If neither startDate nor endDate is set
+          return true;
+        })
+      : emotions;
 
   // Statistikdaten pro Emotionstyp berechnen
   const typeStatisticData = filteredEmotions.reduce((acc, emotion) => {
@@ -56,7 +85,7 @@ export default function StatisticList({
 
   return filteredEmotionTypes.length === 0 ? (
     <StyledMessage $isNoEntry>
-      Sorry, in {selectedMonth} you did not track any emotion.
+      Sorry, from {startDate} to {endDate} you did not track any emotion.
     </StyledMessage>
   ) : (
     <StyledList>
