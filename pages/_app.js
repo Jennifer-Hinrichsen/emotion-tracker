@@ -2,8 +2,9 @@ import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
-import { useState } from "react";
 import ToastMessage from "@/components/ToastMessage";
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid"; // Vergessen, uuid zu importieren
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
@@ -14,7 +15,7 @@ export default function App({ Component, pageProps }) {
       defaultValue: [""],
     }
   );
-  const [toast, setToast] = useState({ visible: "", message: "" });
+  const [toasts, setToasts] = useState([]);
 
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
@@ -24,31 +25,31 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  function showToastMessage(message) {
+    const newToast = {
+      message: <strong>{message}</strong>,
+      id: uuidv4(),
+      visible: "enter",
+    };
 
-    const formData = new FormData(event.target);
-    const inputData = Object.fromEntries(formData);
+    setToasts((prevToasts) => {
+      const updatedToasts = [...prevToasts, newToast];
+      return updatedToasts.length > 3 ? updatedToasts.slice(1) : updatedToasts;
+    });
 
-    inputData.intensity = selectedIntensity;
+    setTimeout(() => {
+      setToasts((prevToasts) =>
+        prevToasts.map((toast) =>
+          toast.id === newToast.id ? { ...toast, visible: "exit" } : toast
+        )
+      );
+    }, 3000);
 
-    if (!inputData.type) {
-      setFormError("Please choose an emotion type.");
-      return;
-    }
-
-    function handleToastMessage(toastData) {
-      setToast(toastData);
-    }
-    useEffect(() => {
-      if (toast.visible === "enter") {
-        const timer = setTimeout(() => {
-          setToast({ visible: "leave", message: "" });
-        }, 3000); // Timeout nach 3 Sekunden
-
-        return () => clearTimeout(timer); // Aufräumen beim Entfernen des Toasts
-      }
-    }, [toast.visible]);
+    setTimeout(() => {
+      setToasts((prevToasts) =>
+        prevToasts.filter((toast) => toast.id !== newToast.id)
+      );
+    }, 3300);
   }
 
   return (
@@ -59,17 +60,18 @@ export default function App({ Component, pageProps }) {
           <Component
             myBookmarkedEmotions={myBookmarkedEmotions}
             onToggleBookmark={handleToggleBookmark}
-            onToastMessage={handleToastMessage}
-            onSubmit={handleSubmit}
+            showToastMessage={showToastMessage}
             {...pageProps}
           />
         </SWRConfig>
-
-        <ToastMessage
-          visible={toast.visible ? "enter" : "leave"}
-          message={toast.message}
-        />
       </Layout>
+      {toasts.map((toast) => (
+        <ToastMessage
+          key={toast.id}
+          message={toast.message}
+          visible={toast.visible}
+        />
+      ))}
     </>
   );
 }
