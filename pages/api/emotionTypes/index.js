@@ -24,9 +24,3 @@ export default async function handler(request, response) {
     return;
   }
 }
-
-function create(string) {
-  return string.toUpperCase();
-}
-
-const createString = create("Hallo");

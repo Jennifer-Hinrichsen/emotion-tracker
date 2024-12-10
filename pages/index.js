@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EmotionForm from "@/components/EmotionForm";
-import SearchBar from "@/components/Searchbar/Searchbar";
+import SearchBar from "@/components/Searchbar";
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
