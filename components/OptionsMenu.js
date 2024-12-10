@@ -44,7 +44,7 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
 
 const StyledPopupMenu = styled.div`
   position: absolute;
-  z-index: 10;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
