@@ -8,12 +8,10 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
     setIsDialogOpen(!isDialogOpen);
   }
 
-  function handleDelete(emotion) {
+  function handleDelete() {
     onDeleteEmotion(emotion._id);
     toggleDeleteDialog();
   }
-
-  console.log(emotion);
 
   return (
     <StyledPopupMenu>
@@ -118,9 +116,6 @@ const StyledButtonConfirm = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  &:hover {
-    background-color: #c0392b;
-  }
 `;
 
 const StyledButtonCancel = styled.button`
@@ -131,7 +126,4 @@ const StyledButtonCancel = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  &:hover {
-    background-color: #7f8c8d;
-  }
 `;

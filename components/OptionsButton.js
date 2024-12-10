@@ -6,22 +6,14 @@ import OptionsMenu from "./OptionsMenu";
 export default function OptionsButton({ onDeleteEmotion, emotion }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleClick = () => {
-    setIsMenuOpen(true);
-  };
-
-  const handleClosePopup = () => {
-    setIsMenuOpen(false);
-  };
-
   return (
     <>
-      <StyledButton onClick={handleClick}>
+      <StyledButton onClick={() => setIsMenuOpen(true)}>
         <OptionsIcon />
       </StyledButton>
       {isMenuOpen && (
         <OptionsMenu
-          onClose={handleClosePopup}
+          onClose={() => setIsMenuOpen(false)}
           onDeleteEmotion={onDeleteEmotion}
           emotion={emotion}
         />
