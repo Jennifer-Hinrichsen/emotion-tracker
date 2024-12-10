@@ -5,7 +5,7 @@ export default function StatisticCircles({ count, maxCount, color, filter }) {
   const radius = (Math.sqrt(count) / Math.sqrt(maxCount)) * maxRadius;
   const animationKey = `${filter}-${count}`;
 
-  return <Circle key={animationKey} size={radius * 2} color={color} />;
+  return <Circle key={animationKey} $size={radius * 2} $color={color} />;
 }
 
 const scaleUp = keyframes`
@@ -20,9 +20,9 @@ const scaleUp = keyframes`
 `;
 
 const Circle = styled.div`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  background-color: ${(props) => props.color};
+  width: ${(props) => props.$size}px;
+  height: ${(props) => props.$size}px;
+  background-color: ${(props) => props.$color};
   border-radius: 50%;
   flex-shrink: 0;
   margin: 0 0px 8px 0;

@@ -15,6 +15,17 @@ export default function StatisticPage() {
     end: null,
   });
 
+  const filteredEmotions =
+    customDateRange.start && customDateRange.end
+      ? emotions.filter((emotion) => {
+          const emotionDate = new Date(emotion.dateTime);
+          return (
+            emotionDate >= customDateRange.start &&
+            emotionDate <= customDateRange.end
+          );
+        })
+      : emotions;
+
   function handleCustomDateChange(dates) {
     if (Array.isArray(dates)) {
       let [start, end] = dates;
@@ -54,11 +65,7 @@ export default function StatisticPage() {
         onToggleCalendar={handleToggleCalendar}
         isCustomDatePickerOpen={isCustomDatePickerOpen}
       />
-      <StatisticList
-        emotions={emotions}
-        emotionTypes={emotionTypes}
-        customDateRange={customDateRange}
-      />
+      <StatisticList emotions={filteredEmotions} emotionTypes={emotionTypes} />
     </>
   );
 }

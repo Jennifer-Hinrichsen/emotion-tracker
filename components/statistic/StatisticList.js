@@ -2,24 +2,9 @@ import styled from "styled-components";
 import StatisticCircles from "./StatisticCircles";
 import categorizeIntensity from "@/lib/categorizeIntensity";
 
-export default function StatisticList({
-  emotions,
-  emotionTypes,
-  customDateRange,
-}) {
-  const filteredEmotions =
-    customDateRange.start && customDateRange.end
-      ? emotions.filter((emotion) => {
-          const emotionDate = new Date(emotion.dateTime);
-          return (
-            emotionDate >= customDateRange.start &&
-            emotionDate <= customDateRange.end
-          );
-        })
-      : emotions;
-
+export default function StatisticList({ emotions, emotionTypes }) {
   // Statistikdaten pro Emotionstyp berechnen
-  const typeStatisticData = filteredEmotions.reduce((acc, emotion) => {
+  const typeStatisticData = emotions.reduce((acc, emotion) => {
     const id = emotion.type._id;
     if (!acc[id]) {
       acc[id] = { totalIntensity: 0, count: 0 };
