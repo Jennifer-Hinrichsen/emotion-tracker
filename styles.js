@@ -56,12 +56,12 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: var(--color-background);
     padding-bottom: 66px;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
-  body.animation-active {
+  /* body.animation-active {
   overflow: hidden;
-}
+} */
 
   .container-dots {
     position: fixed;

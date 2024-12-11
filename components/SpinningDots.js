@@ -1,58 +1,74 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import anime from "animejs";
 import MoodwaveLogo from "assets/navigationIcon/moodwave-logo.svg";
 
 export default function SpinningDots() {
+  const [animationComplete, setAnimationComplete] = useState(false);
+
   useEffect(() => {
-    // Animation for dots (now with class ".dot")
+    // Blockieren des Scrollens während der Animation
+    document.body.style.overflow = "hidden";
+
+    // Punkte-Animation
     anime({
       targets: ".dots",
-      translateX: () => anime.random(-300, 300), // Random horizontal movement
-      translateY: () => anime.random(-300, 300), // Random vertical movement
-      scale: () => anime.random(0.5, 4), // Random scaling
-      opacity: () => anime.random(0.3, 1), // Random opacity
-      easing: "easeInOutQuad", // Smooth animation
-      duration: () => anime.random(100, 300), // Varying duration for different dots
-      delay: (el, i) => i * 100, // Staggered start for each dot
-      direction: "alternate", // Reverse motion
+      translateX: () => anime.random(-300, 300),
+      translateY: () => anime.random(-300, 300),
+      scale: () => anime.random(0.5, 4),
+      opacity: () => anime.random(0.3, 1),
+      easing: "easeInOutQuad",
+      duration: () => anime.random(100, 300),
+      delay: (el, i) => i * 100,
+      direction: "alternate",
     });
 
-    // Animation for MoodwaveLogo
+    // Moodwave-Logo-Animation
     anime({
       targets: ".logo",
-      scale: [0, 1], // Start small, grow to original size
-      opacity: [0, 1], // Fade in
-      easing: "easeOutExpo", // Smooth easing
-      duration: 2000, // Duration of the animation
-      delay: 2000, // Start after 3 seconds
+      scale: [0, 1],
+      opacity: [0, 1],
+      easing: "easeOutExpo",
+      duration: 2000,
+      delay: 2000,
       complete: () => {
-        // Final animation for dots: grow to cover the entire screen
+        // Animation für die Punkte
         anime({
           targets: ".dots",
-          scale: [1, 50], // Grow significantly (enough to cover the screen)
-          opacity: [1, 0], // Fade out the dot during zoom
-          easing: "easeInOutCubic", // Smooth in-and-out easing
-          duration: 1000, // Duration of the zoom effect
-          delay: 0, // Start immediately after the logo completes
-          translateX: ["50%", "50%"], // Center the dot horizontally
-          translateY: ["50%", "50%"], // Center the dot vertically
+          scale: [1, 50],
+          opacity: [1, 0],
+          easing: "easeInOutCubic",
+          duration: 1000,
+          translateX: ["50%", "50%"],
+          translateY: ["50%", "50%"],
         });
 
-        // Final animation for logo: zoom towards you and disappear
+        // Animation für das Logo
         anime({
           targets: ".logo",
-          scale: [1, 10], // Grow the logo significantly (zoom towards user)
-          opacity: [1, 0], // Fade out during zoom
-          easing: "easeInOutCubic", // Smooth in-and-out easing
-          duration: 1500, // Duration of the zoom effect
-          translateY: ["0", "-100vh"], // Move the logo upwards to disappear
+          scale: [1, 10],
+          opacity: [1, 0],
+          easing: "easeInOutCubic",
+          duration: 1500,
+          translateY: ["0", "-100vh"],
+          complete: () => {
+            // Setze den Zustand nach Abschluss der Animation
+            setTimeout(() => {
+              setAnimationComplete(true);
+              document.body.style.overflow = "auto"; // Scrollen wieder aktivieren
+            }, -1000); // Verzögerung für sanftes Entfernen
+          },
         });
       },
     });
   }, []);
 
+  // Wenn die Animation abgeschlossen ist, rendern wir das Container-Element nicht mehr
+  if (animationComplete) {
+    return null;
+  }
+
   const dots = Array.from({ length: 10 }).map((_, index) => (
-    <div className="dots" key={index}></div> // Updated class to ".dots"
+    <div className="dots" key={index}></div>
   ));
 
   return (
