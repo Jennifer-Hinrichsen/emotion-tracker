@@ -6,6 +6,7 @@ import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
+import SpinningDots from "@/components/SpinningDots";
 
 export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   const { data: emotions, isLoading, mutate } = useSWR("/api/emotionEntries");
@@ -69,7 +70,7 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   });
 
   return (
-    <>
+    <SpinningDots>
       <Heading>Mood Wave</Heading>
       <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
@@ -90,6 +91,6 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
         searchTerm={searchTerm}
         onDeleteEmotion={handleDeleteEmotion}
       />
-    </>
+    </SpinningDots>
   );
 }
