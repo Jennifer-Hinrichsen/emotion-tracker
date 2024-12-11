@@ -38,15 +38,14 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Layout>
         <SWRConfig value={{ fetcher }}>
-          {/* Animation anzeigen, solange sie noch nicht vorbei ist */}
-          {!isAnimationFinished ? (
-            <SpinningDots />
-          ) : (
+          {isAnimationFinished ? (
             <Component
               myBookmarkedEmotions={myBookmarkedEmotions}
               onToggleBookmark={handleToggleBookmark}
               {...pageProps}
             />
+          ) : (
+            <SpinningDots />
           )}
         </SWRConfig>
       </Layout>

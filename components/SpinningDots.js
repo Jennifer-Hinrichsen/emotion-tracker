@@ -52,10 +52,8 @@ export default function SpinningDots() {
           translateY: ["0", "-100vh"],
           complete: () => {
             // Setze den Zustand nach Abschluss der Animation
-            setTimeout(() => {
-              setAnimationComplete(true);
-              document.body.style.overflow = "auto"; // Scrollen wieder aktivieren
-            }, -1000); // Verzögerung für sanftes Entfernen
+            setAnimationComplete(true);
+            document.body.style.overflow = "auto"; // Scrollen wieder aktivieren// Verzögerung für sanftes Entfernen
           },
         });
       },
