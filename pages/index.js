@@ -73,6 +73,7 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
     <>
       <Heading>Mood Wave</Heading>
       <SwiperSlider />
+
       <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
       <Filter
