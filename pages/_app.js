@@ -3,7 +3,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import ToastMessage from "@/components/ToastMessage";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // Vergessen, uuid zu importieren
 
 const fetcher = (url) => fetch(url).then((response) => response.json());

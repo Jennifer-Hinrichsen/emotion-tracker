@@ -14,6 +14,7 @@ export default function EmotionForm({
   onCancel,
   onSubmit,
   editMode = false,
+  showToastMessage,
 }) {
   const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
@@ -67,6 +68,7 @@ export default function EmotionForm({
 
     await onSubmit(inputData);
     event.target.reset();
+    showToastMessage("Emotion successfully submitted!");
   }
 
   if (isLoading) {

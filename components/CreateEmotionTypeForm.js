@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function CreateEmotionTypeForm({ onSubmit }) {
+export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [formError, setFormError] = useState("");
   const router = useRouter();
@@ -52,7 +52,10 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
         <StyledSubheadline>Create your Emotion type</StyledSubheadline>
       </StyledFormHead>
 
-      <StyledEmotionForm onSubmit={handleSubmit}>
+      <StyledEmotionForm
+        onSubmit={handleSubmit}
+        showToastMessage={showToastMessage}
+      >
         <label htmlFor="name">Emotion Type*</label>
         <StyledTextArea
           id="name"
