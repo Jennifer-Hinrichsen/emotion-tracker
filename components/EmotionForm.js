@@ -155,11 +155,18 @@ export default function EmotionForm({
 
           <ButtonContainer>
             {editMode && (
-              <StyledCancelButton type="button" onClick={onCancel}>
+              <StyledCancelButton
+                type="button"
+                onClick={onCancel}
+                aria-label="Cancel and go back"
+              >
                 Cancel
               </StyledCancelButton>
             )}
-            <StyledButton type="submit">
+            <StyledButton
+              type="submit"
+              aria-label={editMode ? "Save emotion" : "Submit emotion"}
+            >
               {editMode ? "Save" : "Submit"}
             </StyledButton>
           </ButtonContainer>

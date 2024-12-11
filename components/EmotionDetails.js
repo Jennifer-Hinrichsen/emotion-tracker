@@ -56,25 +56,40 @@ export default function EmotionDetails({
         isDetailsPage={true}
         intensity={emotion.intensity}
       />
-      <StyledEditLink href={`/emotion/${emotion._id}/edit`}>
+      <StyledEditLink
+        href={`/emotion/${emotion._id}/edit`}
+        aria-label={`Edit emotion details for ${emotion.type.name}`}
+      >
         Edit
       </StyledEditLink>
 
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
-      <StyledButtonShare type="button" onClick={shareEmotion}>
+      <StyledButtonShare
+        type="button"
+        onClick={shareEmotion}
+        aria-label="Share this emotion"
+      >
         Share
       </StyledButtonShare>
 
       {isDialogOpen && (
-        <StyledDialogOverlay>
+        <StyledDialogOverlay aria-label="Delete confirmation dialog">
           <StyledDialogBox>
             <h2>Are you sure you want to delete this emotion?</h2>
-            <StyledButtonConfirm type="button" onClick={handleDelete}>
+            <StyledButtonConfirm
+              aria-label="Confirm emotion deletion"
+              type="button"
+              onClick={handleDelete}
+            >
               Delete
             </StyledButtonConfirm>
-            <StyledButtonCancel type="button" onClick={toggleDeleteDialog}>
+            <StyledButtonCancel
+              type="button"
+              onClick={toggleDeleteDialog}
+              aria-label="Cancel emotion deletion"
+            >
               Cancel
             </StyledButtonCancel>
           </StyledDialogBox>

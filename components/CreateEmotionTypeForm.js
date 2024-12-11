@@ -59,6 +59,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
           name="name"
           placeholder="Please describe your feelings"
           maxLength="50"
+          aria-label="Emotion type description"
         ></StyledTextArea>
 
         <StyledFieldset>
@@ -68,6 +69,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
               key={color.id}
               $isSelected={selectedEmotionColor === color.color}
               $bgColor={color.color}
+              aria-label={`Select the color ${color.color}`}
             >
               <StyledInputColor
                 type="radio"
@@ -85,6 +87,7 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
             <StyledLabelIcons
               key={icon.emotionIconId}
               $isSelectedColor={selectedEmotionColor}
+              aria-label={`Select the icon ${icon.emotionIcon}`}
             >
               <StyledInputIcon
                 type="radio"
@@ -97,10 +100,16 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
         </StyledFieldset>
 
         <StyledButtonContainer>
-          <StyledLinkCancel href="/">Cancel</StyledLinkCancel>
-          <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
+          <StyledLinkCancel href="/" aria-label="Cancel emotion creation">
+            Cancel
+          </StyledLinkCancel>
+          <StyledButtonSubmit type="submit" aria-label="Submit emotion type">
+            Submit
+          </StyledButtonSubmit>
         </StyledButtonContainer>
-        {formError && <StyledError>{formError}</StyledError>}
+        {formError && (
+          <StyledError aria-live="assertive">{formError}</StyledError>
+        )}
       </StyledEmotionForm>
     </StyledFormContainer>
   );
