@@ -58,6 +58,27 @@ export default createGlobalStyle`
     padding-bottom: 66px;
   }
 
+  .organic-dots {
+    position: relative;
+    width: 100vw; 
+    height: 100vh; 
+    background: linear-gradient(45deg, var(--color-frame), #2575fc);
+    /* overflow: hidden; */
+    z-index: 2;
+}
+
+.dot {
+    position: absolute;
+    top: 50%; /* Start at center */
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%); /* Center each dot initially */
+    z-index: 3;
+}
+
   h1, h2 {
     font-family: "Baskerville", serif;
     font-weight: normal;
