@@ -62,7 +62,8 @@ export default createGlobalStyle`
     position: relative;
     width: 100vw; 
     height: 100vh; 
-    background: linear-gradient(45deg, var(--color-frame), #2575fc);
+    /* background: linear-gradient(45deg, var(--color-frame), #2575fc); */
+    background: linear-gradient(45deg, var(--color-frame), var(--color-secondary));
     /* overflow: hidden; */
     z-index: 2;
 }
@@ -77,6 +78,20 @@ export default createGlobalStyle`
     border-radius: 50%;
     transform: translate(-50%, -50%); /* Center each dot initially */
     z-index: 3;
+}
+
+.logo {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  top: 42%; /* Center vertically */
+  left: 21%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Perfect centering */
+  width: 250px; /* Adjust size as needed */
+  height: auto;
+  color: var(--color-secondary);
+  z-index: 4; /* On top of dots */
+  opacity: 0; /* Start hidden */
 }
 
   h1, h2 {
