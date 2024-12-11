@@ -58,7 +58,7 @@ export default createGlobalStyle`
     padding-bottom: 66px;
   }
 
-  .organic-dots {
+  .container-dots {
     position: relative;
     width: 100vw; 
     height: 100vh; 
@@ -68,7 +68,7 @@ export default createGlobalStyle`
     z-index: 2;
 }
 
-.dot {
+.dots {
     position: absolute;
     top: 50%; /* Start at center */
     left: 50%;
@@ -84,8 +84,8 @@ export default createGlobalStyle`
   position: absolute;
   width: 200px;
   height: auto;
-  top: 42%; /* Center vertically */
-  left: 21%; /* Center horizontally */
+  top: 45%; 
+  left: 21%; 
   transform: translate(-50%, -50%); /* Perfect centering */
   width: 250px; /* Adjust size as needed */
   height: auto;
