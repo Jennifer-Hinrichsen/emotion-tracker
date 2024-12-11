@@ -56,12 +56,7 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: var(--color-background);
     padding-bottom: 66px;
-    /* overflow: hidden; */
   }
-
-  /* body.animation-active {
-  overflow: hidden;
-} */
 
   .container-dots {
     position: fixed;
@@ -70,34 +65,34 @@ export default createGlobalStyle`
     height: 100vh; 
     /* background: linear-gradient(45deg, var(--color-frame), #2575fc); */
     background: linear-gradient(45deg, var(--color-frame), var(--color-secondary));
-    /* overflow: hidden; */
     z-index: 2;
 }
 
 .dots {
     position: absolute;
-    top: 50%; /* Start at center */
+    top: 50%; 
     left: 50%;
-    width: 25px;
-    height: 25px;
-    background: var(--color-secondary);
+    width: 30px;
+    height: 30px;
+    background: var(--color-cards-foreground);
     border-radius: 50%;
-    transform: translate(-50%, -50%); /* Center each dot initially */
+    transform: translate(-50%, -50%); 
     z-index: 3;
+    opacity: 50%;
 }
 
 .logo {
   position: absolute;
   width: 200px;
   height: auto;
-  top: 45%; 
-  left: 21%; 
-  transform: translate(-50%, -50%); /* Perfect centering */
-  width: 250px; /* Adjust size as needed */
+  top: 40%; 
+  left: 14%; 
+  transform: translate(-50%, -50%); 
+  width: 250px;
   height: auto;
-  color: var(--color-secondary);
-  z-index: 4; /* On top of dots */
-  opacity: 0; /* Start hidden */
+  color: var(--color-cards-foreground);
+  z-index: 4; 
+  opacity: 0; 
 }
 
   h1, h2 {

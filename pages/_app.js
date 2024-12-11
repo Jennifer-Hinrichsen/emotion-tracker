@@ -27,10 +27,10 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsAnimationFinished(true); // Nach 3 Sekunden die Animation beenden
-    }, 5000); // 3 Sekunden Animation
+      setIsAnimationFinished(true);
+    }, 4600);
 
-    return () => clearTimeout(timer); // Cleanup der Timeout-Referenz
+    return () => clearTimeout(timer);
   }, []);
 
   return (
