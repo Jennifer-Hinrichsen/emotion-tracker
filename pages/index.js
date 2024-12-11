@@ -6,6 +6,7 @@ import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
+import SwiperSlider from "@/components/SwiperSlider";
 
 export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   const { data: emotions, isLoading, mutate } = useSWR("/api/emotionEntries");
@@ -71,6 +72,7 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   return (
     <>
       <Heading>Mood Wave</Heading>
+      <SwiperSlider />
       <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
       <Filter
