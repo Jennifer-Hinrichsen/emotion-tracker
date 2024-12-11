@@ -222,9 +222,15 @@ const StyledLinkCancel = styled(Link)`
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
 
   &:hover {
     opacity: 70%;
+  }
+  body.dark-theme & {
+    color: var(--color-cards-foreground);
   }
 `;
 
@@ -236,7 +242,9 @@ const StyledButtonSubmit = styled.button`
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  display: inline-block;
   transition: background-color 0.3s ease;
+  font-size: 14px;
 
   &:hover {
     background-color: var(--color-success);
@@ -256,6 +264,9 @@ const StyledButtonSubmit = styled.button`
     100% {
       background-color: var(--color-secondary);
     }
+  }
+  body.dark-theme & {
+    color: var(--color-cards-foreground);
   }
 `;
 

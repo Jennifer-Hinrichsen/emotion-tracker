@@ -17,7 +17,7 @@ export default function CreateEmotionType() {
 
   return (
     <>
-      <Heading>Create Emotion Type</Heading>
+      <Heading>Create</Heading>
       <CreateEmotionTypeForm onSubmit={handleCreateEmotionType} />
     </>
   );

@@ -141,6 +141,9 @@ const StyledDialogBox = styled.div`
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 0 10px var(--color-shadow);
+  body.dark-theme & {
+    color: var(--color-foreground);
+  }
 `;
 
 const StyledButtonConfirm = styled.button`

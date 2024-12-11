@@ -66,6 +66,9 @@ const StyledSearchButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+  body.dark-theme & {
+    color: var(--color-foreground);
+  }
 `;
 
 const StyledSearchIcon = styled(SearchIcon)`
