@@ -56,10 +56,16 @@ export default createGlobalStyle`
     font-family: system-ui;
     background-color: var(--color-background);
     padding-bottom: 66px;
+    overflow: hidden;
   }
 
+  body.animation-active {
+  overflow: hidden;
+}
+
   .container-dots {
-    position: relative;
+    position: fixed;
+    top:0;
     width: 100vw; 
     height: 100vh; 
     /* background: linear-gradient(45deg, var(--color-frame), #2575fc); */
