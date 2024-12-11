@@ -262,6 +262,9 @@ const StyledCreateEmotionLink = styled(Link)`
   &:hover {
     background-color: var(--color-secondary);
   }
+  body.dark-theme & {
+    color: var(--color-cards-foreground);
+  }
 `;
 
 const StyledDateAndTimeInput = styled.input`
