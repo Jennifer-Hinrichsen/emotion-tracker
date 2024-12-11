@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
@@ -8,6 +9,8 @@ import { useState, useEffect } from "react";
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
   const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
     "myBookmarkedEmotions",
     {
@@ -15,7 +18,10 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  const [isAnimationFinished, setIsAnimationFinished] = useState(false);
+  // Initialzustand abhängig von der aktuellen Route
+  const [isAnimationFinished, setIsAnimationFinished] = useState(
+    router.pathname !== "/" // Animation nur auf der Startseite
+  );
 
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
@@ -26,12 +32,15 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimationFinished(true);
-    }, 4600);
+    // Animation nur auf der Startseite starten
+    if (router.pathname === "/") {
+      const timer = setTimeout(() => {
+        setIsAnimationFinished(true);
+      }, 4500); // Dauer der Animation
 
-    return () => clearTimeout(timer);
-  }, []);
+      return () => clearTimeout(timer);
+    }
+  }, [router.pathname]);
 
   return (
     <>
