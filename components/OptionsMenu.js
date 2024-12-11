@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Link from "next/link";
+import ShareButton from "./ShareButton";
 
 export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -19,6 +20,8 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
       <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
         Show Details
       </StyledLink>
+
+      <ShareButton emotion={emotion} className="custom-share-button" />
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete Card
       </StyledButtonDelete>
@@ -46,11 +49,11 @@ const StyledPopupMenu = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   bottom: 8px;
   right: 16px;
   width: 30%;
-  height: 50%;
+  height: 70%;
+
   border-radius: 8px;
   background-color: var(--color-secondary);
 `;
@@ -68,7 +71,7 @@ const StyledCloseButton = styled.button`
 
 const StyledLink = styled(Link)`
   float: right;
-  margin-top: 24px;
+  margin-top: 4px;
   padding: 4px 24px;
   color: var(--color-background-cards);
   cursor: pointer;
@@ -78,6 +81,7 @@ const StyledLink = styled(Link)`
 const StyledButtonDelete = styled.button`
   float: right;
   margin: 4px;
+  margin-top: 0;
   padding: 4px 24px;
   background-color: #e74c3c;
   color: var(--color-background-cards);

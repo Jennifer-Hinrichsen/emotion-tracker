@@ -33,7 +33,7 @@ const StyledButtonShare = styled.button`
   float: right;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #2ecc71;
   color: white;
   border: none;
