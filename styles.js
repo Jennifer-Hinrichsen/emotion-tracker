@@ -78,7 +78,7 @@ export default createGlobalStyle`
     border-radius: 50%;
     transform: translate(-50%, -50%); 
     z-index: 3;
-    opacity: 50%;
+    opacity: 90%;
 }
 
 .logo {
@@ -91,7 +91,7 @@ export default createGlobalStyle`
   width: 250px;
   height: auto;
   color: var(--color-cards-foreground);
-  z-index: 4; 
+  z-index: 400; 
   opacity: 0; 
 }
 

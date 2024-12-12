@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }) {
     if (router.pathname === "/") {
       const timer = setTimeout(() => {
         setIsAnimationFinished(true);
-      }, 4500); // Dauer der Animation
+      }, 3200); // Dauer der Animation
 
       return () => clearTimeout(timer);
     }
