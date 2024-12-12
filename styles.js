@@ -63,9 +63,8 @@ export default createGlobalStyle`
     top:0;
     width: 100vw; 
     height: 100vh; 
-    /* background: linear-gradient(45deg, var(--color-frame), #2575fc); */
     background: linear-gradient(45deg, var(--color-frame), var(--color-secondary));
-    z-index: 2;
+    z-index: 3;
 }
 
 .dots {
@@ -77,21 +76,19 @@ export default createGlobalStyle`
     background: var(--color-cards-foreground);
     border-radius: 50%;
     transform: translate(-50%, -50%); 
-    z-index: 3;
+    z-index: 4;
     opacity: 90%;
 }
 
 .logo {
   position: absolute;
-  width: 200px;
+  width: 300px;
   height: auto;
   top: 40%; 
   left: 14%; 
   transform: translate(-50%, -50%); 
-  width: 250px;
-  height: auto;
   color: var(--color-cards-foreground);
-  z-index: 400; 
+  z-index: 5; 
   opacity: 0; 
 }
 

@@ -18,9 +18,8 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  // Initialzustand abhängig von der aktuellen Route
   const [isAnimationFinished, setIsAnimationFinished] = useState(
-    router.pathname !== "/" // Animation nur auf der Startseite
+    router.pathname !== "/"
   );
 
   function handleToggleBookmark(id) {
@@ -32,11 +31,10 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    // Animation nur auf der Startseite starten
     if (router.pathname === "/") {
       const timer = setTimeout(() => {
         setIsAnimationFinished(true);
-      }, 3200); // Dauer der Animation
+      }, 2800);
 
       return () => clearTimeout(timer);
     }
