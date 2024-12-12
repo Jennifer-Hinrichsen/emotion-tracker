@@ -118,7 +118,12 @@ export default function EmotionForm({
             Create your Emotion Type <MoodPlusIcon />
           </StyledCreateEmotionLink>
         )}
-        <label htmlFor="intensity">Emotion intensity*</label>
+        <label
+          htmlFor="intensity"
+          aria-label="Select the intensity of the emotion"
+        >
+          Emotion intensity*
+        </label>
         <SliderIntensity
           selectedEmotionType={selectedEmotionType}
           defaultIntensity={selectedIntensity}

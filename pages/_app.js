@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import ToastMessage from "@/components/ToastMessage";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid"; // Vergessen, uuid zu importieren
+import { v4 as uuidv4 } from "uuid";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
