@@ -184,7 +184,7 @@ const StyledFormContainer = styled.div`
   border: 1px solid (--color-border);
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px var(--color-shadow);
-  margin-bottom: 48px;
+  margin-bottom: 22px;
 `;
 
 const StyledFormHead = styled.div`

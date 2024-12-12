@@ -45,10 +45,11 @@ export default function EmotionDetails({
   return (
     <>
       <Heading>Emotion Details</Heading>
-      <StyledBackLink aria-label="navigate-home" href="/">
-        ←
-      </StyledBackLink>
-
+      <StyledWrapperBackLink>
+        <StyledBackLink aria-label="navigate-home" href="/">
+          ←
+        </StyledBackLink>
+      </StyledWrapperBackLink>
       <EmotionCard
         emotion={emotion}
         onToggleBookmark={onToggleBookmark}
@@ -99,6 +100,9 @@ export default function EmotionDetails({
   );
 }
 
+const StyledWrapperBackLink = styled.div`
+  margin-bottom: 12px;
+`;
 const StyledBackLink = styled(Link)`
   font-size: 24px;
   margin-left: 10px;
@@ -107,6 +111,7 @@ const StyledBackLink = styled(Link)`
 `;
 
 const StyledEditLink = styled(Link)`
+  line-height: 1;
   float: left;
   margin-right: 20px;
   margin: 10px;
@@ -116,6 +121,7 @@ const StyledEditLink = styled(Link)`
   border: none;
   border-radius: 5px;
   text-decoration: none;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #3232ff;
@@ -123,6 +129,7 @@ const StyledEditLink = styled(Link)`
 `;
 
 const StyledButtonDelete = styled.button`
+  line-height: 1;
   float: right;
   margin-right: 20px;
   margin: 10px;
@@ -131,6 +138,7 @@ const StyledButtonDelete = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #c0392b;
@@ -187,6 +195,7 @@ const StyledButtonCancel = styled.button`
   }
 `;
 const StyledButtonShare = styled.button`
+  line-height: 1;
   float: right;
   margin-right: 20px;
   margin: 10px;
@@ -195,6 +204,7 @@ const StyledButtonShare = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #27ae60;

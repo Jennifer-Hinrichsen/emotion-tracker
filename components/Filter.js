@@ -197,7 +197,7 @@ const StyledIconRight = styled.div`
 
 const StyledAppliedInfo = styled.p`
   margin: 0;
-  padding: 10px 0 10px 20px;
+  padding: 4px 0 4px 26px;
   color: var(--color-secondary);
 `;
 

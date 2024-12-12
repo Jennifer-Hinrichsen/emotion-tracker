@@ -33,6 +33,7 @@ export default function EmotionList({
 const StyledList = styled.ul`
   margin-bottom: 48px;
   padding: 0 1rem;
+  margin-top: 8px;
 `;
 
 const StyledMessage = styled.p`

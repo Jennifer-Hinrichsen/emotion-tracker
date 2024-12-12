@@ -55,14 +55,14 @@ const StyledSearchWrapper = styled.div`
   position: relative;
   width: 100%;
   transition: all 0.3s ease;
-  padding: 10px;
+  padding: 0px 16px 0px 14px;
 `;
 
 const StyledSearchButton = styled.button`
   font-size: 24px;
   color: #313366;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
   background: none;
   border: none;
@@ -71,7 +71,6 @@ const StyledSearchButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
 
   &:hover {
     transform: scale(1.1);
