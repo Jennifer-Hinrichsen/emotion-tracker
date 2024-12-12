@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SwiperSlider from "@/components/SwiperSlider";
 
 export default function CreateEmotionTypeForm({ onSubmit }) {
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
@@ -47,62 +48,66 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
   }
 
   return (
-    <StyledFormContainer>
-      <StyledFormHead>
-        <StyledSubheadline>Create your Emotion type</StyledSubheadline>
-      </StyledFormHead>
+    <>
+      <SwiperSlider />
 
-      <StyledEmotionForm onSubmit={handleSubmit}>
-        <label htmlFor="name">Emotion Type*</label>
-        <StyledTextArea
-          id="name"
-          name="name"
-          placeholder="Please describe your feelings"
-          maxLength="50"
-        ></StyledTextArea>
+      <StyledFormContainer>
+        <StyledFormHead>
+          <StyledSubheadline>Create your Emotion type</StyledSubheadline>
+        </StyledFormHead>
 
-        <StyledFieldset>
-          <StyledLegendColor>Choose a Color*</StyledLegendColor>
-          {allEmotionColors.map((color) => (
-            <StyledLabelColors
-              key={color.id}
-              $isSelected={selectedEmotionColor === color.color}
-              $bgColor={color.color}
-            >
-              <StyledInputColor
-                type="radio"
-                name="color"
-                value={color.color}
-                onChange={handleChangeEmotionColor}
-              />
-            </StyledLabelColors>
-          ))}
-        </StyledFieldset>
+        <StyledEmotionForm onSubmit={handleSubmit}>
+          <label htmlFor="name">Emotion Type*</label>
+          <StyledTextArea
+            id="name"
+            name="name"
+            placeholder="Please describe your feelings"
+            maxLength="50"
+          ></StyledTextArea>
 
-        <StyledFieldset>
-          <StyledLegendIcon>Choose an Icon*</StyledLegendIcon>
-          {allEmotionIcons.map((icon) => (
-            <StyledLabelIcons
-              key={icon.emotionIconId}
-              $isSelectedColor={selectedEmotionColor}
-            >
-              <StyledInputIcon
-                type="radio"
-                name="emotionIconId"
-                value={icon.emotionIconId}
-              />
-              <StyledSpan>{icon.emotionIcon}</StyledSpan>
-            </StyledLabelIcons>
-          ))}
-        </StyledFieldset>
+          <StyledFieldset>
+            <StyledLegendColor>Choose a Color*</StyledLegendColor>
+            {allEmotionColors.map((color) => (
+              <StyledLabelColors
+                key={color.id}
+                $isSelected={selectedEmotionColor === color.color}
+                $bgColor={color.color}
+              >
+                <StyledInputColor
+                  type="radio"
+                  name="color"
+                  value={color.color}
+                  onChange={handleChangeEmotionColor}
+                />
+              </StyledLabelColors>
+            ))}
+          </StyledFieldset>
 
-        <StyledButtonContainer>
-          <StyledLinkCancel href="/">Cancel</StyledLinkCancel>
-          <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
-        </StyledButtonContainer>
-        {formError && <StyledError>{formError}</StyledError>}
-      </StyledEmotionForm>
-    </StyledFormContainer>
+          <StyledFieldset>
+            <StyledLegendIcon>Choose an Icon*</StyledLegendIcon>
+            {allEmotionIcons.map((icon) => (
+              <StyledLabelIcons
+                key={icon.emotionIconId}
+                $isSelectedColor={selectedEmotionColor}
+              >
+                <StyledInputIcon
+                  type="radio"
+                  name="emotionIconId"
+                  value={icon.emotionIconId}
+                />
+                <StyledSpan>{icon.emotionIcon}</StyledSpan>
+              </StyledLabelIcons>
+            ))}
+          </StyledFieldset>
+
+          <StyledButtonContainer>
+            <StyledLinkCancel href="/">Cancel</StyledLinkCancel>
+            <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
+          </StyledButtonContainer>
+          {formError && <StyledError>{formError}</StyledError>}
+        </StyledEmotionForm>
+      </StyledFormContainer>
+    </>
   );
 }
 

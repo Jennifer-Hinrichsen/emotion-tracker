@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Pagination } from "swiper/modules";
+import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
@@ -16,20 +16,26 @@ export default function SwiperSlider() {
   return (
     <StyledSlider>
       <Swiper
-        modules={[FreeMode, Pagination]}
+        modules={[FreeMode, Pagination, Autoplay]}
         spaceBetween={10}
-        slidesPerView={2}
+        slidesPerView={1}
         freeMode={true}
         pagination={{ clickable: true, type: "bullets" }}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
       >
         {images.map((src, index) => (
           <SwiperSlide key={index}>
-            <StyledImage
-              src={src}
-              alt={`Test image ${index + 1}`}
-              width={200}
-              height={100}
-            />
+            <ImageWrapper>
+              <Image
+                src={src}
+                alt={`Test image ${index + 1}`}
+                width={400}
+                height={150}
+              />
+            </ImageWrapper>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -38,19 +44,16 @@ export default function SwiperSlider() {
 }
 
 const StyledSlider = styled.div`
-  padding: 20px;
-
   .swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
-    margin: 0 5px;
+    width: 16px;
+    height: 16px;
     background-color: var(--color-secondary);
     border-radius: 50%;
-    transition: background-color 0.3s ease;
   }
 `;
 
-const StyledImage = styled(Image)`
-  object-fit: cover;
-  border-radius: 8px;
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
