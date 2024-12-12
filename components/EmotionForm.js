@@ -76,7 +76,7 @@ export default function EmotionForm({
   }
 
   if (emotionTypes?.length === 0) {
-    return <h1>Keine Emotionsarten verfügbar</h1>;
+    return <p>Keine Emotionsarten verfügbar</p>;
   }
 
   return (
