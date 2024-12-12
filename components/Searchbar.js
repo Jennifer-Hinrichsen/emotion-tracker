@@ -29,7 +29,10 @@ export default function SearchBar({ searchTerm, onSearch, onClearSearch }) {
           aria-label="Search all emotions"
         />
         {isExpanded && searchTerm && (
-          <ClearSearchButton onClick={handleClearSearch} aria-label="Clear search">
+          <ClearSearchButton
+            onClick={handleClearSearch}
+            aria-label="Clear search"
+          >
             X
           </ClearSearchButton>
         )}
@@ -40,19 +43,6 @@ export default function SearchBar({ searchTerm, onSearch, onClearSearch }) {
         aria-expanded={isExpanded}
       >
         <StyledSearchIcon $isActive={isExpanded} aria-hidden="true" />
-      </StyledSearchButton>
-    </StyledSearchWrapper>
-  );
-}
-
-
-        />
-        {isExpanded && searchTerm && (
-          <ClearSearchButton onClick={handleClearSearch}>X</ClearSearchButton>
-        )}
-      </StyledSearchInputWrapper>
-      <StyledSearchButton onClick={toggleSearchBar}>
-        <StyledSearchIcon $isActive={isExpanded} />
       </StyledSearchButton>
     </StyledSearchWrapper>
   );
