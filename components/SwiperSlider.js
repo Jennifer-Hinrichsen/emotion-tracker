@@ -9,9 +9,9 @@ import styled from "styled-components";
 
 export default function SwiperSlider() {
   const images = [
-    "/images/wave1.jpg",
-    "/images/wave2.jpg",
-    "/images/wave3.jpg",
+    { id: 1, src: "/images/Slider-1.svg" },
+    { id: 2, src: "/images/Slider-2.svg" },
+    { id: 3, src: "/images/Slider-3.svg" },
   ];
   return (
     <StyledSlider>
@@ -26,12 +26,12 @@ export default function SwiperSlider() {
           disableOnInteraction: false,
         }}
       >
-        {images.map((src, index) => (
-          <SwiperSlide key={index}>
+        {images.map((image) => (
+          <SwiperSlide key={image.id}>
             <ImageWrapper>
               <Image
-                src={src}
-                alt={`Test image ${index + 1}`}
+                src={image.src}
+                alt={`${image.id}`}
                 width={400}
                 height={150}
               />
@@ -45,10 +45,14 @@ export default function SwiperSlider() {
 
 const StyledSlider = styled.div`
   .swiper-pagination-bullet {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     background-color: var(--color-secondary);
     border-radius: 50%;
+  }
+
+  .swiper-pagination {
+    bottom: -2px;
   }
 `;
 

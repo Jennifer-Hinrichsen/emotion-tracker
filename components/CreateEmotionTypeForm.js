@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import SwiperSlider from "@/components/SwiperSlider";
 
 export default function CreateEmotionTypeForm({ onSubmit }) {
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
@@ -49,8 +48,6 @@ export default function CreateEmotionTypeForm({ onSubmit }) {
 
   return (
     <>
-      <SwiperSlider />
-
       <StyledFormContainer>
         <StyledFormHead>
           <StyledSubheadline>Create your Emotion type</StyledSubheadline>

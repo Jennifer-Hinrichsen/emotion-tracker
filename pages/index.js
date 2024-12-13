@@ -71,7 +71,6 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   return (
     <>
       <Heading>Mood Wave</Heading>
-
       <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
       <Filter
