@@ -1,13 +1,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="assets/navigationIcon/moodwave-logo.svg" alt="Logo" width="80" height="80">
+    <img src="public/logo-moodwave-white.svg" alt="Logo" width="100" height="100">
   </a>
-
   <h3 align="center">Mood Wave</h3>
-
   <p align="center">
     Create your emotions and track them over time!
+    <br />
+    <img src="public/Welcome-Emojis.svg" alt="Logo" width="200" height="100">
     <br />
     <a href="https://github.com/Jennifer-Hinrichsen/emotion-tracker"><strong>Explore »</strong></a>
     <br />
@@ -28,35 +28,18 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#contributing">Contributors</a></li>
+    
   </ol>
 </details>
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Mood Wave is an emotion tracker designed to help users track, analyze and understand their feelings over time. While especially beneficial for individuals attending behavioral therapy, it’s also perfect for anyone seeking deeper self-awareness.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-
-- Your time should be focused on creating something amazing. A project that solves a problem and helps others
-- You shouldn't be doing the same tasks over and over like creating a README from scratch
-- You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+The app offers creating new emotions, journaling, calendar tracking, detailed analytics and options to upload your own images. To make the experience even more personal, Mood Wave features a cozy, welcoming design with customizable wave-emojis to match your mood.
 
 ### Built With
 
@@ -70,10 +53,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
 - [![styled-components](https://img.shields.io/badge/styled--components-DB7093?logo=styledcomponents&logoColor=fff)](#)
   <br>
 - [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white)](#)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- GETTING STARTED -->
 
 ## Getting Started
 
@@ -115,22 +94,6 @@ Contributions are what make the open source community such an amazing place to l
 </div>
 
 [Contributor-Board](https://github.com/Jennifer-Hinrichsen/emotion-tracker/graphs/contributors)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
