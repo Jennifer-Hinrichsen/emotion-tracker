@@ -1,19 +1,16 @@
-import { useRouter } from "next/router";
 import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import dynamic from "next/dynamic";
 
+const fetcher = (url) => fetch(url).then((response) => response.json());
+
 const SpinningDots = dynamic(() => import("@/components/SpinningDots"), {
   ssr: false,
 });
 
-const fetcher = (url) => fetch(url).then((response) => response.json());
-
 export default function App({ Component, pageProps }) {
-  const router = useRouter();
-
   const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
     "myBookmarkedEmotions",
     {
