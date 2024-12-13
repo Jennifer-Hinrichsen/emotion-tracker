@@ -3,8 +3,12 @@ import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
-import SpinningDots from "@/components/SpinningDots";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+const SpinningDots = dynamic(() => import("@/components/SpinningDots"), {
+  ssr: false,
+});
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
