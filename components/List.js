@@ -23,6 +23,7 @@ export default function EmotionList({
             isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
             intensity={emotion.intensity}
             searchTerm={searchTerm}
+            onDeleteEmotion={onDeleteEmotion}
           />
         </StyledCardList>
       ))}
