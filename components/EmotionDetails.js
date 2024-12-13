@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import ShareButton from "./ShareButton";
 
 export default function EmotionDetails({
   emotion,
@@ -33,6 +34,7 @@ export default function EmotionDetails({
         onToggleBookmark={onToggleBookmark}
         isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
         isDetailsPage={true}
+        intensity={emotion.intensity}
       />
       <StyledEditLink href={`/emotion/${emotion._id}/edit`}>
         Edit
@@ -41,6 +43,7 @@ export default function EmotionDetails({
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
+      <ShareButton emotion={emotion} />
 
       {isDialogOpen && (
         <StyledDialogOverlay>
@@ -70,7 +73,7 @@ const StyledEditLink = styled(Link)`
   float: left;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #6666ff;
   color: white;
   border: none;
@@ -86,7 +89,7 @@ const StyledButtonDelete = styled.button`
   float: right;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -120,7 +123,7 @@ const StyledDialogBox = styled.div`
 
 const StyledButtonConfirm = styled.button`
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -133,7 +136,7 @@ const StyledButtonConfirm = styled.button`
 
 const StyledButtonCancel = styled.button`
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #95a5a6;
   color: white;
   border: none;

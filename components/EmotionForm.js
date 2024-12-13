@@ -19,7 +19,11 @@ export default function EmotionForm({
   const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
 
-  const currentDate = format(new Date(), "yyyy-MM-dd");
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const currentDate = format(new Date(), "yyyy-MM-dd");
+    return router.query.selectedDate || currentDate;
+  });
+
   const currentTime = format(new Date(), "HH:mm");
 
   const [formVisibility, setFormVisibility] = useState(!!editMode);
@@ -39,8 +43,16 @@ export default function EmotionForm({
       if (router.query.selectedEmotionType) {
         setSelectedEmotionType(router.query.selectedEmotionType);
       }
+      if (router.query.selectedDate) {
+        setSelectedDate(router.query.selectedDate);
+      }
     }
-  }, [router.isReady, router.query.selectedEmotionType, router.query.showForm]);
+  }, [
+    router.isReady,
+    router.query.selectedEmotionType,
+    router.query.showForm,
+    router.query.selectedDate,
+  ]);
 
   function handleChangeEmotionType(event) {
     setSelectedEmotionType(event.target.value);
@@ -80,91 +92,82 @@ export default function EmotionForm({
   }
 
   return (
-    <StyledFormContainer>
-      <StyledFormHead onClick={toggleVisibilityForm}>
-        <StyledSubheadline>
-          {editMode ? "Update your Emotion" : "Add your Emotion"}
-        </StyledSubheadline>
-        {!editMode && (
-          <StyledVisibilityIcons aria-label="show-hide-form">
-            {formVisibility ? <MinusIcon /> : <PlusIcon />}
-          </StyledVisibilityIcons>
-        )}
-      </StyledFormHead>
-
-      <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
-        <label htmlFor="type">Emotion (type)*</label>
-        <SelectEmotionContainer>
-          <StyledSelectEmotion
-            value={selectedEmotionType}
-            id="type"
-            name="type"
-            onChange={handleChangeEmotionType}
-          >
-            <option value="">---Choose an Emotion---</option>
-            {emotionTypes.map((emotion) => (
-              <option key={emotion._id} value={emotion._id}>
-                {emotion.name}
-              </option>
-            ))}
-          </StyledSelectEmotion>
-          <StyledArrow>▼</StyledArrow>
-        </SelectEmotionContainer>
-        {!editMode && (
-          <StyledCreateEmotionLink
-            href="/createemotiontype"
-            aria-label="Create a new emotion type"
-          >
-            Create your Emotion Type <MoodPlusIcon />
-          </StyledCreateEmotionLink>
-        )}
-        <label
-          htmlFor="intensity"
-          aria-label="Select the intensity of the emotion"
-        >
-          Emotion intensity*
-        </label>
-        <SliderIntensity
-          selectedEmotionType={selectedEmotionType}
-          defaultIntensity={selectedIntensity}
-          onChange={(intensity) => setSelectedIntensity(intensity)}
-          emotionTypes={emotionTypes}
-        />
-
-        <StyledLabelNoPadding htmlFor="date-time">
-          Date and Time*
-        </StyledLabelNoPadding>
-        <StyledDateAndTimeInput
-          id="date-time"
-          name="dateTime"
-          type="datetime-local"
-          defaultValue={
-            defaultValue?.dateTime || currentDate + "T" + currentTime
-          }
-        />
-
-        <label htmlFor="notes">Notes</label>
-        <StyledTextArea
-          id="notes"
-          name="notes"
-          defaultValue={defaultValue?.notes || ""}
-          placeholder="Please describe your feelings"
-          maxLength="150"
-        />
-
-        <ButtonContainer>
-          {editMode && (
-            <StyledCancelButton type="button" onClick={onCancel}>
-              Cancel
-            </StyledCancelButton>
+    <>
+      <StyledFormContainer>
+        <StyledFormHead onClick={toggleVisibilityForm}>
+          <StyledSubheadline>
+            {editMode ? "Update your Emotion" : "Add your Emotion"}
+          </StyledSubheadline>
+          {!editMode && (
+            <StyledVisibilityIcons aria-label="show-hide-form">
+              {formVisibility ? <MinusIcon /> : <PlusIcon />}
+            </StyledVisibilityIcons>
           )}
-          <StyledButton type="submit">
-            {editMode ? "Save" : "Submit"}
-          </StyledButton>
-        </ButtonContainer>
-        {formError && <StyledError>{formError}</StyledError>}
-      </StyledEmotionForm>
-    </StyledFormContainer>
+        </StyledFormHead>
+        <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
+          <label htmlFor="type">Emotion (type)*</label>
+          <SelectEmotionContainer>
+            <StyledSelectEmotion
+              value={selectedEmotionType}
+              id="type"
+              name="type"
+              onChange={handleChangeEmotionType}
+            >
+              <option value="">---Choose an Emotion---</option>
+              {emotionTypes.map((emotion) => (
+                <option key={emotion._id} value={emotion._id}>
+                  {emotion.name}
+                </option>
+              ))}
+            </StyledSelectEmotion>
+            <StyledArrow>▼</StyledArrow>
+          </SelectEmotionContainer>
+          {!editMode && (
+            <StyledCreateEmotionLink
+              href="/createemotiontype"
+              aria-label="Create a new emotion type"
+            >
+              Create your Emotion Type <MoodPlusIcon />
+            </StyledCreateEmotionLink>
+          )}
+          <label htmlFor="intensity">Emotion intensity*</label>
+          <SliderIntensity
+            selectedEmotionType={selectedEmotionType}
+            defaultIntensity={selectedIntensity}
+            onChange={(intensity) => setSelectedIntensity(intensity)}
+            emotionTypes={emotionTypes}
+          />
+          <StyledLabelNoPadding htmlFor="date-time">
+            Date and Time*
+          </StyledLabelNoPadding>
+          <StyledDateAndTimeInput
+            id="date-time"
+            name="dateTime"
+            type="datetime-local"
+            defaultValue={selectedDate + "T" + currentTime}
+          />
+          <label htmlFor="notes">Notes</label>
+          <StyledTextArea
+            id="notes"
+            name="notes"
+            defaultValue={defaultValue?.notes || ""}
+            placeholder="Please describe your feelings"
+            maxLength="150"
+          ></StyledTextArea>
+          <ButtonContainer>
+            {editMode && (
+              <StyledCancelButton type="button" onClick={onCancel}>
+                Cancel
+              </StyledCancelButton>
+            )}
+            <StyledButton type="submit">
+              {editMode ? "Save" : "Submit"}
+            </StyledButton>
+          </ButtonContainer>
+          {formError && <StyledError>{formError}</StyledError>}
+        </StyledEmotionForm>
+      </StyledFormContainer>
+    </>
   );
 }
 

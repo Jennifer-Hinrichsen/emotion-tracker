@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CalendarPopup from "./CalendarPopup";
 import { weekdays } from "@/lib/calendarDaysMonths";
 import { months } from "@/lib/calendarDaysMonths";
+import { format } from "date-fns";
 
 export default function Calendar({ emotions }) {
   const [currentDay, setCurrentDay] = useState(new Date());
@@ -43,17 +44,24 @@ export default function Calendar({ emotions }) {
     });
   };
 
+  const formattedDate = selectedDay?.date
+    ? format(selectedDay.date, "yyyy-MM-dd")
+    : null;
+  const emotionsForDay = selectedDay?.date
+    ? getEmotionsForDay(selectedDay.date)
+    : [];
+
   return (
     <StyledCalendarContainer>
       <StyledCalendarMonth>
         <StyledArrowButton onClick={previousMonth}>
-          <span>{"<"}</span>
+          <StyledArrow>{"<"}</StyledArrow>
         </StyledArrowButton>
         <p>
           {months[currentDay.getMonth()]} {currentDay.getFullYear()}
         </p>
         <StyledArrowButton onClick={nextMonth}>
-          <span>{">"}</span>
+          <StyledArrow>{">"}</StyledArrow>
         </StyledArrowButton>
       </StyledCalendarMonth>
 
@@ -75,9 +83,10 @@ export default function Calendar({ emotions }) {
       </StyledCalendarBody>
       {selectedDay && (
         <CalendarPopup
-          getEmotionsForDay={getEmotionsForDay}
+          emotionsForDay={emotionsForDay}
           selectedDay={selectedDay}
           onClosePopup={handleClosePopup}
+          formattedDate={formattedDate}
         />
       )}
     </StyledCalendarContainer>
@@ -105,6 +114,10 @@ const StyledArrowButton = styled.button`
   background-color: var(--color-background);
   border: none;
   cursor: pointer;
+`;
+
+const StyledArrow = styled.span`
+  color: var(--color-secondary);
 `;
 
 const StyledCalendarBody = styled.div`

@@ -1,37 +1,48 @@
 import styled from "styled-components";
 import Link from "next/link";
+import BulbIcon from "assets/calendarIcons/bulb.svg";
+import { useRouter } from "next/router";
 
 export default function CalendarPopup({
-  getEmotionsForDay,
-  selectedDay,
   onClosePopup,
+  emotionsForDay,
+  formattedDate,
 }) {
+  const router = useRouter();
+
+  const handleCreateEmotion = () => {
+    router.push(`/?showForm=true&selectedDate=${formattedDate}`);
+  };
+
   return (
     <StyledPopup>
-      <StyledPopupContent>
-        <StyledSubheadline>Emotions</StyledSubheadline>
-        <StyledEmotionList>
-          {getEmotionsForDay(selectedDay.date).map((emotion) => (
-            <li key={emotion._id}>
-              <StyledEmotionDot color={emotion.type.color} />
-              <StyledLink href={`/emotion/${emotion._id}`}>
-                {emotion.type.name}
-              </StyledLink>
-            </li>
-          ))}
-        </StyledEmotionList>
-        <StyledCloseButton onClick={onClosePopup}>Close</StyledCloseButton>
-      </StyledPopupContent>
+      <StyledContentWrapper>
+        <StyledCloseButton onClick={onClosePopup}>×</StyledCloseButton>
+        <StyledDate>{formattedDate}</StyledDate>
+        {emotionsForDay.length === 0 ? (
+          <StyledNoEmotionsMessage>
+            No emotions for this day
+          </StyledNoEmotionsMessage>
+        ) : (
+          <StyledEmotionList>
+            {emotionsForDay.map((emotion) => (
+              <li key={emotion._id}>
+                <StyledEmotionDot color={emotion.type.color} />
+                <StyledLink href={`/emotion/${emotion._id}`}>
+                  {emotion.type.name}
+                </StyledLink>
+              </li>
+            ))}
+          </StyledEmotionList>
+        )}
+        <StyledCreateButton onClick={handleCreateEmotion}>
+          <StyledBulbIcon />
+          <StyledText>Create Emotion</StyledText>
+        </StyledCreateButton>
+      </StyledContentWrapper>
     </StyledPopup>
   );
 }
-
-const StyledSubheadline = styled.h2`
-  margin: 0;
-  padding: 10px 0;
-  color: var(--color-secondary);
-  text-align: center;
-`;
 
 const StyledPopup = styled.div`
   display: flex;
@@ -42,19 +53,50 @@ const StyledPopup = styled.div`
   left: 25%;
   width: 50%;
   height: 40%;
-  background-color: #e0e1f0;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--color-secondary);
 `;
 
-const StyledPopupContent = styled.div`
+const StyledContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--color-background-light);
+  height: 90%;
+`;
+
+const StyledCloseButton = styled.button`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-background-cards);
+  cursor: pointer;
+`;
+
+const StyledDate = styled.p`
+  margin: 0;
   padding: 1rem;
-  border-radius: 0.5rem;
-  width: 90%;
-  max-width: 400px;
+  color: var(--color-background-cards);
+  font-size: 1.2rem;
+`;
+
+const StyledNoEmotionsMessage = styled.p`
+  color: var(--color-background-cards);
+  font-size: 1rem;
+  margin: 1rem;
   text-align: center;
+`;
+
+const StyledEmotionList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+  padding: 1rem;
+  overflow-y: auto;
 `;
 
 const StyledEmotionDot = styled.span`
@@ -66,29 +108,32 @@ const StyledEmotionDot = styled.span`
   margin-right: 0.5rem;
 `;
 
-const StyledEmotionList = styled.ul`
+const StyledCreateButton = styled.button`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  list-style: none;
-  padding: 0;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-highlighted-foreground);
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  width: fit-content;
+  cursor: pointer;
+`;
+
+const StyledBulbIcon = styled(BulbIcon)`
+  margin-top: 0.25rem;
+  color: var(--color-highlighted-foreground);
+`;
+
+const StyledText = styled.p`
+  margin: 0;
+  padding-bottom: 0.25rem;
+  color: var(--color-highlighted-foreground);
 `;
 
 const StyledLink = styled(Link)`
-  color: var(--color-secondary);
+  color: var(--color-background-cards);
   cursor: pointer;
   font-size: 1rem;
-`;
-
-const StyledCloseButton = styled.button`
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #95a5a6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #7f8c8d;
-  }
 `;

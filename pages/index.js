@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EmotionForm from "@/components/EmotionForm";
-import SearchBar from "@/components/Searchbar/Searchbar";
+import SearchBar from "@/components/Searchbar";
 import List from "@/components/List";
 import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
@@ -43,6 +43,23 @@ export default function HomePage({
 
   if (isLoading) return null;
 
+  async function handleDeleteEmotion(id) {
+    try {
+      const response = await fetch(`/api/emotionEntries/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log(`Emotion ${id} successfully deleted.`);
+        mutate();
+      } else {
+        console.error("Failed to delete emotion.");
+      }
+    } catch (error) {
+      console.error("Error during deletion:", error);
+    }
+  }
+
   const filteredEmotions = emotions.filter((emotion) => {
     const matchesFilter = selectedFilter
       ? emotion.type._id === selectedFilter
@@ -73,11 +90,13 @@ export default function HomePage({
         onSearch={handleSearch}
         onClearSearch={handleClearSearch}
       />
+
       <List
         emotions={filteredEmotions}
         onToggleBookmark={onToggleBookmark}
         myBookmarkedEmotions={myBookmarkedEmotions}
         searchTerm={searchTerm}
+        onDeleteEmotion={handleDeleteEmotion}
       />
     </>
   );

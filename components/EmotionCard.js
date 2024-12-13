@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import BookmarkButton from "./BookmarkButton";
+import OptionsButton from "./OptionsButton";
 import Link from "next/link";
 import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
@@ -13,6 +14,9 @@ export default function EmotionCard({
   isDetailsPage = false,
   intensity,
   searchTerm,
+  onDeleteEmotion,
+  isMenuOpen,
+  onToggleMenu,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
@@ -42,6 +46,7 @@ export default function EmotionCard({
                   />
                 ),
               }}
+              intensity={intensity}
             />
             <BookmarkButton
               isBookmarked={isBookmarked}
@@ -78,6 +83,13 @@ export default function EmotionCard({
           <BookmarkButton
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(emotion._id)}
+          />
+
+          <OptionsButton
+            onDeleteEmotion={() => onDeleteEmotion(emotion._id)}
+            emotion={emotion}
+            isMenuOpen={isMenuOpen}
+            onToggleMenu={onToggleMenu}
           />
         </>
       )}
