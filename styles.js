@@ -60,11 +60,9 @@ export default createGlobalStyle`
 
   .container-dots {
     position: fixed;
-    top:0;
-    width: 100vw; 
-    height: 100vh; 
+    inset: 0;
     background: linear-gradient(45deg, var(--color-frame), var(--color-secondary));
-    z-index: 3;
+    z-index: 1000;
   }
 
   .logo {

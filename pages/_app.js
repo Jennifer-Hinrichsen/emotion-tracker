@@ -22,10 +22,6 @@ export default function App({ Component, pageProps }) {
     }
   );
 
-  const [isAnimationFinished, setIsAnimationFinished] = useState(
-    router.pathname !== "/"
-  );
-
   function handleToggleBookmark(id) {
     setMyBookmarkedEmotions((prevBookmarks) =>
       prevBookmarks.includes(id)
@@ -33,31 +29,17 @@ export default function App({ Component, pageProps }) {
         : [...prevBookmarks, id]
     );
   }
-
-  useEffect(() => {
-    if (router.pathname === "/") {
-      const timer = setTimeout(() => {
-        setIsAnimationFinished(true);
-      }, 2800);
-
-      return () => clearTimeout(timer);
-    }
-  }, [router.pathname]);
-
   return (
     <>
       <GlobalStyle />
       <Layout>
         <SWRConfig value={{ fetcher }}>
-          {isAnimationFinished ? (
-            <Component
-              myBookmarkedEmotions={myBookmarkedEmotions}
-              onToggleBookmark={handleToggleBookmark}
-              {...pageProps}
-            />
-          ) : (
-            <SpinningDots />
-          )}
+          <SpinningDots />
+          <Component
+            myBookmarkedEmotions={myBookmarkedEmotions}
+            onToggleBookmark={handleToggleBookmark}
+            {...pageProps}
+          />
         </SWRConfig>
       </Layout>
     </>
