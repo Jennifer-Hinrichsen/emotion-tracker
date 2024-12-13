@@ -58,40 +58,6 @@ export default createGlobalStyle`
     padding-bottom: 66px;
   }
 
-  .container-dots {
-    position: fixed;
-    top:0;
-    width: 100vw; 
-    height: 100vh; 
-    background: linear-gradient(45deg, var(--color-frame), var(--color-secondary));
-    z-index: 3;
-}
-
-.dots {
-    position: absolute;
-    top: 50%; 
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    background: var(--color-cards-foreground);
-    border-radius: 50%;
-    transform: translate(-50%, -50%); 
-    z-index: 4;
-    opacity: 90%;
-}
-
-.logo {
-  position: absolute;
-  width: 300px;
-  height: auto;
-  top: 40%; 
-  left: 14%; 
-  transform: translate(-50%, -50%); 
-  color: var(--color-cards-foreground);
-  z-index: 5; 
-  opacity: 0; 
-}
-
   h1, h2 {
     font-family: "Baskerville", serif;
     font-weight: normal;
