@@ -1,6 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
 import EmotionCard from "./EmotionCard";
-import OptionsMenu from "./OptionsMenu";
 
 export default function EmotionList({
   emotions,
@@ -9,6 +9,12 @@ export default function EmotionList({
   searchTerm,
   onDeleteEmotion,
 }) {
+  const [openMenuId, setOpenMenuId] = useState(null);
+
+  const handleToggleMenu = (id) => {
+    setOpenMenuId((prevId) => (prevId === id ? null : id));
+  };
+
   emotions.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
   return emotions.length === 0 ? (
@@ -24,6 +30,8 @@ export default function EmotionList({
             intensity={emotion.intensity}
             searchTerm={searchTerm}
             onDeleteEmotion={onDeleteEmotion}
+            isMenuOpen={openMenuId === emotion._id}
+            onToggleMenu={() => handleToggleMenu(emotion._id)}
           />
         </StyledCardList>
       ))}

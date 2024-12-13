@@ -15,6 +15,8 @@ export default function EmotionCard({
   intensity,
   searchTerm,
   onDeleteEmotion,
+  isMenuOpen,
+  onToggleMenu,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
@@ -86,6 +88,8 @@ export default function EmotionCard({
           <OptionsButton
             onDeleteEmotion={() => onDeleteEmotion(emotion._id)}
             emotion={emotion}
+            isMenuOpen={isMenuOpen}
+            onToggleMenu={onToggleMenu}
           />
         </>
       )}
