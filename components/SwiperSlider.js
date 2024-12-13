@@ -29,12 +29,7 @@ export default function SwiperSlider() {
         {images.map((image) => (
           <SwiperSlide key={image.id}>
             <ImageWrapper>
-              <Image
-                src={image.src}
-                alt={`${image.id}`}
-                width={400}
-                height={150}
-              />
+              <Image src={image.src} alt={image.id} width={400} height={150} />
             </ImageWrapper>
           </SwiperSlide>
         ))}
