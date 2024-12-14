@@ -1,13 +1,17 @@
-import Image from "next/image";
 import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
+import Image from "next/image";
 import styled from "styled-components";
 
 export default function ImageUpload() {
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useLocalStorageState(null);
+  const [showUploadButton, setShowUploadButton] = useState(false);
+  const [ButtonText, setButtonText] = useLocalStorageState("buttonText", {
+    defaultValue: "Upload your memory",
+  });
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     const formData = new FormData(event.target);
 
     try {
@@ -15,12 +19,11 @@ export default function ImageUpload() {
         method: "POST",
         body: formData,
       });
-
       if (response.ok) {
         const data = await response.json(); // Erwartet, dass das Backend die Cloudinary-Daten zurückgibt
-
-        // Bild-URL aus der Antwort speichern
         setImageUrl(data.secure_url);
+        setShowUploadButton(false);
+        setButtonText("Change your memory");
       } else {
         console.error("Upload fehlgeschlagen:", await response.text());
       }
@@ -29,20 +32,29 @@ export default function ImageUpload() {
     }
   }
 
+  function handleImageChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      setShowUploadButton(true);
+    } else {
+      setShowUploadButton(false);
+    }
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <StyledLabel htmlFor="image" role="button">
-          Datei auswählen
+          {ButtonText}
         </StyledLabel>
         <StyledInput
           type="file"
           id="image"
           name="image"
           accept="image/*"
+          onChange={handleImageChange}
           required
         />
-        <StyledButton type="submit">Hochladen</StyledButton>
+        {showUploadButton && <StyledButton type="submit">Upload</StyledButton>}
       </form>
 
       {imageUrl && (
@@ -51,15 +63,13 @@ export default function ImageUpload() {
             src={imageUrl}
             width={200}
             height={200}
-            alt="Hochgeladenes Bild"
+            alt="personalized image"
           />
         </StyledImageContainer>
       )}
     </>
   );
 }
-
-// Styled Components
 
 const StyledLabel = styled.label`
   display: inline-block;
@@ -91,9 +101,9 @@ const StyledButton = styled.button`
   cursor: pointer;
   transition: background-color 0.3s ease;
 
-  &:hover {
+  /* &:hover {
     background-color: var(--color-button-success);
-  }
+  } */
 `;
 
 const StyledImageContainer = styled.div`
