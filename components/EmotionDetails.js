@@ -10,6 +10,7 @@ export default function EmotionDetails({
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
+  onSubmit,
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -31,6 +32,7 @@ export default function EmotionDetails({
 
       <EmotionCard
         emotion={emotion}
+        onSubmit={onSubmit}
         onToggleBookmark={onToggleBookmark}
         isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
         isDetailsPage={true}

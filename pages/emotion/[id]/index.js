@@ -13,6 +13,7 @@ export default function EmotionDetailPage({
     data: selectedEmotion,
     error,
     isLoading,
+    mutate,
   } = useSWR(`/api/emotionEntries/${id}`);
 
   if (isLoading || !router.isReady) {
@@ -32,9 +33,30 @@ export default function EmotionDetailPage({
     }
   }
 
+  async function handleImageUpload(formData) {
+    try {
+      const response = await fetch(`/api/emotionEntries/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imageUrl: formData.secure_url }),
+      });
+      if (response.ok) {
+        mutate();
+        console.log("Image URL successfully updated");
+      } else {
+        console.error("Failed to update image URL:", await response.text());
+      }
+    } catch (error) {
+      console.error("Error during image upload:", error.message);
+    }
+  }
+
   return (
     <EmotionDetails
       emotion={selectedEmotion}
+      onSubmit={handleImageUpload}
       onDeleteEmotion={handleDelete}
       myBookmarkedEmotions={myBookmarkedEmotions}
       onToggleBookmark={onToggleBookmark}
