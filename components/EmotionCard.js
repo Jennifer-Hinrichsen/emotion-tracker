@@ -7,7 +7,6 @@ import formatDate from "./TransformDateTime";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
 import ImageUpload from "./ImageUpload";
-import Image from "next/image";
 
 export default function EmotionCard({
   emotion,
@@ -25,8 +24,6 @@ export default function EmotionCard({
     (emotionIcon) => emotionIcon.emotionIconId === emotion.type.emotionIconId
   )?.emotionIcon;
 
-  const imageUrl = emotion.imageUrl;
-
   return (
     <StyledCardWrapper>
       {isDetailsPage ? (
@@ -35,17 +32,7 @@ export default function EmotionCard({
             <StyledDate>{date}</StyledDate>
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
-          <ImageUpload imageUrl={imageUrl} onSubmit={onSubmit} />
-          {imageUrl && (
-            <StyledImageContainer>
-              <StyledImage
-                src={imageUrl}
-                width={200}
-                height={200}
-                alt="Uploaded image"
-              />
-            </StyledImageContainer>
-          )}
+
           <StyledEmotionCard>
             <EmotionCardContent
               emotionColor={emotion.type.color}
@@ -62,6 +49,7 @@ export default function EmotionCard({
               }}
               intensity={intensity}
             />
+            <ImageUpload emotion={emotion} onSubmit={onSubmit} />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion._id)}
@@ -159,22 +147,4 @@ const StyledEmotionCard = styled.section`
   padding: 26px 8px;
   background-color: var(--color-background-cards);
   word-break: break-word;
-`;
-
-const StyledImageContainer = styled.div`
-  border-radius: 50%;
-  overflow: hidden; /* Verhindert, dass das Bild aus dem Container hinausragt */
-  width: 200px;
-  height: 200px; /* Festgelegte Größe des Containers */
-  display: flex;
-  align-items: center; /* Zentriert das Bild vertikal */
-  justify-content: center; /* Zentriert den Container */
-  border: 2px solid var(--color-frame);
-  margin: 0 auto; /* Zentriert den Container */
-`;
-
-const StyledImage = styled(Image)`
-  object-fit: cover; /* Bild skaliert proportional */
-  width: 100%;
-  height: 100%;
 `;
