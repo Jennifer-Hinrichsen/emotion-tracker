@@ -11,7 +11,12 @@ export default function EmotionCardContent({
       <StyledEmojiIcon color={emotion.type.color}>
         {emotionIcon}
       </StyledEmojiIcon>
-      <StyledEmotionType>{emotion.type.name}</StyledEmotionType>
+      <StyledEmotionType
+        isDetailView={isDetailView}
+        hasImage={Boolean(emotion.imageUrl)}
+      >
+        {emotion.type.name}
+      </StyledEmotionType>
       <StyledIntensityWrapper
         isDetailView={isDetailView}
         hasImage={Boolean(emotion.imageUrl)}
@@ -56,6 +61,8 @@ const StyledEmojiIcon = styled.span`
 const StyledEmotionType = styled.p`
   grid-area: emotionType;
   margin: 0;
+  margin-bottom: ${({ isDetailView, hasImage }) =>
+    isDetailView && !hasImage ? "10px" : "0px"};
   padding-left: 28px;
   font-weight: 400;
   font-size: 1.2rem;
@@ -78,7 +85,7 @@ const StyledIntensityWrapper = styled.div`
   justify-self: end;
   position: absolute;
   top: ${(props) =>
-    props.isDetailView ? (props.hasImage ? "-10px" : "15px") : "-20px"};
+    props.isDetailView ? (props.hasImage ? "-10px" : "12px") : "-20px"};
 `;
 
 const StyledIntensityBubble = styled.div`
