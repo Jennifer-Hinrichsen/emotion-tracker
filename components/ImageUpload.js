@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export default function ImageUpload({ onSubmit, emotion }) {
-  const [showUploadButton, setShowUploadButton] = useState(false);
+  const [showMoreButtons, setShowMoreButtons] = useState(false);
 
   const buttonText = emotion.imageUrl
     ? "Change your memory"
@@ -11,10 +11,14 @@ export default function ImageUpload({ onSubmit, emotion }) {
 
   function handleShowButton(event) {
     if (event.target.files && event.target.files[0]) {
-      setShowUploadButton(true);
+      setShowMoreButtons(true);
     } else {
-      setShowUploadButton(false);
+      setShowMoreButtons(false);
     }
+  }
+
+  function handleCancel() {
+    setShowMoreButtons(false);
   }
 
   async function handleSubmit(event) {
@@ -29,7 +33,7 @@ export default function ImageUpload({ onSubmit, emotion }) {
 
       if (response.ok) {
         const data = await response.json();
-        setShowUploadButton(false);
+        setShowMoreButtons(false);
         await onSubmit(data);
       } else {
         console.error("Upload failed:", await response.text());
@@ -51,7 +55,7 @@ export default function ImageUpload({ onSubmit, emotion }) {
           />
         </StyledImageContainer>
       )}
-      <StyledLabel $disabled={showUploadButton} htmlFor="image">
+      <StyledLabel $disabled={showMoreButtons} htmlFor="image">
         {buttonText}
       </StyledLabel>
       <StyledInput
@@ -62,7 +66,14 @@ export default function ImageUpload({ onSubmit, emotion }) {
         onChange={handleShowButton}
         required
       />
-      {showUploadButton && <StyledButton type="submit">Save</StyledButton>}
+      {showMoreButtons && (
+        <ButtonContainer>
+          <StyledButtonCancel type="button" onClick={handleCancel}>
+            Cancel
+          </StyledButtonCancel>
+          <StyledButtonSave type="submit">Save</StyledButtonSave>
+        </ButtonContainer>
+      )}
     </StyledForm>
   );
 }
@@ -91,7 +102,7 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledLabel = styled.label`
-  margin: 10px 4px -8px 0;
+  margin: 0 4px -8px 0;
   padding: 10px 20px;
   margin-left: auto;
   background-color: ${(props) =>
@@ -112,14 +123,56 @@ const StyledInput = styled.input`
   display: none;
 `;
 
-const StyledButton = styled.button`
-  margin: 12px 4px -10px 0;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 8px;
+`;
+
+const StyledButtonSave = styled.button`
+  margin: 10px 4px;
   padding: 10px 20px;
-  margin-left: auto;
   background-color: var(--color-form-foreground);
   color: var(--color-background-cards);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--color-button-success);
+  }
+
+  &.clicked {
+    animation: greenFlash 6s forwards;
+  }
+
+  @keyframes greenFlash {
+    0% {
+      background-color: var(--color-form-foreground);
+    }
+    50% {
+      background-color: var(--color-button-success);
+    }
+    100% {
+      background-color: var(--color-form-foreground);
+    }
+  }
+`;
+
+const StyledButtonCancel = styled.button`
+  margin: 10px 0;
+  padding: 5px 10px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #7f8c8d;
+  }
+
+  &:hover {
+    opacity: 70%;
+  }
 `;
