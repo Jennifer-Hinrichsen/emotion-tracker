@@ -4,6 +4,7 @@ export default function EmotionCardContent({
   emotion,
   emotionIcon,
   intensity,
+  isDetailView,
 }) {
   return (
     <StyledEmotionCardContent>
@@ -11,7 +12,10 @@ export default function EmotionCardContent({
         {emotionIcon}
       </StyledEmojiIcon>
       <StyledEmotionType>{emotion.type.name}</StyledEmotionType>
-      <StyledIntensityWrapper>
+      <StyledIntensityWrapper
+        isDetailView={isDetailView}
+        hasImage={Boolean(emotion.imageUrl)}
+      >
         {[1, 2, 3].map((value) => (
           <StyledIntensityBubble
             key={value}
@@ -27,6 +31,7 @@ export default function EmotionCardContent({
 }
 
 const StyledEmotionCardContent = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: 60px 1fr auto;
   grid-template-rows: auto auto;
@@ -70,10 +75,10 @@ const StyledIntensityWrapper = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
-  align-self: start;
   justify-self: end;
-  top: 36px;
-  right: 20px;
+  position: ${(props) => (props.isDetailView ? "absolute" : "relative")};
+  top: ${(props) =>
+    props.isDetailView ? (props.hasImage ? "-10px" : "15px") : "-30px"};
 `;
 
 const StyledIntensityBubble = styled.div`

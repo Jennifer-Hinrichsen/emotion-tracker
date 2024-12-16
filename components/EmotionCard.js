@@ -32,10 +32,10 @@ export default function EmotionCard({
             <StyledDate>{date}</StyledDate>
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
-
           <StyledEmotionCard>
             <ImageUpload emotion={emotion} onSubmit={onSubmit} />
             <EmotionCardContent
+              isDetailView={true}
               emotionColor={emotion.type.color}
               emotionIcon={emotionIcon}
               emotion={{
