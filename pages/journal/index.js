@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "@/components/JournalForm";
 import styled from "styled-components";
+import Heading from "@/components/Heading";
 
 export default function JournalPage() {
   return (
@@ -16,8 +17,4 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-`;
-
-const Heading = styled.h1`
-  font-family: "Baskerville", serif;
 `;

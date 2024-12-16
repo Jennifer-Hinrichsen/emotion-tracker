@@ -41,6 +41,7 @@ export default function JournalForm() {
             <div>
               <Label htmlFor="subject">Subject</Label>
               <Input
+                placeholder="write something..."
                 id="subject"
                 type="text"
                 value={subject}
@@ -93,7 +94,6 @@ const StyledFormContainer = styled.div`
   background-color: var(--color-frame);
   box-shadow: 0 1px 4px var(--color-shadow);
   border-radius: 0.5rem;
-  margin: 0 auto;
 `;
 
 const FormWrapper = styled.div`
@@ -101,7 +101,7 @@ const FormWrapper = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  margin-top: 4px;
+  margin-top: 0px;
   box-sizing: border-box;
   background-color: var(--color-background);
 
@@ -112,16 +112,16 @@ const FormWrapper = styled.div`
 
 const FormTitle = styled.h2`
   text-align: center;
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 20px;
+  margin: 0;
+  padding: 10px 0;
+  color: var(--color-secondary);
 `;
 
 const Label = styled.label`
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  padding: 0;
   color: #555;
-  margin-bottom: 12px;
 
   body.dark.theme & {
     color: #fff;
@@ -130,14 +130,21 @@ const Label = styled.label`
 
 const Input = styled.input`
   width: 100%;
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 1rem;
   border: none;
+  border-top: 1px dotted var(--color-form-foreground);
   border-bottom: 1px dotted var(--color-form-foreground);
+
   border-radius: 4px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   box-sizing: border-box;
   background-color: var(--color-background);
+  &::placeholder {
+    padding-top: 0;
+    color: var(--color-form-foreground);
+    font-size: 1rem;
+  }
   body.dark-theme & {
     background-color: var(--color-background);
     color: #fff;
@@ -152,9 +159,8 @@ const Textarea = styled.textarea`
   max-width: 100%;
   min-width: 100%;
   border: none;
-  border-top: 1px dotted var(--color-form-foreground);
 
-  border-bottom: 1px dotted var(--color-form-foreground);
+  border-top: 1px dotted var(--color-form-foreground);
   background-color: transparent;
   color: var(--color-form-foreground);
   font-size: 1rem;
@@ -179,6 +185,22 @@ const SubmitButton = styled.button`
 
   &:hover {
     background-color: var(--color-button-success);
+  }
+
+  &.clicked {
+    animation: greenFlash 6s forwards;
+  }
+
+  @keyframes greenFlash {
+    0% {
+      background-color: var(--color-form-foreground);
+    }
+    50% {
+      background-color: var(--color-button-success);
+    }
+    100% {
+      background-color: var(--color-form-foreground);
+    }
   }
 `;
 
