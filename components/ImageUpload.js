@@ -54,6 +54,16 @@ export default function ImageUpload({ onSubmit, emotion }) {
         onChange={handleShowButton}
         required
       />
+      <ButtonContainer>
+        {showMoreButtons && (
+          <>
+            <StyledButtonCancel type="button" onClick={handleCancel}>
+              Cancel
+            </StyledButtonCancel>
+            <StyledButtonSave type="submit">Save</StyledButtonSave>
+          </>
+        )}
+      </ButtonContainer>
       {emotion.imageUrl && (
         <StyledImage
           src={emotion.imageUrl}
@@ -61,14 +71,6 @@ export default function ImageUpload({ onSubmit, emotion }) {
           height={200}
           alt="Uploaded image"
         />
-      )}
-      {showMoreButtons && (
-        <ButtonContainer>
-          <StyledButtonCancel type="button" onClick={handleCancel}>
-            Cancel
-          </StyledButtonCancel>
-          <StyledButtonSave type="submit">Save</StyledButtonSave>
-        </ButtonContainer>
       )}
     </form>
   );
@@ -98,24 +100,28 @@ const StyledInput = styled.input`
   display: none;
 `;
 
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  margin-top: -19px;
-  margin-bottom: 10px;
+const ButtonContainer = styled.div`
+  position: absolute;
+  top: 30px;
+  display: flex;
+  gap: 10px;
 `;
 
-const ButtonContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: end;
-  margin-top: 8px;
+const StyledButtonCancel = styled.button`
+  padding: 10px 20px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover {
+    background-color: #7f8c8d;
+  }
 `;
 
 const StyledButtonSave = styled.button`
-  position: absolute;
-  margin: 10px 2px;
   padding: 10px 20px;
   background-color: var(--color-form-foreground);
   color: var(--color-background-cards);
@@ -145,20 +151,10 @@ const StyledButtonSave = styled.button`
   }
 `;
 
-const StyledButtonCancel = styled.button`
-  position: absolute;
-  margin: 10px 80px;
-  padding: 5px 10px;
-  background-color: #95a5a6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #7f8c8d;
-  }
-
-  &:hover {
-    opacity: 70%;
-  }
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  margin-top: -19px;
+  margin-bottom: 10px;
 `;
