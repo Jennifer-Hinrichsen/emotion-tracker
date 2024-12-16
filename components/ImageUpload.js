@@ -5,9 +5,7 @@ import Image from "next/image";
 export default function ImageUpload({ onSubmit, emotion }) {
   const [showMoreButtons, setShowMoreButtons] = useState(false);
 
-  const buttonText = emotion.imageUrl
-    ? "Change your memory"
-    : "Upload your memory";
+  const buttonText = emotion.imageUrl ? "Change memory" : "Upload memory";
 
   function handleShowButton(event) {
     if (event.target.files && event.target.files[0]) {
@@ -44,17 +42,7 @@ export default function ImageUpload({ onSubmit, emotion }) {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      {emotion.imageUrl && (
-        <StyledImageContainer>
-          <StyledImage
-            src={emotion.imageUrl}
-            width={200}
-            height={200}
-            alt="Uploaded image"
-          />
-        </StyledImageContainer>
-      )}
+    <form onSubmit={handleSubmit}>
       <StyledLabel $disabled={showMoreButtons} htmlFor="image">
         {buttonText}
       </StyledLabel>
@@ -66,6 +54,14 @@ export default function ImageUpload({ onSubmit, emotion }) {
         onChange={handleShowButton}
         required
       />
+      {emotion.imageUrl && (
+        <StyledImage
+          src={emotion.imageUrl}
+          width={200}
+          height={200}
+          alt="Uploaded image"
+        />
+      )}
       {showMoreButtons && (
         <ButtonContainer>
           <StyledButtonCancel type="button" onClick={handleCancel}>
@@ -74,37 +70,15 @@ export default function ImageUpload({ onSubmit, emotion }) {
           <StyledButtonSave type="submit">Save</StyledButtonSave>
         </ButtonContainer>
       )}
-    </StyledForm>
+    </form>
   );
 }
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledImageContainer = styled.div`
-  border-radius: 50%;
-  overflow: hidden;
-  width: 200px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--color-frame);
-  margin: 0 auto;
-`;
-
-const StyledImage = styled(Image)`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-`;
-
 const StyledLabel = styled.label`
-  margin: 0 4px -8px 0;
+  position: absolute;
+  top: 30px;
+  right: 19px;
   padding: 10px 20px;
-  margin-left: auto;
   background-color: ${(props) =>
     props.$disabled
       ? "var(--color-home-icon-foreground)"
@@ -117,20 +91,31 @@ const StyledLabel = styled.label`
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
   transition: background-color 0.3s ease, color 0.3s ease;
   font-size: 0.8rem;
+  z-index: 10;
 `;
 
 const StyledInput = styled.input`
   display: none;
 `;
 
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  margin-top: -19px;
+  margin-bottom: 10px;
+`;
+
 const ButtonContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: end;
   margin-top: 8px;
 `;
 
 const StyledButtonSave = styled.button`
-  margin: 10px 4px;
+  position: absolute;
+  margin: 10px 2px;
   padding: 10px 20px;
   background-color: var(--color-form-foreground);
   color: var(--color-background-cards);
@@ -161,7 +146,8 @@ const StyledButtonSave = styled.button`
 `;
 
 const StyledButtonCancel = styled.button`
-  margin: 10px 0;
+  position: absolute;
+  margin: 10px 80px;
   padding: 5px 10px;
   background-color: #95a5a6;
   color: white;

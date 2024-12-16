@@ -34,6 +34,7 @@ export default function EmotionCard({
           </StyledTopBox>
 
           <StyledEmotionCard>
+            <ImageUpload emotion={emotion} onSubmit={onSubmit} />
             <EmotionCardContent
               emotionColor={emotion.type.color}
               emotionIcon={emotionIcon}
@@ -49,7 +50,6 @@ export default function EmotionCard({
               }}
               intensity={intensity}
             />
-            <ImageUpload emotion={emotion} onSubmit={onSubmit} />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion._id)}

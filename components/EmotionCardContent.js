@@ -69,9 +69,9 @@ const StyledIntensityWrapper = styled.div`
   grid-area: intensity;
   display: flex;
   gap: 4px;
-  justify-content: center;
   align-items: center;
-  position: absolute;
+  align-self: start;
+  justify-self: end;
   top: 36px;
   right: 20px;
 `;
