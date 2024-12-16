@@ -7,6 +7,8 @@ import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
 import Footer from "@/components/Footer";
+import Image from "next/image";
+import styled from "styled-components";
 
 export default function HomePage({
   onToggleBookmark,
@@ -76,6 +78,14 @@ export default function HomePage({
   return (
     <>
       <Heading>Mood Wave</Heading>
+      <StyledImageWrapper>
+        <Image
+          src="/Welcome-Emojis.svg"
+          alt="Welcome Emojis"
+          width={250}
+          height={125}
+        />
+      </StyledImageWrapper>
       <EmotionForm
         emotions={emotions}
         onSubmit={handleAddEmotion}
@@ -104,3 +114,7 @@ export default function HomePage({
     </>
   );
 }
+
+const StyledImageWrapper = styled.div`
+  text-align: center;
+`;
