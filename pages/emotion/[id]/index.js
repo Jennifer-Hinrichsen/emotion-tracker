@@ -36,7 +36,7 @@ export default function EmotionDetailPage({
   async function handleImageUpload(formData) {
     try {
       const response = await fetch(`/api/emotionEntries/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

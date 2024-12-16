@@ -31,28 +31,6 @@ export default async function handler(request, response) {
     }
   }
 
-  if (request.method === "PATCH") {
-    const { imageUrl } = request.body;
-
-    try {
-      // Nur das imageUrl aktualisieren
-      const updatedEmotionEntry = await EmotionEntry.findByIdAndUpdate(
-        id,
-        { imageUrl }, // Nur das imageUrl-Feld wird geändert
-        { new: true } // Gibt das aktualisierte Dokument zurück
-      );
-
-      if (!updatedEmotionEntry) {
-        return response.status(404).json({ status: "Emotion Entry Not Found" });
-      }
-
-      response.status(200).json(updatedEmotionEntry);
-    } catch (error) {
-      console.error("Error updating image URL:", error);
-      response.status(500).json({ status: "Server Error" });
-    }
-  }
-
   if (request.method === "DELETE") {
     try {
       await EmotionEntry.findByIdAndDelete(id);
