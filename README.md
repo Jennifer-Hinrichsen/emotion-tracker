@@ -16,8 +16,8 @@
 </div>
 
 <details>
-  <summary>Table of Contents</summary>
-  <ol>
+  <summary >Table of Contents</summary>
+  <ol >
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
@@ -43,7 +43,7 @@ The app offers creating new emotions, journaling, calendar tracking, detailed an
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This section lists any major frameworks/libraries used to bootstrap your project.
 
 - [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000)](#)
 - [![Next][Next.js]][Next-url]
