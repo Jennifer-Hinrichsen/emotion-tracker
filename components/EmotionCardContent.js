@@ -76,9 +76,9 @@ const StyledIntensityWrapper = styled.div`
   gap: 4px;
   align-items: center;
   justify-self: end;
-  position: ${(props) => (props.isDetailView ? "absolute" : "relative")};
+  position: absolute;
   top: ${(props) =>
-    props.isDetailView ? (props.hasImage ? "-10px" : "15px") : "-30px"};
+    props.isDetailView ? (props.hasImage ? "-10px" : "15px") : "-20px"};
 `;
 
 const StyledIntensityBubble = styled.div`
