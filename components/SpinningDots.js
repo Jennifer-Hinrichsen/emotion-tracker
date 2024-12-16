@@ -73,7 +73,7 @@ export default function SpinningDots() {
         alt="Moodwave Logo"
       />
       {dots.map((dot) => {
-        <StyledDot className="dot" key="dot.id" $x={dot.x} $y={dot.y} />;
+        <StyledDot className="dot" key={dot.id} $x={dot.x} $y={dot.y} />;
       })}
     </StyledContainer>
   );
