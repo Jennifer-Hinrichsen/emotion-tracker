@@ -6,6 +6,7 @@ import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
+import Footer from "@/components/Footer";
 
 export default function HomePage({
   onToggleBookmark,
@@ -98,6 +99,8 @@ export default function HomePage({
         searchTerm={searchTerm}
         onDeleteEmotion={handleDeleteEmotion}
       />
+
+      <Footer />
     </>
   );
 }
