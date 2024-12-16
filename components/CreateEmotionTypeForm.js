@@ -226,7 +226,7 @@ const StyledSpan = styled.span`
 const StyledLinkCancel = styled(Link)`
   margin: 10px;
   padding: 10px 20px;
-  background-color: #a6a6a6;
+  background-color: var(--color-highlighted-foreground);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -239,24 +239,26 @@ const StyledLinkCancel = styled(Link)`
     opacity: 70%;
   }
   body.dark-theme & {
-    color: var(--color-cards-foreground);
+    color: var(--color-secondary);
   }
 `;
 
 const StyledButtonSubmit = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: var(--color-form-foreground);
-  color: #ffffff;
+  background-color: ${(props) =>
+    props.$isValid
+      ? "var(--color-form-foreground)"
+      : "var(--color-form-foreground)"};
+  color: var(--color-background-cards);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   cursor: pointer;
-  display: inline-block;
   transition: background-color 0.3s ease;
-  font-size: 14px;
 
   &:hover {
-    background-color: var(--color-success);
+    background-color: ${(props) =>
+      props.$isValid ? "var(--color-button-success)" : "darkgrey"};
   }
 
   &.clicked {
@@ -265,17 +267,14 @@ const StyledButtonSubmit = styled.button`
 
   @keyframes greenFlash {
     0% {
-      background-color: var(--color-secondary);
+      background-color: var(--color-form-foreground);
     }
     50% {
       background-color: var(--color-button-success);
     }
     100% {
-      background-color: var(--color-secondary);
+      background-color: var(--color-form-foreground);
     }
-  }
-  body.dark-theme & {
-    color: var(--color-cards-foreground);
   }
 `;
 
