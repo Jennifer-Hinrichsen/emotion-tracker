@@ -5,6 +5,7 @@ import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
 import MoodwaveLogo from "assets/navigationIcon/moodwave-logo.svg";
 import CalendarIcon from "assets/calendarIcons/calendar-month.svg";
 import StatisticIcon from "assets/statisticIcon/statistic-icon.svg";
+import JournalIcon from "assets/journalIcons/journal-icon.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
@@ -23,6 +24,12 @@ export default function Navigation() {
             <StyledText $isActive={isActive("/bookmarks")}>
               Bookmarks
             </StyledText>
+          </StyledIconWrapper>
+        </StyledLink>
+        <StyledLink href="/journal">
+          <StyledIconWrapper $isActive={isActive("/journal")}>
+            <StyledJournalIcon src="/journal-icon.svg" alt="Journal Icon" />
+            <StyledText $isActive={isActive("/journal")}>Journal</StyledText>
           </StyledIconWrapper>
         </StyledLink>
       </StyledNavigationLeft>
@@ -239,6 +246,17 @@ const StyledCalendarIcon = styled(CalendarIcon)`
 
 const StyledStatisticIcon = styled(StatisticIcon)`
   width: 25px;
+  height: 28px;
+
+  body.dark-theme & {
+    color: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
+  }
+`;
+const StyledJournalIcon = styled(JournalIcon)`
+  width: 24px;
   height: 28px;
 
   body.dark-theme & {
