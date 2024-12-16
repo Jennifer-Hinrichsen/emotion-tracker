@@ -17,7 +17,7 @@ export default function EmotionCardContent({
             key={value}
             size={value}
             color={emotion.type.color}
-            isActive={intensity >= value}
+            $isActive={intensity >= value}
           />
         ))}
       </StyledIntensityWrapper>

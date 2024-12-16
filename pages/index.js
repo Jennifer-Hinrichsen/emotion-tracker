@@ -84,6 +84,7 @@ export default function HomePage({
           alt="Welcome Emojis"
           width={250}
           height={125}
+          priority={true}
         />
       </StyledImageWrapper>
       <EmotionForm
