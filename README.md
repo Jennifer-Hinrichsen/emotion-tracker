@@ -43,8 +43,6 @@ The app offers creating new emotions, journaling, calendar tracking, detailed an
 
 ### Built With
 
-This section lists any major frameworks/libraries used to bootstrap your project.
-
 - [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000)](#)
 - [![Next][Next.js]][Next-url]
 - [![React][React.js]][React-url]
@@ -53,6 +51,13 @@ This section lists any major frameworks/libraries used to bootstrap your project
 - [![styled-components](https://img.shields.io/badge/styled--components-DB7093?logo=styledcomponents&logoColor=fff)](#)
   <br>
 - [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white)](#)
+- Node.js
+- Vercel
+- Cloudinary
+- Libraries:
+  mongoose,
+  swr,
+  date-fns
 
 ## Getting Started
 
