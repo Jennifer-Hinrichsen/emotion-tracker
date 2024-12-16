@@ -25,7 +25,7 @@ export default function JournalCard({ journalEntry, onDelete }) {
 
 const StyledCardWrapper = styled.div`
   width: 100%;
-  position: relative;
+  box-sizing: border-box;
 `;
 
 const StyledOuterBox = styled.div`
@@ -33,8 +33,10 @@ const StyledOuterBox = styled.div`
   border: 1px solid ${({ color }) => color || "var(--color-border)"};
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px var(--color-shadow);
-  margin: 24px 8px;
+  margin: 24px 0;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const StyledTopBox = styled.div`
@@ -55,15 +57,17 @@ const StyledDate = styled.p`
 const StyledJournalCard = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
   padding: 26px 8px;
   background-color: var(--color-background-cards);
   word-break: break-word;
+  width: 100%;
 `;
 
 const StyledSubject = styled.h3`
-  text-align: start;
+  text-align: center;
   font-size: 1rem;
   color: var(--color-text);
   margin-top: -12px;
@@ -71,9 +75,13 @@ const StyledSubject = styled.h3`
 `;
 
 const StyledText = styled.p`
-  margin: 0;
+  margin-top: 0px;
+  text-align: center;
   font-size: 1rem;
-  color: var(--color-text);
+  color: var(color--color-secondary);
+  body.dark.theme & {
+    color: var(--color-secondary);
+  }
 `;
 
 const DeleteButton = styled.button`

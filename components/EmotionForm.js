@@ -14,6 +14,7 @@ export default function EmotionForm({
   onCancel,
   onSubmit,
   editMode = false,
+  showToastMessage,
 }) {
   const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
@@ -28,7 +29,7 @@ export default function EmotionForm({
   const [formVisibility, setFormVisibility] = useState(!!editMode);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.type?._id || undefined
+    defaultValue?.type?._id || ""
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
@@ -70,7 +71,6 @@ export default function EmotionForm({
 
     const formData = new FormData(event.target);
     const inputData = Object.fromEntries(formData);
-
     inputData.intensity = selectedIntensity;
 
     if (!inputData.type) {
@@ -80,10 +80,15 @@ export default function EmotionForm({
 
     await onSubmit(inputData);
     event.target.reset();
+    showToastMessage("Emotion successfully submitted!");
   }
 
   if (isLoading) {
     return <h1>Loading...</h1>;
+  }
+
+  if (emotionTypes?.length === 0) {
+    return <p>No Emotion available...</p>;
   }
 
   return (
@@ -99,7 +104,6 @@ export default function EmotionForm({
             </StyledVisibilityIcons>
           )}
         </StyledFormHead>
-
         <StyledEmotionForm $isVisible={formVisibility} onSubmit={handleSubmit}>
           <label htmlFor="type">Emotion (type)*</label>
           <SelectEmotionContainer>
@@ -133,7 +137,6 @@ export default function EmotionForm({
             onChange={(intensity) => setSelectedIntensity(intensity)}
             emotionTypes={emotionTypes}
           />
-
           <StyledLabelNoPadding htmlFor="date-time">
             Date and Time*
           </StyledLabelNoPadding>
@@ -143,7 +146,6 @@ export default function EmotionForm({
             type="datetime-local"
             defaultValue={selectedDate + "T" + currentTime}
           />
-
           <label htmlFor="notes">Notes</label>
           <StyledTextArea
             id="notes"
@@ -152,7 +154,6 @@ export default function EmotionForm({
             placeholder="Please describe your feelings"
             maxLength="150"
           ></StyledTextArea>
-
           <ButtonContainer>
             {editMode && (
               <StyledCancelButton type="button" onClick={onCancel}>
@@ -268,6 +269,9 @@ const StyledCreateEmotionLink = styled(Link)`
   cursor: pointer;
   &:hover {
     background-color: var(--color-secondary);
+  }
+  body.dark-theme & {
+    color: var(--color-cards-foreground);
   }
 `;
 

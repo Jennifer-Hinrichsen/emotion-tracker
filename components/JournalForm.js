@@ -25,9 +25,10 @@ export default function JournalForm() {
     setSelectedDate(new Date().toISOString());
   };
 
+  const { date, time } = formatDate(selectedDate);
   const handleDelete = (indexToDelete) => {
     setEntries((entries) =>
-      entries.filter((entry, index) => index !== indexToDelete)
+      entries.filter((_, index) => index !== indexToDelete)
     );
   };
 
@@ -36,7 +37,7 @@ export default function JournalForm() {
       <StyledFormContainer>
         <FormTitle>Journal Entry</FormTitle>
         <FormWrapper>
-          <form onSubmit={handleSubmit}>
+          <StyledJournalForm onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="subject">Subject</Label>
               <Input
@@ -66,7 +67,7 @@ export default function JournalForm() {
             </div>
 
             <SubmitButton type="submit">Add Entry</SubmitButton>
-          </form>
+          </StyledJournalForm>
         </FormWrapper>
       </StyledFormContainer>
 
@@ -92,15 +93,21 @@ const StyledFormContainer = styled.div`
   background-color: var(--color-frame);
   box-shadow: 0 1px 4px var(--color-shadow);
   border-radius: 0.5rem;
+  margin: 0 auto;
 `;
 
 const FormWrapper = styled.div`
-  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   margin-top: 4px;
+  box-sizing: border-box;
+  background-color: var(--color-background);
+
+  body.dark-theme & {
+    background-color: var(--color-background);
+  }
 `;
 
 const FormTitle = styled.h2`
@@ -115,6 +122,10 @@ const Label = styled.label`
   font-size: 1.3rem;
   color: #555;
   margin-bottom: 12px;
+
+  body.dark.theme & {
+    color: #fff;
+  }
 `;
 
 const Input = styled.input`
@@ -126,11 +137,16 @@ const Input = styled.input`
   border-radius: 4px;
   margin-bottom: 20px;
   box-sizing: border-box;
+  background-color: var(--color-background);
+  body.dark-theme & {
+    background-color: var(--color-background);
+    color: #fff;
+  }
 `;
 
 const Textarea = styled.textarea`
   padding: 0;
-  height: 160px;
+  height: 400px;
   max-height: 1000px;
   line-height: 1.5;
   max-width: 100%;
@@ -186,11 +202,10 @@ const StyledDateAndTimeInput = styled.input`
   }
 `;
 
-// const StyledJournalForm = styled.form`
-//   border-radius: 0.5rem;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 1rem;
-//   color: var(--color-form-foreground);
-// `;
+const StyledJournalForm = styled.form`
+  background-color: var(--color-background);
+
+  body.dark-theme & {
+    background-color: var(--color-background);
+  }
+`;
