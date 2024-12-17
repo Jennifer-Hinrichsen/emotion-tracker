@@ -7,9 +7,8 @@ export default function OpenaiFeedback({ emotion }) {
   const [apiOutput, setApiOutput] = useState(emotion.openaiFeedback || "");
 
   async function handleGenerateFeedback() {
-    // Prevent generating feedback if it already exists
     if (apiOutput) {
-      setShowFeedback(true); // Show existing feedback
+      setShowFeedback(true);
       return;
     }
 
@@ -21,15 +20,15 @@ export default function OpenaiFeedback({ emotion }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(emotion), // Emotion data as JSON
+          body: JSON.stringify(emotion),
         }
       );
 
       if (response.ok) {
         const data = await response.json();
-        setApiOutput(data.output); // Save the feedback in state
-        mutate(); // Update SWR data
-        setShowFeedback(true); // Show feedback after successful generation
+        setApiOutput(data.output);
+        mutate();
+        setShowFeedback(true);
       } else {
         console.error("Feedback generation failed:", await response.text());
       }
@@ -44,25 +43,22 @@ export default function OpenaiFeedback({ emotion }) {
 
   return (
     <>
-      {showFeedback ? (
-        <button onClick={toggleFeedback} disabled={isLoading}>
-          Hide Feedback
-        </button>
-      ) : (
-        <button onClick={handleGenerateFeedback} disabled={isLoading}>
-          {isLoading ? "Generating..." : "Get Feedback"}
-        </button>
-      )}
+      <button
+        onClick={showFeedback ? toggleFeedback : handleGenerateFeedback}
+        disabled={isLoading}
+      >
+        {isLoading
+          ? "Generating..."
+          : showFeedback
+          ? "Hide Feedback"
+          : "Get Feedback"}
+      </button>
       {showFeedback && (
-        <>
-          {isLoading ? (
-            <p>Loading feedback...</p>
-          ) : apiOutput ? (
-            <p>{apiOutput}</p>
-          ) : (
-            <p>No feedback available.</p>
-          )}
-        </>
+        <p>
+          {isLoading
+            ? "Loading feedback..."
+            : apiOutput || "No feedback available."}
+        </p>
       )}
     </>
   );

@@ -20,6 +20,7 @@ export default async function handler(request, response) {
     notes ? notes : "Not provided"
   }.
   `;
+  console.log("prompt:", prompt);
 
   const data = await openai.chat.completions.create({
     messages: [{ role: "user", content: prompt }],
