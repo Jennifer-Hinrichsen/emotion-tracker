@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 import ShareButton from "./ShareButton";
+import TrashIcon from "assets/optionsMenuIcons/trash.svg";
+import EditIcon from "assets/optionsMenuIcons/edit.svg";
 
 export default function EmotionDetails({
   emotion,
@@ -41,11 +43,11 @@ export default function EmotionDetails({
         href={`/emotion/${emotion._id}/edit`}
         aria-label={`Edit emotion details for ${emotion.type.name}`}
       >
-        Edit
+        <StyledEditIcon />
       </StyledEditLink>
 
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
-        Delete
+        <StyledTrashIcon />
       </StyledButtonDelete>
       <ShareButton emotion={emotion} />
 
@@ -167,4 +169,12 @@ const StyledButtonCancel = styled.button`
   &:hover {
     background-color: #7f8c8d;
   }
+`;
+const StyledTrashIcon = styled(TrashIcon)`
+  width: 20px;
+  height: 20px;
+`;
+const StyledEditIcon = styled(EditIcon)`
+  width: 20px;
+  height: 20px;
 `;
