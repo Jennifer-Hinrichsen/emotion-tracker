@@ -63,6 +63,7 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
           <StyledTabsBox
             ref={scrollContainerRef}
             onScroll={updateArrowVisibility}
+            aria-live="polite"
           >
             {emotionTypes.map((emotionType) => (
               <StyledTab
@@ -74,6 +75,8 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
                 }
                 $isSelected={emotionType._id === selectedFilter}
                 $color={emotionType.color}
+                aria-label={`Select filter for emotion type: ${emotionType.name}`}
+                aria-selected={emotionType._id === selectedFilter}
               >
                 {emotionType.name}
               </StyledTab>
@@ -93,7 +96,10 @@ export default function Filter({ selectedFilter, setSelectedFilter }) {
         {selectedFilter ? (
           <>
             {selectedEmotionType.name}
-            <StyledClearFilter onClick={() => setSelectedFilter("")}>
+            <StyledClearFilter
+              onClick={() => setSelectedFilter("")}
+              aria-label="Clear the selected emotion filter"
+            >
               ×
             </StyledClearFilter>
           </>
@@ -191,7 +197,7 @@ const StyledIconRight = styled.div`
 
 const StyledAppliedInfo = styled.p`
   margin: 0;
-  padding: 10px 0 10px 20px;
+  padding: 4px 0 4px 26px;
   color: var(--color-secondary);
 `;
 

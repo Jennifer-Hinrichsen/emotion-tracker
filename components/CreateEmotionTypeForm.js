@@ -52,7 +52,6 @@ export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
         <StyledFormHead>
           <StyledSubheadline>Create your Emotion type</StyledSubheadline>
         </StyledFormHead>
-
         <StyledEmotionForm
           onSubmit={handleSubmit}
           showToastMessage={showToastMessage}
@@ -63,6 +62,7 @@ export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
             name="name"
             placeholder="Please describe your feelings"
             maxLength="50"
+            aria-label="Emotion type description"
           ></StyledTextArea>
 
           <StyledFieldset>
@@ -72,6 +72,7 @@ export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
                 key={color.id}
                 $isSelected={selectedEmotionColor === color.color}
                 $bgColor={color.color}
+                aria-label={`Select the color ${color.color}`}
               >
                 <StyledInputColor
                   type="radio"
@@ -89,6 +90,7 @@ export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
               <StyledLabelIcons
                 key={icon.emotionIconId}
                 $isSelectedColor={selectedEmotionColor}
+                aria-label={`Select the icon ${icon.emotionIcon}`}
               >
                 <StyledInputIcon
                   type="radio"
@@ -101,10 +103,16 @@ export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
           </StyledFieldset>
 
           <StyledButtonContainer>
-            <StyledLinkCancel href="/">Cancel</StyledLinkCancel>
-            <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
+            <StyledLinkCancel href="/" aria-label="Cancel emotion creation">
+              Cancel
+            </StyledLinkCancel>
+            <StyledButtonSubmit type="submit" aria-label="Submit emotion type">
+              Submit
+            </StyledButtonSubmit>
           </StyledButtonContainer>
-          {formError && <StyledError>{formError}</StyledError>}
+          {formError && (
+            <StyledError aria-live="assertive">{formError}</StyledError>
+          )}
         </StyledEmotionForm>
       </StyledFormContainer>
     </>
@@ -222,29 +230,39 @@ const StyledSpan = styled.span`
 const StyledLinkCancel = styled(Link)`
   margin: 10px;
   padding: 10px 20px;
-  background-color: #a6a6a6;
+  background-color: var(--color-highlighted-foreground);
   color: white;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
 
   &:hover {
     opacity: 70%;
+  }
+  body.dark-theme & {
+    color: var(--color-secondary);
   }
 `;
 
 const StyledButtonSubmit = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: var(--color-form-foreground);
-  color: #ffffff;
+  background-color: ${(props) =>
+    props.$isValid
+      ? "var(--color-form-foreground)"
+      : "var(--color-form-foreground)"};
+  color: var(--color-background-cards);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--color-success);
+    background-color: ${(props) =>
+      props.$isValid ? "var(--color-button-success)" : "darkgrey"};
   }
 
   &.clicked {
@@ -253,13 +271,13 @@ const StyledButtonSubmit = styled.button`
 
   @keyframes greenFlash {
     0% {
-      background-color: var(--color-secondary);
+      background-color: var(--color-form-foreground);
     }
     50% {
       background-color: var(--color-button-success);
     }
     100% {
-      background-color: var(--color-secondary);
+      background-color: var(--color-form-foreground);
     }
   }
 `;

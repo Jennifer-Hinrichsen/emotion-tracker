@@ -17,23 +17,37 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
   return (
     <StyledPopupMenu>
       <StyledCloseButton onClick={onClose}>×</StyledCloseButton>
-      <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
+      <StyledLink
+        key={emotion._id}
+        href={`emotion/${emotion._id}`}
+        aria-label={`Show details for emotion card ${emotion._id}`}
+      >
         Show Details
       </StyledLink>
 
       <ShareButton emotion={emotion} className="custom-share-button" />
-      <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
+      <StyledButtonDelete
+        type="button"
+        onClick={toggleDeleteDialog}
+        aria-label="Delete emotion card"
+      >
         Delete Card
       </StyledButtonDelete>
 
       {isDialogOpen && (
         <StyledDialogOverlay>
-          <StyledDialogBox>
+          <StyledDialogBox role="dialog">
             <p>Are you sure you want to delete this emotion card?</p>
-            <StyledButtonConfirm onClick={handleDelete}>
+            <StyledButtonConfirm
+              onClick={handleDelete}
+              aria-label="Confirm delete"
+            >
               Yes
             </StyledButtonConfirm>
-            <StyledButtonCancel onClick={toggleDeleteDialog}>
+            <StyledButtonCancel
+              onClick={toggleDeleteDialog}
+              aria-label="Cancel delete"
+            >
               No
             </StyledButtonCancel>
           </StyledDialogBox>

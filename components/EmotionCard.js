@@ -25,7 +25,9 @@ export default function EmotionCard({
   )?.emotionIcon;
 
   return (
-    <StyledCardWrapper>
+    <StyledCardWrapper
+      aria-label={`Emotion card for ${emotion.type.name} on ${date}`}
+    >
       {isDetailsPage ? (
         <StyledOuterBox color={emotion.type.color}>
           <StyledTopBox color={emotion.type.color}>
@@ -51,12 +53,21 @@ export default function EmotionCard({
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion._id)}
+              aria-label={
+                isBookmarked
+                  ? `Remove bookmark for ${emotion.type.name}`
+                  : `Add bookmark for ${emotion.type.name}`
+              }
             />
           </StyledEmotionCard>
         </StyledOuterBox>
       ) : (
         <>
-          <StyledLink key={emotion._id} href={`emotion/${emotion._id}`}>
+          <StyledLink
+            key={emotion._id}
+            href={`emotion/${emotion._id}`}
+            aria-label={`View details for emotion on ${date}`}
+          >
             <StyledOuterBox color={emotion.type.color}>
               <StyledTopBox color={emotion.type.color}>
                 <StyledDate>{date}</StyledDate>
@@ -83,11 +94,17 @@ export default function EmotionCard({
           <BookmarkButton
             isBookmarked={isBookmarked}
             onToggleBookmark={() => onToggleBookmark(emotion._id)}
+            aria-label={
+              isBookmarked
+                ? `Remove bookmark for ${emotion.type.name}`
+                : `Add bookmark for ${emotion.type.name}`
+            }
           />
 
           <OptionsButton
             onDeleteEmotion={() => onDeleteEmotion(emotion._id)}
             emotion={emotion}
+            aria-label={`Delete emotion on ${date}`}
             isMenuOpen={isMenuOpen}
             onToggleMenu={onToggleMenu}
           />
@@ -114,7 +131,7 @@ const StyledOuterBox = styled.div`
   border: 1px solid ${({ color }) => color || "var(--color-border)"};
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px var(--color-shadow);
-  margin: 24px 8px;
+  margin: 0px 8px 24px;
   overflow: hidden;
 `;
 

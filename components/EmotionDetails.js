@@ -25,10 +25,11 @@ export default function EmotionDetails({
   return (
     <>
       <Heading>Emotion Details</Heading>
-      <StyledBackLink aria-label="navigate-home" href="/">
-        ←
-      </StyledBackLink>
-
+      <StyledWrapperBackLink>
+        <StyledBackLink aria-label="navigate-home" href="/">
+          ←
+        </StyledBackLink>
+      </StyledWrapperBackLink>
       <EmotionCard
         emotion={emotion}
         onToggleBookmark={onToggleBookmark}
@@ -36,7 +37,10 @@ export default function EmotionDetails({
         isDetailsPage={true}
         intensity={emotion.intensity}
       />
-      <StyledEditLink href={`/emotion/${emotion._id}/edit`}>
+      <StyledEditLink
+        href={`/emotion/${emotion._id}/edit`}
+        aria-label={`Edit emotion details for ${emotion.type.name}`}
+      >
         Edit
       </StyledEditLink>
 
@@ -46,13 +50,21 @@ export default function EmotionDetails({
       <ShareButton emotion={emotion} />
 
       {isDialogOpen && (
-        <StyledDialogOverlay>
+        <StyledDialogOverlay aria-label="Delete confirmation dialog">
           <StyledDialogBox>
             <h2>Are you sure you want to delete this emotion?</h2>
-            <StyledButtonConfirm type="button" onClick={handleDelete}>
+            <StyledButtonConfirm
+              aria-label="Confirm emotion deletion"
+              type="button"
+              onClick={handleDelete}
+            >
               Delete
             </StyledButtonConfirm>
-            <StyledButtonCancel type="button" onClick={toggleDeleteDialog}>
+            <StyledButtonCancel
+              type="button"
+              onClick={toggleDeleteDialog}
+              aria-label="Cancel emotion deletion"
+            >
               Cancel
             </StyledButtonCancel>
           </StyledDialogBox>
@@ -62,6 +74,9 @@ export default function EmotionDetails({
   );
 }
 
+const StyledWrapperBackLink = styled.div`
+  margin-bottom: 12px;
+`;
 const StyledBackLink = styled(Link)`
   font-size: 24px;
   margin-left: 10px;
@@ -70,6 +85,7 @@ const StyledBackLink = styled(Link)`
 `;
 
 const StyledEditLink = styled(Link)`
+  line-height: 1;
   float: left;
   margin-right: 20px;
   margin: 10px;
@@ -79,6 +95,7 @@ const StyledEditLink = styled(Link)`
   border: none;
   border-radius: 5px;
   text-decoration: none;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #3232ff;
@@ -86,6 +103,7 @@ const StyledEditLink = styled(Link)`
 `;
 
 const StyledButtonDelete = styled.button`
+  line-height: 1;
   float: right;
   margin-right: 20px;
   margin: 10px;
@@ -94,6 +112,7 @@ const StyledButtonDelete = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #c0392b;
@@ -119,6 +138,9 @@ const StyledDialogBox = styled.div`
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 0 10px var(--color-shadow);
+  body.dark-theme & {
+    color: var(--color-foreground);
+  }
 `;
 
 const StyledButtonConfirm = styled.button`

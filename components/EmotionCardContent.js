@@ -7,21 +7,33 @@ export default function EmotionCardContent({
 }) {
   return (
     <StyledEmotionCardContent>
-      <StyledEmojiIcon color={emotion.type.color}>
+      <StyledEmojiIcon
+        color={emotion.type.color}
+        aria-label={`Emotion icon for ${emotion.type.name}`}
+      >
         {emotionIcon}
       </StyledEmojiIcon>
-      <StyledEmotionType>{emotion.type.name}</StyledEmotionType>
-      <StyledIntensityWrapper>
+      <StyledEmotionType aria-label={`Emotion type: ${emotion.type.name}`}>
+        {emotion.type.name}
+      </StyledEmotionType>
+      <StyledIntensityWrapper
+        aria-label={`Emotion intensity level: ${intensity}`}
+      >
         {[1, 2, 3].map((value) => (
           <StyledIntensityBubble
             key={value}
             size={value}
             color={emotion.type.color}
+            aria-label={`Intensity level ${value}`}
             $isActive={intensity >= value}
           />
         ))}
       </StyledIntensityWrapper>
-      <StyledNotes>{emotion.notes}</StyledNotes>
+      <StyledNotes
+        aria-label={`Notes: ${emotion.notes || "No notes available"}`}
+      >
+        {emotion.notes}
+      </StyledNotes>
     </StyledEmotionCardContent>
   );
 }
