@@ -25,7 +25,7 @@ export default function JournalForm() {
     setSelectedDate(new Date().toISOString());
   };
 
-  const { date, time } = formatDate(selectedDate);
+  // const { date, time } = formatDate(selectedDate);
   const handleDelete = (indexToDelete) => {
     setEntries((entries) =>
       entries.filter((_, index) => index !== indexToDelete)
@@ -38,18 +38,19 @@ export default function JournalForm() {
         <FormTitle>Journal Entry</FormTitle>
         <FormWrapper>
           <StyledJournalForm onSubmit={handleSubmit}>
-            <div>
-              <Label htmlFor="subject">Subject</Label>
+            <section>
               <Input
-                placeholder="write something..."
+                aria-label="subject"
+                placeholder="Subject"
                 id="subject"
                 type="text"
                 value={subject}
                 onChange={(event) => setSubject(event.target.value)}
               />
-            </div>
+            </section>
 
             <StyledDateAndTimeInput
+              aria-label="date-time"
               id="date-time"
               name="dateTime"
               type="datetime-local"
@@ -57,17 +58,19 @@ export default function JournalForm() {
               onChange={(event) => setSelectedDate(event.target.value)}
             />
 
-            <div>
-              <Label htmlFor="text">Your Journal Entry</Label>
+            <section>
               <Textarea
+                aria-label="textarea"
                 placeholder="How are you today?"
                 id="text"
                 value={text}
                 onChange={(event) => setText(event.target.value)}
               />
-            </div>
+            </section>
 
-            <SubmitButton type="submit">Add Entry</SubmitButton>
+            <SubmitButton aria-label="submit-button" type="submit">
+              Add Entry
+            </SubmitButton>
           </StyledJournalForm>
         </FormWrapper>
       </StyledFormContainer>
@@ -82,7 +85,7 @@ export default function JournalForm() {
             />
           ))
         ) : (
-          <p>No entries yet</p>
+          <StyeldText>No entries yet</StyeldText>
         )}
       </CardWrapper>
     </>
@@ -117,53 +120,34 @@ const FormTitle = styled.h2`
   color: var(--color-secondary);
 `;
 
-const Label = styled.label`
-  display: block;
-  font-size: 1.2rem;
-  padding: 0;
-  color: #555;
-
-  body.dark.theme & {
-    color: #fff;
-  }
-`;
-
 const Input = styled.input`
   width: 100%;
-  /* padding: 10px; */
+  padding: 8px;
   font-size: 1rem;
   border: none;
-  border-top: 1px dotted var(--color-form-foreground);
   border-bottom: 1px dotted var(--color-form-foreground);
-
-  border-radius: 4px;
-  /* margin-bottom: 20px; */
+  margin-bottom: 12px;
   box-sizing: border-box;
   background-color: var(--color-background);
+  color: var(--color-form-foreground);
   &::placeholder {
     padding-top: 0;
     color: var(--color-form-foreground);
     font-size: 1rem;
   }
-  body.dark-theme & {
-    background-color: var(--color-background);
-    color: #fff;
-  }
 `;
 
 const Textarea = styled.textarea`
-  padding: 0;
-  height: 400px;
-  max-height: 1000px;
-  line-height: 1.5;
-  max-width: 100%;
-  min-width: 100%;
+  width: 100%;
+  padding: 8px;
+  height: 200px;
   border: none;
-
-  border-top: 1px dotted var(--color-form-foreground);
-  background-color: transparent;
+  border-bottom: 1px dotted var(--color-form-foreground);
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  background-color: var(--color-background);
   color: var(--color-form-foreground);
-  font-size: 1rem;
+
   cursor: text;
 
   &::placeholder {
@@ -230,4 +214,8 @@ const StyledJournalForm = styled.form`
   body.dark-theme & {
     background-color: var(--color-background);
   }
+`;
+
+const StyeldText = styled.p`
+  color: var(--color-form-foreground);
 `;

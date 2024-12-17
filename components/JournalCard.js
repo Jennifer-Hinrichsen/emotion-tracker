@@ -15,7 +15,7 @@ export default function JournalCard({ journalEntry, onDelete }) {
           <DeleteButton onClick={onDelete}>✕</DeleteButton>
         </StyledTopBox>
         <StyledJournalCard>
-          <StyledSubject>{subject}</StyledSubject>
+          <StyledTitle>{subject}</StyledTitle>
           <StyledText>{text}</StyledText>
         </StyledJournalCard>
       </StyledOuterBox>
@@ -43,7 +43,7 @@ const StyledTopBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: grey;
+  background-color: var(--color-highlighted-background);
   padding: 5px;
 `;
 
@@ -60,39 +60,45 @@ const StyledJournalCard = styled.section`
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  padding: 26px 8px;
+  padding: 12px 8px;
   background-color: var(--color-background-cards);
   word-break: break-word;
   width: 100%;
 `;
 
-const StyledSubject = styled.h3`
-  text-align: center;
-  font-size: 1rem;
-  color: var(--color-text);
-  margin-top: -12px;
-  margin-bottom: 48px;
-`;
-
 const StyledText = styled.p`
-  margin-top: 0px;
+  margin-top: 0;
   text-align: center;
-  font-size: 1rem;
-  color: var(color--color-secondary);
-  body.dark.theme & {
-    color: var(--color-secondary);
+  color: var(--color-form-foreground);
+  line-height: 1.4;
+
+  body.dark-theme & {
+    color: var(--color-foreground);
   }
 `;
 
 const DeleteButton = styled.button`
   background: transparent;
   border: none;
-  color: white;
+  color: var(--color-highlighted-foreground);
   font-size: 1rem;
   cursor: pointer;
   padding: 0 10px;
 
   &:hover {
-    color: red;
+    color: var(--color-form-foreground);
+
+    body.dark-theme & {
+      color: var(--color-highlighted-foreground);
+    }
+  }
+`;
+const StyledTitle = styled.h2`
+  margin-top: -4px;
+  color: var(--color-form-foreground);
+  font-family: "Baskerville", serif;
+  font-weight: normal;
+  body.dark-theme & {
+    color: var(--color-foreground);
   }
 `;
