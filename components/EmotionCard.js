@@ -49,7 +49,7 @@ export default function EmotionCard({
               }}
               intensity={intensity}
             />
-            <OpenaiFeedback />
+            <OpenaiFeedback emotion={emotion} />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion._id)}
