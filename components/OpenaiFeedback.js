@@ -4,9 +4,15 @@ import { useState } from "react";
 export default function OpenaiFeedback({ emotion }) {
   const { mutate, isLoading } = useSWR(`/api/emotionEntries/${emotion._id}`);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [apiOutput, setApiOutput] = useState("");
+  const [apiOutput, setApiOutput] = useState(emotion.openaiFeedback || "");
 
   async function handleGenerateFeedback() {
+    // Prevent generating feedback if it already exists
+    if (apiOutput) {
+      setShowFeedback(true); // Show existing feedback
+      return;
+    }
+
     try {
       const response = await fetch(
         `/api/emotionEntries/${emotion._id}/feedback-generation`,
@@ -15,14 +21,14 @@ export default function OpenaiFeedback({ emotion }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(emotion), // Emotion-Daten als JSON senden
+          body: JSON.stringify(emotion), // Emotion data as JSON
         }
       );
 
       if (response.ok) {
         const data = await response.json();
-        setApiOutput(data.output);
-        mutate(); // SWR-Daten aktualisieren
+        setApiOutput(data.output); // Save the feedback in state
+        mutate(); // Update SWR data
         setShowFeedback(true); // Show feedback after successful generation
       } else {
         console.error("Feedback generation failed:", await response.text());
@@ -33,7 +39,7 @@ export default function OpenaiFeedback({ emotion }) {
   }
 
   function toggleFeedback() {
-    setShowFeedback((prev) => !prev);
+    setShowFeedback(!showFeedback);
   }
 
   return (
