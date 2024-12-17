@@ -1,4 +1,4 @@
-import dbConnect from "../../../db/connect";
+import dbConnect from "@/db/connect";
 import EmotionEntry from "@/db/models/emotionEntry";
 
 export default async function handler(request, response) {
