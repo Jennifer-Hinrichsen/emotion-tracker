@@ -6,8 +6,15 @@ import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
+import Footer from "@/components/Footer";
+import Image from "next/image";
+import styled from "styled-components";
 
-export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
+export default function HomePage({
+  onToggleBookmark,
+  myBookmarkedEmotions,
+  showToastMessage,
+}) {
   const { data: emotions, isLoading, mutate } = useSWR("/api/emotionEntries");
 
   const [searchTerm, setSearchTerm] = useLocalStorageState("searchTerm", {
@@ -71,7 +78,20 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   return (
     <>
       <Heading>Mood Wave</Heading>
-      <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
+      <StyledImageWrapper>
+        <Image
+          src="/Welcome-Emojis.svg"
+          alt="Welcome Emojis"
+          width={250}
+          height={125}
+          priority={true}
+        />
+      </StyledImageWrapper>
+      <EmotionForm
+        emotions={emotions}
+        onSubmit={handleAddEmotion}
+        showToastMessage={showToastMessage}
+      />
 
       <Filter
         selectedFilter={selectedFilter}
@@ -90,6 +110,12 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
         searchTerm={searchTerm}
         onDeleteEmotion={handleDeleteEmotion}
       />
+
+      <Footer />
     </>
   );
 }
+
+const StyledImageWrapper = styled.div`
+  text-align: center;
+`;

@@ -23,7 +23,11 @@ export default function ShareButton({ emotion }) {
   }
 
   return (
-    <StyledButtonShare type="button" onClick={handleShare}>
+    <StyledButtonShare
+      type="button"
+      onClick={handleShare}
+      aria-label="Share this emotion"
+    >
       Share
     </StyledButtonShare>
   );
