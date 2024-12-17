@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import ShareButton from "./ShareButton";
 
 export default function EmotionDetails({
   emotion,
@@ -19,27 +20,6 @@ export default function EmotionDetails({
   function handleDelete() {
     onDeleteEmotion(emotion._id);
     toggleDeleteDialog();
-  }
-
-  async function shareEmotion() {
-    const shareData = {
-      title: "Emotion Card",
-      text: `I'm feeling ${emotion.type.name} with intensity ${
-        emotion.intensity
-      }. Note: ${emotion.notes || ""}`,
-      url: window.location.href,
-    };
-
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        alert("Sharing is not supported in this browser.");
-      }
-    } catch (error) {
-      console.error("Error sharing:", error);
-      alert("Failed to share. Please try again.");
-    }
   }
 
   return (
@@ -67,13 +47,7 @@ export default function EmotionDetails({
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
-      <StyledButtonShare
-        type="button"
-        onClick={shareEmotion}
-        aria-label="Share this emotion"
-      >
-        Share
-      </StyledButtonShare>
+      <ShareButton emotion={emotion} />
 
       {isDialogOpen && (
         <StyledDialogOverlay aria-label="Delete confirmation dialog">
@@ -115,7 +89,7 @@ const StyledEditLink = styled(Link)`
   float: left;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #6666ff;
   color: white;
   border: none;
@@ -133,7 +107,7 @@ const StyledButtonDelete = styled.button`
   float: right;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -171,7 +145,7 @@ const StyledDialogBox = styled.div`
 
 const StyledButtonConfirm = styled.button`
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -184,7 +158,7 @@ const StyledButtonConfirm = styled.button`
 
 const StyledButtonCancel = styled.button`
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #95a5a6;
   color: white;
   border: none;
@@ -192,21 +166,5 @@ const StyledButtonCancel = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #7f8c8d;
-  }
-`;
-const StyledButtonShare = styled.button`
-  line-height: 1;
-  float: right;
-  margin-right: 20px;
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  &:hover {
-    background-color: #27ae60;
   }
 `;

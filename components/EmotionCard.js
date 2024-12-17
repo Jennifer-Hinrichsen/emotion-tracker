@@ -15,6 +15,8 @@ export default function EmotionCard({
   intensity,
   searchTerm,
   onDeleteEmotion,
+  isMenuOpen,
+  onToggleMenu,
 }) {
   const { date, time } = formatDate(emotion.dateTime);
 
@@ -103,6 +105,8 @@ export default function EmotionCard({
             onDeleteEmotion={() => onDeleteEmotion(emotion._id)}
             emotion={emotion}
             aria-label={`Delete emotion on ${date}`}
+            isMenuOpen={isMenuOpen}
+            onToggleMenu={onToggleMenu}
           />
         </>
       )}

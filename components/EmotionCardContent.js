@@ -24,8 +24,8 @@ export default function EmotionCardContent({
             key={value}
             size={value}
             color={emotion.type.color}
-            isActive={intensity >= value}
             aria-label={`Intensity level ${value}`}
+            $isActive={intensity >= value}
           />
         ))}
       </StyledIntensityWrapper>
