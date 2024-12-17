@@ -11,7 +11,7 @@ export default function EmotionCard({
   emotion,
   onToggleBookmark,
   isBookmarked,
-  isDetailsPage = false,
+  isDetailsPage,
   intensity,
   searchTerm,
   onDeleteEmotion,
@@ -49,6 +49,7 @@ export default function EmotionCard({
                 ),
               }}
               intensity={intensity}
+              isDetailsPage={isDetailsPage}
             />
             <BookmarkButton
               isBookmarked={isBookmarked}

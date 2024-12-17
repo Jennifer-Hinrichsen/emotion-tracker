@@ -4,7 +4,15 @@ export default function EmotionCardContent({
   emotion,
   emotionIcon,
   intensity,
+  isDetailsPage,
 }) {
+  const notesText = emotion.notes?.props?.textToHighlight || "";
+
+  const displayedNotes =
+    !isDetailsPage && notesText.length > 50
+      ? notesText.substring(0, 50) + "..."
+      : notesText;
+
   return (
     <StyledEmotionCardContent>
       <StyledEmojiIcon
@@ -30,9 +38,9 @@ export default function EmotionCardContent({
         ))}
       </StyledIntensityWrapper>
       <StyledNotes
-        aria-label={`Notes: ${emotion.notes || "No notes available"}`}
+        aria-label={`Notes: ${displayedNotes || "No notes available"}`}
       >
-        {emotion.notes}
+        {displayedNotes}
       </StyledNotes>
     </StyledEmotionCardContent>
   );

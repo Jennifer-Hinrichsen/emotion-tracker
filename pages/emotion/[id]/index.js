@@ -38,6 +38,7 @@ export default function EmotionDetailPage({
       onDeleteEmotion={handleDelete}
       myBookmarkedEmotions={myBookmarkedEmotions}
       onToggleBookmark={onToggleBookmark}
+      isDetailsPage={true}
     />
   );
 }
