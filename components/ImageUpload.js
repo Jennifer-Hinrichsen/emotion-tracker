@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import useSWR from "swr";
 
-export default function ImageUpload({ onSubmit, emotion }) {
+export default function ImageUpload({ emotion }) {
+  const { mutate } = useSWR(`/api/emotionEntries/${emotion._id}`);
   const [showMoreButtons, setShowMoreButtons] = useState(false);
 
   const buttonText = emotion.imageUrl ? "Change memory" : "Upload memory";
@@ -24,15 +26,18 @@ export default function ImageUpload({ onSubmit, emotion }) {
     const formData = new FormData(event.target);
 
     try {
-      const response = await fetch("/api/images/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `/api/emotionEntries/${emotion._id}/image-upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
         setShowMoreButtons(false);
-        await onSubmit(data);
+        mutate();
       } else {
         console.error("Upload failed:", await response.text());
       }

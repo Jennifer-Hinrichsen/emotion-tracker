@@ -6,6 +6,7 @@ import Filter from "@/components/Filter";
 import useLocalStorageState from "use-local-storage-state";
 import Heading from "@/components/Heading";
 import useSWR from "swr";
+import useModal, { ExampleUsage } from "@/components/useModal";
 
 export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   const { data: emotions, isLoading, mutate } = useSWR("/api/emotionEntries");
@@ -14,6 +15,8 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
     defaultValue: "",
   });
   const [selectedFilter, setSelectedFilter] = useState("");
+
+  const [Modal, setModalVisibility] = useModal();
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -71,6 +74,7 @@ export default function HomePage({ onToggleBookmark, myBookmarkedEmotions }) {
   return (
     <>
       <Heading>Mood Wave</Heading>
+      <ExampleUsage />
       <EmotionForm emotions={emotions} onSubmit={handleAddEmotion} />
 
       <Filter
