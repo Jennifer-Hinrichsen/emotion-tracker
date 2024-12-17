@@ -1,5 +1,5 @@
 import EmotionEntry from "@/db/models/emotionEntry";
-import dbConnect from "../../../db/connect";
+import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
   await dbConnect();

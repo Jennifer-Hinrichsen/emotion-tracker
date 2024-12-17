@@ -1,5 +1,7 @@
-import formidable from "formidable";
 import cloudinary from "cloudinary";
+import EmotionEntry from "@/db/models/emotionEntry";
+import dbConnect from "@/db/connect";
+import formidable from "formidable";
 
 export const config = {
   api: {
@@ -18,11 +20,12 @@ export default async function handler(request, response) {
     response.status(400).json({ message: "Method not allowed" });
     return;
   }
+  await dbConnect();
 
+  const { id } = request.query;
   const form = formidable({});
 
   const [fields, files] = await form.parse(request);
-
   const file = files.image[0];
   const { newFilename, filepath } = file;
 
@@ -31,5 +34,8 @@ export default async function handler(request, response) {
     folder: "moodwave_uploads",
   });
 
-  response.status(200).json(result);
+  await EmotionEntry.findByIdAndUpdate(id, {
+    imageUrl: result.secure_url,
+  });
+  response.status(200).json({ status: "image uploaded!" });
 }

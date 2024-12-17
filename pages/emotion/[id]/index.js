@@ -33,30 +33,9 @@ export default function EmotionDetailPage({
     }
   }
 
-  async function handleImageUpload(formData) {
-    try {
-      const response = await fetch(`/api/emotionEntries/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ imageUrl: formData.secure_url }),
-      });
-      if (response.ok) {
-        mutate();
-        console.log("Image URL successfully updated");
-      } else {
-        console.error("Failed to update image URL:", await response.text());
-      }
-    } catch (error) {
-      console.error("Error during image upload:", error.message);
-    }
-  }
-
   return (
     <EmotionDetails
       emotion={selectedEmotion}
-      onSubmit={handleImageUpload}
       onDeleteEmotion={handleDelete}
       myBookmarkedEmotions={myBookmarkedEmotions}
       onToggleBookmark={onToggleBookmark}

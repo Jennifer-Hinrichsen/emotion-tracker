@@ -10,7 +10,6 @@ import ImageUpload from "./ImageUpload";
 
 export default function EmotionCard({
   emotion,
-  onSubmit,
   onToggleBookmark,
   isBookmarked,
   isDetailsPage = false,
@@ -33,7 +32,7 @@ export default function EmotionCard({
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
-            <ImageUpload emotion={emotion} onSubmit={onSubmit} />
+            <ImageUpload emotion={emotion} />
             <EmotionCardContent
               isDetailView={true}
               emotionColor={emotion.type.color}
