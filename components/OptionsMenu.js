@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Link from "next/link";
 import ShareButton from "./ShareButton";
+import TrashIcon from "assets/optionsMenuIcons/trash.svg";
 
 export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
         onClick={toggleDeleteDialog}
         aria-label="Delete emotion card"
       >
-        Delete Card
+        <StyledTrashIcon />
       </StyledButtonDelete>
 
       {isDialogOpen && (
@@ -94,9 +95,8 @@ const StyledLink = styled(Link)`
 
 const StyledButtonDelete = styled.button`
   float: right;
-  margin: 4px;
-  margin-top: 0;
-  padding: 4px 24px;
+  margin: 2px 24px 2px 24px;
+  padding: 2px 16px;
   background-color: #e74c3c;
   color: var(--color-background-cards);
   border: none;
@@ -137,11 +137,15 @@ const StyledButtonConfirm = styled.button`
 `;
 
 const StyledButtonCancel = styled.button`
-  margin: 10px;
+  margin: 10px 20px 10px 20px;
   padding: 10px 20px;
   background-color: #95a5a6;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+`;
+const StyledTrashIcon = styled(TrashIcon)`
+  width: 20px;
+  height: 20px;
 `;

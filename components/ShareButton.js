@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ShareIcon from "assets/optionsMenuIcons/share.svg";
 
 export default function ShareButton({ emotion }) {
   async function handleShare() {
@@ -28,16 +29,15 @@ export default function ShareButton({ emotion }) {
       onClick={handleShare}
       aria-label="Share this emotion"
     >
-      Share
+      <ShareIconStyled />
     </StyledButtonShare>
   );
 }
 
 const StyledButtonShare = styled.button`
   float: right;
-  margin-right: 20px;
-  margin: 10px;
-  padding: 5px 10px;
+  margin: 2px 24px 2px 24px;
+  padding: 2px 16px;
   background-color: #2ecc71;
   color: white;
   border: none;
@@ -46,4 +46,8 @@ const StyledButtonShare = styled.button`
   &:hover {
     background-color: #27ae60;
   }
+`;
+const ShareIconStyled = styled(ShareIcon)`
+  width: 20px;
+  height: 20px;
 `;
