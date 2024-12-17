@@ -6,37 +6,30 @@ export default function JournalCard({ journalEntry, onDelete }) {
   const { subject, text } = journalEntry;
 
   return (
-    <StyledCardWrapper>
-      <StyledOuterBox>
-        <StyledTopBox>
-          <StyledDate>
-            {date} {time}
-          </StyledDate>
-          <DeleteButton onClick={onDelete}>✕</DeleteButton>
-        </StyledTopBox>
-        <StyledJournalCard>
-          <StyledTitle>{subject}</StyledTitle>
-          <StyledText>{text}</StyledText>
-        </StyledJournalCard>
-      </StyledOuterBox>
-    </StyledCardWrapper>
+    <StyledOuterBox>
+      <StyledTopBox>
+        <StyledDate>
+          {date} {time}
+        </StyledDate>
+        <DeleteButton onClick={onDelete}>✕</DeleteButton>
+      </StyledTopBox>
+      <StyledJournalCard>
+        <StyledTitle>{subject}</StyledTitle>
+        <StyledText>{text}</StyledText>
+      </StyledJournalCard>
+    </StyledOuterBox>
   );
 }
 
-const StyledCardWrapper = styled.div`
+const StyledOuterBox = styled.div`
   width: 100%;
   box-sizing: border-box;
-`;
-
-const StyledOuterBox = styled.div`
   background-color: var(--color-background);
   border: 1px solid ${({ color }) => color || "var(--color-border)"};
   border-radius: 0.5rem;
   box-shadow: 0 1px 4px var(--color-shadow);
   margin: 24px 0;
   overflow: hidden;
-  width: 100%;
-  box-sizing: border-box;
 `;
 
 const StyledTopBox = styled.div`
@@ -66,6 +59,17 @@ const StyledJournalCard = styled.section`
   width: 100%;
 `;
 
+const StyledTitle = styled.h2`
+  margin-top: -4px;
+  color: var(--color-form-foreground);
+  font-family: "Baskerville", serif;
+  font-weight: normal;
+
+  body.dark-theme & {
+    color: var(--color-foreground);
+  }
+`;
+
 const StyledText = styled.p`
   margin-top: 0;
   text-align: center;
@@ -91,14 +95,5 @@ const DeleteButton = styled.button`
     body.dark-theme & {
       color: var(--color-highlighted-foreground);
     }
-  }
-`;
-const StyledTitle = styled.h2`
-  margin-top: -4px;
-  color: var(--color-form-foreground);
-  font-family: "Baskerville", serif;
-  font-weight: normal;
-  body.dark-theme & {
-    color: var(--color-foreground);
   }
 `;

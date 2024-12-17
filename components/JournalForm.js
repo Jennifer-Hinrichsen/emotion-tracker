@@ -25,7 +25,6 @@ export default function JournalForm() {
     setSelectedDate(new Date().toISOString());
   };
 
-  // const { date, time } = formatDate(selectedDate);
   const handleDelete = (indexToDelete) => {
     setEntries((entries) =>
       entries.filter((_, index) => index !== indexToDelete)
@@ -75,19 +74,20 @@ export default function JournalForm() {
         </FormWrapper>
       </StyledFormContainer>
 
-      <CardWrapper>
+      <CardList>
         {entries && entries.length > 0 ? (
           entries.map((entry, index) => (
-            <JournalCard
-              key={index}
-              journalEntry={entry}
-              onDelete={() => handleDelete(index)}
-            />
+            <CardItem key={index}>
+              <JournalCard
+                journalEntry={entry}
+                onDelete={() => handleDelete(index)}
+              />
+            </CardItem>
           ))
         ) : (
-          <StyeldText>No entries yet</StyeldText>
+          <StyledText>No entries yet</StyledText>
         )}
-      </CardWrapper>
+      </CardList>
     </>
   );
 }
@@ -107,10 +107,6 @@ const FormWrapper = styled.div`
   margin-top: 0px;
   box-sizing: border-box;
   background-color: var(--color-background);
-
-  body.dark-theme & {
-    background-color: var(--color-background);
-  }
 `;
 
 const FormTitle = styled.h2`
@@ -130,11 +126,6 @@ const Input = styled.input`
   box-sizing: border-box;
   background-color: var(--color-background);
   color: var(--color-form-foreground);
-  &::placeholder {
-    padding-top: 0;
-    color: var(--color-form-foreground);
-    font-size: 1rem;
-  }
 `;
 
 const Textarea = styled.textarea`
@@ -147,14 +138,6 @@ const Textarea = styled.textarea`
   box-sizing: border-box;
   background-color: var(--color-background);
   color: var(--color-form-foreground);
-
-  cursor: text;
-
-  &::placeholder {
-    padding-top: 0;
-    color: var(--color-form-foreground);
-    font-size: 1rem;
-  }
 `;
 
 const SubmitButton = styled.button`
@@ -166,31 +149,17 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: var(--color-button-success);
-  }
-
-  &.clicked {
-    animation: greenFlash 6s forwards;
-  }
-
-  @keyframes greenFlash {
-    0% {
-      background-color: var(--color-form-foreground);
-    }
-    50% {
-      background-color: var(--color-button-success);
-    }
-    100% {
-      background-color: var(--color-form-foreground);
-    }
-  }
 `;
 
-const CardWrapper = styled.div`
+const CardList = styled.ul`
   width: 100%;
   margin: 0;
+  padding: 0;
+  list-style-type: none;
+`;
+
+const CardItem = styled.li`
+  margin-bottom: 1rem;
 `;
 
 const StyledDateAndTimeInput = styled.input`
@@ -201,21 +170,12 @@ const StyledDateAndTimeInput = styled.input`
   background-color: transparent;
   color: var(--color-form-foreground);
   font-size: 1rem;
-
-  &::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    color: var(--color-form-foreground);
-  }
 `;
 
 const StyledJournalForm = styled.form`
   background-color: var(--color-background);
-
-  body.dark-theme & {
-    background-color: var(--color-background);
-  }
 `;
 
-const StyeldText = styled.p`
+const StyledText = styled.p`
   color: var(--color-form-foreground);
 `;
