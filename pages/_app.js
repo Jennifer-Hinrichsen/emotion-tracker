@@ -2,11 +2,16 @@ import GlobalStyle from "../styles";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
+import dynamic from "next/dynamic";
 import ToastMessage from "@/components/ToastMessage";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
+
+const SpinningDots = dynamic(() => import("@/components/SpinningDots"), {
+  ssr: false,
+});
 
 export default function App({ Component, pageProps }) {
   const [myBookmarkedEmotions, setMyBookmarkedEmotions] = useLocalStorageState(
@@ -57,6 +62,7 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Layout>
         <SWRConfig value={{ fetcher }}>
+          <SpinningDots />
           <Component
             myBookmarkedEmotions={myBookmarkedEmotions}
             onToggleBookmark={handleToggleBookmark}
