@@ -93,7 +93,7 @@ const StyledIntensityBubble = styled.div`
   height: ${(props) => props.size * 10}px;
   border-radius: 50%;
   background-color: ${(props) =>
-    props.isActive
+    props.$isActive
       ? props.color || "var(--color-frame)"
       : `${props.color || "var(--color-frame"}80`};
 `;

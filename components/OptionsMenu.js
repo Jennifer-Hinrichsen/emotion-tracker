@@ -18,42 +18,44 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
   return (
     <StyledPopupMenu>
       <StyledCloseButton onClick={onClose}>×</StyledCloseButton>
-      <StyledLink
-        key={emotion._id}
-        href={`emotion/${emotion._id}`}
-        aria-label={`Show details for emotion card ${emotion._id}`}
-      >
-        Show Details
-      </StyledLink>
+      <ButtonWrapper>
+        <StyledLink
+          key={emotion._id}
+          href={`emotion/${emotion._id}`}
+          aria-label={`Show details for emotion card ${emotion._id}`}
+        >
+          Show Details
+        </StyledLink>
 
-      <ShareButton emotion={emotion} className="custom-share-button" />
-      <StyledButtonDelete
-        type="button"
-        onClick={toggleDeleteDialog}
-        aria-label="Delete emotion card"
-      >
-        <StyledTrashIcon />
-      </StyledButtonDelete>
+        <ShareButton emotion={emotion} className="custom-share-button" />
+        <StyledButtonDelete
+          type="button"
+          onClick={toggleDeleteDialog}
+          aria-label="Delete emotion card"
+        >
+          <StyledTrashIcon />
+        </StyledButtonDelete>
 
-      {isDialogOpen && (
-        <StyledDialogOverlay>
-          <StyledDialogBox role="dialog">
-            <p>Are you sure you want to delete this emotion card?</p>
-            <StyledButtonConfirm
-              onClick={handleDelete}
-              aria-label="Confirm delete"
-            >
-              Yes
-            </StyledButtonConfirm>
-            <StyledButtonCancel
-              onClick={toggleDeleteDialog}
-              aria-label="Cancel delete"
-            >
-              No
-            </StyledButtonCancel>
-          </StyledDialogBox>
-        </StyledDialogOverlay>
-      )}
+        {isDialogOpen && (
+          <StyledDialogOverlay>
+            <StyledDialogBox role="dialog">
+              <p>Are you sure you want to delete this emotion card?</p>
+              <StyledButtonConfirm
+                onClick={handleDelete}
+                aria-label="Confirm delete"
+              >
+                Yes
+              </StyledButtonConfirm>
+              <StyledButtonCancel
+                onClick={toggleDeleteDialog}
+                aria-label="Cancel delete"
+              >
+                No
+              </StyledButtonCancel>
+            </StyledDialogBox>
+          </StyledDialogOverlay>
+        )}
+      </ButtonWrapper>
     </StyledPopupMenu>
   );
 }
@@ -68,7 +70,6 @@ const StyledPopupMenu = styled.div`
   right: 16px;
   width: 30%;
   height: 70%;
-
   border-radius: 8px;
   background-color: var(--color-secondary);
 `;
@@ -86,11 +87,12 @@ const StyledCloseButton = styled.button`
 
 const StyledLink = styled(Link)`
   float: right;
+  font-size: 12px;
   margin-top: 4px;
   padding: 4px 24px;
   color: var(--color-background-cards);
   cursor: pointer;
-  font-size: 0.5rem;
+  //font-size: 0.5rem;
 `;
 
 const StyledButtonDelete = styled.button`
@@ -148,4 +150,7 @@ const StyledButtonCancel = styled.button`
 const StyledTrashIcon = styled(TrashIcon)`
   width: 20px;
   height: 20px;
+`;
+const ButtonWrapper = styled.div`
+  width: 100%;
 `;

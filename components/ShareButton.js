@@ -36,8 +36,8 @@ export default function ShareButton({ emotion }) {
 
 const StyledButtonShare = styled.button`
   float: right;
-  margin: 2px 24px 2px 24px;
-  padding: 2px 16px;
+  //margin: 2px 26px 2px 26px;
+  padding: 5px 10px;
   background-color: #2ecc71;
   color: white;
   border: none;
