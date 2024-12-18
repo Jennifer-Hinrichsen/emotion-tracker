@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
+export default function CreateEmotionTypeForm({ onSubmit }) {
   const [selectedEmotionColor, setSelectedEmotionColor] = useState("");
   const [formError, setFormError] = useState("");
   const router = useRouter();
@@ -47,75 +47,62 @@ export default function CreateEmotionTypeForm({ onSubmit, showToastMessage }) {
   }
 
   return (
-    <>
-      <StyledFormContainer>
-        <StyledFormHead>
-          <StyledSubheadline>Create your Emotion type</StyledSubheadline>
-        </StyledFormHead>
-        <StyledEmotionForm
-          onSubmit={handleSubmit}
-          showToastMessage={showToastMessage}
-        >
-          <label htmlFor="name">Emotion Type*</label>
-          <StyledTextArea
-            id="name"
-            name="name"
-            placeholder="Please describe your feelings"
-            maxLength="50"
-            aria-label="Emotion type description"
-          ></StyledTextArea>
+    <StyledFormContainer>
+      <StyledFormHead>
+        <StyledSubheadline>Create your Emotion type</StyledSubheadline>
+      </StyledFormHead>
 
-          <StyledFieldset>
-            <StyledLegendColor>Choose a Color*</StyledLegendColor>
-            {allEmotionColors.map((color) => (
-              <StyledLabelColors
-                key={color.id}
-                $isSelected={selectedEmotionColor === color.color}
-                $bgColor={color.color}
-                aria-label={`Select the color ${color.color}`}
-              >
-                <StyledInputColor
-                  type="radio"
-                  name="color"
-                  value={color.color}
-                  onChange={handleChangeEmotionColor}
-                />
-              </StyledLabelColors>
-            ))}
-          </StyledFieldset>
+      <StyledEmotionForm onSubmit={handleSubmit}>
+        <label htmlFor="name">Emotion Type*</label>
+        <StyledTextArea
+          id="name"
+          name="name"
+          placeholder="Please describe your feelings"
+          maxLength="50"
+        ></StyledTextArea>
 
-          <StyledFieldset>
-            <StyledLegendIcon>Choose an Icon*</StyledLegendIcon>
-            {allEmotionIcons.map((icon) => (
-              <StyledLabelIcons
-                key={icon.emotionIconId}
-                $isSelectedColor={selectedEmotionColor}
-                aria-label={`Select the icon ${icon.emotionIcon}`}
-              >
-                <StyledInputIcon
-                  type="radio"
-                  name="emotionIconId"
-                  value={icon.emotionIconId}
-                />
-                <StyledSpan>{icon.emotionIcon}</StyledSpan>
-              </StyledLabelIcons>
-            ))}
-          </StyledFieldset>
+        <StyledFieldset>
+          <StyledLegendColor>Choose a Color*</StyledLegendColor>
+          {allEmotionColors.map((color) => (
+            <StyledLabelColors
+              key={color.id}
+              $isSelected={selectedEmotionColor === color.color}
+              $bgColor={color.color}
+            >
+              <StyledInputColor
+                type="radio"
+                name="color"
+                value={color.color}
+                onChange={handleChangeEmotionColor}
+              />
+            </StyledLabelColors>
+          ))}
+        </StyledFieldset>
 
-          <StyledButtonContainer>
-            <StyledLinkCancel href="/" aria-label="Cancel emotion creation">
-              Cancel
-            </StyledLinkCancel>
-            <StyledButtonSubmit type="submit" aria-label="Submit emotion type">
-              Submit
-            </StyledButtonSubmit>
-          </StyledButtonContainer>
-          {formError && (
-            <StyledError aria-live="assertive">{formError}</StyledError>
-          )}
-        </StyledEmotionForm>
-      </StyledFormContainer>
-    </>
+        <StyledFieldset>
+          <StyledLegendIcon>Choose an Icon*</StyledLegendIcon>
+          {allEmotionIcons.map((icon) => (
+            <StyledLabelIcons
+              key={icon.emotionIconId}
+              $isSelectedColor={selectedEmotionColor}
+            >
+              <StyledInputIcon
+                type="radio"
+                name="emotionIconId"
+                value={icon.emotionIconId}
+              />
+              <StyledSpan>{icon.emotionIcon}</StyledSpan>
+            </StyledLabelIcons>
+          ))}
+        </StyledFieldset>
+
+        <StyledButtonContainer>
+          <StyledLinkCancel href="/">Cancel</StyledLinkCancel>
+          <StyledButtonSubmit type="submit">Submit</StyledButtonSubmit>
+        </StyledButtonContainer>
+        {formError && <StyledError>{formError}</StyledError>}
+      </StyledEmotionForm>
+    </StyledFormContainer>
   );
 }
 

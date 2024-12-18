@@ -8,6 +8,7 @@ const emotionEntriesSchema = new Schema(
     intensity: { type: Number, required: true },
     notes: { type: String },
     dateTime: { type: String, required: true },
+    imageUrl: { type: String },
   },
   { collection: "emotion-entries" }
 );

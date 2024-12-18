@@ -3,7 +3,7 @@ import Heading from "@/components/Heading";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function EditPage({ showToastMessage }) {
+export default function EditPage() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -40,7 +40,6 @@ export default function EditPage({ showToastMessage }) {
       <EmotionForm
         defaultValue={emotion}
         onSubmit={handleEdit}
-        showToastMessage={showToastMessage}
         onCancel={() => {
           router.push(`/emotion/${id}`);
         }}

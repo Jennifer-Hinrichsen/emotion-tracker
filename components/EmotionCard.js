@@ -6,12 +6,13 @@ import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
+import ImageUpload from "./ImageUpload";
 
 export default function EmotionCard({
   emotion,
   onToggleBookmark,
   isBookmarked,
-  isDetailsPage = false,
+  isDetailsPage,
   intensity,
   searchTerm,
   onDeleteEmotion,
@@ -35,7 +36,9 @@ export default function EmotionCard({
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
+            <ImageUpload emotion={emotion} />
             <EmotionCardContent
+              isDetailView={true}
               emotionColor={emotion.type.color}
               emotionIcon={emotionIcon}
               emotion={{
@@ -49,6 +52,7 @@ export default function EmotionCard({
                 ),
               }}
               intensity={intensity}
+              isDetailsPage={isDetailsPage}
             />
             <BookmarkButton
               isBookmarked={isBookmarked}

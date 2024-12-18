@@ -12,6 +12,7 @@ export default function EmotionDetails({
   onDeleteEmotion,
   myBookmarkedEmotions,
   onToggleBookmark,
+  isDetailsPage,
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -25,7 +26,7 @@ export default function EmotionDetails({
   }
 
   return (
-    <>
+    <StyledDiv>
       <Heading>Emotion Details</Heading>
       <StyledWrapperBackLink>
         <StyledBackLink aria-label="navigate-home" href="/">
@@ -36,7 +37,7 @@ export default function EmotionDetails({
         emotion={emotion}
         onToggleBookmark={onToggleBookmark}
         isBookmarked={myBookmarkedEmotions.includes(emotion._id)}
-        isDetailsPage={true}
+        isDetailsPage={isDetailsPage}
         intensity={emotion.intensity}
       />
       <ButtonWrapper>
@@ -51,7 +52,6 @@ export default function EmotionDetails({
         <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
           <StyledTrashIcon />
         </StyledButtonDelete>
-
         {isDialogOpen && (
           <StyledDialogOverlay aria-label="Delete confirmation dialog">
             <StyledDialogBox>
@@ -74,9 +74,13 @@ export default function EmotionDetails({
           </StyledDialogOverlay>
         )}
       </ButtonWrapper>
-    </>
+    </StyledDiv>
   );
 }
+
+const StyledDiv = styled.div`
+  padding-bottom: 66px;
+`;
 
 const StyledWrapperBackLink = styled.div`
   margin-bottom: 12px;

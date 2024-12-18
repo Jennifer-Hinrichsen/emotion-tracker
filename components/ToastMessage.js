@@ -41,6 +41,5 @@ const ToastWrapper = styled.div`
 `;
 
 export default function ToastMessage({ message, visible }) {
-  if (!visible) return null;
   return <ToastWrapper visible={visible}>{message}</ToastWrapper>;
 }
