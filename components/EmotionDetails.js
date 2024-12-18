@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 import ShareButton from "./ShareButton";
+import TrashIcon from "assets/optionsMenuIcons/trash.svg";
+import EditIcon from "assets/optionsMenuIcons/edit.svg";
 
 export default function EmotionDetails({
   emotion,
@@ -38,39 +40,40 @@ export default function EmotionDetails({
         isDetailsPage={isDetailsPage}
         intensity={emotion.intensity}
       />
-      <StyledEditLink
-        href={`/emotion/${emotion._id}/edit`}
-        aria-label={`Edit emotion details for ${emotion.type.name}`}
-      >
-        Edit
-      </StyledEditLink>
+      <ButtonWrapper>
+        <StyledEditLink
+          href={`/emotion/${emotion._id}/edit`}
+          aria-label={`Edit emotion details for ${emotion.type.name}`}
+        >
+          <StyledEditIcon />
+        </StyledEditLink>
+        <ShareButton emotion={emotion} />
 
-      <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
-        Delete
-      </StyledButtonDelete>
-      <ShareButton emotion={emotion} />
-
-      {isDialogOpen && (
-        <StyledDialogOverlay aria-label="Delete confirmation dialog">
-          <StyledDialogBox>
-            <h2>Are you sure you want to delete this emotion?</h2>
-            <StyledButtonConfirm
-              aria-label="Confirm emotion deletion"
-              type="button"
-              onClick={handleDelete}
-            >
-              Delete
-            </StyledButtonConfirm>
-            <StyledButtonCancel
-              type="button"
-              onClick={toggleDeleteDialog}
-              aria-label="Cancel emotion deletion"
-            >
-              Cancel
-            </StyledButtonCancel>
-          </StyledDialogBox>
-        </StyledDialogOverlay>
-      )}
+        <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
+          <StyledTrashIcon />
+        </StyledButtonDelete>
+        {isDialogOpen && (
+          <StyledDialogOverlay aria-label="Delete confirmation dialog">
+            <StyledDialogBox>
+              <h2>Are you sure you want to delete this emotion?</h2>
+              <StyledButtonConfirm
+                aria-label="Confirm emotion deletion"
+                type="button"
+                onClick={handleDelete}
+              >
+                Delete
+              </StyledButtonConfirm>
+              <StyledButtonCancel
+                type="button"
+                onClick={toggleDeleteDialog}
+                aria-label="Cancel emotion deletion"
+              >
+                Cancel
+              </StyledButtonCancel>
+            </StyledDialogBox>
+          </StyledDialogOverlay>
+        )}
+      </ButtonWrapper>
     </StyledDiv>
   );
 }
@@ -91,8 +94,6 @@ const StyledBackLink = styled(Link)`
 
 const StyledEditLink = styled(Link)`
   line-height: 1;
-  float: left;
-  margin-right: 20px;
   margin: 10px;
   padding: 5px 10px;
   background-color: #6666ff;
@@ -109,8 +110,6 @@ const StyledEditLink = styled(Link)`
 
 const StyledButtonDelete = styled.button`
   line-height: 1;
-  float: right;
-  margin-right: 20px;
   margin: 10px;
   padding: 5px 10px;
   background-color: #e74c3c;
@@ -160,7 +159,11 @@ const StyledButtonConfirm = styled.button`
     background-color: #c0392b;
   }
 `;
-
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
 const StyledButtonCancel = styled.button`
   margin: 10px;
   padding: 5px 10px;
@@ -172,4 +175,12 @@ const StyledButtonCancel = styled.button`
   &:hover {
     background-color: #7f8c8d;
   }
+`;
+const StyledTrashIcon = styled(TrashIcon)`
+  width: 20px;
+  height: 20px;
+`;
+const StyledEditIcon = styled(EditIcon)`
+  width: 20px;
+  height: 20px;
 `;

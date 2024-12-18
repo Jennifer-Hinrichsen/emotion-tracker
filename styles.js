@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 :root {
     --color-background: #f9f9f9;
     --color-frame: #e0e1f0;
@@ -54,7 +56,8 @@ export default createGlobalStyle`
   }
 
   body {
-    margin: 0;
+    max-width: 760px;
+    margin: 0 auto;
     font-family: 'Roboto', sans-serif;
     background-color: var(--color-background);
     padding-bottom: 66px;

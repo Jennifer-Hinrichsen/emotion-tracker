@@ -2,12 +2,18 @@ import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import useSWR from "swr";
+import PhotoUploadIcon from "assets/optionsMenuIcons/photo-up.svg";
+import PhotoEditIcon from "assets/optionsMenuIcons/photo-edit.svg";
 
 export default function ImageUpload({ emotion }) {
   const { mutate } = useSWR(`/api/emotionEntries/${emotion._id}`);
   const [showMoreButtons, setShowMoreButtons] = useState(false);
 
-  const buttonText = emotion.imageUrl ? "Change memory" : "Upload memory";
+  const buttonText = emotion.imageUrl ? (
+    <StyledPhotoEditIcon />
+  ) : (
+    <StyledPhotoUploadIcon />
+  );
 
   function handleShowButton(event) {
     if (event.target.files && event.target.files[0]) {
@@ -85,7 +91,7 @@ const StyledLabel = styled.label`
   position: absolute;
   top: 30px;
   right: 19px;
-  padding: 10px 20px;
+  padding: 3px 3px;
   background-color: ${(props) =>
     props.$disabled
       ? "var(--color-home-icon-foreground)"
@@ -162,4 +168,10 @@ const StyledImage = styled(Image)`
   border-radius: 10px;
   margin-top: -19px;
   margin-bottom: 10px;
+`;
+const StyledPhotoUploadIcon = styled(PhotoUploadIcon)`
+  color: var(--color-background-cards);
+`;
+const StyledPhotoEditIcon = styled(PhotoEditIcon)`
+  color: var(--color-background-cards);
 `;
