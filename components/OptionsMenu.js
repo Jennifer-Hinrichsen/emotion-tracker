@@ -28,7 +28,7 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
           <StyledDetailsIcon />
         </StyledLink>
 
-        <ShareButton emotion={emotion} className="custom-share-button" />
+        <ShareButton emotion={emotion} />
         <StyledButtonDelete
           type="button"
           onClick={toggleDeleteDialog}
@@ -147,6 +147,9 @@ const StyledButtonCancel = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  &:hover {
+    background-color: #839192;
+  }
 `;
 const StyledTrashIcon = styled(TrashIcon)`
   width: 20px;

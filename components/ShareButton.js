@@ -43,7 +43,7 @@ const StyledButtonShare = styled.button`
   border-radius: 5px;
   cursor: pointer;
   &:hover {
-    background-color: #1877f2;
+    background-color: #0e4e99;
   }
 `;
 const ShareIconStyled = styled(ShareIcon)`
