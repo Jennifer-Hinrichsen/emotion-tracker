@@ -6,6 +6,7 @@ import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
+import OpenaiFeedback from "./OpenaiFeedback";
 import ImageUpload from "./ImageUpload";
 
 export default function EmotionCard({
@@ -54,6 +55,7 @@ export default function EmotionCard({
               intensity={intensity}
               isDetailsPage={isDetailsPage}
             />
+            <OpenaiFeedback emotion={emotion} />
             <BookmarkButton
               isBookmarked={isBookmarked}
               onToggleBookmark={() => onToggleBookmark(emotion._id)}

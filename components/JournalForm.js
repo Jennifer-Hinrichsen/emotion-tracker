@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import formatDate from "./TransformDateTime";
 import JournalCard from "./JournalCard";
 import useLocalStorageState from "use-local-storage-state";
 import styled from "styled-components";
@@ -32,7 +31,7 @@ export default function JournalForm() {
   };
 
   return (
-    <>
+    <StyledContainer>
       <StyledFormContainer>
         <FormTitle>Journal Entry</FormTitle>
         <FormWrapper>
@@ -88,9 +87,15 @@ export default function JournalForm() {
           <StyledText>No entries yet</StyledText>
         )}
       </CardList>
-    </>
+    </StyledContainer>
   );
 }
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
 
 const StyledFormContainer = styled.div`
   width: 100%;

@@ -72,7 +72,8 @@ const StyledTitle = styled.h2`
 
 const StyledText = styled.p`
   margin-top: 0;
-  text-align: center;
+  padding-inline: 25px;
+  text-align: left;
   color: var(--color-form-foreground);
   line-height: 1.4;
 

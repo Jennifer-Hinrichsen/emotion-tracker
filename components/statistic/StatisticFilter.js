@@ -55,6 +55,7 @@ export default function StatisticFilter({
 }
 
 const StyledContainer = styled.div`
+  margin-top: 20px;
   background-color: var(--color-frame);
   padding: 15px;
   position: sticky;
