@@ -54,13 +54,13 @@ export default function Calendar({ emotions }) {
   return (
     <StyledCalendarContainer>
       <StyledCalendarMonth>
-        <StyledArrowButton onClick={previousMonth}>
+        <StyledArrowButton onClick={previousMonth} aria-label="Previous month">
           <StyledArrow>{"<"}</StyledArrow>
         </StyledArrowButton>
         <p>
           {months[currentDay.getMonth()]} {currentDay.getFullYear()}
         </p>
-        <StyledArrowButton onClick={nextMonth}>
+        <StyledArrowButton onClick={nextMonth} aria-label="Next month">
           <StyledArrow>{">"}</StyledArrow>
         </StyledArrowButton>
       </StyledCalendarMonth>

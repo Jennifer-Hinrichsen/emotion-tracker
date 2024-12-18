@@ -14,7 +14,7 @@ export default function Navigation() {
   return (
     <StyledNavigationWrapper>
       <StyledNavigationLeft>
-        <StyledLink href="/bookmarks">
+        <StyledLink href="/bookmarks" aria-label="Go to Bookmarks page">
           <StyledIconWrapper $isActive={isActive("/bookmarks")} $isLeft={true}>
             <StyledBookmarkIcon aria-label="Bookmark Icon" />
             <StyledText>Bookmark</StyledText>
@@ -28,7 +28,7 @@ export default function Navigation() {
         </StyledLink>
       </StyledNavigationLeft>
       <StyledNavigationCenter>
-        <Link href="/">
+        <Link href="/" aria-label="Go to Home page">
           <StyledLogoCanvas $isActive={isActive("/")}>
             <StyledMoodwaveLogo />
             <StyledHomeText>Home</StyledHomeText>
@@ -36,13 +36,13 @@ export default function Navigation() {
         </Link>
       </StyledNavigationCenter>
       <StyledNavigationRight>
-        <StyledLink href="/calendar">
+        <StyledLink href="/calendar" aria-label="Go to Calendar page">
           <StyledIconWrapper $isActive={isActive("/calendar")}>
             <StyledCalendarIcon aria-label="Calendar Icon" />
             <StyledText>Calendar</StyledText>
           </StyledIconWrapper>
         </StyledLink>
-        <StyledLink href="/statistic">
+        <StyledLink href="/statistic" aria-label="Go to Statistics page">
           <StyledIconWrapper $isActive={isActive("/statistic")}>
             <StyledStatisticIcon aria-label="Statistic Icon" />
             <StyledText>Statistic</StyledText>

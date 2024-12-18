@@ -17,10 +17,12 @@ export default function CalendarPopup({
   return (
     <StyledPopup>
       <StyledContentWrapper>
-        <StyledCloseButton onClick={onClosePopup}>×</StyledCloseButton>
+        <StyledCloseButton onClick={onClosePopup} aria-label="Close popup">
+          ×
+        </StyledCloseButton>
         <StyledDate>{formattedDate}</StyledDate>
         {emotionsForDay.length === 0 ? (
-          <StyledNoEmotionsMessage>
+          <StyledNoEmotionsMessage aria-live="assertive">
             No emotions for this day
           </StyledNoEmotionsMessage>
         ) : (
@@ -35,7 +37,10 @@ export default function CalendarPopup({
             ))}
           </StyledEmotionList>
         )}
-        <StyledCreateButton onClick={handleCreateEmotion}>
+        <StyledCreateButton
+          onClick={handleCreateEmotion}
+          aria-label="Create a new emotion"
+        >
           <StyledBulbIcon />
           <StyledText>Create Emotion</StyledText>
         </StyledCreateButton>

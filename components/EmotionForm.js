@@ -79,6 +79,12 @@ export default function EmotionForm({
     }
 
     await onSubmit(inputData);
+
+    setSelectedEmotionType("");
+    setSelectedIntensity(1);
+    setSelectedDate(format(new Date(), "yyyy-MM-dd"));
+    setFormError("");
+
     event.target.reset();
     showToastMessage("Emotion successfully submitted!");
   }
@@ -160,7 +166,11 @@ export default function EmotionForm({
                 Cancel
               </StyledCancelButton>
             )}
-            <StyledButton type="submit">
+            <StyledButton
+              type="submit"
+              aria-label={editMode ? "Save emotion" : "Submit emotion"}
+              $isValid={!!selectedEmotionType}
+            >
               {editMode ? "Save" : "Submit"}
             </StyledButton>
           </ButtonContainer>
@@ -324,7 +334,10 @@ const StyledError = styled.p`
 const StyledButton = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: var(--color-form-foreground);
+  background-color: ${(props) =>
+    props.$isValid
+      ? "var(--color-form-foreground)"
+      : "var(--color-form-foreground)"};
   color: var(--color-background-cards);
   border: none;
   border-radius: 5px;
@@ -332,7 +345,8 @@ const StyledButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--color-button-success);
+    background-color: ${(props) =>
+      props.$isValid ? "var(--color-button-success)" : "darkgrey"};
   }
 
   &.clicked {

@@ -26,13 +26,23 @@ export default function SearchBar({ searchTerm, onSearch, onClearSearch }) {
           value={searchTerm}
           onChange={handleSearchInputChange}
           $isExpanded={isExpanded}
+          aria-label="Search all emotions"
         />
         {isExpanded && searchTerm && (
-          <ClearSearchButton onClick={handleClearSearch}>X</ClearSearchButton>
+          <ClearSearchButton
+            onClick={handleClearSearch}
+            aria-label="Clear search"
+          >
+            X
+          </ClearSearchButton>
         )}
       </StyledSearchInputWrapper>
-      <StyledSearchButton onClick={toggleSearchBar}>
-        <StyledSearchIcon $isActive={isExpanded} />
+      <StyledSearchButton
+        onClick={toggleSearchBar}
+        aria-label="Toggle search bar"
+        aria-expanded={isExpanded}
+      >
+        <StyledSearchIcon $isActive={isExpanded} aria-hidden="true" />
       </StyledSearchButton>
     </StyledSearchWrapper>
   );
@@ -45,14 +55,14 @@ const StyledSearchWrapper = styled.div`
   position: relative;
   width: 100%;
   transition: all 0.3s ease;
-  padding: 10px;
+  padding: 0px 16px 0px 14px;
 `;
 
 const StyledSearchButton = styled.button`
   font-size: 24px;
   color: #313366;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
   background: none;
   border: none;
@@ -61,10 +71,12 @@ const StyledSearchButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
 
   &:hover {
     transform: scale(1.1);
+  }
+  body.dark-theme & {
+    color: var(--color-foreground);
   }
 `;
 
