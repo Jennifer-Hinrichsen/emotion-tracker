@@ -2,12 +2,15 @@ import EmotionCard from "@/components/EmotionCard";
 import Heading from "@/components/Heading";
 import styled from "styled-components";
 import useSWR from "swr";
+import { useState } from "react";
 
 export default function BookmarksPage({
   myBookmarkedEmotions,
   onToggleBookmark,
+  onDeleteEmotion,
 }) {
   const { data: emotions, error, isLoading } = useSWR("/api/emotionEntries");
+  const [menuOpenId, setMenuOpenId] = useState(null);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -20,6 +23,9 @@ export default function BookmarksPage({
   const bookmarkedEmotions = emotions.filter((emotion) =>
     myBookmarkedEmotions.includes(emotion._id)
   );
+  function handleToggleMenu(emotionId) {
+    setMenuOpenId((prevId) => (prevId === emotionId ? null : emotionId));
+  }
 
   return (
     <>
@@ -32,6 +38,9 @@ export default function BookmarksPage({
               emotion={emotion}
               onToggleBookmark={onToggleBookmark}
               isBookmarked={true}
+              onDeleteEmotion={onDeleteEmotion}
+              isMenuOpen={menuOpenId === emotion._id}
+              onToggleMenu={() => handleToggleMenu(emotion._id)}
             />
           ))
         ) : (
