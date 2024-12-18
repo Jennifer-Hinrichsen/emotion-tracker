@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ShareButton from "./ShareButton";
 import TrashIcon from "assets/optionsMenuIcons/trash.svg";
+import DetailsIcon from "assets/optionsMenuIcons/file-search.svg";
 
 export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
           href={`emotion/${emotion._id}`}
           aria-label={`Show details for emotion card ${emotion._id}`}
         >
-          Show Details
+          <StyledDetailsIcon />
         </StyledLink>
 
         <ShareButton emotion={emotion} className="custom-share-button" />
@@ -66,10 +67,10 @@ const StyledPopupMenu = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  bottom: 8px;
+  bottom: 6px;
   right: 16px;
-  width: 30%;
-  height: 70%;
+  width: 25%;
+  height: 75%;
   border-radius: 8px;
   background-color: var(--color-secondary);
 `;
@@ -86,20 +87,20 @@ const StyledCloseButton = styled.button`
 `;
 
 const StyledLink = styled(Link)`
-  float: right;
-  font-size: 12px;
-  margin-top: 4px;
-  padding: 4px 24px;
+  margin: 4px 24px 0px 24px;
+  padding: 5px 10px;
+  background-color: #3a6b75;
   color: var(--color-background-cards);
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  //font-size: 0.5rem;
+  font-size: 0.5rem;
 `;
 
 const StyledButtonDelete = styled.button`
-  float: right;
-  margin: 2px 24px 2px 24px;
-  padding: 2px 16px;
-  background-color: #e74c3c;
+  margin: 0px 24px 2px 24px;
+  padding: 5px 10px;
+  background-color: #b23a48;
   color: var(--color-background-cards);
   border: none;
   border-radius: 5px;
@@ -131,7 +132,7 @@ const StyledDialogBox = styled.div`
 const StyledButtonConfirm = styled.button`
   margin: 10px;
   padding: 10px 20px;
-  background-color: #e74c3c;
+  background-color: #b23a48;
   color: white;
   border: none;
   border-radius: 5px;
@@ -151,6 +152,14 @@ const StyledTrashIcon = styled(TrashIcon)`
   width: 20px;
   height: 20px;
 `;
+const StyledDetailsIcon = styled(DetailsIcon)`
+  width: 20px;
+  height: 20px;
+`;
 const ButtonWrapper = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 18px 26px 20px 2px;
 `;

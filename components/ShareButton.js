@@ -36,15 +36,14 @@ export default function ShareButton({ emotion }) {
 
 const StyledButtonShare = styled.button`
   float: right;
-  //margin: 2px 26px 2px 26px;
   padding: 5px 10px;
-  background-color: #2ecc71;
+  background-color: #1877f2;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   &:hover {
-    background-color: #27ae60;
+    background-color: #1877f2;
   }
 `;
 const ShareIconStyled = styled(ShareIcon)`

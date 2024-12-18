@@ -90,8 +90,6 @@ const StyledBackLink = styled(Link)`
 
 const StyledEditLink = styled(Link)`
   line-height: 1;
-  //float: left;
-  margin-right: 20px;
   margin: 10px;
   padding: 5px 10px;
   background-color: #6666ff;
@@ -108,7 +106,6 @@ const StyledEditLink = styled(Link)`
 
 const StyledButtonDelete = styled.button`
   line-height: 1;
-  margin-right: 20px;
   margin: 10px;
   padding: 5px 10px;
   background-color: #e74c3c;
