@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import ShareButton from "./ShareButton";
 
 export default function EmotionDetails({
   emotion,
@@ -21,34 +22,14 @@ export default function EmotionDetails({
     toggleDeleteDialog();
   }
 
-  async function shareEmotion() {
-    const shareData = {
-      title: "Emotion Card",
-      text: `I'm feeling ${emotion.type.name} with intensity ${
-        emotion.intensity
-      }. Note: ${emotion.notes || ""}`,
-      url: window.location.href,
-    };
-
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        alert("Sharing is not supported in this browser.");
-      }
-    } catch (error) {
-      console.error("Error sharing:", error);
-      alert("Failed to share. Please try again.");
-    }
-  }
-
   return (
     <>
       <Heading>Emotion Details</Heading>
-      <StyledBackLink aria-label="navigate-home" href="/">
-        ←
-      </StyledBackLink>
-
+      <StyledWrapperBackLink>
+        <StyledBackLink aria-label="navigate-home" href="/">
+          ←
+        </StyledBackLink>
+      </StyledWrapperBackLink>
       <EmotionCard
         emotion={emotion}
         onToggleBookmark={onToggleBookmark}
@@ -56,25 +37,34 @@ export default function EmotionDetails({
         isDetailsPage={true}
         intensity={emotion.intensity}
       />
-      <StyledEditLink href={`/emotion/${emotion._id}/edit`}>
+      <StyledEditLink
+        href={`/emotion/${emotion._id}/edit`}
+        aria-label={`Edit emotion details for ${emotion.type.name}`}
+      >
         Edit
       </StyledEditLink>
 
       <StyledButtonDelete type="button" onClick={toggleDeleteDialog}>
         Delete
       </StyledButtonDelete>
-      <StyledButtonShare type="button" onClick={shareEmotion}>
-        Share
-      </StyledButtonShare>
+      <ShareButton emotion={emotion} />
 
       {isDialogOpen && (
-        <StyledDialogOverlay>
+        <StyledDialogOverlay aria-label="Delete confirmation dialog">
           <StyledDialogBox>
             <h2>Are you sure you want to delete this emotion?</h2>
-            <StyledButtonConfirm type="button" onClick={handleDelete}>
+            <StyledButtonConfirm
+              aria-label="Confirm emotion deletion"
+              type="button"
+              onClick={handleDelete}
+            >
               Delete
             </StyledButtonConfirm>
-            <StyledButtonCancel type="button" onClick={toggleDeleteDialog}>
+            <StyledButtonCancel
+              type="button"
+              onClick={toggleDeleteDialog}
+              aria-label="Cancel emotion deletion"
+            >
               Cancel
             </StyledButtonCancel>
           </StyledDialogBox>
@@ -84,6 +74,9 @@ export default function EmotionDetails({
   );
 }
 
+const StyledWrapperBackLink = styled.div`
+  margin-bottom: 12px;
+`;
 const StyledBackLink = styled(Link)`
   font-size: 24px;
   margin-left: 10px;
@@ -92,15 +85,17 @@ const StyledBackLink = styled(Link)`
 `;
 
 const StyledEditLink = styled(Link)`
+  line-height: 1;
   float: left;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #6666ff;
   color: white;
   border: none;
   border-radius: 5px;
   text-decoration: none;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #3232ff;
@@ -108,14 +103,16 @@ const StyledEditLink = styled(Link)`
 `;
 
 const StyledButtonDelete = styled.button`
+  line-height: 1;
   float: right;
   margin-right: 20px;
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     background-color: #c0392b;
@@ -141,11 +138,14 @@ const StyledDialogBox = styled.div`
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 0 10px var(--color-shadow);
+  body.dark-theme & {
+    color: var(--color-foreground);
+  }
 `;
 
 const StyledButtonConfirm = styled.button`
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -158,7 +158,7 @@ const StyledButtonConfirm = styled.button`
 
 const StyledButtonCancel = styled.button`
   margin: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   background-color: #95a5a6;
   color: white;
   border: none;
@@ -166,19 +166,5 @@ const StyledButtonCancel = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #7f8c8d;
-  }
-`;
-const StyledButtonShare = styled.button`
-  float: right;
-  margin-right: 20px;
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #27ae60;
   }
 `;

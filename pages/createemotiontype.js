@@ -1,5 +1,6 @@
 import CreateEmotionTypeForm from "@/components/CreateEmotionTypeForm";
 import Heading from "@/components/Heading";
+import SwiperSlider from "@/components/SwiperSlider";
 
 export default function CreateEmotionType() {
   async function handleCreateEmotionType(data) {
@@ -17,7 +18,8 @@ export default function CreateEmotionType() {
 
   return (
     <>
-      <Heading>Create Emotion Type</Heading>
+      <Heading>Create</Heading>
+      <SwiperSlider />
       <CreateEmotionTypeForm onSubmit={handleCreateEmotionType} />
     </>
   );

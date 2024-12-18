@@ -1,7 +1,7 @@
 import ToastMessage from "./ToastMessage";
 
 const ToastMessageContainer = ({ messages }) => (
-  <div>
+  <div aria-live="polite" aria-atomic="true">
     {messages.map((message) => (
       <ToastMessage
         key={message._id}
