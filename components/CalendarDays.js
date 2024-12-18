@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MultipleIcon from "assets/calendarIcons/circles.svg";
+import { months } from "@/lib/calendarDaysMonths";
 
 export default function CalendarDays({ day, onDayClick, getEmotionsForDay }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);

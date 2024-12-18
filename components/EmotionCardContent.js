@@ -4,8 +4,16 @@ export default function EmotionCardContent({
   emotion,
   emotionIcon,
   intensity,
+  isDetailsPage,
   isDetailView,
 }) {
+  const notesText = emotion.notes?.props?.textToHighlight || "";
+
+  const displayedNotes =
+    !isDetailsPage && notesText.length > 50
+      ? notesText.substring(0, 50) + "..."
+      : notesText;
+
   return (
     <StyledEmotionCardContent>
       <StyledEmojiIcon
@@ -15,15 +23,15 @@ export default function EmotionCardContent({
         {emotionIcon}
       </StyledEmojiIcon>
       <StyledEmotionType
-        isDetailView={isDetailView}
-        hasImage={Boolean(emotion.imageUrl)}
+        $isDetailView={isDetailView}
+        $hasImage={Boolean(emotion.imageUrl)}
         aria-label={`Emotion type: ${emotion.type.name}`}
       >
         {emotion.type.name}
       </StyledEmotionType>
       <StyledIntensityWrapper
-        isDetailView={isDetailView}
-        hasImage={Boolean(emotion.imageUrl)}
+        $isDetailView={isDetailView}
+        $hasImage={Boolean(emotion.imageUrl)}
         aria-label={`Emotion intensity level: ${intensity}`}
       >
         {[1, 2, 3].map((value) => (
@@ -37,9 +45,9 @@ export default function EmotionCardContent({
         ))}
       </StyledIntensityWrapper>
       <StyledNotes
-        aria-label={`Notes: ${emotion.notes || "No notes available"}`}
+        aria-label={`Notes: ${displayedNotes || "No notes available"}`}
       >
-        {emotion.notes}
+        {displayedNotes}
       </StyledNotes>
     </StyledEmotionCardContent>
   );
@@ -71,8 +79,8 @@ const StyledEmojiIcon = styled.span`
 const StyledEmotionType = styled.p`
   grid-area: emotionType;
   margin: 0;
-  margin-bottom: ${({ isDetailView, hasImage }) =>
-    isDetailView && !hasImage ? "10px" : "0px"};
+  margin-bottom: ${({ $isDetailView, $hasImage }) =>
+    $isDetailView && !$hasImage ? "10px" : "0px"};
   padding-left: 28px;
   font-weight: 400;
   font-size: 1.2rem;
@@ -95,7 +103,7 @@ const StyledIntensityWrapper = styled.div`
   justify-self: end;
   position: absolute;
   top: ${(props) =>
-    props.isDetailView ? (props.hasImage ? "-10px" : "12px") : "-20px"};
+    props.$isDetailView ? (props.$hasImage ? "-10px" : "12px") : "-20px"};
 `;
 
 const StyledIntensityBubble = styled.div`
