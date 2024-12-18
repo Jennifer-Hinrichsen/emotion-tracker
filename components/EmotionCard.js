@@ -6,6 +6,7 @@ import EmotionCardContent from "./EmotionCardContent";
 import formatDate from "./TransformDateTime";
 import { allEmotionIcons } from "@/lib/allEmotionOptions";
 import Highlighter from "react-highlight-words";
+import ImageUpload from "./ImageUpload";
 
 export default function EmotionCard({
   emotion,
@@ -35,7 +36,9 @@ export default function EmotionCard({
             <StyledTime>{time}</StyledTime>
           </StyledTopBox>
           <StyledEmotionCard>
+            <ImageUpload emotion={emotion} />
             <EmotionCardContent
+              isDetailView={true}
               emotionColor={emotion.type.color}
               emotionIcon={emotionIcon}
               emotion={{

@@ -13,6 +13,7 @@ export default function EmotionDetailPage({
     data: selectedEmotion,
     error,
     isLoading,
+    mutate,
   } = useSWR(`/api/emotionEntries/${id}`);
 
   if (isLoading || !router.isReady) {
