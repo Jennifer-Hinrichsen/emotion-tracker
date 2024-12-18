@@ -18,7 +18,7 @@ export default function CreateEmotionType() {
 
   return (
     <>
-      <Heading>Create Emotion Type</Heading>
+      <Heading>Create</Heading>
       <SwiperSlider />
       <CreateEmotionTypeForm onSubmit={handleCreateEmotionType} />
     </>

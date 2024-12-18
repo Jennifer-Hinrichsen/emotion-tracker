@@ -69,7 +69,8 @@ export default function HomePage({
       : true;
 
     const matchesSearchTerm = searchTerm
-      ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase())
+      ? emotion.notes.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        emotion.type.name.toLowerCase().includes(searchTerm.toLowerCase())
       : true;
 
     return matchesFilter && matchesSearchTerm;

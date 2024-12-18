@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import BookmarkIcon from "assets/bookmarkicons/Bookmark-filled.svg";
 import MoodwaveLogo from "assets/navigationIcon/moodwave-logo.svg";
 import CalendarIcon from "assets/calendarIcons/calendar-month.svg";
 import StatisticIcon from "assets/statisticIcon/statistic-icon.svg";
+import JournalIcon from "assets/journalIcons/journal-icon.svg";
 
 export default function Navigation() {
   const { pathname } = useRouter();
@@ -13,48 +14,38 @@ export default function Navigation() {
   return (
     <StyledNavigationWrapper>
       <StyledNavigationLeft>
-        <StyledLink href="/bookmarks">
+        <StyledLink href="/bookmarks" aria-label="Go to Bookmarks page">
           <StyledIconWrapper $isActive={isActive("/bookmarks")} $isLeft={true}>
-            <StyledBookmarkIcon
-              $isActive={isActive("/bookmarks")}
-              src="/Bookmark-filled.svg"
-              alt="Bookmark Icon"
-            />
-            <StyledText $isActive={isActive("/bookmarks")}>
-              Bookmarks
-            </StyledText>
+            <StyledBookmarkIcon aria-label="Bookmark Icon" />
+            <StyledText>Bookmark</StyledText>
+          </StyledIconWrapper>
+        </StyledLink>
+        <StyledLink href="/journal">
+          <StyledIconWrapper $isActive={isActive("/journal")}>
+            <StyledJournalIcon aria-label="Journal Icon" />
+            <StyledText>Journal</StyledText>
           </StyledIconWrapper>
         </StyledLink>
       </StyledNavigationLeft>
       <StyledNavigationCenter>
-        <Link href="/">
+        <Link href="/" aria-label="Go to Home page">
           <StyledLogoCanvas $isActive={isActive("/")}>
-            <StyledMoodwaveLogo $isActive={isActive("/")} />
-            <StyledHomeText $isActive={isActive("/")}>Home</StyledHomeText>
+            <StyledMoodwaveLogo />
+            <StyledHomeText>Home</StyledHomeText>
           </StyledLogoCanvas>
         </Link>
       </StyledNavigationCenter>
       <StyledNavigationRight>
-        <StyledLink href="/calendar">
+        <StyledLink href="/calendar" aria-label="Go to Calendar page">
           <StyledIconWrapper $isActive={isActive("/calendar")}>
-            <StyledCalendarIcon
-              $isActive={isActive("/calendar")}
-              src="/calendar-month.svg"
-              alt="Calendar Icon"
-            />
-            <StyledText $isActive={isActive("/calendar")}>Calendar</StyledText>
+            <StyledCalendarIcon aria-label="Calendar Icon" />
+            <StyledText>Calendar</StyledText>
           </StyledIconWrapper>
         </StyledLink>
-        <StyledLink href="/statistic">
+        <StyledLink href="/statistic" aria-label="Go to Statistics page">
           <StyledIconWrapper $isActive={isActive("/statistic")}>
-            <StyledStatisticIcon
-              $isActive={isActive("/statistic")}
-              src="/statistic-icon.svg"
-              alt="Statistic Icon"
-            />
-            <StyledText $isActive={isActive("/statistic")}>
-              Statistic
-            </StyledText>
+            <StyledStatisticIcon aria-label="Statistic Icon" />
+            <StyledText>Statistic</StyledText>
           </StyledIconWrapper>
         </StyledLink>
       </StyledNavigationRight>
@@ -106,21 +97,24 @@ const StyledIconWrapper = styled.div`
   padding: ${(props) =>
     props.$isLeft ? "12px 6px 7px 6px" : "7px 6px 7px 6px"};
   text-align: center;
-  border-left: ${(props) =>
-    props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
-  border-right: ${(props) =>
-    props.$isActive ? "0.5px solid var(--color-secondary)" : "none"};
-  background-color: ${(props) =>
-    props.$isActive
-      ? "var(--color-home-nav-background-active)"
-      : "transparent"};
 
+  border-inline: none;
+  background-color: transparent;
   body.dark-theme & {
-    border-left: ${(props) =>
-      props.$isActive ? `0.5px solid var(--color-cards-foreground)` : "none"};
-    border-right: ${(props) =>
-      props.$isActive ? `0.5px solid var(--color-cards-foreground)` : "none"};
+    border-inline: none;
+    color: var(--color-foreground);
   }
+
+  ${(props) =>
+    props.$isActive &&
+    css`
+      border-inline: 0.5px solid var(--color-secondary);
+      background-color: var(--color-home-nav-background-active);
+      body.dark-theme & {
+        border-inline: 0.5px solid var(--color-cards-foreground);
+        color: var(--color-highlighted-foreground);
+      }
+    `}
 `;
 
 const StyledNavigationCenter = styled.div`
@@ -135,7 +129,7 @@ const StyledNavigationCenter = styled.div`
 
 const StyledLogoCanvas = styled.div`
   color: var(--color-border);
-  width: 100px;
+  width: 97px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -172,6 +166,11 @@ const StyledLogoCanvas = styled.div`
         props.$isActive
           ? "var(--color-cards-foreground)"
           : "var(--color-cards-frame)"};
+
+    color: ${(props) =>
+      props.$isActive
+        ? "var(--color-highlighted-foreground)"
+        : "var(--color-foreground)"};
   }
 `;
 
@@ -179,72 +178,34 @@ const StyledMoodwaveLogo = styled(MoodwaveLogo)`
   width: 43px;
   height: auto;
   padding-top: 2px;
-  color: var(--color-secondary);
-  body.dark-theme & {
-    color: ${(props) =>
-      props.$isActive
-        ? "var(--color-highlighted-foreground)"
-        : "var(--color-foreground)"};
-  }
 `;
 
 const StyledText = styled.span`
   font-size: 1rem;
   font-weight: normal;
-  body.dark-theme & {
-    color: ${(props) =>
-      props.$isActive
-        ? "var(--color-highlighted-foreground)"
-        : "var(--color-highlighted-background)"};
-  }
 `;
 
 const StyledHomeText = styled.span`
   font-size: 1rem;
   font-weight: normal;
   margin-bottom: 1.25rem;
-  color: var(--color-secondary);
-  body.dark-theme & {
-    color: ${(props) =>
-      props.$isActive
-        ? "var(--color-highlighted-foreground)"
-        : "var(--color-foreground)"};
-  }
 `;
 
 const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 18px;
   height: 22px;
-  fill: "var(--color-secondary)";
-
-  body.dark-theme & {
-    fill: ${(props) =>
-      props.$isActive
-        ? "var(--color-highlighted-foreground)"
-        : "var(--color-foreground)"};
-  }
 `;
 
 const StyledCalendarIcon = styled(CalendarIcon)`
   width: 24px;
   height: 28px;
-
-  body.dark-theme & {
-    color: ${(props) =>
-      props.$isActive
-        ? "var(--color-highlighted-foreground)"
-        : "var(--color-foreground)"};
-  }
 `;
 
 const StyledStatisticIcon = styled(StatisticIcon)`
   width: 25px;
   height: 28px;
-
-  body.dark-theme & {
-    color: ${(props) =>
-      props.$isActive
-        ? "var(--color-highlighted-foreground)"
-        : "var(--color-foreground)"};
-  }
+`;
+const StyledJournalIcon = styled(JournalIcon)`
+  width: 25px;
+  height: 28px;
 `;

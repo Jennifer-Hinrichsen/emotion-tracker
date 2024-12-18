@@ -11,7 +11,7 @@ export default createGlobalStyle`
     --color-foreground: #e0e1f0;
     --color-highlighted-foreground: #4e545b;
     --color-highlighted-background: #e0e1f0;
-    --color-home-icon-foreground:#d3d3d3;
+    --color-home-icon-foreground:#4e545b;
     --color-home-icon-background:#4e545b;
     --color-home-icon-foreground-active:#4e545b;
     --color-home-icon-background-active:#e0e1f0;
@@ -21,6 +21,7 @@ export default createGlobalStyle`
     --color-dropdown-background:#4e545b;
     --color-dropdown-foreground:#f9f9f9;
     --color-slider-intensity:#d3d3d3;
+    --color-emoji-icon: #f9f9f9;
   }
   .dark-theme{
     --color-background: #1C1C1E;
@@ -42,6 +43,7 @@ export default createGlobalStyle`
     --color-dropdown-background:#1C1C1E;
     --color-dropdown-foreground:#e0e1f0;
     --color-slider-intensity:#d3d3d3;
+    --color-emoji-icon: #4e545b;
   }
  
 
@@ -75,4 +77,5 @@ export default createGlobalStyle`
   a {
   text-decoration: none;
 }
+
 `;

@@ -9,6 +9,7 @@ const emotionEntriesSchema = new Schema(
     notes: { type: String },
     dateTime: { type: String, required: true },
     openaiFeedback: { type: String },
+    imageUrl: { type: String },
   },
   { collection: "emotion-entries" }
 );

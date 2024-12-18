@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MultipleIcon from "assets/calendarIcons/circles.svg";
+import { months } from "@/lib/calendarDaysMonths";
 
 export default function CalendarDays({ day, onDayClick, getEmotionsForDay }) {
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
@@ -46,6 +47,11 @@ export default function CalendarDays({ day, onDayClick, getEmotionsForDay }) {
               emotions: calendarDay.emotionsForDay,
             })
           }
+          aria-label={`Select day ${calendarDay.number} of ${
+            months[calendarDay.month]
+          } ${calendarDay.year} with ${
+            calendarDay.emotionsForDay.length
+          } emotion${calendarDay.emotionsForDay.length !== 1 ? "s" : ""}`}
         >
           <StyledDayContent>
             <p>{calendarDay.number}</p>
@@ -56,6 +62,7 @@ export default function CalendarDays({ day, onDayClick, getEmotionsForDay }) {
                 <StyledEmotionDot
                   key={emotion._id}
                   color={emotion.type.color}
+                  aria-label={`Emotion: ${emotion.type.name}`}
                 />
               ))
             )}
