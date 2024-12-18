@@ -7,11 +7,6 @@ export default function OpenaiFeedback({ emotion }) {
   const [apiOutput, setApiOutput] = useState(emotion.openaiFeedback || "");
 
   async function handleGenerateFeedback() {
-    if (apiOutput) {
-      setShowFeedback(true);
-      return;
-    }
-
     try {
       const response = await fetch(
         `/api/emotionEntries/${emotion._id}/feedback-generation`,
