@@ -29,7 +29,7 @@ export default function EmotionForm({
   const [formVisibility, setFormVisibility] = useState(!!editMode);
   const [formError, setFormError] = useState("");
   const [selectedEmotionType, setSelectedEmotionType] = useState(
-    defaultValue?.type?._id || undefined
+    defaultValue?.type?._id || ""
   );
   const [selectedIntensity, setSelectedIntensity] = useState(
     defaultValue?.intensity || 1
@@ -87,10 +87,14 @@ export default function EmotionForm({
     setFormError("");
 
     event.target.reset();
+    showToastMessage("Emotion successfully saved!");
   }
 
   if (isLoading) {
     return <h1>Loading...</h1>;
+  }
+  if (emotionTypes?.length === 0) {
+    return <p>No Emotion available...</p>;
   }
 
   return (
@@ -279,6 +283,9 @@ const StyledCreateEmotionLink = styled(Link)`
   cursor: pointer;
   &:hover {
     background-color: var(--color-secondary);
+  }
+  body.dark-theme & {
+    color: var(--color-cards-foreground);
   }
 `;
 
