@@ -143,6 +143,7 @@ const Textarea = styled.textarea`
   margin-bottom: 12px;
   box-sizing: border-box;
   background-color: var(--color-background);
+  color: var(--color-form-foreground);
   &::placeholder {
     padding-top: 0;
     color: var(--color-form-foreground);
