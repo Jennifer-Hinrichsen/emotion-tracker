@@ -14,6 +14,7 @@ export default function EmotionForm({
   onCancel,
   onSubmit,
   editMode = false,
+  showToastMessage,
 }) {
   const router = useRouter();
   const { data: emotionTypes, isLoading } = useSWR("/api/emotionTypes");
