@@ -1,5 +1,7 @@
 import useSWR from "swr";
 import { useState } from "react";
+import styled from "styled-components";
+import InfoIcon from "../assets/buttons/info-circle.svg";
 
 export default function OpenaiFeedback({ emotion }) {
   const { mutate, isLoading } = useSWR(`/api/emotionEntries/${emotion._id}`);
@@ -38,23 +40,63 @@ export default function OpenaiFeedback({ emotion }) {
 
   return (
     <>
-      <button
-        onClick={showFeedback ? toggleFeedback : handleGenerateFeedback}
-        disabled={isLoading}
-      >
-        {isLoading
-          ? "Generating..."
-          : showFeedback
-          ? "Hide Feedback"
-          : "Get Feedback"}
-      </button>
-      {showFeedback && (
-        <p>
+      <StyledContainer>
+        <StyledButton
+          isVisible={showFeedback} // Prop übergeben
+          onClick={showFeedback ? toggleFeedback : handleGenerateFeedback}
+          disabled={isLoading}
+        >
+          <StyledInfoIcon />
           {isLoading
-            ? "Loading feedback..."
-            : apiOutput || "No feedback available."}
-        </p>
-      )}
+            ? "Generating..."
+            : showFeedback
+            ? "Hide Emotional Tip"
+            : "Emotional Tip"}
+        </StyledButton>
+        {showFeedback && (
+          <StyledOutput>
+            {isLoading
+              ? "Loading feedback..."
+              : apiOutput || "No feedback available."}
+          </StyledOutput>
+        )}
+      </StyledContainer>
     </>
   );
 }
+
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: center; /* Vertikale Zentrierung der Items */
+  gap: 8px; /* Optional, Abstand zwischen den Items */
+  flex-direction: column;
+`;
+
+const StyledInfoIcon = styled(InfoIcon)`
+  margin: 1px 8px 1px 0px;
+`;
+
+const StyledButton = styled.button`
+  width: auto; /* Breite automatisch an den Text anpassen */
+  margin-left: ${(props) =>
+    props.isVisible ? "40px" : "unset"}; /* Dynamisches Styling */
+  max-width: 210px; /* Maximalbreite festlegen */
+  min-width: 0; /* Verhindert eine Mindestbreite, die größer als der Text sein könnte */
+  padding: 4px 16px;
+  font-size: 16px;
+  background-color: var(--color-dropdown-background);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledOutput = styled.p`
+  padding-left: 95px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-secondary);
+`;
