@@ -42,9 +42,9 @@ export default function OpenaiFeedback({ emotion }) {
     <>
       <StyledContainer>
         <StyledButton
-          isVisible={showFeedback} // Prop übergeben
+          $isVisible={showFeedback}
           onClick={showFeedback ? toggleFeedback : handleGenerateFeedback}
-          disabled={isLoading}
+          $disabled={isLoading}
         >
           <StyledInfoIcon />
           {isLoading
@@ -67,8 +67,8 @@ export default function OpenaiFeedback({ emotion }) {
 
 const StyledContainer = styled.div`
   display: flex;
-  align-items: center; /* Vertikale Zentrierung der Items */
-  gap: 8px; /* Optional, Abstand zwischen den Items */
+  align-items: center;
+  gap: 8px;
   flex-direction: column;
 `;
 
@@ -77,11 +77,10 @@ const StyledInfoIcon = styled(InfoIcon)`
 `;
 
 const StyledButton = styled.button`
-  width: auto; /* Breite automatisch an den Text anpassen */
-  margin-left: ${(props) =>
-    props.isVisible ? "40px" : "unset"}; /* Dynamisches Styling */
-  max-width: 210px; /* Maximalbreite festlegen */
-  min-width: 0; /* Verhindert eine Mindestbreite, die größer als der Text sein könnte */
+  width: auto;
+  margin-left: ${(props) => (props.$isVisible ? "40px" : "unset")};
+  max-width: 210px;
+  min-width: 0;
   padding: 4px 16px;
   font-size: 16px;
   background-color: var(--color-dropdown-background);

@@ -7,7 +7,7 @@ export default function EmotionCardContent({
 }) {
   return (
     <StyledEmotionCardContent>
-      <StyledEmojiIcon color={emotion.type.color}>
+      <StyledEmojiIcon $color={emotion.type.color}>
         {emotionIcon}
       </StyledEmojiIcon>
       <StyledEmotionType>{emotion.type.name}</StyledEmotionType>
@@ -15,7 +15,7 @@ export default function EmotionCardContent({
         {[1, 2, 3].map((value) => (
           <StyledIntensityBubble
             key={value}
-            size={value}
+            $size={value}
             $color={emotion.type.color}
             $isActive={intensity >= value}
           />
@@ -78,8 +78,8 @@ const StyledIntensityWrapper = styled.div`
 `;
 
 const StyledIntensityBubble = styled.div`
-  width: ${(props) => props.size * 10}px;
-  height: ${(props) => props.size * 10}px;
+  width: ${(props) => props.$size * 10}px;
+  height: ${(props) => props.$size * 10}px;
   border-radius: 50%;
   background-color: ${(props) =>
     props.$isActive
