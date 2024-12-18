@@ -55,7 +55,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: system-ui;
+    font-family: 'Roboto', sans-serif;
     background-color: var(--color-background);
     padding-bottom: 66px;
   }
@@ -66,7 +66,7 @@ export default createGlobalStyle`
   }
 
   input, select, p, textarea {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   label {
