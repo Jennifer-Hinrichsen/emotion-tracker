@@ -63,6 +63,7 @@ export default function OptionsMenu({ onClose, onDeleteEmotion, emotion }) {
 
 const StyledPopupMenu = styled.div`
   position: absolute;
+  max-width: 100px;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -70,7 +71,7 @@ const StyledPopupMenu = styled.div`
   bottom: 6px;
   right: 16px;
   width: 25%;
-  height: 75%;
+  height: 80%;
   border-radius: 8px;
   background-color: var(--color-secondary);
 `;
