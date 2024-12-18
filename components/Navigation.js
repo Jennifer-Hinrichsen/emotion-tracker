@@ -62,6 +62,8 @@ const StyledNavigationWrapper = styled.nav`
   bottom: 0;
   width: 100%;
   height: 3.75rem;
+  max-width: 760px;
+  margin: 0 auto;
 `;
 
 const StyledNavigationLeft = styled.div`
