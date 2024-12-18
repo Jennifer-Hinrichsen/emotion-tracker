@@ -3,7 +3,6 @@ import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -29,7 +28,13 @@ export default function SwiperSlider() {
         {images.map((image) => (
           <SwiperSlide key={image.id}>
             <ImageWrapper>
-              <Image src={image.src} alt={image.id} width={400} height={150} />
+              <Image
+                src={image.src}
+                alt={image.id}
+                width={400}
+                height={150}
+                priority={true}
+              />
             </ImageWrapper>
           </SwiperSlide>
         ))}
@@ -37,7 +42,6 @@ export default function SwiperSlider() {
     </StyledSlider>
   );
 }
-
 const StyledSlider = styled.div`
   .swiper-pagination-bullet {
     width: 12px;
@@ -45,12 +49,10 @@ const StyledSlider = styled.div`
     background-color: var(--color-secondary);
     border-radius: 50%;
   }
-
   .swiper-pagination {
     bottom: -2px;
   }
 `;
-
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;

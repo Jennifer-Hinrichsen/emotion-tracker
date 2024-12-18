@@ -23,7 +23,7 @@ export default function EmotionDetails({
   }
 
   return (
-    <>
+    <StyledDiv>
       <Heading>Emotion Details</Heading>
       <StyledWrapperBackLink>
         <StyledBackLink aria-label="navigate-home" href="/">
@@ -70,9 +70,13 @@ export default function EmotionDetails({
           </StyledDialogBox>
         </StyledDialogOverlay>
       )}
-    </>
+    </StyledDiv>
   );
 }
+
+const StyledDiv = styled.div`
+  padding-bottom: 66px;
+`;
 
 const StyledWrapperBackLink = styled.div`
   margin-bottom: 12px;
