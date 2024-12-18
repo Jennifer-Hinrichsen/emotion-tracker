@@ -17,7 +17,7 @@ export default function Navigation() {
         <StyledLink href="/bookmarks">
           <StyledIconWrapper $isActive={isActive("/bookmarks")} $isLeft={true}>
             <StyledBookmarkIcon aria-label="Bookmark Icon" />
-            <StyledText>Bookmarks</StyledText>
+            <StyledText>Bookmark</StyledText>
           </StyledIconWrapper>
         </StyledLink>
         <StyledLink href="/journal">
@@ -129,7 +129,7 @@ const StyledNavigationCenter = styled.div`
 
 const StyledLogoCanvas = styled.div`
   color: var(--color-border);
-  width: 100px;
+  width: 97px;
   height: 100px;
   display: flex;
   flex-direction: column;

@@ -126,6 +126,12 @@ const Input = styled.input`
   box-sizing: border-box;
   background-color: var(--color-background);
   color: var(--color-form-foreground);
+  &::placeholder {
+    margin: 0;
+    padding-top: 0;
+    color: var(--color-form-foreground);
+    font-size: 1rem;
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -137,7 +143,11 @@ const Textarea = styled.textarea`
   margin-bottom: 12px;
   box-sizing: border-box;
   background-color: var(--color-background);
-  color: var(--color-form-foreground);
+  &::placeholder {
+    padding-top: 0;
+    color: var(--color-form-foreground);
+    font-size: 1rem;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -163,7 +173,8 @@ const CardItem = styled.li`
 `;
 
 const StyledDateAndTimeInput = styled.input`
-  padding: 0 0 6px 0;
+  padding-left: 6px;
+  padding-bottom: 6px;
   width: 100%;
   border: none;
   border-bottom: 1px dotted var(--color-form-foreground);
