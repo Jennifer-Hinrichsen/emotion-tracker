@@ -16,7 +16,7 @@ export default function EmotionCardContent({
           <StyledIntensityBubble
             key={value}
             size={value}
-            color={emotion.type.color}
+            $color={emotion.type.color}
             $isActive={intensity >= value}
           />
         ))}
@@ -40,11 +40,12 @@ const StyledEmotionCardContent = styled.div`
 const StyledEmojiIcon = styled.span`
   grid-area: emoji;
   align-self: start;
+  justify-self: end;
   width: 50px;
   height: 50px;
 
   svg {
-    color: ${(props) => props.color || "var(--color-frame)"};
+    color: ${(props) => props.$color || "var(--color-frame)"};
   }
 `;
 
@@ -81,7 +82,7 @@ const StyledIntensityBubble = styled.div`
   height: ${(props) => props.size * 10}px;
   border-radius: 50%;
   background-color: ${(props) =>
-    props.isActive
-      ? props.color || "var(--color-frame)"
-      : `${props.color || "var(--color-frame"}80`};
+    props.$isActive
+      ? props.$color || "var(--color-frame)"
+      : `${props.$color || "var(--color-frame"}80`};
 `;

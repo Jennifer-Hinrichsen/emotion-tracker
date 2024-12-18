@@ -97,6 +97,6 @@ const StyledButton = styled.button`
 const StyledOutput = styled.p`
   padding-left: 95px;
   margin-top: 8px;
-  font-size: 14px;
   color: var(--color-secondary);
+  font-size: 0.8rem;
 `;
