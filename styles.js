@@ -13,9 +13,9 @@ export default createGlobalStyle`
     --color-foreground: #e0e1f0;
     --color-highlighted-foreground: #4e545b;
     --color-highlighted-background: #e0e1f0;
-    --color-home-icon-foreground:#4e545b;
+    --color-home-icon-foreground:#313366;
     --color-home-icon-background:#4e545b;
-    --color-home-icon-foreground-active:#4e545b;
+    --color-home-icon-foreground-active:#313366;
     --color-home-icon-background-active:#e0e1f0;
     --color-home-nav-background-active: rgba(249, 249, 249, 1);
     --color-form-foreground:#313366;
