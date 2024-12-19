@@ -13,6 +13,17 @@
     <br />
     <br />
   </p>
+  <div style="display: flex; justify-content: center; gap: 20px; align-items: flex-start;">
+    <div>
+      <img src="public/Group 29.png" alt="Group 29" width="200" height="400">
+    </div>
+    <div>
+      <img src="public/Group 30.png" alt="Group 30" width="200" height="400">
+    </div>
+    <div>
+      <img src="public/Group 31.png" alt="Group 31" width="200" height="400">
+    </div>
+  </div>
 </div>
 
 <details>
