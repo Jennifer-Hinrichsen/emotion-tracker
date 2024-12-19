@@ -64,6 +64,7 @@ export default function JournalForm() {
                 id="text"
                 value={text}
                 onChange={(event) => setText(event.target.value)}
+                rows="10"
               />
             </section>
 
